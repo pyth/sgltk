@@ -8,7 +8,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # name one of your source files here
 AC_CONFIG_SRCDIR([src/app.cpp])
 AC_CONFIG_HEADER([config.h])
-AC_CONFIG_FILES(Makefile src/Makefile)
+AC_CONFIG_FILES(Makefile src/Makefile doc/Makefile)
 
 # Checks for programs.
 AC_PROG_CXX
