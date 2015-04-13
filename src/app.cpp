@@ -61,7 +61,7 @@ int App::poll_events() {
 	return 0;
 }
 
-void App::handle_keyboard(bool *keys) {
+virtual void App::handle_keyboard(bool *keys) {
 	/*for(int i=0; i<SDL_NUM_SCANCODES; i++) {
 		if(keys[i])
 			cout<<SDL_GetScancodeName((SDL_Scancode)i)<<" ";
