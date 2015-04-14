@@ -1,0 +1,12 @@
+This project's goal is to speed up and make the development of OpenGL
+applications easier.
+
+
+
+!!!!!!!!!!!!!!
+Important Note
+!!!!!!!!!!!!!!
+
+As you can probably tell by looking at the version number this project is
+currently very much a work in progress. Things like method signatures may
+change over the course of it's development.
