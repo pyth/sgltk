@@ -7,7 +7,6 @@ Mesh::Mesh() {
 	shader = NULL;
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
-	num_index_buffers = 0;
 	num_vertex_attributes = 0;
 }
 
@@ -53,7 +52,6 @@ void Mesh::attach_index_array(const std::vector<unsigned short> *indices) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	ibo.push_back(index);
-	num_index_buffers++;
 }
 
 void Mesh::draw(GLenum mode) {
