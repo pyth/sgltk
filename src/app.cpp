@@ -2,16 +2,16 @@
 
 using namespace std;
 
-App::App(const char* title, int resX, int resY, int offsetX, int offsetY, unsigned int flags) {
+App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y, unsigned int flags) {
 	init_sdl();
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-	width = resX;
-	height = resY;
-	window = SDL_CreateWindow(title, offsetX, offsetY, resX, resY, flags);
+	width = res_x;
+	height = res_y;
+	window = SDL_CreateWindow(title, offset_x, offset_y, res_x, res_y, flags);
 	if(!window) {
 		cerr << "SDL_CreateWindow Error: " << SDL_GetError() << endl;
 		return;
@@ -61,7 +61,7 @@ int App::poll_events() {
 	return 0;
 }
 
-virtual void App::handle_keyboard(bool *keys) {
+void App::handle_keyboard(bool *keys) {
 	/*for(int i=0; i<SDL_NUM_SCANCODES; i++) {
 		if(keys[i])
 			cout<<SDL_GetScancodeName((SDL_Scancode)i)<<" ";
