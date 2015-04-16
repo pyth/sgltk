@@ -3,23 +3,63 @@
 
 #include "core.h"
 
+/**
+ * @class Camera
+ * @brief Manages cameras
+ */
 class Camera {
 	glm::mat4 ident;
 public:
+	/**
+	 * @brief The camera position
+	 */
 	glm::vec4 pos;
+	/**
+	 * @brief The direction the camera is pointing
+	 */
 	glm::vec4 forward;
+	/**
+	 * @brief The up vector of the camera
+	 */
 	glm::vec4 up;
+	/**
+	 * @brief The right vector of the camera
+	 */
 	glm::vec4 right;
 
 	Camera();
 	~Camera();
 
+	/**
+	 * @brief Move the camera along the up vector
+	 * @param delta The distance to move the camera
+	 */
 	void move_up(float delta);
+	/**
+	 * @brief Move the camera along the right vector
+	 * @param delta The distance to move the camera
+	 */
 	void move_right(float delta);
+	/**
+	 * @brief Move the camera along the forward vector
+	 * @param delta The distance to move the camera
+	 */
 	void move_forward(float delta);
 
+	/**
+	 * @brief Rotate the camera using the up vector as the axis
+	 * @param delta The angle to rotate the camera
+	 */
 	void yaw(float angle);
+	/**
+	 * @brief Rotate the camera using the forward vector as the axis
+	 * @param delta The angle to rotate the camera
+	 */
 	void roll(float angle);
+	/**
+	 * @brief Rotate the camera using the right vector as the axis
+	 * @param delta The angle to rotate the camera
+	 */
 	void pitch(float angle);
 };
 
