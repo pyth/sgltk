@@ -31,19 +31,46 @@
 
 using namespace std;
 
+/**
+ * @brief Initializes GLEW
+ * @return Returns true on success, flase otherwise
+ */
 bool init_glew();
 
+/**
+ * @brief Initializes SDL2_img
+ * @return Returns true on success, flase otherwise
+ */
 bool init_img();
 void quit_img();
 
+/**
+ * @brief Initializes SDL2
+ * @return Returns true on success, flase otherwise
+ */
 bool init_sdl();
 void quit_sdl();
 
+/**
+ * @brief Initializes SDL2_ttf
+ * @return Returns true on success, flase otherwise
+ */
 bool init_ttf();
 void quit_ttf();
 
+/**
+ * @brief Initializes SDL2_mixer
+ * @return Returns true on success, flase otherwise
+ */
 bool init_mixer();
 void quit_mixer();
+
+/**
+ * @brief Initializes all parts of SDL2 used by SGLTK
+ * @return Returns true on success, flase otherwise
+ */
+bool init_lib();
+void quit_lib();
 
 bool check_error(const char *file, int line);
 

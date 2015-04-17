@@ -50,8 +50,8 @@ void quit_ttf() {
 
 
 bool init_mixer() {
-	int flags = MIX_INIT_FLAC|MIX_INIT_MP3|MIX_INIT_OGG;
-	int tmp = Mix_Init(flags);
+	unsigned int flags = MIX_INIT_FLAC|MIX_INIT_MP3|MIX_INIT_OGG;
+	unsigned int tmp = Mix_Init(flags);
 	if((tmp & flags) != flags) {
 		cerr << "Mix_Init Error: "<< SDL_GetError() << endl;
 		return false;
@@ -65,15 +65,26 @@ bool init_mixer() {
 }
 
 void quit_mixer() {
-	/*Uint16 format = 0;
-	int freq = 0;
-	int channels = 0;
-	Mix_QuerySpec(&freq, &format, &channels);
-	printf("foo: %d %d %d", freq, format, channels);*/
 	Mix_CloseAudio();
 	while(Mix_Init(0)) {
 		Mix_Quit();
 	}
+}
+
+bool init_lib() {
+	if(init_sdl())
+		if(init_ttf())
+			if(init_img())
+				if(init_mixer())
+					return true;
+	return false;
+}
+
+void quit_lib() {
+	quit_mixer();
+	quit_img();
+	quit_ttf();
+	quit_sdl();
 }
 
 bool check_error(const char *file, int line) {
