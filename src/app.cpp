@@ -2,7 +2,8 @@
 
 using namespace std;
 
-App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y, unsigned int flags) {
+App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
+	 unsigned int flags) {
 	init_sdl();
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
@@ -11,7 +12,8 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y, un
 
 	width = res_x;
 	height = res_y;
-	window = SDL_CreateWindow(title, offset_x, offset_y, res_x, res_y, flags);
+	window = SDL_CreateWindow(title, offset_x, offset_y,
+				  res_x, res_y, flags);
 	if(!window) {
 		cerr << "SDL_CreateWindow Error: " << SDL_GetError() << endl;
 		return;
@@ -83,8 +85,8 @@ void App::run(int fps) {
 	unsigned int frame_time;
 	bool running = true;
 
+	frame_timer.start();
 	while(running) {
-		frame_timer.start();
 		if(poll_events() < 0) {
 			running = false;
 		}
@@ -95,9 +97,10 @@ void App::run(int fps) {
 		if(fps > 0) {
 			frame_time = frame_timer.get_time();
 			if(frame_time < 1000 / fps) {
-				SDL_Delay(1000 / fps - frame_time);
+				continue;
 			}
 		}
 		SDL_GL_SwapWindow(window);
+		frame_timer.start();
 	}
 }
