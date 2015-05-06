@@ -3,10 +3,13 @@
 using namespace std;
 
 App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
-	 unsigned int flags) {
+	 int gl_maj, int gl_min, unsigned int flags) {
 	init_sdl();
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+
+	SDL_DisableScreenSaver();
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl_maj);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl_min);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
@@ -18,8 +21,6 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 		cerr << "SDL_CreateWindow Error: " << SDL_GetError() << endl;
 		return;
 	}
-	//SDL_SetWindowGrab(window, SDL_TRUE);
-	//SDL_GL_SetSwapInterval(1);
 	context = SDL_GL_CreateContext(window);
 	init_glew();
 	glEnable(GL_TEXTURE_2D);
@@ -36,9 +37,20 @@ App::~App() {
 	quit_sdl();
 }
 
+void App::grab_mouse(SDL_bool on) {
+	SDL_SetWindowGrab(window, on);
+}
+
+bool App::enable_vsync(bool on) {
+	if(on) {
+		return SDL_GL_SetSwapInterval(1);
+	} else {
+		return SDL_GL_SetSwapInterval(0);
+	}
+}
+
 int App::poll_events() {
 	SDL_Event event;
-	bool keys[SDL_NUM_SCANCODES];
 
 	while(SDL_PollEvent(&event)) {
 		switch(event.type) {
@@ -46,10 +58,14 @@ int App::poll_events() {
 			return -1;
 			break;
 		case SDL_KEYDOWN:
-			keys[event.key.keysym.scancode] = true;
+			handle_keyboard(SDL_GetKeyName(event.key.keysym.sym),
+					get_modifier(event.key.keysym.mod),
+					true);
 			break;
 		case SDL_KEYUP:
-			keys[event.key.keysym.scancode] = false;
+			handle_keyboard(SDL_GetKeyName(event.key.keysym.sym),
+					get_modifier(event.key.keysym.mod),
+					false);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			return -1;
@@ -59,16 +75,10 @@ int App::poll_events() {
 			break;
 		}
 	}
-	handle_keyboard(keys);
 	return 0;
 }
 
-void App::handle_keyboard(bool *keys) {
-	/*for(int i=0; i<SDL_NUM_SCANCODES; i++) {
-		if(keys[i])
-			cout<<SDL_GetScancodeName((SDL_Scancode)i)<<" ";
-	}
-	cout<<endl;*/
+void App::handle_keyboard(const char *key, const char *mod, bool down) {
 }
 
 void App::display() {

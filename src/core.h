@@ -74,4 +74,6 @@ void quit_lib();
 
 bool check_error(const char *file, int line);
 
+const char *get_modifier(Uint16 mod);
+
 #endif
