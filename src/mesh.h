@@ -21,6 +21,10 @@ struct Vertex {
 	 */
 	GLfloat tangent[4];
 	/**
+	 * @brief Vertex color
+	 */
+	GLfloat color[4];
+	/**
 	 * @brief Vertex texture coordinates
 	 */
 	GLfloat texcoord[2];
@@ -83,6 +87,38 @@ struct Vertex {
 		tangent[1] = t.y;
 		tangent[2] = t.z;
 		tangent[3] = 1;
+
+		texcoord[0] = tc.x;
+		texcoord[1] = tc.y;
+	};
+
+	/**
+	 * @param p	Vertex position
+	 * @param n	Vertex normal
+	 * @param t	Vertex tangent
+	 * @param c	Vertex color
+	 * @param tc	Texture coordinates
+	 */
+	Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec4 c, glm::vec2 tc) {
+		position[0] = p.x;
+		position[1] = p.y;
+		position[2] = p.z;
+		position[3] = 1;
+
+		normal[0] = n.x;
+		normal[1] = n.y;
+		normal[2] = n.z;
+		normal[3] = 1;
+
+		tangent[0] = t.x;
+		tangent[1] = t.y;
+		tangent[2] = t.z;
+		tangent[3] = 1;
+
+		color[0] = c.x;
+		color[1] = c.y;
+		color[2] = c.z;
+		color[3] = c.w;
 
 		texcoord[0] = tc.x;
 		texcoord[1] = tc.y;
