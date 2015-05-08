@@ -50,6 +50,7 @@ bool App::enable_vsync(bool on) {
 }
 
 int App::poll_events() {
+	int x, y;
 	SDL_Event event;
 
 	while(SDL_PollEvent(&event)) {
@@ -58,27 +59,37 @@ int App::poll_events() {
 			return -1;
 			break;
 		case SDL_KEYDOWN:
-			handle_keyboard(SDL_GetKeyName(event.key.keysym.sym),
-					get_modifier(event.key.keysym.mod),
-					true);
-			break;
 		case SDL_KEYUP:
-			handle_keyboard(SDL_GetKeyName(event.key.keysym.sym),
-					get_modifier(event.key.keysym.mod),
-					false);
+			keys = SDL_GetKeyboardState(NULL);
+			handle_keyboard();
+			break;
+		case SDL_MOUSEWHEEL:
 			break;
 		case SDL_MOUSEBUTTONDOWN:
-			return -1;
-			break;
-		default:
-			return 1;
-			break;
+		case SDL_MOUSEBUTTONUP:
+		case SDL_MOUSEMOTION:
+			mouse_buttons = SDL_GetMouseState(&x, &y);
+			handle_mouse(x, y);
 		}
 	}
 	return 0;
 }
 
-void App::handle_keyboard(const char *key, const char *mod, bool down) {
+void App::handle_keyboard() {
+}
+
+bool App::key_pressed(const char *key) {
+	if(keys[SDL_GetScancodeFromName(key)]) {
+		return true;
+	}
+	return false;
+}
+
+void App::handle_mouse(int x, int y) {
+}
+
+bool App::mousebutton_pressed(int button) {
+	return mouse_buttons & SDL_BUTTON(button);
 }
 
 void App::display() {

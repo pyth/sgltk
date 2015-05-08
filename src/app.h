@@ -10,6 +10,8 @@
  */
 class App {
 	SDL_GLContext context;
+	const Uint8 *keys;
+	Uint32 mouse_buttons;
 public:
 	/**
 	 * @brief The width of the window surface
@@ -49,17 +51,31 @@ public:
 	 */
 	bool enable_vsync(bool on);
 	/**
-	 * @brief Polls all events and calls the handlers
+	 * @brief Polls all events and calls the handlers. Called by the run function
 	 */
 	int poll_events();
 	/**
 	 * @brief This function is called by poll_events() to handle
 	 *	  keyboard input. This function should be overriden
-	 * @param key The key pressed
-	 * @param mod The key modifier
-	 * @param key The down true if the key was pressed, false if it was released
 	 */
-	virtual void handle_keyboard(const char *key, const char *mod, bool down);
+	virtual void handle_keyboard();
+	/**
+	 * @brief Checks if the key is currently pressed
+	 * @param key The key to check
+	 * @return Retruns true if the key is pressed, false otherwise
+	 */
+	bool key_pressed(const char *key);
+	/**
+	 * @brief This function is called by poll_events() to handle
+	 *	  mouse input. This function should be overriden
+	 */
+	virtual void handle_mouse(int x, int y);
+	/**
+	 * @brief Checks if the mouse button is currently pressed
+	 * @param button The button to check
+	 * @return Retruns true if the mouse button is pressed, false otherwise
+	 */
+	bool mousebutton_pressed(int button);
 	/**
 	 * @brief This function is called by run() to draw a frame.
 	 * 	  This function should be overriden
