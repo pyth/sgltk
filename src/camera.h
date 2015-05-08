@@ -17,7 +17,7 @@ public:
 	/**
 	 * @brief The direction the camera is pointing
 	 */
-	glm::vec4 forward;
+	glm::vec4 dir;
 	/**
 	 * @brief The up vector of the camera
 	 */
@@ -28,6 +28,7 @@ public:
 	glm::vec4 right;
 
 	Camera();
+	Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up);
 	~Camera();
 
 	/**
