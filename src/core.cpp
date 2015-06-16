@@ -72,15 +72,23 @@ void quit_mixer() {
 }
 
 bool init_lib() {
+	if(initialized)
+		return true;
+
 	if(init_sdl())
 		if(init_ttf())
 			if(init_img())
-				if(init_mixer())
+				if(init_mixer()) {
+					initialized = true;
 					return true;
+				}
+
+	quit_lib();
 	return false;
 }
 
 void quit_lib() {
+	initialized = false;
 	quit_mixer();
 	quit_img();
 	quit_ttf();

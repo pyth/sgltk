@@ -1,6 +1,7 @@
 #include "timer.h"
 
 Timer::Timer() {
+	init_lib();
 	start_time = 0;
 }
 

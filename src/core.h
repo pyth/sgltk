@@ -31,6 +31,8 @@
 
 using namespace std;
 
+static bool initialized;
+
 /**
  * @brief Initializes GLEW
  * @return Returns true on success, flase otherwise

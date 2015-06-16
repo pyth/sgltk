@@ -3,6 +3,7 @@
 using namespace std;
 
 Mesh::Mesh() {
+	init_lib();
 	trafo = glm::mat4();
 	shader = NULL;
 	glGenVertexArrays(1, &vao);

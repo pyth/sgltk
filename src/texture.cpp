@@ -3,10 +3,12 @@
 using namespace std;
 
 Texture::Texture() {
+	init_lib();
 	glGenTextures(1, &texture);
 }
 
 Texture::Texture(Image *image) {
+	init_lib();
 	glGenTextures(1, &texture);
 	if(!image) {
 		load_texture(image);

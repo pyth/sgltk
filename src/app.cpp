@@ -4,7 +4,7 @@ using namespace std;
 
 App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	 int gl_maj, int gl_min, unsigned int flags) {
-	init_sdl();
+	init_lib();
 
 	SDL_DisableScreenSaver();
 
@@ -16,7 +16,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	width = res_x;
 	height = res_y;
 	window = SDL_CreateWindow(title, offset_x, offset_y,
-				  res_x, res_y, flags);
+				  res_x, res_y, SDL_WINDOW_OPENGL | flags);
 	if(!window) {
 		cerr << "SDL_CreateWindow Error: " << SDL_GetError() << endl;
 		return;
