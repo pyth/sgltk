@@ -6,6 +6,9 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	 int gl_maj, int gl_min, unsigned int flags) {
 	init_lib();
 
+	running = true;
+	keys = SDL_GetKeyboardState(NULL);
+
 	SDL_DisableScreenSaver();
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl_maj);
@@ -49,14 +52,14 @@ bool App::enable_vsync(bool on) {
 	}
 }
 
-int App::poll_events() {
+void App::poll_events() {
 	int x, y;
 	SDL_Event event;
 
 	while(SDL_PollEvent(&event)) {
 		switch(event.type) {
 		case SDL_QUIT:
-			return -1;
+			running = false;
 			break;
 		case SDL_KEYDOWN:
 		case SDL_KEYUP:
@@ -72,7 +75,6 @@ int App::poll_events() {
 			handle_mouse(x, y);
 		}
 	}
-	return 0;
 }
 
 void App::handle_keyboard() {
@@ -108,9 +110,7 @@ void App::run(int fps) {
 
 	frame_timer.start();
 	while(running) {
-		if(poll_events() < 0) {
-			running = false;
-		}
+		poll_events();
 		display();
 		if(!window) {
 			break;

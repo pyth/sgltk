@@ -9,6 +9,7 @@
  * @brief Provides windows with OpenGL context
  */
 class App {
+	bool running;
 	SDL_GLContext context;
 	const Uint8 *keys;
 	Uint32 mouse_buttons;
@@ -53,7 +54,7 @@ public:
 	/**
 	 * @brief Polls all events and calls the handlers. Called by the run function
 	 */
-	int poll_events();
+	void poll_events();
 	/**
 	 * @brief This function is called by poll_events() to handle
 	 *	  keyboard input. This function should be overriden
