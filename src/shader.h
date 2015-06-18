@@ -17,6 +17,9 @@ enum UniformType {
  * @brief Manager shaders
  */
 class Shader {
+	bool modify;
+	std::map<const char *, GLenum> shader_map;
+	std::vector<const char *> shader_paths;
 public:
 	/**
 	 * @brief Shader name
@@ -33,6 +36,10 @@ public:
 	 * @return		Returns true on success or false otherwise
 	 */
 	bool attach(const char *filename, GLenum type);
+	/**
+	 * @brief Reads, compiles, attaches and links all associated shaders again.
+	 */
+	void recompile();
 	/**
 	 * @brief Binds a uniform to the shader
 	 * @param type		Uniform type

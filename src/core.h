@@ -16,6 +16,7 @@
 #endif*/
 
 #include <iostream>
+#include <map>
 #include <vector>
 
 #include <glm/glm.hpp>

@@ -3,6 +3,7 @@
 using namespace std;
 
 Shader::Shader() {
+	modify = true;
 	shader = glCreateProgram();
 }
 
@@ -22,7 +23,8 @@ bool Shader::attach(const char *filename, GLenum type) {
 
 	file = SDL_RWFromFile(filename, "r+b");
 	if(!file) {
-		cerr << "Could not open shader file: " << filename << " - " << SDL_GetError() << endl;
+		cerr << "Could not open shader file: " << filename << " - "
+		     << SDL_GetError() << endl;
 		return false;
 	}
 	size = (int)SDL_RWsize(file);
@@ -36,14 +38,20 @@ bool Shader::attach(const char *filename, GLenum type) {
 	glCompileShader(tmp);
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
-		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength, infoLog);
+		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength,
+				   infoLog);
 		if(infoLogLength > 0) {
-			printf("CompileShader() infoLog %s \n%s\n", filename, infoLog);
+			printf("CompileShader() infoLog %s \n%s\n", filename,
+			       infoLog);
 			return false;
 		}
 	}
 
 	glAttachShader(shader, tmp);
+	if(modify) {
+		shader_paths.push_back(filename);
+		shader_map[filename] = type;
+	}
 
 	glDeleteShader(tmp);
 	delete buf;
@@ -74,6 +82,18 @@ void Shader::bind_uniform(UniformType type, char *name, void *data) {
 	default:
 		break;
 	}*/
+}
+
+void Shader::recompile() {
+	modify = false;
+	unbind();
+	glDeleteProgram(shader);
+	shader = glCreateProgram();
+	for(int i = 0; i < shader_paths.size(); i++) {
+		attach(shader_paths[i], shader_map[shader_paths[i]]);
+	}
+	link();
+	modify = true;
 }
 
 void Shader::link() {
