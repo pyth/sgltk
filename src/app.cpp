@@ -7,6 +7,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	init_lib();
 
 	running = true;
+	mouse_relative = false;
 	keys = SDL_GetKeyboardState(NULL);
 
 	SDL_DisableScreenSaver();
@@ -40,8 +41,12 @@ App::~App() {
 	quit_sdl();
 }
 
-void App::grab_mouse(SDL_bool on) {
-	SDL_SetWindowGrab(window, on);
+void App::grab_mouse(bool on) {
+	SDL_SetWindowGrab(window, (SDL_bool)on);
+}
+
+void App::set_relative_mode(bool on) {
+	SDL_SetRelativeMouseMode((SDL_bool)on);
 }
 
 bool App::enable_vsync(bool on) {
@@ -70,9 +75,19 @@ void App::poll_events() {
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
+			handle_mouse_button(event.button.x, event.button.y,
+					    (MOUSE_BUTTON)event.button.button,
+					    (event.button.state == SDL_PRESSED),
+					    event.button.clicks);
+			break;
 		case SDL_MOUSEMOTION:
-			mouse_buttons = SDL_GetMouseState(&x, &y);
-			handle_mouse(x, y);
+			if(mouse_relative)
+				handle_mouse_motion(event.motion.xrel,
+						    event.motion.yrel);
+			else
+				handle_mouse_motion(event.motion.x,
+						    event.motion.y);
+			break;
 		}
 	}
 }
@@ -87,11 +102,14 @@ bool App::key_pressed(const char *key) {
 	return false;
 }
 
-void App::handle_mouse(int x, int y) {
+void App::handle_mouse_motion(int x, int y) {
 }
 
-bool App::mousebutton_pressed(int button) {
-	return mouse_buttons & SDL_BUTTON(button);
+void App::handle_mouse_wheel(int x, int y) {
+}
+
+void App::handle_mouse_button(int x, int y, MOUSE_BUTTON button, bool down,
+			      int clicks) {
 }
 
 void App::display() {

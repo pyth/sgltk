@@ -28,6 +28,11 @@ public:
 	glm::vec4 right;
 
 	Camera();
+	/**
+	 * @param pos The camera position
+	 * @param dir The view direction
+	 * @param up The up vector
+	 */
 	Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up);
 	~Camera();
 
@@ -49,17 +54,17 @@ public:
 
 	/**
 	 * @brief Rotate the camera using the up vector as the axis
-	 * @param delta The angle to rotate the camera
+	 * @param angle The angle to rotate the camera
 	 */
 	void yaw(float angle);
 	/**
 	 * @brief Rotate the camera using the forward vector as the axis
-	 * @param delta The angle to rotate the camera
+	 * @param angle The angle to rotate the camera
 	 */
 	void roll(float angle);
 	/**
 	 * @brief Rotate the camera using the right vector as the axis
-	 * @param delta The angle to rotate the camera
+	 * @param angle The angle to rotate the camera
 	 */
 	void pitch(float angle);
 };

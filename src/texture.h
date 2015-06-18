@@ -62,7 +62,7 @@ public:
 	/**
 	 * @brief Creates an image from a string
 	 * @param text		The string to be made into an image
-	 * @param font		The opened font file
+	 * @param font_file	The opened font file
 	 * @param size		The font size
 	 * @param r		The red color channel
 	 * @param g		The green color channel
