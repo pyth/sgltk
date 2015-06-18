@@ -1,5 +1,5 @@
 AC_PREREQ(2.61)
-AC_INIT([sgltk], [0.1], [[fjodor.schelichow@hotmail.com]])
+AC_INIT([sgltk], [0.2], [[fjodor.schelichow@hotmail.com]])
 AM_INIT_AUTOMAKE
 LT_INIT
 
