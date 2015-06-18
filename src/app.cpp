@@ -46,6 +46,7 @@ void App::grab_mouse(bool on) {
 }
 
 void App::set_relative_mode(bool on) {
+	mouse_relative = on;
 	SDL_SetRelativeMouseMode((SDL_bool)on);
 }
 
@@ -75,10 +76,15 @@ void App::poll_events() {
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
-			handle_mouse_button(event.button.x, event.button.y,
-					    (MOUSE_BUTTON)event.button.button,
-					    (event.button.state == SDL_PRESSED),
-					    event.button.clicks);
+			if(mouse_relative)
+				handle_mouse_button(0, 0, (MOUSE_BUTTON)event.button.button,
+						    (event.button.state == SDL_PRESSED),
+						    event.button.clicks);
+			else
+				handle_mouse_button(event.button.x, event.button.y,
+						    (MOUSE_BUTTON)event.button.button,
+						    (event.button.state == SDL_PRESSED),
+						    event.button.clicks);
 			break;
 		case SDL_MOUSEMOTION:
 			if(mouse_relative)
