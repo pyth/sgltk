@@ -70,7 +70,6 @@ void App::poll_events() {
 		case SDL_KEYDOWN:
 		case SDL_KEYUP:
 			keys = SDL_GetKeyboardState(NULL);
-			handle_keyboard();
 			break;
 		case SDL_MOUSEWHEEL:
 			break;
@@ -96,6 +95,7 @@ void App::poll_events() {
 			break;
 		}
 	}
+	handle_keyboard();
 }
 
 void App::handle_keyboard() {
