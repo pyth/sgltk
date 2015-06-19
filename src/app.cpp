@@ -134,8 +134,6 @@ void App::run(int fps) {
 
 	frame_timer.start();
 	while(running) {
-		poll_events();
-		display();
 		if(!window) {
 			break;
 		}
@@ -145,6 +143,8 @@ void App::run(int fps) {
 				continue;
 			}
 		}
+		poll_events();
+		display();
 		SDL_GL_SwapWindow(window);
 		frame_timer.start();
 	}
