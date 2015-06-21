@@ -27,18 +27,13 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	}
 	context = SDL_GL_CreateContext(window);
 	init_glew();
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 }
 
 App::~App() {
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
-	quit_ttf();
-	quit_sdl();
+	quit_lib();
 }
 
 void App::grab_mouse(bool on) {
