@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['particles',['Particles',['../class_particles.html',1,'']]]
+  ['scene',['Scene',['../class_scene.html',1,'']]],
+  ['shader',['Shader',['../class_shader.html',1,'']]]
 ];

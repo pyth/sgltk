@@ -24,7 +24,6 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">SGLTK
-   &#160;<span id="projectnumber">0.1</span>
    </div>
    <div id="projectbrief">Simple OpenGL Tool Kit</div>
   </td>
@@ -95,7 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    <a class="code" href="class_camera.html">Camera</a>(glm::vec3(0,0,1), glm::vec3(0,0,-1), glm::vec3(0,1,0));</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;}</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up) {</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="class_camera.html#a104615d38a37718844cce9910747b378">    7</a></span>&#160;Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up) {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    ident = glm::mat4(1);</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    this-&gt;pos = glm::vec4(pos, 1);</div>
@@ -108,34 +107,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
 <div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_camera.html#acab319dbcc7b55200541b7217a6ec9dc">   19</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_camera.html#acab319dbcc7b55200541b7217a6ec9dc">Camera::move_up</a>(<span class="keywordtype">float</span> delta) {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    pos += glm::normalize(up) * delta;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="class_camera.html#a3c67bc8f8a9bd2c913e08da6402c157e">pos</a> += glm::normalize(<a class="code" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a>) * delta;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_camera.html#a9985be6ae95fcf83e6211acaa0f84894">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_camera.html#a9985be6ae95fcf83e6211acaa0f84894">Camera::move_right</a>(<span class="keywordtype">float</span> delta) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    pos += glm::normalize(<a class="code" href="class_camera.html#ab0a633bbc8fc3a8de07523531d11a361">right</a>) * delta;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_camera.html#a3c67bc8f8a9bd2c913e08da6402c157e">pos</a> += glm::normalize(<a class="code" href="class_camera.html#ab0a633bbc8fc3a8de07523531d11a361">right</a>) * delta;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_camera.html#a07fc2e27c0fc6ab8b870ac6e717ae2aa">   27</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_camera.html#a07fc2e27c0fc6ab8b870ac6e717ae2aa">Camera::move_forward</a>(<span class="keywordtype">float</span> delta) {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    pos += glm::normalize(dir) * delta;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_camera.html#a3c67bc8f8a9bd2c913e08da6402c157e">pos</a> += glm::normalize(<a class="code" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a>) * delta;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_camera.html#ab4eab94754431725c572d528a07a35cc">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_camera.html#ab4eab94754431725c572d528a07a35cc">Camera::yaw</a>(<span class="keywordtype">float</span> angle) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    glm::mat4 rot = glm::rotate(ident, angle, glm::vec3(up));</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    dir = rot * <a class="code" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    glm::mat4 rot = glm::rotate(ident, angle, glm::vec3(<a class="code" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a>));</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a> = rot * <a class="code" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="class_camera.html#ab0a633bbc8fc3a8de07523531d11a361">right</a> = rot * <a class="code" href="class_camera.html#ab0a633bbc8fc3a8de07523531d11a361">right</a>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_camera.html#a72be99f88b1cc21122178109d3441818">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_camera.html#a72be99f88b1cc21122178109d3441818">Camera::roll</a>(<span class="keywordtype">float</span> angle) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    glm::mat4 rot = glm::rotate(ident, angle, glm::vec3(dir));</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    up = rot * <a class="code" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    glm::mat4 rot = glm::rotate(ident, angle, glm::vec3(<a class="code" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a>));</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a> = rot * <a class="code" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="class_camera.html#ab0a633bbc8fc3a8de07523531d11a361">right</a> = rot * <a class="code" href="class_camera.html#ab0a633bbc8fc3a8de07523531d11a361">right</a>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
 <div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_camera.html#a49e00b90b94853e4485a6bdf063796de">   43</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_camera.html#a49e00b90b94853e4485a6bdf063796de">Camera::pitch</a>(<span class="keywordtype">float</span> angle) {</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    glm::mat4 rot = glm::rotate(ident, angle, glm::vec3(<a class="code" href="class_camera.html#ab0a633bbc8fc3a8de07523531d11a361">right</a>));</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    dir = rot * <a class="code" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    up = rot * <a class="code" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a> = rot * <a class="code" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a> = rot * <a class="code" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+<div class="ttc" id="class_camera_html_a3c67bc8f8a9bd2c913e08da6402c157e"><div class="ttname"><a href="class_camera.html#a3c67bc8f8a9bd2c913e08da6402c157e">Camera::pos</a></div><div class="ttdeci">glm::vec4 pos</div><div class="ttdoc">The camera position. </div><div class="ttdef"><b>Definition:</b> <a href="camera_8h_source.html#l00016">camera.h:16</a></div></div>
 <div class="ttc" id="class_camera_html_ab0a633bbc8fc3a8de07523531d11a361"><div class="ttname"><a href="class_camera.html#ab0a633bbc8fc3a8de07523531d11a361">Camera::right</a></div><div class="ttdeci">glm::vec4 right</div><div class="ttdoc">The right vector of the camera. </div><div class="ttdef"><b>Definition:</b> <a href="camera_8h_source.html#l00028">camera.h:28</a></div></div>
 <div class="ttc" id="class_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdoc">Manages cameras. </div><div class="ttdef"><b>Definition:</b> <a href="camera_8h_source.html#l00010">camera.h:10</a></div></div>
 <div class="ttc" id="class_camera_html_a9985be6ae95fcf83e6211acaa0f84894"><div class="ttname"><a href="class_camera.html#a9985be6ae95fcf83e6211acaa0f84894">Camera::move_right</a></div><div class="ttdeci">void move_right(float delta)</div><div class="ttdoc">Move the camera along the right vector. </div><div class="ttdef"><b>Definition:</b> <a href="camera_8cpp_source.html#l00023">camera.cpp:23</a></div></div>
@@ -149,7 +149,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 17 2015 16:43:27 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 22 2015 22:35:13 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

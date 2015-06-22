@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bone',['Bone',['../struct_bone.html',1,'']]]
+  ['camera',['Camera',['../class_camera.html',1,'']]]
 ];
