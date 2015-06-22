@@ -21,6 +21,10 @@ struct Vertex {
 	 */
 	GLfloat tangent[4];
 	/**
+	 * @brief Vertex bitangent
+	 */
+	GLfloat bitangent[4];
+	/**
 	 * @brief Vertex color
 	 */
 	GLfloat color[4];
@@ -28,6 +32,37 @@ struct Vertex {
 	 * @brief Vertex texture coordinates
 	 */
 	GLfloat texcoord[3];
+
+	Vertex() {
+		position[0] = 0;
+		position[1] = 0;
+		position[2] = 0;
+		position[3] = 0;
+
+		normal[0] = 0;
+		normal[1] = 0;
+		normal[2] = 0;
+		normal[3] = 0;
+
+		tangent[0] = 0;
+		tangent[1] = 0;
+		tangent[2] = 0;
+		tangent[3] = 0;
+
+		bitangent[0] = 0;
+		bitangent[1] = 0;
+		bitangent[2] = 0;
+		bitangent[3] = 0;
+
+		color[0] = 0;
+		color[1] = 0;
+		color[2] = 0;
+		color[3] = 0;
+
+		texcoord[0] = 0;
+		texcoord[1] = 0;
+		texcoord[2] = 0;
+	};
 
 	/**
 	 * @param p	Vertex position
