@@ -27,7 +27,7 @@ struct Vertex {
 	/**
 	 * @brief Vertex texture coordinates
 	 */
-	GLfloat texcoord[2];
+	GLfloat texcoord[3];
 
 	/**
 	 * @param p	Vertex position

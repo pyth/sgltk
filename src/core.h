@@ -30,6 +30,10 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 using namespace std;
 
 static bool initialized;
