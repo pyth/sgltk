@@ -1,6 +1,6 @@
 CC	= g++
 CFLAGS	= -g
-LFLAGS	= -lGL -lGLEW -lsgltk
+LFLAGS	= -lGL -lGLEW -lassimp -lsgltk
 BIN	= example
 
 .PHONY: all clean

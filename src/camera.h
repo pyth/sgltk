@@ -11,6 +11,26 @@ class Camera {
 	glm::mat4 ident;
 public:
 	/**
+	 * @brief The view matrix
+	 */
+	glm::mat4 view_matrix;
+	/**
+	 * @brief The projection matrix
+	 */
+	glm::mat4 projection_matrix;
+	/**
+	 * @brief The field of view
+	 */
+	float fov;
+	/**
+	 * @brief The near plane
+	 */
+	float near_plane;
+	/**
+	 * @brief The far plane
+	 */
+	float far_plane;
+	/**
 	 * @brief The camera position
 	 */
 	glm::vec4 pos;
@@ -34,7 +54,49 @@ public:
 	 * @param up The up vector
 	 */
 	Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up);
+	/**
+	 * @param pos The camera position
+	 * @param dir The view direction
+	 * @param up The up vector
+	 * @param fov The field of view
+	 * @param width The width of the viewport
+	 * @param height The height of the viewport
+	 * @param near_plane The near plane
+	 * @param far_plane The far plane
+	 */
+	Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
+	       float fov, float width, float height,
+	       float near_plane, float far_plane);
 	~Camera();
+
+	/**
+	 * @brief Recalculates the view matrix
+	 */
+	void update_view_matrix();
+
+	/**
+	 * @brief Recalculates the projection matrix
+	 * @param width The width of the viewport
+	 * @param height The height of the viewport
+	 */
+	void update_projection_matrix(float width, float height);
+	/**
+	 * @brief Recalculates the projection matrix
+	 * @param fov The field of view
+	 * @param width The width of the viewport
+	 * @param height The height of the viewport
+	 */
+	void update_projection_matrix(float fov, float width, float height);
+	/**
+	 * @brief Recalculates the projection matrix
+	 * @param fov The field of view
+	 * @param width The width of the viewport
+	 * @param height The height of the viewport
+	 * @param near_plane The near plane
+	 * @param far_plane The far plane
+	 */
+	void update_projection_matrix(float fov, float width, float height,
+				      float near_plane, float far_plane);
 
 	/**
 	 * @brief Move the camera along the up vector
