@@ -15,7 +15,7 @@ struct Vertex {
 	/**
 	 * @brief Vertex normal
 	 */
-	GLfloat normal[4];
+	GLfloat normal[3];
 	/**
 	 * @brief Vertex tangent
 	 */
@@ -42,7 +42,6 @@ struct Vertex {
 		normal[0] = 0;
 		normal[1] = 0;
 		normal[2] = 0;
-		normal[3] = 0;
 
 		tangent[0] = 0;
 		tangent[1] = 0;
@@ -77,7 +76,6 @@ struct Vertex {
 		normal[0] = n.x;
 		normal[1] = n.y;
 		normal[2] = n.z;
-		normal[3] = 1;
 
 	};
 
@@ -95,7 +93,6 @@ struct Vertex {
 		normal[0] = n.x;
 		normal[1] = n.y;
 		normal[2] = n.z;
-		normal[3] = 1;
 
 		texcoord[0] = tc.x;
 		texcoord[1] = tc.y;
@@ -116,7 +113,6 @@ struct Vertex {
 		normal[0] = n.x;
 		normal[1] = n.y;
 		normal[2] = n.z;
-		normal[3] = 1;
 
 		tangent[0] = t.x;
 		tangent[1] = t.y;
@@ -143,7 +139,6 @@ struct Vertex {
 		normal[0] = n.x;
 		normal[1] = n.y;
 		normal[2] = n.z;
-		normal[3] = 1;
 
 		tangent[0] = t.x;
 		tangent[1] = t.y;
@@ -166,24 +161,20 @@ struct Vertex {
  */
 class Mesh {
 	Shader *shader;
+	const char *model_view_matrix_name;
+	const char *model_view_projection_matrix_name;
+	const char *normal_matrix_name;
+	glm::mat4 *view_matrix;
+	glm::mat4 *projection_matrix;
 	GLuint vao;
 	GLuint vbo;
 	std::vector<GLuint> ibo;
+	std::vector<int> num_indices;
 public:
 	/**
 	 * @brief The model matrix
 	 */
-	glm::mat4 trafo;
-
-	/**
-	 * @brief Every element referes to the number of indices
-	 * 	in an index buffer
-	 */
-	std::vector<int> num_indices;
-	/**
-	 * @brief The number of vertex attributes
-	 */
-	int num_vertex_attributes;
+	glm::mat4 model_matrix;
 
 	Mesh();
 	~Mesh();
@@ -191,8 +182,19 @@ public:
 	/**
 	 * @brief Specifies the shader to use to render the mesh
 	 * @param shader The shader to be used to render the mesh
+	 * @param model_view_matrix_name The name of the model-view
+	 *	matrixin in the shader
+	 * @param model_view_projection_matrix_name The name of the
+	 *	model-view-projection matrixin in the shader
+	 * @param normal_matrix_name The name of the normal matrix
+	 *	in the shader
+	 * @param view_matrix The view matrix
+	 * @param projection_matrix The projection matrix
 	 */
-	void use_shader(Shader *shader);
+	void setup_shader(Shader *shader, const char *model_view_matrix_name,
+		const char *model_view_projection_matrix_name,
+		const char *normal_matrix_name, glm::mat4 *view_matrix,
+		glm::mat4 *projection_matrix);
 	/**
 	 * @brief Loads vertices into memory
 	 * @param vertexdata The vertices to be loaded into memory
@@ -223,13 +225,35 @@ public:
 	 * 	vertices
 	 */
 	void draw(GLenum mode);
+
 	/**
-	 * @brief Renders the mesh using the first index buffer
-	 * @param mode	Specifies the primitive that will be created from
-	 * 			vertices
-	 * @param	index_buffer The index buffer to use
+	 * @brief Renders the mesh using the first index buffer and the
+	 * 	  model_matrix member as model matrix
+	 * @param mode Specifies the primitive that will be created from
+	 * 	  vertices
+	 * @param index_buffer The index buffer to use
 	 */
 	void draw(GLenum mode, unsigned int index_buffer);
+
+	/**
+	 * @brief Renders the mesh using the first index buffer
+	 * @param mode Specifies the primitive that will be created from
+	 * 	  vertices
+	 * @param model_matrix The model matrix to use
+	 *	  (NULL to use the model_matrix member)
+	 */
+	void draw(GLenum mode, glm::mat4 *model_matrix);
+
+	/**
+	 * @brief Renders the mesh
+	 * @param mode Specifies the primitive that will be created from
+	 * 	  vertices
+	 * @param index_buffer The index buffer to use
+	 * @param model_matrix The model matrix to use
+	 *	  (NULL to use the model_matrix member)
+	 */
+	void draw(GLenum mode, unsigned int index_buffer,
+		  glm::mat4 *model_matrix);
 };
 
 #endif

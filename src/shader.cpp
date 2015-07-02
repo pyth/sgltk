@@ -58,7 +58,7 @@ bool Shader::attach(const char *filename, GLenum type) {
 	return true;
 }
 
-void Shader::bind_uniform(UniformType type, char *name, void *data) {
+void Shader::bind_uniform(char *name, UniformType type, void *data) {
 	/*int location = glGetUniformLocation(shader, name);
 	switch(type) {
 	case INTEGER:
