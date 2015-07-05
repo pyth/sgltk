@@ -73,7 +73,7 @@ void init() {
 	ind.push_back(3);
 
 	//create a mesh out of the vertices
-	mesh = new Mesh();
+	/*mesh = new Mesh();
 	mesh->attach_vertex_array(&vert);
 	mesh->attach_index_array(&ind);
 	mesh->setup_shader(shader, "MV", "MVP", "NM", &camera->view_matrix,
@@ -83,9 +83,9 @@ void init() {
 	mesh->set_vertex_attribute("norm", 3, GL_FLOAT, sizeof(Vertex),
 				   (void*)offsetof(Vertex, normal));
 	mesh->set_vertex_attribute("tc_in", 2, GL_FLOAT, sizeof(Vertex),
-				   (void*)offsetof(Vertex, texcoord));
+				   (void*)offsetof(Vertex, texcoord));*/
 
-	scene = new Scene("data/example.dae", shader, "MV", "MVP", "NM",
+	scene = new Scene("data/Spikey.dae", shader, "MV", "MVP", "NM",
 			  &camera->view_matrix, &camera->projection_matrix);
 	scene->set_vertex_attribute("pos", 4, GL_FLOAT, sizeof(Vertex),
 				   (void*)offsetof(Vertex, position));

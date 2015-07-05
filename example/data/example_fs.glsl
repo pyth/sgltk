@@ -18,5 +18,5 @@ void main() {
 	vec4 tex = texture(Texture, tc);
 	color = vec4(1.0);
 	color = vec4(norm_eye, 1.0);
-	color = tex;
+	//color = tex;
 }

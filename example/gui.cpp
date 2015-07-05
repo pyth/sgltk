@@ -33,7 +33,7 @@ void GUI::display() {
 		glm::mat4 trafo = glm::translate(glm::vec3((float)i,0.0f,0.0f));
 		mesh->draw(GL_TRIANGLE_STRIP, &trafo);
 	}*/
-	scene->model_matrix = glm::mat4(1.0);
+	//scene->model_matrix = glm::mat4(1.0);
 	scene->draw();
 	shader->unbind();
 }

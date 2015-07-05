@@ -49,6 +49,10 @@ void Mesh::set_vertex_attribute(const char *attrib_name, GLint size,
 	glBindVertexArray(vao);
 
 	int loc = glGetAttribLocation(shader->shader, attrib_name);
+	if(loc == -1) {
+		std::cerr << "Unable to find the vertex attribute "
+			  << attrib_name << std::endl;
+	}
 	glEnableVertexAttribArray(loc);
 	glVertexAttribPointer(loc, size, type, GL_FALSE, stride,
 			      (void*)pointer);
