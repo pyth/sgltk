@@ -1,5 +1,5 @@
 CC	= g++
-CFLAGS	= -g
+CFLAGS	= -g -std=c++0x
 LFLAGS	= -lGL -lGLEW -lassimp -lsgltk
 BIN	= example
 

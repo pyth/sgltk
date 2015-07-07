@@ -5,6 +5,9 @@ LT_INIT
 
 AC_CONFIG_MACRO_DIR([m4])
 
+AC_LANG(C++)
+CXXFLAGS="$CXXFLAGS -std=c++0x"
+
 # name one of your source files here
 AC_CONFIG_SRCDIR([src/app.cpp])
 AC_CONFIG_HEADER([config.h])

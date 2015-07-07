@@ -5,7 +5,7 @@ using namespace std;
 
 Shader *shader;
 Texture *tex;
-Mesh *mesh;
+Mesh<> *mesh;
 Scene *scene;
 Camera *camera;
 glm::mat4 V, P;
@@ -57,15 +57,19 @@ void init() {
 	shader->link();
 
 	//arrange a few vertices into a square
-	vector<Vertex> vert;
-	vert.push_back(Vertex(glm::vec3(-0.5,-0.5,-1.0), glm::vec3(0.0,0.0,1.0),
-		       glm::vec2(0.0,1.0)));
-	vert.push_back(Vertex(glm::vec3(-0.5,0.5,-1.0), glm::vec3(0.0,0.0,1.0),
-		       glm::vec2(0.0,0.0)));
-	vert.push_back(Vertex(glm::vec3(0.5,-0.5,-1.0), glm::vec3(0.0,0.0,1.0),
-		       glm::vec2(1.0,1.0)));
-	vert.push_back(Vertex(glm::vec3(0.5,0.5,-1.0), glm::vec3(0.0,0.0,1.0),
-		       glm::vec2(1.0,0.0)));
+	vector<sgltk::Vertex> vert;
+	vert.push_back(sgltk::Vertex(glm::vec3(-0.5,-0.5,-1.0),
+		       glm::vec3(0.0,0.0,1.0),
+		       glm::vec3(0.0,1.0,0.0)));
+	vert.push_back(sgltk::Vertex(glm::vec3(-0.5,0.5,-1.0),
+		       glm::vec3(0.0,0.0,1.0),
+		       glm::vec3(0.0,0.0,0.0)));
+	vert.push_back(sgltk::Vertex(glm::vec3(0.5,-0.5,-1.0),
+		       glm::vec3(0.0,0.0,1.0),
+		       glm::vec3(1.0,1.0,0.0)));
+	vert.push_back(sgltk::Vertex(glm::vec3(0.5,0.5,-1.0),
+		       glm::vec3(0.0,0.0,1.0),
+		       glm::vec3(1.0,0.0,0.0)));
 	vector<unsigned short> ind;
 	ind.push_back(0);
 	ind.push_back(1);
@@ -73,24 +77,26 @@ void init() {
 	ind.push_back(3);
 
 	//create a mesh out of the vertices
-	/*mesh = new Mesh();
+	mesh = new Mesh<>();
 	mesh->attach_vertex_array(&vert);
 	mesh->attach_index_array(&ind);
 	mesh->setup_shader(shader, "MV", "MVP", "NM", &camera->view_matrix,
 			 &camera->projection_matrix);
-	mesh->set_vertex_attribute("pos", 4, GL_FLOAT, sizeof(Vertex),
-				   (void*)offsetof(Vertex, position));
-	mesh->set_vertex_attribute("norm", 3, GL_FLOAT, sizeof(Vertex),
-				   (void*)offsetof(Vertex, normal));
-	mesh->set_vertex_attribute("tc_in", 2, GL_FLOAT, sizeof(Vertex),
-				   (void*)offsetof(Vertex, texcoord));*/
+	mesh->set_vertex_attribute("pos", 4, GL_FLOAT, sizeof(sgltk::Vertex),
+				   (void*)offsetof(sgltk::Vertex, position));
+	mesh->set_vertex_attribute("norm", 3, GL_FLOAT, sizeof(sgltk::Vertex),
+				   (void*)offsetof(sgltk::Vertex, normal));
+	mesh->set_vertex_attribute("tc_in", 3, GL_FLOAT, sizeof(sgltk::Vertex),
+				   (void*)offsetof(sgltk::Vertex, tex_coord));
 
 	scene = new Scene("data/Spikey.dae", shader, "MV", "MVP", "NM",
 			  &camera->view_matrix, &camera->projection_matrix);
-	scene->set_vertex_attribute("pos", 4, GL_FLOAT, sizeof(Vertex),
-				   (void*)offsetof(Vertex, position));
-	scene->set_vertex_attribute("norm", 3, GL_FLOAT, sizeof(Vertex),
-				   (void*)offsetof(Vertex, normal));
-	//scene->set_vertex_attribute("tc_in", 2, GL_FLOAT, sizeof(Vertex),
-	//			   (void*)offsetof(Vertex, texcoord));
+	scene->set_vertex_attribute("pos", 4, GL_FLOAT, sizeof(sgltk::Vertex),
+				   (void*)offsetof(sgltk::Vertex, position));
+	scene->set_vertex_attribute("norm", 3, GL_FLOAT, sizeof(sgltk::Vertex),
+				   (void*)offsetof(sgltk::Vertex, normal));
+	scene->set_vertex_attribute("tc_in", 3, GL_FLOAT, sizeof(sgltk::Vertex),
+				   (void*)offsetof(sgltk::Vertex, tex_coord));
+	scene->set_vertex_attribute("col_in", 4, GL_FLOAT, sizeof(sgltk::Vertex),
+				   (void*)offsetof(sgltk::Vertex, color));
 }

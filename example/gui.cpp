@@ -17,13 +17,14 @@ void GUI::display() {
 	shader->bind();
 
 	int light_loc = glGetUniformLocation(shader->shader,
-					  "light_pos");
+					  "light_dir");
 	int texture_loc = glGetUniformLocation(shader->shader,
 						    "Texture");
 	//int time_loc = glGetUniformLocation(shader->shader, "time");
 
-	glm::vec3 light_pos = glm::vec3(1.0, 1.0, 1.0);
-	glUniform3fv(light_loc, 1, glm::value_ptr(light_pos));
+	glm::vec3 light_dir = glm::vec3(camera->view_matrix *
+				glm::vec4(1.0, -1.0, -1.0, 0.0));
+	glUniform3fv(light_loc, 1, glm::value_ptr(light_dir));
 	//glUniform1f(time_loc, 0);
 	glUniform1i(texture_loc, 0);
 

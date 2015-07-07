@@ -2,7 +2,8 @@
 
 using namespace std;
 
-Mesh::Mesh() {
+template <typename Vertex>
+Mesh<Vertex>::Mesh() {
 	init_lib();
 	model_matrix = glm::mat4(1.0);
 	shader = NULL;
@@ -10,13 +11,15 @@ Mesh::Mesh() {
 	glGenBuffers(1, &vbo);
 }
 
-Mesh::~Mesh() {
+template <typename Vertex>
+Mesh<Vertex>::~Mesh() {
 	glDeleteBuffers(1, &vbo);
 	glDeleteBuffers(ibo.size(), ibo.data());
 	glDeleteVertexArrays(1, &vao);
 }
 
-void Mesh::setup_shader(Shader *shader, const char *model_view_matrix_name,
+template <typename Vertex>
+void Mesh<Vertex>::setup_shader(Shader *shader, const char *model_view_matrix_name,
 			const char *model_view_projection_matrix_name,
 			const char *normal_matrix_name, glm::mat4 *view_matrix,
 			glm::mat4 *projection_matrix) {
@@ -29,7 +32,8 @@ void Mesh::setup_shader(Shader *shader, const char *model_view_matrix_name,
 	this->projection_matrix = projection_matrix;
 }
 
-void Mesh::attach_vertex_array(const std::vector<Vertex> *vertexdata) {
+template <typename Vertex>
+void Mesh<Vertex>::attach_vertex_array(const std::vector<Vertex> *vertexdata) {
 	glBindVertexArray(vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -39,7 +43,8 @@ void Mesh::attach_vertex_array(const std::vector<Vertex> *vertexdata) {
 	glBindVertexArray(0);
 }
 
-void Mesh::set_vertex_attribute(const char *attrib_name, GLint size,
+template <typename Vertex>
+void Mesh<Vertex>::set_vertex_attribute(const char *attrib_name, GLint size,
 				GLenum type, GLsizei stride,
 				const GLvoid *pointer) {
 	if(!shader) {
@@ -47,6 +52,7 @@ void Mesh::set_vertex_attribute(const char *attrib_name, GLint size,
 		return;
 	}
 	glBindVertexArray(vao);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
 	int loc = glGetAttribLocation(shader->shader, attrib_name);
 	if(loc == -1) {
@@ -60,7 +66,8 @@ void Mesh::set_vertex_attribute(const char *attrib_name, GLint size,
 	glBindVertexArray(0);
 }
 
-void Mesh::attach_index_array(const std::vector<unsigned short> *indices) {
+template <typename Vertex>
+void Mesh<Vertex>::attach_index_array(const std::vector<unsigned short> *indices) {
 	num_indices.push_back(indices->size());
 	
 	GLuint index;
@@ -74,19 +81,23 @@ void Mesh::attach_index_array(const std::vector<unsigned short> *indices) {
 	ibo.push_back(index);
 }
 
-void Mesh::draw(GLenum mode) {
+template <typename Vertex>
+void Mesh<Vertex>::draw(GLenum mode) {
 	draw(mode, 0, NULL);
 }
 
-void Mesh::draw(GLenum mode, unsigned int index_buffer) {
+template <typename Vertex>
+void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer) {
 	draw(mode, index_buffer, NULL);
 }
 
-void Mesh::draw(GLenum mode, glm::mat4 *model_matrix) {
+template <typename Vertex>
+void Mesh<Vertex>::draw(GLenum mode, glm::mat4 *model_matrix) {
 	draw(mode, 0, model_matrix);
 }
 
-void Mesh::draw(GLenum mode, unsigned int index_buffer,
+template <typename Vertex>
+void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 		glm::mat4 *model_matrix) {
 	if(!shader) {
 		std::cerr << "Error: No shader specified" << std::endl;
@@ -118,3 +129,5 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 	glBindVertexArray(0);
 	shader->unbind();
 }
+
+template class Mesh<sgltk::Vertex>;
