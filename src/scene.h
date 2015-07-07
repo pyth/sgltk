@@ -14,7 +14,7 @@ class Scene {
 	Assimp::Importer importer;
 	const aiScene *scene;
 	Shader *shader;
-	std::vector<Mesh*> meshes;
+	std::vector<Mesh<> *> meshes;
 	std::vector<Texture> textures;
 
 	const char *model_view_matrix_name;
@@ -23,8 +23,8 @@ class Scene {
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
 
-	void traverse_nodes(aiNode *start_node);
-	void create_mesh(aiMesh *mesh);
+	void traverse_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
+	void create_mesh(aiMesh *mesh, aiMatrix4x4 *paren_trafo);
 	void ai_to_glm_mat4(aiMatrix4x4 *in, glm::mat4 &out);
 	public:
 		glm::mat4 model_matrix;
