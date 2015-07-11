@@ -1,9 +1,6 @@
 #include "scene.h"
 
 Scene::Scene(const char *path, Shader *shader,
-	     const char *model_view_matrix_name,
-	     const char *model_view_projection_matrix_name,
-	     const char *normal_matrix_name,
 	     glm::mat4 *view_matrix,
 	     glm::mat4 *projection_matrix) {
 
@@ -56,7 +53,6 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	std::vector<unsigned short> indices;
 	aiColor4D color(0.0f, 0.0f, 0.0f, 0.0f);
 	aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
-	mat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
 
 	for(unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		sgltk::Vertex vert_tmp;
@@ -103,10 +99,12 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 		}
 
 		//color
-		vert_tmp.color[0] = color.r;
-		vert_tmp.color[1] = color.g;
-		vert_tmp.color[2] = color.b;
-		vert_tmp.color[3] = color.a;
+		if(mesh->HasVertexColors(0)) {
+			vert_tmp.color[0] = mesh->mColors[0][i].r;
+			vert_tmp.color[1] = mesh->mColors[0][i].g;
+			vert_tmp.color[2] = mesh->mColors[0][i].b;
+			vert_tmp.color[3] = mesh->mColors[0][i].a;
+		}
 
 		vertices.push_back(vert_tmp);
 	}
@@ -123,11 +121,43 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	mesh_tmp->attach_index_array(&indices);
 	ai_to_glm_mat4(trafo, mesh_tmp->model_matrix);
 
-	mesh_tmp->setup_shader(shader,
-			       model_view_matrix_name,
-			       model_view_projection_matrix_name,
-			       normal_matrix_name, view_matrix,
-			       projection_matrix);
+	mesh_tmp->setup_shader(shader);
+	mesh_tmp->setup_camera(view_matrix, projection_matrix);
+
+	//wireframe or solid?
+	mesh_tmp->wireframe = false;
+	mat->Get(AI_MATKEY_ENABLE_WIREFRAME, mesh_tmp->wireframe);
+
+	//can we use back face culling?
+	mesh_tmp->twosided = true;
+	mat->Get(AI_MATKEY_TWOSIDED, mesh_tmp->twosided);
+
+	//ambient material color
+	mat->Get(AI_MATKEY_COLOR_AMBIENT, color);
+	mesh_tmp->material.color_ambient.x = color[0];
+	mesh_tmp->material.color_ambient.y = color[1];
+	mesh_tmp->material.color_ambient.z = color[2];
+	mesh_tmp->material.color_ambient.w = color[3];
+
+	//diffuse material color
+	mat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+	mesh_tmp->material.color_diffuse.x = color[0];
+	mesh_tmp->material.color_diffuse.y = color[1];
+	mesh_tmp->material.color_diffuse.z = color[2];
+	mesh_tmp->material.color_diffuse.w = color[3];
+
+	//specular material color
+	mat->Get(AI_MATKEY_COLOR_SPECULAR, color);
+	mesh_tmp->material.color_specular.x = color[0];
+	mesh_tmp->material.color_specular.y = color[1];
+	mesh_tmp->material.color_specular.z = color[2];
+	mesh_tmp->material.color_specular.w = color[3];
+	mesh_tmp->material.shininess = 0.0;
+	mat->Get(AI_MATKEY_SHININESS, mesh_tmp->material.shininess);
+	mesh_tmp->material.shininess_strength = 1.0;
+	mat->Get(AI_MATKEY_SHININESS_STRENGTH,
+		mesh_tmp->material.shininess_strength);
+
 	meshes.push_back(mesh_tmp);
 }
 

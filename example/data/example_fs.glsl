@@ -1,9 +1,16 @@
-#version 150
+#version 130
+
+struct Material {
+	vec4 color_ambient;
+	vec4 color_diffuse;
+	vec4 color_specular;
+	float shininess;
+	float shininess_strength;
+};
 
 in vec4 pos_eye;
 in vec3 norm_eye;
 
-in vec4 col;
 in vec3 tc;
 
 out vec4 color;
@@ -11,6 +18,7 @@ out vec4 color;
 uniform float time;
 uniform vec3 light_dir;
 uniform sampler2D Texture;
+uniform Material material;
 
 float rand(vec2 v) {
 	return fract(sin(dot(v, vec2(42.9456, 84.850))) * 50845.8745);
@@ -27,9 +35,27 @@ void main() {
 	float VR = max(0.0, dot(camera, reflection));
 	float LN = max(0.0, dot(norm, light));
 
-	vec4 amb = vec4(0.2 * col.xyz, col.w);
-	vec4 diff = vec4(LN * col.xyz, col.w);
-	vec4 spec = vec4(1,1,1,0) * 0.5 * pow(VR, 20.0);
+	vec4 amb;
+	vec4 diff;
+	vec4 spec;
 
-	color = max(amb, diff) + spec;
+	if(material.color_ambient != vec4(0,0,0,1))
+		amb = vec4(0.2 * material.color_ambient.xyz,
+				material.color_ambient.w);
+	else
+		amb = vec4(0.2 * material.color_diffuse.xyz,
+				material.color_diffuse.w);
+
+	diff = vec4(LN * material.color_diffuse.xyz,
+			material.color_diffuse.w);
+
+	//if(material.color_specular != vec4(0))
+		spec = material.color_specular *
+				material.shininess_strength *
+				pow(VR, material.shininess);
+	//else
+	//	spec = material.color_diffuse * 0.7 * pow(VR, 10);
+
+	color = amb + diff + spec;
+	//color = spec;
 }

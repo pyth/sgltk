@@ -80,23 +80,24 @@ void init() {
 	mesh = new Mesh<>();
 	mesh->attach_vertex_array(&vert);
 	mesh->attach_index_array(&ind);
-	mesh->setup_shader(shader, "MV", "MVP", "NM", &camera->view_matrix,
-			 &camera->projection_matrix);
+	mesh->setup_shader(shader);
+	mesh->setup_camera(&camera->view_matrix,
+			   &camera->projection_matrix);
 	mesh->set_vertex_attribute("pos", 4, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, position));
 	mesh->set_vertex_attribute("norm", 3, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, normal));
 	mesh->set_vertex_attribute("tc_in", 3, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, tex_coord));
+	mesh->set_vertex_attribute("col_in", 4, GL_FLOAT, sizeof(sgltk::Vertex),
+				   (void*)offsetof(sgltk::Vertex, color));
 
-	scene = new Scene("data/Spikey.dae", shader, "MV", "MVP", "NM",
-			  &camera->view_matrix, &camera->projection_matrix);
+	scene = new Scene("data/Spikey.dae", shader, &camera->view_matrix,
+			  &camera->projection_matrix);
 	scene->set_vertex_attribute("pos", 4, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, position));
 	scene->set_vertex_attribute("norm", 3, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, normal));
 	scene->set_vertex_attribute("tc_in", 3, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, tex_coord));
-	scene->set_vertex_attribute("col_in", 4, GL_FLOAT, sizeof(sgltk::Vertex),
-				   (void*)offsetof(sgltk::Vertex, color));
 }

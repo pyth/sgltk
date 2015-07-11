@@ -40,9 +40,6 @@ class Scene {
 		 * @param projection_matrix The projection matrix
 		 */
 		Scene(const char *path, Shader *shader,
-		      const char *model_view_matrix_name,
-		      const char *model_view_projection_matrix_name,
-		      const char *normal_matrix_name,
 		      glm::mat4 *view_matrix,
 		      glm::mat4 *projection_matrix);
 		~Scene();

@@ -3,8 +3,10 @@
 
 #include "core.h"
 #include "shader.h"
+#include "texture.h"
 
 namespace sgltk {
+#pragma pack(push, 0)
 	/**
 	 * @brief A basic vertex structure 
 	 */
@@ -107,6 +109,19 @@ namespace sgltk {
 			tex_coord = tc;
 		};
 	} Vertex;
+
+	/**
+	 * @brief The material used by the mesh
+	 */
+	typedef struct Material {
+		float shininess;
+		float shininess_strength;
+		glm::vec4 color_ambient;
+		glm::vec4 color_diffuse;
+		glm::vec4 color_specular;
+	} Material;
+
+#pragma pack(pop)
 }
 
 /**
@@ -116,20 +131,50 @@ namespace sgltk {
 template <typename Vertex = sgltk::Vertex>
 class Mesh {
 	Shader *shader;
+
+	const char *ambient_color_name;
+	const char *diffuse_color_name;
+	const char *specular_color_name;
+	const char *shininess_name;
+	const char *shininess_strength_name;
+
 	const char *model_view_matrix_name;
 	const char *model_view_projection_matrix_name;
 	const char *normal_matrix_name;
+
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
+
 	GLuint vao;
 	GLuint vbo;
 	std::vector<GLuint> ibo;
 	std::vector<int> num_indices;
+
+	void compute_bounding_box(const std::vector<Vertex> *vertexdata);
 public:
+	/**
+	 * @brief The bounding box
+	 */
+	std::vector<glm::vec3> bounding_box;
 	/**
 	 * @brief The model matrix
 	 */
 	glm::mat4 model_matrix;
+	/**
+	 * @brief The material of the mesh
+	 */
+	sgltk::Material material;
+	/**
+	 * @brief Indicates that the mesh should be drawn as a wireframe
+	 */
+	bool wireframe;
+	/**
+	 * @brief Indicates that the mesh should not be drawn using
+	 * 	  back face culling
+	 */
+	bool twosided;
+	//std::vector<Texture> textures;
+	//std::vector<float> texture_blend;
 
 	Mesh();
 	~Mesh();
@@ -137,20 +182,41 @@ public:
 	/**
 	 * @brief Specifies the shader to use to render the mesh
 	 * @param shader The shader to be used to render the mesh
+	 */
+	void setup_shader(Shader *shader);
+	/**
+	 * @brief Sets up the view and projection matrices that will be used
+	 * 	  by the mesh
+	 * @param view_matrix The view matrix
+	 * @param projection_matrix The projection matrix
+	 */
+	void setup_camera(glm::mat4 *view_matrix,
+			  glm::mat4 *projection_matrix);
+	/**
+	 * @brief Specifies the names of the matrices in the shader
 	 * @param model_view_matrix_name The name of the model-view
 	 *	matrixin in the shader
 	 * @param model_view_projection_matrix_name The name of the
 	 *	model-view-projection matrixin in the shader
 	 * @param normal_matrix_name The name of the normal matrix
 	 *	in the shader
-	 * @param view_matrix The view matrix
-	 * @param projection_matrix The projection matrix
 	 */
-	void setup_shader(Shader *shader,
-			  const char *model_view_matrix_name,
-			  const char *model_view_projection_matrix_name,
-			  const char *normal_matrix_name, glm::mat4 *view_matrix,
-			  glm::mat4 *projection_matrix);
+	void setup_matrices(const char *model_view_matrix_name,
+			    const char *model_view_projection_matrix_name,
+			    const char *normal_matrix_name);
+	/**
+	 * @brief Specifies the names of the material components in the shader
+	 * @param ambient_color_name The name of the ambient color component
+	 * @param diffuse_color_name The name of the diffuse color component
+	 * @param specular_color_name The name of the specular color component
+	 * @param shininess_name The name of the specular exponent
+	 * @param shininess_strength_name The name of the specular intensity
+	 */
+	void setup_material(const char *ambient_color_name,
+			    const char *diffuse_color_name,
+			    const char *specular_color_name,
+			    const char *shininess_name,
+			    const char *shininess_strength_name);
 	/**
 	 * @brief Loads vertices into memory
 	 * @param vertexdata The vertices to be loaded into memory
@@ -163,9 +229,12 @@ public:
 	 * @param type		Element type
 	 * @param stride	Memory offset between vertices
 	 * @param pointer	The offset of the attribute in the
-	 *				vertex structure
+	 * 			vertex structure
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
 	 */
-	void set_vertex_attribute(const char *attrib_name, GLint size,
+	int set_vertex_attribute(const char *attrib_name, GLint size,
 				  GLenum type, GLsizei stride,
 				  const GLvoid *pointer);
 	/**
@@ -219,6 +288,22 @@ Mesh<Vertex>::Mesh() {
 	shader = NULL;
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
+
+	model_view_matrix_name =		"matrix.model_view";
+	model_view_projection_matrix_name =	"matrix.model_view_proj";
+	normal_matrix_name =			"matrix.normal_matrix";
+
+	ambient_color_name =			"material.color_ambient";
+	diffuse_color_name =			"material.color_diffuse";
+	specular_color_name =			"material.color_specular";
+	shininess_name =			"material.shininess";
+	shininess_strength_name =		"material.shininess_strength";
+
+	material.shininess = 0.0;
+	material.shininess_strength = 1.0;
+	material.color_ambient = glm::vec4(0, 0, 0, 1);
+	material.color_diffuse = glm::vec4(0, 0, 0, 1);
+	material.color_specular = glm::vec4(0, 0, 0, 1);
 }
 
 template <typename Vertex>
@@ -229,18 +314,52 @@ Mesh<Vertex>::~Mesh() {
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::setup_shader(Shader *shader,
-				const char *model_view_matrix_name,
-				const char *model_view_projection_matrix_name,
-				const char *normal_matrix_name, glm::mat4 *view_matrix,
-				glm::mat4 *projection_matrix) {
+void Mesh<Vertex>::setup_shader(Shader *shader) {
 	this->shader = shader;
-	this->model_view_matrix_name = model_view_matrix_name;
-	this->model_view_projection_matrix_name =
-			model_view_projection_matrix_name;
-	this->normal_matrix_name = normal_matrix_name;
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::setup_camera(glm::mat4 *view_matrix,
+				glm::mat4 *projection_matrix) {
 	this->view_matrix = view_matrix;
 	this->projection_matrix = projection_matrix;
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::setup_matrices(const char *model_view_matrix_name,
+				  const char *model_view_projection_matrix_name,
+				  const char *normal_matrix_name) {
+	if(model_view_matrix_name)
+		this->model_view_matrix_name = model_view_matrix_name;
+
+	if(model_view_projection_matrix_name)
+		this->model_view_projection_matrix_name =
+			model_view_projection_matrix_name;
+
+	if(normal_matrix_name)
+		this->normal_matrix_name = normal_matrix_name;
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::setup_material(const char *ambient_color_name,
+				  const char *diffuse_color_name,
+				  const char *specular_color_name,
+				  const char *shininess_name,
+				  const char *shininess_strength_name) {
+	if(ambient_color_name)
+		this->ambient_color_name = ambient_color_name;
+
+	if(diffuse_color_name)
+		this->diffuse_color_name = diffuse_color_name;
+
+	if(specular_color_name)
+		this->specular_color_name = specular_color_name;
+
+	if(shininess_name)
+		this->shininess_name = shininess_name;
+
+	if(shininess_strength_name)
+		this->shininess_strength_name = shininess_strength_name;
 }
 
 template <typename Vertex>
@@ -255,26 +374,29 @@ void Mesh<Vertex>::attach_vertex_array(const std::vector<Vertex> *vertexdata) {
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::set_vertex_attribute(const char *attrib_name, GLint size,
+void Mesh<Vertex>::compute_bounding_box(const std::vector<Vertex> *vertexdata) {
+}
+
+template <typename Vertex>
+int Mesh<Vertex>::set_vertex_attribute(const char *attrib_name, GLint size,
 				GLenum type, GLsizei stride,
 				const GLvoid *pointer) {
 	if(!shader) {
-		std::cerr << "Error: No shader specified" << std::endl;
-		return;
+		return -1;
 	}
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
 	int loc = glGetAttribLocation(shader->shader, attrib_name);
 	if(loc == -1) {
-		std::cerr << "Unable to find the vertex attribute "
-			  << attrib_name << std::endl;
+		return -2;
 	}
 	glEnableVertexAttribArray(loc);
 	glVertexAttribPointer(loc, size, type, GL_FALSE, stride,
 			      (void*)pointer);
 
 	glBindVertexArray(0);
+	return 0;
 }
 
 template <typename Vertex>
@@ -314,13 +436,7 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 		std::cerr << "Error: No shader specified" << std::endl;
 		return;
 	}
-	shader->bind();
-	int MV_loc = glGetUniformLocation(shader->shader,
-					  model_view_matrix_name);
-	int NM_loc = glGetUniformLocation(shader->shader,
-					  normal_matrix_name);
-	int MVP_loc = glGetUniformLocation(shader->shader,
-					   model_view_projection_matrix_name);
+
 	glm::mat4 M;
 	glm::mat4 MV;
 	glm::mat3 NM;
@@ -332,9 +448,37 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 	MV = (*view_matrix) * M;
 	NM = glm::mat3(glm::transpose(glm::inverse(MV)));
 	glm::mat4 MVP = (*projection_matrix) * MV;
-	glUniformMatrix4fv(MV_loc, 1, false, glm::value_ptr(MV));
-	glUniformMatrix3fv(NM_loc, 1, false, glm::value_ptr(NM));
-	glUniformMatrix4fv(MVP_loc, 1, false, glm::value_ptr(MVP));
+
+	shader->bind();
+	int loc = glGetUniformLocation(shader->shader,
+					  model_view_matrix_name);
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MV));
+
+	loc = glGetUniformLocation(shader->shader,
+					  normal_matrix_name);
+	glUniformMatrix3fv(loc, 1, false, glm::value_ptr(NM));
+
+	loc = glGetUniformLocation(shader->shader,
+					   model_view_projection_matrix_name);
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MVP));
+
+	loc = glGetUniformLocation(shader->shader, ambient_color_name);
+	glUniform4f(loc, material.color_ambient.x, material.color_ambient.y,
+		    material.color_ambient.z, material.color_ambient.w);
+
+	loc = glGetUniformLocation(shader->shader, diffuse_color_name);
+	glUniform4f(loc, material.color_diffuse.x, material.color_diffuse.y,
+		    material.color_diffuse.z, material.color_diffuse.w);
+
+	loc = glGetUniformLocation(shader->shader, specular_color_name);
+	glUniform4f(loc, material.color_specular.x, material.color_specular.y,
+		    material.color_specular.z, material.color_specular.w);
+
+	loc = glGetUniformLocation(shader->shader, shininess_name);
+	glUniform1f(loc, material.shininess);
+
+	loc = glGetUniformLocation(shader->shader, shininess_strength_name);
+	glUniform1f(loc, material.shininess_strength);
 
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
