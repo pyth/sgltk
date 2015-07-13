@@ -5,16 +5,18 @@ SGLTK_HEADER_FILES =	core.h \
 			mesh.h \
 			audio.h \
 			timer.h \
+			scene.h \
 			camera.h \
 			shader.h \
-			particle.h \
-			texture.h
+			texture.h \
+			particle.h
 
 libsgltk_la_SOURCES =	core.h core.cpp\
 			app.h app.cpp \
-			mesh.h mesh.cpp \
+			mesh.h\
 			audio.h audio.cpp \
 			timer.h timer.cpp \
+			scene.h scene.cpp \
 			camera.h camera.cpp \
 			shader.h shader.cpp \
 			particle.h particle.cpp \
