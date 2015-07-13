@@ -1,50 +1,41 @@
 #include "gui.h"
 
 GUI::GUI(const char *title, int res_x, int res_y, int offset_x,
-	 int offset_y, int gl_maj, int gl_min, unsigned int flags):App(title,
-	 res_x, res_y, offset_x, offset_y, gl_maj, gl_min, flags) {
+	 int offset_y, int gl_maj, int gl_min, unsigned int flags)
+	 :App(title, res_x, res_y, offset_x, offset_y, gl_maj, gl_min, flags) {
 
+	wireframe = false;
 	set_relative_mode(true);
 	enable_vsync(true);
 }
 
-void GUI::update_cam() {
-	V = glm::lookAt(glm::vec3(camera->pos),
-			glm::vec3(camera->pos + camera->dir),
-			glm::vec3(camera->up));
-}
-
 void GUI::display() {
 	glClearColor(0,0,0,1);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClearDepth(1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	shader->bind();
 
-	int MVP_loc = glGetUniformLocation(shader->shader, "MVP");
-	int MV_loc = glGetUniformLocation(shader->shader, "MV");
-	int NM_loc = glGetUniformLocation(shader->shader,
-					  "NormalMatrix");
-	int LS_loc = glGetUniformLocation(shader->shader,
-					  "LightSource");
-	int location_Texture = glGetUniformLocation(shader->shader,
+	int light_loc = glGetUniformLocation(shader->shader,
+					  "light_dir");
+	int texture_loc = glGetUniformLocation(shader->shader,
 						    "Texture");
 	//int time_loc = glGetUniformLocation(shader->shader, "time");
 
-	glm::mat4 MV = V * mesh->trafo;
-	glm::mat4 MVP = P * MV;
-	glm::mat3 NM = glm::transpose(glm::inverse(glm::mat3(MV)));
-	glm::vec4 LS = glm::vec4(1, 1, 1, 1);
-	glUniformMatrix4fv(MVP_loc, 1, false, glm::value_ptr(MVP));
-	glUniformMatrix4fv(MV_loc, 1, false, glm::value_ptr(MV));
-	glUniformMatrix3fv(NM_loc, 1, false, glm::value_ptr(NM));
-	glUniform4fv(LS_loc, 1, glm::value_ptr(LS));
+	glm::vec3 light_dir = glm::vec3(camera->view_matrix *
+				glm::vec4(1.0, -1.0, -1.0, 0.0));
+	glUniform3fv(light_loc, 1, glm::value_ptr(light_dir));
 	//glUniform1f(time_loc, 0);
-	glUniform1i(location_Texture, 0);
+	glUniform1i(texture_loc, 0);
 
-	glActiveTexture(GL_TEXTURE0);
 	tex->bind();
 
-	mesh->draw(GL_TRIANGLE_STRIP);
+	/*for(int i = -2; i < 3; i+=2) {
+		glm::mat4 trafo = glm::translate(glm::vec3((float)i,0.0f,0.0f));
+		mesh->draw(GL_TRIANGLE_STRIP, &trafo);
+	}*/
+	//scene->model_matrix = glm::mat4(1.0);
+	scene->draw();
 	shader->unbind();
 }
 
@@ -71,21 +62,30 @@ void GUI::handle_keyboard() {
 		camera->move_up(-1.0/10);
 	}
 	if(key_pressed("Q")) {
-		camera->roll(-0.01);
+		camera->roll(-0.1);
 	}
 	if(key_pressed("E")) {
-		camera->roll(0.01);
+		camera->roll(0.1);
 	}
 	if(key_pressed("P")) {
 		shader->recompile();
 	}
-	update_cam();
+	if(key_pressed("L")) {
+		if(wireframe) {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			wireframe = false;
+		} else {
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			wireframe = true;
+		}
+	}
+	camera->update_view_matrix();
 }
 
 void GUI::handle_mouse_motion(int x, int y) {
 	camera->yaw(-glm::atan(x)/100);
 	camera->pitch(-glm::atan(y)/100);
-	update_cam();
+	camera->update_view_matrix();
 }
 
 void GUI::handle_mouse_wheel(int x, int y) {

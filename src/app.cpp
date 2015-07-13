@@ -46,11 +46,16 @@ void App::set_relative_mode(bool on) {
 }
 
 bool App::enable_vsync(bool on) {
+	bool ret;
 	if(on) {
-		return SDL_GL_SetSwapInterval(1);
+		ret = SDL_GL_SetSwapInterval(-1);
+		if(!ret) {
+			ret = SDL_GL_SetSwapInterval(1);
+		}
 	} else {
-		return SDL_GL_SetSwapInterval(0);
+		ret = SDL_GL_SetSwapInterval(0);
 	}
+	return ret;
 }
 
 void App::poll_events() {

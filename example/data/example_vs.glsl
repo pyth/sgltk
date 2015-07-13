@@ -1,17 +1,26 @@
-#version 150
+#version 130
+
+struct Matrix {
+	mat4 model_view;
+	mat4 model_view_proj;
+	mat3 normal_matrix;
+};
 
 in vec4 pos;
-in vec4 norm;
-in vec2 tc_in;
+in vec3 norm;
+in vec3 tc_in;
 
-out vec2 tc;
+out vec4 pos_eye;
+out vec3 norm_eye;
+out vec3 tc;
 
-uniform mat4 MVP;
-uniform mat4 MV;
-uniform mat3 NormalMatrix;
-uniform vec4 LigthSource;
+uniform Matrix matrix;
 
 void main() {
-	gl_Position = MVP * pos;
+	pos_eye = matrix.model_view * pos;
+	norm_eye = matrix.normal_matrix * norm;
+
 	tc = tc_in;
+
+	gl_Position = matrix.model_view_proj * pos;
 }
