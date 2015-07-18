@@ -8,7 +8,8 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 
 	running = true;
 	mouse_relative = false;
-	keys = SDL_GetKeyboardState(NULL);
+	keys = SDL_GetKeyboardState(&num_keys);
+	keys_held = new bool[num_keys];
 
 	SDL_DisableScreenSaver();
 
@@ -31,6 +32,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 }
 
 App::~App() {
+	delete keys_held;
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
 	quit_lib();
@@ -67,11 +69,21 @@ void App::poll_events() {
 		case SDL_QUIT:
 			running = false;
 			break;
+		case SDL_WINDOWEVENT:
+			if(event.window.event == SDL_WINDOWEVENT_RESIZED) {
+				width = event.window.data1;
+				height = event.window.data2;
+				handle_resize();
+			}
+			break;
 		case SDL_KEYDOWN:
 		case SDL_KEYUP:
-			keys = SDL_GetKeyboardState(NULL);
+			keys = SDL_GetKeyboardState(&num_keys);
+			keys_held[SDL_GetScancodeFromKey(event.key.keysym.sym)] =
+				(event.key.repeat != 0);
 			break;
 		case SDL_MOUSEWHEEL:
+			handle_mouse_wheel(event.wheel.x, event.wheel.y);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
@@ -108,6 +120,13 @@ bool App::key_pressed(const char *key) {
 	return false;
 }
 
+bool App::key_held(const char *key) {
+	if(keys_held[SDL_GetScancodeFromName(key)]) {
+		return true;
+	}
+	return false;
+}
+
 void App::handle_mouse_motion(int x, int y) {
 }
 
@@ -116,6 +135,9 @@ void App::handle_mouse_wheel(int x, int y) {
 
 void App::handle_mouse_button(int x, int y, MOUSE_BUTTON button, bool down,
 			      int clicks) {
+}
+
+void App::handle_resize() {
 }
 
 void App::display() {
