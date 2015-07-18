@@ -76,8 +76,8 @@ bool init_lib() {
 		return true;
 
 	if(init_sdl())
-		if(init_ttf())
-			if(init_img())
+		if(init_img())
+			if(init_ttf())
 				if(init_mixer()) {
 					initialized = true;
 					return true;
@@ -95,10 +95,14 @@ void quit_lib() {
 	quit_sdl();
 }
 
-bool check_error(const char *file, int line) {
+bool _check_error(const char *message, const char *file, int line) {
 	GLenum err = glGetError();
-	if(err != GL_NO_ERROR) {
-		cout<<file<<" "<<line<<" "<<gluErrorString(err)<<endl;
+	while(err != GL_NO_ERROR) {
+		cout << file << " - " << line << ": " << gluErrorString(err);
+		if(strlen(message) > 1)
+			cout << " - " << message;
+		cout << endl;
+		err = glGetError();
 	}
 }
 

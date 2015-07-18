@@ -23,7 +23,9 @@ enum MOUSE_BUTTON {
 class App {
 	bool running;
 	SDL_GLContext context;
+	int num_keys;
 	const Uint8 *keys;
+	bool *keys_held;
 	bool mouse_relative;
 public:
 	/**
@@ -91,6 +93,12 @@ public:
 	 */
 	bool key_pressed(const char *key);
 	/**
+	 * @brief Checks if the key is being held down
+	 * @param key The key to check
+	 * @return Retruns true if the key is being held down, false otherwise
+	 */
+	bool key_held(const char *key);
+	/**
 	 * @brief This function is called by poll_events() to handle
 	 *	  mouse motion. This function should be overriden
 	 * @param x The x coordinate where the event occured or the relative mouse
@@ -117,6 +125,11 @@ public:
 	 */
 	virtual void handle_mouse_button(int x, int y, MOUSE_BUTTON button,
 					 bool down, int clicks);
+	/**
+	 * @brief This function is called by run when the window is resized. 
+	 * 	  This function should be overriden
+	 */
+	virtual void handle_resize();
 	/**
 	 * @brief This function is called by run() to draw a frame.
 	 * 	  This function should be overriden
