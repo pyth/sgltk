@@ -25,7 +25,6 @@ Scene::Scene(const char *path, Shader *shader,
 	this->view_matrix = view_matrix;
 	this->projection_matrix = projection_matrix;
 
-	ai_to_glm_mat4(&scene->mRootNode->mTransformation, model_matrix);
 	traverse_nodes(scene->mRootNode, NULL);
 }
 
@@ -173,6 +172,15 @@ void Scene::set_vertex_attribute(const char *attrib_name, GLint size,
 void Scene::draw() {
 	for(unsigned int i = 0; i < meshes.size(); i++) {
 		meshes[i]->draw(GL_TRIANGLES);
+	}
+}
+
+void Scene::draw(glm::mat4 *model_matrix) {
+	for(unsigned int i = 0; i < meshes.size(); i++) {
+		glm::mat4 matrix_tmp = meshes[i]->model_matrix;
+		if(model_matrix)
+			matrix_tmp = *model_matrix * matrix_tmp;
+		meshes[i]->draw(GL_TRIANGLES, &matrix_tmp);
 	}
 }
 
