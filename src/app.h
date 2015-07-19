@@ -23,9 +23,7 @@ enum MOUSE_BUTTON {
 class App {
 	bool running;
 	SDL_GLContext context;
-	int num_keys;
 	const Uint8 *keys;
-	bool *keys_held;
 	bool mouse_relative;
 public:
 	/**
@@ -92,12 +90,6 @@ public:
 	 * @return Retruns true if the key is pressed, false otherwise
 	 */
 	bool key_pressed(const char *key);
-	/**
-	 * @brief Checks if the key is being held down
-	 * @param key The key to check
-	 * @return Retruns true if the key is being held down, false otherwise
-	 */
-	bool key_held(const char *key);
 	/**
 	 * @brief This function is called by poll_events() to handle
 	 *	  mouse motion. This function should be overriden

@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
 	app = new GUI("Test", 1024, 768, 100, 100, 3, 0, 0);
 	//GL calls should be used after the App class initializes GLEW
 	init();
-	app->run(60);
+	app->run();
 	return 0;
 }
 

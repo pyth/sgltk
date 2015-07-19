@@ -36,11 +36,13 @@ extern Camera *camera;
 
 class GUI : public App {
 	bool wireframe;
+	bool wireframe_change;
 public:
 	GUI(const char *title, int res_x, int res_y, int offset_x,
 	    int offset_y, int gl_maj, int gl_min,
 	    unsigned int flags);
 
+	void handle_resize();
 	void handle_keyboard();
 	void handle_mouse_motion(int x, int y);
 	void handle_mouse_wheel(int x, int y);

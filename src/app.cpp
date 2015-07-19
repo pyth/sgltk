@@ -8,8 +8,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 
 	running = true;
 	mouse_relative = false;
-	keys = SDL_GetKeyboardState(&num_keys);
-	keys_held = new bool[num_keys];
+	keys = SDL_GetKeyboardState(NULL);
 
 	SDL_DisableScreenSaver();
 
@@ -17,6 +16,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl_min);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
 	width = res_x;
 	height = res_y;
@@ -32,7 +32,6 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 }
 
 App::~App() {
-	delete keys_held;
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
 	quit_lib();
@@ -78,9 +77,6 @@ void App::poll_events() {
 			break;
 		case SDL_KEYDOWN:
 		case SDL_KEYUP:
-			keys = SDL_GetKeyboardState(&num_keys);
-			keys_held[SDL_GetScancodeFromKey(event.key.keysym.sym)] =
-				(event.key.repeat != 0);
 			break;
 		case SDL_MOUSEWHEEL:
 			handle_mouse_wheel(event.wheel.x, event.wheel.y);
@@ -115,13 +111,6 @@ void App::handle_keyboard() {
 
 bool App::key_pressed(const char *key) {
 	if(keys[SDL_GetScancodeFromName(key)]) {
-		return true;
-	}
-	return false;
-}
-
-bool App::key_held(const char *key) {
-	if(keys_held[SDL_GetScancodeFromName(key)]) {
 		return true;
 	}
 	return false;

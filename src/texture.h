@@ -116,6 +116,10 @@ public:
 
 	Texture();
 	/**
+	 * @param path The path to the image file
+	 */
+	Texture(const char *path);
+	/**
 	 * @param image The image to use as the teture
 	 */
 	Texture(Image *image);
@@ -131,9 +135,19 @@ public:
 	 */
 	void bind();
 	/**
+	 * @brief Bind the texture to be used by the shader
+	 * @param texture_unit The texture unit to bind the texture to
+	 */
+	void bind(unsigned int texture_unit);
+	/**
 	 * @brief Unbind the texture
 	 */
 	void unbind();
+	/**
+	 * @brief Unbind the texture
+	 * @param texture_unit The texture unit to bind the texture to
+	 */
+	void unbind(unsigned int texture_unit);
 };
 
 #endif

@@ -60,6 +60,12 @@ class Scene {
 		 * @brief Draws all associated meshes with the index buffer 0.
 		 */
 		void draw();
+		/**
+		 * @brief Draws all associated meshes with the index buffer 0.
+		 * @param model_matrix The model matrix to use
+		 *	  (NULL to use the model_matrix member)
+		 */
+		void draw(glm::mat4 *model_matrix);
 };
 
 #endif

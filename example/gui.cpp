@@ -14,6 +14,12 @@ void GUI::display() {
 	glClearDepth(1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	if(wireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	} else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+
 	shader->bind();
 
 	int light_loc = glGetUniformLocation(shader->shader,
@@ -35,8 +41,17 @@ void GUI::display() {
 		mesh->draw(GL_TRIANGLE_STRIP, &trafo);
 	}*/
 	//scene->model_matrix = glm::mat4(1.0);
-	scene->draw();
+	for(int i = -2; i < 3; i+=2) {
+		glm::mat4 trafo = glm::translate(glm::vec3((float)i * 2, 0.0f, 0.0f));
+		scene->draw(&trafo);
+	}
 	shader->unbind();
+	check_gl_error("display");
+}
+
+void GUI::handle_resize() {
+	glViewport(0, 0, width, height);
+	camera->update_projection_matrix(width, height);
 }
 
 void GUI::handle_keyboard() {
@@ -70,14 +85,11 @@ void GUI::handle_keyboard() {
 	if(key_pressed("P")) {
 		shader->recompile();
 	}
-	if(key_pressed("L")) {
-		if(wireframe) {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-			wireframe = false;
-		} else {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			wireframe = true;
-		}
+	if(key_pressed("L") && !wireframe_change) {
+		wireframe_change = true;
+		wireframe = !wireframe;
+	} else if(!key_pressed("L")) {
+		wireframe_change = false;
 	}
 	camera->update_view_matrix();
 }
