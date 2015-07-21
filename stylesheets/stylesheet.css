@@ -12,7 +12,7 @@ body {
 
 .container {
   width: 90%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -46,7 +46,7 @@ header {
 header h1 {
   font-size: 30px;
   line-height: 1.5;
-  margin: 0 0 0 -40px;
+  margin: 0 0 0 -10px;
   font-weight: bold;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   color: #b5e853;
