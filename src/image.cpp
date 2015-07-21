@@ -4,6 +4,7 @@ using namespace std;
 
 Image::Image() {
 	init_lib();
+	path = NULL;
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -15,6 +16,7 @@ Image::Image(const char *filename) {
 }
 
 Image::~Image() {
+	delete[] path;
 	SDL_FreeSurface(image);
 }
 
@@ -49,21 +51,29 @@ bool Image::create_empty(int width, int height) {
 }
 
 bool Image::load(const char *filename) {
-	if(filename == NULL) {
+	if(!filename) {
+		path = NULL;
+		width = 0;
+		height = 0;
 		return false;
 	}
 
-	if(image) {
+	if(image)
 		SDL_FreeSurface(image);
-		image = NULL;
-	}
 
 	image = IMG_Load(filename);
 	if(!image) {
 		cerr << "Unable to load image: " << filename << " - "
 		     << IMG_GetError() << endl;
+		path = NULL;
+		width = 0;
+		height = 0;
 		return false;
 	}
+
+	size_t len = strlen(filename);
+	path = new char[len + 1];
+	strncpy(path, filename, len);
 	width = image->w;
 	height = image->h;
 

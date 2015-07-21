@@ -10,6 +10,7 @@ using namespace std;
  * @brief Manages images
  */
 class Image {
+	char *path;
 public:
 	/**
 	 * @brief The width of the image surface
@@ -109,6 +110,10 @@ public:
  */
 class Texture {
 public:
+	/**
+	 * @brief Contains all textures
+	 */
+	static std::map<const char *, Texture *> textures;
 	/**
 	 * @brief The texture name
 	 */
