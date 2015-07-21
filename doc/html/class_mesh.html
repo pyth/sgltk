@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.9.1"/>
-<title>SGLTK: Mesh Class Reference</title>
+<title>SGLTK: Mesh&lt; Vertex &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,7 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_mesh-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">Mesh Class Reference</div>  </div>
+<div class="title">Mesh&lt; Vertex &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -95,54 +95,89 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="class_mesh.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="mesh_8h_source.html">mesh.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for Mesh&lt; Vertex &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_mesh__coll__graph.png" border="0" usemap="#_mesh_3_01_vertex_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="_mesh_3_01_vertex_01_4_coll__map" id="_mesh_3_01_vertex_01_4_coll__map">
+<area shape="rect" id="node2" href="structsgltk_1_1_material.html" title="The material used by the mesh. " alt="" coords="11,5,115,32"/></map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aff5a9f6a6a1de8deed25fa15271a6ce9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#aff5a9f6a6a1de8deed25fa15271a6ce9">use_shader</a> (<a class="el" href="class_shader.html">Shader</a> *shader)</td></tr>
-<tr class="memdesc:aff5a9f6a6a1de8deed25fa15271a6ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the shader to use to render the mesh.  <a href="#aff5a9f6a6a1de8deed25fa15271a6ce9">More...</a><br /></td></tr>
-<tr class="separator:aff5a9f6a6a1de8deed25fa15271a6ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ae5c9e7837574f394d8379247eb5c34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a0ae5c9e7837574f394d8379247eb5c34">attach_vertex_array</a> (const std::vector&lt; <a class="el" href="struct_vertex.html">Vertex</a> &gt; *vertexdata)</td></tr>
-<tr class="memdesc:a0ae5c9e7837574f394d8379247eb5c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads vertices into memory.  <a href="#a0ae5c9e7837574f394d8379247eb5c34">More...</a><br /></td></tr>
-<tr class="separator:a0ae5c9e7837574f394d8379247eb5c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb03c8d939d746b1e7c35695a1216ee6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#acb03c8d939d746b1e7c35695a1216ee6">set_vertex_attribute</a> (const char *attrib_name, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)</td></tr>
-<tr class="memdesc:acb03c8d939d746b1e7c35695a1216ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets pointers to vertex attribures.  <a href="#acb03c8d939d746b1e7c35695a1216ee6">More...</a><br /></td></tr>
-<tr class="separator:acb03c8d939d746b1e7c35695a1216ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc550233f9c7cbc05907ca4473ac45d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#abc550233f9c7cbc05907ca4473ac45d6">attach_index_array</a> (const std::vector&lt; unsigned short &gt; *indices)</td></tr>
-<tr class="memdesc:abc550233f9c7cbc05907ca4473ac45d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#abc550233f9c7cbc05907ca4473ac45d6">More...</a><br /></td></tr>
-<tr class="separator:abc550233f9c7cbc05907ca4473ac45d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a687fe6ca18e31dc576d719b71b6a6033"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a687fe6ca18e31dc576d719b71b6a6033">draw</a> (GLenum mode)</td></tr>
-<tr class="memdesc:a687fe6ca18e31dc576d719b71b6a6033"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the mesh using the first index buffer.  <a href="#a687fe6ca18e31dc576d719b71b6a6033">More...</a><br /></td></tr>
-<tr class="separator:a687fe6ca18e31dc576d719b71b6a6033"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84edd20c5650c287e9adcd52232fad18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a84edd20c5650c287e9adcd52232fad18">draw</a> (GLenum mode, unsigned int index_buffer)</td></tr>
-<tr class="memdesc:a84edd20c5650c287e9adcd52232fad18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the mesh using the first index buffer.  <a href="#a84edd20c5650c287e9adcd52232fad18">More...</a><br /></td></tr>
-<tr class="separator:a84edd20c5650c287e9adcd52232fad18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa484529595f5aed92e5f2e5bd176b5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#aaa484529595f5aed92e5f2e5bd176b5f">setup_shader</a> (<a class="el" href="class_shader.html">Shader</a> *shader)</td></tr>
+<tr class="memdesc:aaa484529595f5aed92e5f2e5bd176b5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the shader to use to render the mesh.  <a href="#aaa484529595f5aed92e5f2e5bd176b5f">More...</a><br /></td></tr>
+<tr class="separator:aaa484529595f5aed92e5f2e5bd176b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a718c8957fe82ca5cad95bbb8c9e32ecb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a718c8957fe82ca5cad95bbb8c9e32ecb">setup_camera</a> (glm::mat4 *view_matrix, glm::mat4 *projection_matrix)</td></tr>
+<tr class="memdesc:a718c8957fe82ca5cad95bbb8c9e32ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the view and projection matrices that will be used by the mesh.  <a href="#a718c8957fe82ca5cad95bbb8c9e32ecb">More...</a><br /></td></tr>
+<tr class="separator:a718c8957fe82ca5cad95bbb8c9e32ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3c14d104fb0534e869c2536cf79e395"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#af3c14d104fb0534e869c2536cf79e395">setup_matrices</a> (const char *model_view_matrix_name, const char *model_view_projection_matrix_name, const char *normal_matrix_name)</td></tr>
+<tr class="memdesc:af3c14d104fb0534e869c2536cf79e395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the names of the matrices in the shader.  <a href="#af3c14d104fb0534e869c2536cf79e395">More...</a><br /></td></tr>
+<tr class="separator:af3c14d104fb0534e869c2536cf79e395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca529d05b9d642c5516b66f21277f002"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#aca529d05b9d642c5516b66f21277f002">setup_material</a> (const char *ambient_color_name, const char *diffuse_color_name, const char *specular_color_name, const char *shininess_name, const char *shininess_strength_name)</td></tr>
+<tr class="memdesc:aca529d05b9d642c5516b66f21277f002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the names of the material components in the shader.  <a href="#aca529d05b9d642c5516b66f21277f002">More...</a><br /></td></tr>
+<tr class="separator:aca529d05b9d642c5516b66f21277f002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad999b9eb4ce42e78c1a43b8c61fe70ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#ad999b9eb4ce42e78c1a43b8c61fe70ee">attach_vertex_array</a> (const std::vector&lt; Vertex &gt; *vertexdata)</td></tr>
+<tr class="memdesc:ad999b9eb4ce42e78c1a43b8c61fe70ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads vertices into memory.  <a href="#ad999b9eb4ce42e78c1a43b8c61fe70ee">More...</a><br /></td></tr>
+<tr class="separator:ad999b9eb4ce42e78c1a43b8c61fe70ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80a34046d539e9e531d008b5f916db18"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a80a34046d539e9e531d008b5f916db18">set_vertex_attribute</a> (const char *attrib_name, GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)</td></tr>
+<tr class="memdesc:a80a34046d539e9e531d008b5f916db18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets pointers to vertex attribures.  <a href="#a80a34046d539e9e531d008b5f916db18">More...</a><br /></td></tr>
+<tr class="separator:a80a34046d539e9e531d008b5f916db18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab760903d26a9a27472020a9006e56d27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#ab760903d26a9a27472020a9006e56d27">attach_index_array</a> (const std::vector&lt; unsigned short &gt; *indices)</td></tr>
+<tr class="memdesc:ab760903d26a9a27472020a9006e56d27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#ab760903d26a9a27472020a9006e56d27">More...</a><br /></td></tr>
+<tr class="separator:ab760903d26a9a27472020a9006e56d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ea1898d43bc24ff8b0be839829b2b87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a1ea1898d43bc24ff8b0be839829b2b87">draw</a> (GLenum mode)</td></tr>
+<tr class="memdesc:a1ea1898d43bc24ff8b0be839829b2b87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the mesh using the first index buffer.  <a href="#a1ea1898d43bc24ff8b0be839829b2b87">More...</a><br /></td></tr>
+<tr class="separator:a1ea1898d43bc24ff8b0be839829b2b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a866afb338b99ff0c7088918c4b482f11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a866afb338b99ff0c7088918c4b482f11">draw</a> (GLenum mode, unsigned int index_buffer)</td></tr>
+<tr class="memdesc:a866afb338b99ff0c7088918c4b482f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the mesh using the first index buffer and the model_matrix member as model matrix.  <a href="#a866afb338b99ff0c7088918c4b482f11">More...</a><br /></td></tr>
+<tr class="separator:a866afb338b99ff0c7088918c4b482f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed7cc729a0461a19c1dbf2f31a84099a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#aed7cc729a0461a19c1dbf2f31a84099a">draw</a> (GLenum mode, glm::mat4 *<a class="el" href="class_mesh.html#a711220739070cb7658018e3351f454e6">model_matrix</a>)</td></tr>
+<tr class="memdesc:aed7cc729a0461a19c1dbf2f31a84099a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the mesh using the first index buffer.  <a href="#aed7cc729a0461a19c1dbf2f31a84099a">More...</a><br /></td></tr>
+<tr class="separator:aed7cc729a0461a19c1dbf2f31a84099a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1d2056e7bf3d372f679db24586b8923"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#ad1d2056e7bf3d372f679db24586b8923">draw</a> (GLenum mode, unsigned int index_buffer, glm::mat4 *<a class="el" href="class_mesh.html#a711220739070cb7658018e3351f454e6">model_matrix</a>)</td></tr>
+<tr class="memdesc:ad1d2056e7bf3d372f679db24586b8923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the mesh.  <a href="#ad1d2056e7bf3d372f679db24586b8923">More...</a><br /></td></tr>
+<tr class="separator:ad1d2056e7bf3d372f679db24586b8923"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a24f59b1e4193679d2c0e10da05a4b459"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24f59b1e4193679d2c0e10da05a4b459"></a>
-glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a24f59b1e4193679d2c0e10da05a4b459">trafo</a></td></tr>
-<tr class="memdesc:a24f59b1e4193679d2c0e10da05a4b459"><td class="mdescLeft">&#160;</td><td class="mdescRight">The model matrix. <br /></td></tr>
-<tr class="separator:a24f59b1e4193679d2c0e10da05a4b459"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a381d4ab62a634bbde6e3fe95507bb0d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a381d4ab62a634bbde6e3fe95507bb0d6"></a>
-std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a381d4ab62a634bbde6e3fe95507bb0d6">num_indices</a></td></tr>
-<tr class="memdesc:a381d4ab62a634bbde6e3fe95507bb0d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Every element referes to the number of indices in an index buffer. <br /></td></tr>
-<tr class="separator:a381d4ab62a634bbde6e3fe95507bb0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af84868f099e091c1bbe733c0ada65ca8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af84868f099e091c1bbe733c0ada65ca8"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#af84868f099e091c1bbe733c0ada65ca8">num_vertex_attributes</a></td></tr>
-<tr class="memdesc:af84868f099e091c1bbe733c0ada65ca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of vertex attributes. <br /></td></tr>
-<tr class="separator:af84868f099e091c1bbe733c0ada65ca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc7307f04aaef7c26621ff9e070ecb25"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc7307f04aaef7c26621ff9e070ecb25"></a>
+std::vector&lt; glm::vec3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#abc7307f04aaef7c26621ff9e070ecb25">bounding_box</a></td></tr>
+<tr class="memdesc:abc7307f04aaef7c26621ff9e070ecb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">The bounding box. <br /></td></tr>
+<tr class="separator:abc7307f04aaef7c26621ff9e070ecb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a711220739070cb7658018e3351f454e6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a711220739070cb7658018e3351f454e6"></a>
+glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a711220739070cb7658018e3351f454e6">model_matrix</a></td></tr>
+<tr class="memdesc:a711220739070cb7658018e3351f454e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The model matrix. <br /></td></tr>
+<tr class="separator:a711220739070cb7658018e3351f454e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6677b3ebe780be10ae85beb06f88659"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa6677b3ebe780be10ae85beb06f88659"></a>
+<a class="el" href="structsgltk_1_1_material.html">sgltk::Material</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#aa6677b3ebe780be10ae85beb06f88659">material</a></td></tr>
+<tr class="memdesc:aa6677b3ebe780be10ae85beb06f88659"><td class="mdescLeft">&#160;</td><td class="mdescRight">The material of the mesh. <br /></td></tr>
+<tr class="separator:aa6677b3ebe780be10ae85beb06f88659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf2811f081f02c777d988536a35408a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf2811f081f02c777d988536a35408a0"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#aaf2811f081f02c777d988536a35408a0">wireframe</a></td></tr>
+<tr class="memdesc:aaf2811f081f02c777d988536a35408a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the mesh should be drawn as a wireframe. <br /></td></tr>
+<tr class="separator:aaf2811f081f02c777d988536a35408a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6464df68f23207f547b15c51eb8c48c2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6464df68f23207f547b15c51eb8c48c2"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a6464df68f23207f547b15c51eb8c48c2">twosided</a></td></tr>
+<tr class="memdesc:a6464df68f23207f547b15c51eb8c48c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates that the mesh should not be drawn using back face culling. <br /></td></tr>
+<tr class="separator:a6464df68f23207f547b15c51eb8c48c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Manages meshes. </p>
+<div class="textblock"><h3>template&lt;typename Vertex = sgltk::Vertex&gt;<br />
+class Mesh&lt; Vertex &gt;</h3>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00167">167</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Manages meshes. </p>
+
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00132">132</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="abc550233f9c7cbc05907ca4473ac45d6"></a>
+<a class="anchor" id="ab760903d26a9a27472020a9006e56d27"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::attach_index_array </td>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::attach_index_array </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; unsigned short &gt; *&#160;</td>
           <td class="paramname"><em>indices</em></td><td>)</td>
@@ -159,18 +194,20 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00050">50</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00070">70</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a0ae5c9e7837574f394d8379247eb5c34"></a>
+<a class="anchor" id="ad999b9eb4ce42e78c1a43b8c61fe70ee"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::attach_vertex_array </td>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::attach_vertex_array </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="struct_vertex.html">Vertex</a> &gt; *&#160;</td>
+          <td class="paramtype">const std::vector&lt; Vertex &gt; *&#160;</td>
           <td class="paramname"><em>vertexdata</em></td><td>)</td>
           <td></td>
         </tr>
@@ -185,16 +222,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00024">24</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00036">36</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a687fe6ca18e31dc576d719b71b6a6033"></a>
+<a class="anchor" id="a1ea1898d43bc24ff8b0be839829b2b87"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::draw </td>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::draw </td>
           <td>(</td>
           <td class="paramtype">GLenum&#160;</td>
           <td class="paramname"><em>mode</em></td><td>)</td>
@@ -211,16 +250,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00064">64</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00085">85</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a84edd20c5650c287e9adcd52232fad18"></a>
+<a class="anchor" id="a866afb338b99ff0c7088918c4b482f11"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::draw </td>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::draw </td>
           <td>(</td>
           <td class="paramtype">GLenum&#160;</td>
           <td class="paramname"><em>mode</em>, </td>
@@ -239,7 +280,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
       </table>
 </div><div class="memdoc">
 
-<p>Renders the mesh using the first index buffer. </p>
+<p>Renders the mesh using the first index buffer and the model_matrix member as model matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mode</td><td>Specifies the primitive that will be created from vertices </td></tr>
@@ -248,16 +289,103 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00068">68</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00090">90</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="acb03c8d939d746b1e7c35695a1216ee6"></a>
+<a class="anchor" id="aed7cc729a0461a19c1dbf2f31a84099a"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::set_vertex_attribute </td>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::draw </td>
+          <td>(</td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::mat4 *&#160;</td>
+          <td class="paramname"><em>model_matrix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renders the mesh using the first index buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Specifies the primitive that will be created from vertices </td></tr>
+    <tr><td class="paramname">model_matrix</td><td>The model matrix to use (NULL to use the model_matrix member) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00095">95</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad1d2056e7bf3d372f679db24586b8923"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::draw </td>
+          <td>(</td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::mat4 *&#160;</td>
+          <td class="paramname"><em>model_matrix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renders the mesh. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>Specifies the primitive that will be created from vertices </td></tr>
+    <tr><td class="paramname">index_buffer</td><td>The index buffer to use </td></tr>
+    <tr><td class="paramname">model_matrix</td><td>The model matrix to use (NULL to use the model_matrix member) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00100">100</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a80a34046d539e9e531d008b5f916db18"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::set_vertex_attribute </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>attrib_name</em>, </td>
@@ -305,17 +433,165 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00034">34</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00047">47</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aff5a9f6a6a1de8deed25fa15271a6ce9"></a>
+<a class="anchor" id="a718c8957fe82ca5cad95bbb8c9e32ecb"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::use_shader </td>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::setup_camera </td>
+          <td>(</td>
+          <td class="paramtype">glm::mat4 *&#160;</td>
+          <td class="paramname"><em>view_matrix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::mat4 *&#160;</td>
+          <td class="paramname"><em>projection_matrix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up the view and projection matrices that will be used by the mesh. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">view_matrix</td><td>The view matrix </td></tr>
+    <tr><td class="paramname">projection_matrix</td><td>The projection matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00322">322</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aca529d05b9d642c5516b66f21277f002"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::setup_material </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>ambient_color_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>diffuse_color_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>specular_color_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>shininess_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>shininess_strength_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the names of the material components in the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ambient_color_name</td><td>The name of the ambient color component </td></tr>
+    <tr><td class="paramname">diffuse_color_name</td><td>The name of the diffuse color component </td></tr>
+    <tr><td class="paramname">specular_color_name</td><td>The name of the specular color component </td></tr>
+    <tr><td class="paramname">shininess_name</td><td>The name of the specular exponent </td></tr>
+    <tr><td class="paramname">shininess_strength_name</td><td>The name of the specular intensity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00344">344</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af3c14d104fb0534e869c2536cf79e395"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::setup_matrices </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>model_view_matrix_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>model_view_projection_matrix_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>normal_matrix_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the names of the matrices in the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model_view_matrix_name</td><td>The name of the model-view matrixin in the shader </td></tr>
+    <tr><td class="paramname">model_view_projection_matrix_name</td><td>The name of the model-view-projection matrixin in the shader </td></tr>
+    <tr><td class="paramname">normal_matrix_name</td><td>The name of the normal matrix in the shader </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00329">329</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aaa484529595f5aed92e5f2e5bd176b5f"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Vertex &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_mesh.html">Mesh</a>&lt; Vertex &gt;::setup_shader </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_shader.html">Shader</a> *&#160;</td>
           <td class="paramname"><em>shader</em></td><td>)</td>
@@ -332,7 +608,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00020">20</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00022">22</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -343,7 +619,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 22 2015 22:35:13 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 21 2015 09:20:50 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

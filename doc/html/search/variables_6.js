@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['pos',['pos',['../class_camera.html#a3c67bc8f8a9bd2c913e08da6402c157e',1,'Camera']]],
-  ['position',['position',['../struct_vertex.html#a915324b03f4f970fadd5fc77eb7228b1',1,'Vertex']]]
+  ['material',['material',['../class_mesh.html#aa6677b3ebe780be10ae85beb06f88659',1,'Mesh']]],
+  ['model_5fmatrix',['model_matrix',['../class_mesh.html#a711220739070cb7658018e3351f454e6',1,'Mesh']]]
 ];

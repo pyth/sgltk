@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vertex',['Vertex',['../struct_vertex.html#a7a788e3efd68476eacec05e706ad7cf7',1,'Vertex::Vertex(glm::vec3 p, glm::vec3 n)'],['../struct_vertex.html#a66e4dc85901217369ff7740ab55142c4',1,'Vertex::Vertex(glm::vec3 p, glm::vec3 n, glm::vec2 tc)'],['../struct_vertex.html#a072f32329e91fefd95ffa168281789fe',1,'Vertex::Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec2 tc)'],['../struct_vertex.html#a6e84d56eacd8809dc1fe03b683684f7c',1,'Vertex::Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec4 c, glm::vec2 tc)']]]
+  ['vertex',['Vertex',['../structsgltk_1_1_vertex.html#a097bff410b63e439d7c75974b9dd9509',1,'sgltk::Vertex::Vertex(glm::vec3 p, glm::vec3 n)'],['../structsgltk_1_1_vertex.html#aec46eeb2006576d9ad8578779991aeec',1,'sgltk::Vertex::Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 tc)'],['../structsgltk_1_1_vertex.html#adc7029815787753ecfaf785605e429a1',1,'sgltk::Vertex::Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec3 tc)'],['../structsgltk_1_1_vertex.html#ab44ca648cd1ebadcb7daa1addc46041b',1,'sgltk::Vertex::Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec4 c, glm::vec3 tc)']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['get_5ftime',['get_time',['../class_timer.html#a82cd2514c485a389fc50df784c5dfa99',1,'Timer']]],
-  ['grab_5fmouse',['grab_mouse',['../class_app.html#a7dbe21a0fbe975e9ee24e2363986786c',1,'App']]]
+  ['far_5fplane',['far_plane',['../class_camera.html#a141934c2b78b48d9dd0042e8d7c87c32',1,'Camera']]],
+  ['fov',['fov',['../class_camera.html#aff7393c9cfbccd7e369091f00008da93',1,'Camera']]]
 ];

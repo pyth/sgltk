@@ -94,45 +94,49 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;core.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">enum</span> UniformType {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    INTEGER1,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    FLOAT1,</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    VECTOR3F,</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    VECTOR4F,</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    MATRIX3,</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    MATRIX4</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;};</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_shader.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_shader.html">Shader</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">bool</span> modify;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    std::map&lt;const char *, GLenum&gt; shader_map;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::vector&lt;const char *&gt; shader_paths;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_shader.html#a666e45df5200cada984281f479286440">   27</a></span>&#160;    GLuint <a class="code" href="class_shader.html#a666e45df5200cada984281f479286440">shader</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="class_shader.html">Shader</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    ~<a class="code" href="class_shader.html">Shader</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_shader.html#ab3d15715e7c455eaf67c61727e75618e">attach</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *filename, GLenum type);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a42e1fa45b551f7b72d7325607f20687d">recompile</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a0a07292d87c6b4c0ea19611db8ddf42c">bind_uniform</a>(UniformType type, <span class="keywordtype">char</span> *name, <span class="keywordtype">void</span> *data);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a35e35ddc1d24cae176cc310bd3b7b96f">link</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a6f6e280a343d6c7662909f7dfbc89ad9">bind</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a227a45de0b25215955560defe26660ff">unbind</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_shader_html_a42e1fa45b551f7b72d7325607f20687d"><div class="ttname"><a href="class_shader.html#a42e1fa45b551f7b72d7325607f20687d">Shader::recompile</a></div><div class="ttdeci">void recompile()</div><div class="ttdoc">Reads, compiles, attaches and links all associated shaders again. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8cpp_source.html#l00087">shader.cpp:87</a></div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    INTEGER, </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    VECTOR2I, </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    VECTOR3I, </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    VECTOR4I, </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    FLOAT, </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    VECTOR2F, </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    VECTOR3F, </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    VECTOR4F, </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    MATRIX3, </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    MATRIX4 </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;};</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_shader.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_shader.html">Shader</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">bool</span> modify;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    std::map&lt;const char *, GLenum&gt; shader_map;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    std::vector&lt;const char *&gt; shader_paths;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_shader.html#a666e45df5200cada984281f479286440">   31</a></span>&#160;    GLuint <a class="code" href="class_shader.html#a666e45df5200cada984281f479286440">shader</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_shader.html">Shader</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    ~<a class="code" href="class_shader.html">Shader</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_shader.html#ab3d15715e7c455eaf67c61727e75618e">attach</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *filename, GLenum type);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a42e1fa45b551f7b72d7325607f20687d">recompile</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a2d4ebb6d39d107f85253f1888a8c3f1b">bind_uniform</a>(<span class="keywordtype">char</span> *name, UniformType type, <span class="keywordtype">void</span> *data);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a35e35ddc1d24cae176cc310bd3b7b96f">link</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a6f6e280a343d6c7662909f7dfbc89ad9">bind</a>();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_shader.html#a227a45de0b25215955560defe26660ff">unbind</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="class_shader_html_a42e1fa45b551f7b72d7325607f20687d"><div class="ttname"><a href="class_shader.html#a42e1fa45b551f7b72d7325607f20687d">Shader::recompile</a></div><div class="ttdeci">void recompile()</div><div class="ttdoc">Reads, compiles and links all associated shaders again. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8cpp_source.html#l00087">shader.cpp:87</a></div></div>
 <div class="ttc" id="class_shader_html_a227a45de0b25215955560defe26660ff"><div class="ttname"><a href="class_shader.html#a227a45de0b25215955560defe26660ff">Shader::unbind</a></div><div class="ttdeci">void unbind()</div><div class="ttdoc">Unbinds the shader. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8cpp_source.html#l00107">shader.cpp:107</a></div></div>
 <div class="ttc" id="class_shader_html_a6f6e280a343d6c7662909f7dfbc89ad9"><div class="ttname"><a href="class_shader.html#a6f6e280a343d6c7662909f7dfbc89ad9">Shader::bind</a></div><div class="ttdeci">void bind()</div><div class="ttdoc">Binds the shader. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8cpp_source.html#l00103">shader.cpp:103</a></div></div>
-<div class="ttc" id="class_shader_html_a0a07292d87c6b4c0ea19611db8ddf42c"><div class="ttname"><a href="class_shader.html#a0a07292d87c6b4c0ea19611db8ddf42c">Shader::bind_uniform</a></div><div class="ttdeci">void bind_uniform(UniformType type, char *name, void *data)</div><div class="ttdoc">Binds a uniform to the shader. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8cpp_source.html#l00061">shader.cpp:61</a></div></div>
 <div class="ttc" id="class_shader_html_ab3d15715e7c455eaf67c61727e75618e"><div class="ttname"><a href="class_shader.html#ab3d15715e7c455eaf67c61727e75618e">Shader::attach</a></div><div class="ttdeci">bool attach(const char *filename, GLenum type)</div><div class="ttdoc">Compiles and attaches shader files. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8cpp_source.html#l00014">shader.cpp:14</a></div></div>
-<div class="ttc" id="class_shader_html_a666e45df5200cada984281f479286440"><div class="ttname"><a href="class_shader.html#a666e45df5200cada984281f479286440">Shader::shader</a></div><div class="ttdeci">GLuint shader</div><div class="ttdoc">Shader name. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8h_source.html#l00027">shader.h:27</a></div></div>
-<div class="ttc" id="class_shader_html"><div class="ttname"><a href="class_shader.html">Shader</a></div><div class="ttdoc">Manager shaders. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8h_source.html#l00019">shader.h:19</a></div></div>
+<div class="ttc" id="class_shader_html_a666e45df5200cada984281f479286440"><div class="ttname"><a href="class_shader.html#a666e45df5200cada984281f479286440">Shader::shader</a></div><div class="ttdeci">GLuint shader</div><div class="ttdoc">Shader name. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8h_source.html#l00031">shader.h:31</a></div></div>
+<div class="ttc" id="class_shader_html"><div class="ttname"><a href="class_shader.html">Shader</a></div><div class="ttdoc">Manager shaders. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8h_source.html#l00023">shader.h:23</a></div></div>
+<div class="ttc" id="class_shader_html_a2d4ebb6d39d107f85253f1888a8c3f1b"><div class="ttname"><a href="class_shader.html#a2d4ebb6d39d107f85253f1888a8c3f1b">Shader::bind_uniform</a></div><div class="ttdeci">void bind_uniform(char *name, UniformType type, void *data)</div><div class="ttdoc">Binds a uniform to the shader. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8cpp_source.html#l00061">shader.cpp:61</a></div></div>
 <div class="ttc" id="class_shader_html_a35e35ddc1d24cae176cc310bd3b7b96f"><div class="ttname"><a href="class_shader.html#a35e35ddc1d24cae176cc310bd3b7b96f">Shader::link</a></div><div class="ttdeci">void link()</div><div class="ttdoc">Links the attached shaders. </div><div class="ttdef"><b>Definition:</b> <a href="shader_8cpp_source.html#l00099">shader.cpp:99</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 22 2015 22:35:13 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 21 2015 09:20:50 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

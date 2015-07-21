@@ -100,6 +100,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a104615d38a37718844cce9910747b378"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a104615d38a37718844cce9910747b378">Camera</a> (glm::vec3 <a class="el" href="class_camera.html#a3c67bc8f8a9bd2c913e08da6402c157e">pos</a>, glm::vec3 <a class="el" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a>, glm::vec3 <a class="el" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a>)</td></tr>
 <tr class="separator:a104615d38a37718844cce9910747b378"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afffebf58199ec3ad8deda39dd684d1ff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#afffebf58199ec3ad8deda39dd684d1ff">Camera</a> (glm::vec3 <a class="el" href="class_camera.html#a3c67bc8f8a9bd2c913e08da6402c157e">pos</a>, glm::vec3 <a class="el" href="class_camera.html#a28b628612eaa532a5f0b0d7d3a6b2c41">dir</a>, glm::vec3 <a class="el" href="class_camera.html#a1d6d8123309ffea63abf8318c0cbb995">up</a>, float <a class="el" href="class_camera.html#aff7393c9cfbccd7e369091f00008da93">fov</a>, float width, float height, float <a class="el" href="class_camera.html#a430f769a9227b6cd41fe336122fbb9dc">near_plane</a>, float <a class="el" href="class_camera.html#a141934c2b78b48d9dd0042e8d7c87c32">far_plane</a>)</td></tr>
+<tr class="separator:afffebf58199ec3ad8deda39dd684d1ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8314e7d472a74170c6e5c249da1ef2a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8314e7d472a74170c6e5c249da1ef2a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#aa8314e7d472a74170c6e5c249da1ef2a">update_view_matrix</a> ()</td></tr>
+<tr class="memdesc:aa8314e7d472a74170c6e5c249da1ef2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the view matrix. <br /></td></tr>
+<tr class="separator:aa8314e7d472a74170c6e5c249da1ef2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5190038110cdb4b32fae6889103e19cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a5190038110cdb4b32fae6889103e19cd">update_projection_matrix</a> (float width, float height)</td></tr>
+<tr class="memdesc:a5190038110cdb4b32fae6889103e19cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix.  <a href="#a5190038110cdb4b32fae6889103e19cd">More...</a><br /></td></tr>
+<tr class="separator:a5190038110cdb4b32fae6889103e19cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3077a608aecce10746667c474330e0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#ad3077a608aecce10746667c474330e0f">update_projection_matrix</a> (float <a class="el" href="class_camera.html#aff7393c9cfbccd7e369091f00008da93">fov</a>, float width, float height)</td></tr>
+<tr class="memdesc:ad3077a608aecce10746667c474330e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix.  <a href="#ad3077a608aecce10746667c474330e0f">More...</a><br /></td></tr>
+<tr class="separator:ad3077a608aecce10746667c474330e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7766bc92b742e4c00d031feebdc848b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a7766bc92b742e4c00d031feebdc848b1">update_projection_matrix</a> (float <a class="el" href="class_camera.html#aff7393c9cfbccd7e369091f00008da93">fov</a>, float width, float height, float <a class="el" href="class_camera.html#a430f769a9227b6cd41fe336122fbb9dc">near_plane</a>, float <a class="el" href="class_camera.html#a141934c2b78b48d9dd0042e8d7c87c32">far_plane</a>)</td></tr>
+<tr class="memdesc:a7766bc92b742e4c00d031feebdc848b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix.  <a href="#a7766bc92b742e4c00d031feebdc848b1">More...</a><br /></td></tr>
+<tr class="separator:a7766bc92b742e4c00d031feebdc848b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acab319dbcc7b55200541b7217a6ec9dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#acab319dbcc7b55200541b7217a6ec9dc">move_up</a> (float delta)</td></tr>
 <tr class="memdesc:acab319dbcc7b55200541b7217a6ec9dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the camera along the up vector.  <a href="#acab319dbcc7b55200541b7217a6ec9dc">More...</a><br /></td></tr>
 <tr class="separator:acab319dbcc7b55200541b7217a6ec9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,6 +136,26 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:ac190bcf7b89c8cbe2039a880ddcb2f77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac190bcf7b89c8cbe2039a880ddcb2f77"></a>
+glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#ac190bcf7b89c8cbe2039a880ddcb2f77">view_matrix</a></td></tr>
+<tr class="memdesc:ac190bcf7b89c8cbe2039a880ddcb2f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">The view matrix. <br /></td></tr>
+<tr class="separator:ac190bcf7b89c8cbe2039a880ddcb2f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a236cce5d377d4c24f4ca6f4c7b2fbf62"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a236cce5d377d4c24f4ca6f4c7b2fbf62"></a>
+glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a236cce5d377d4c24f4ca6f4c7b2fbf62">projection_matrix</a></td></tr>
+<tr class="memdesc:a236cce5d377d4c24f4ca6f4c7b2fbf62"><td class="mdescLeft">&#160;</td><td class="mdescRight">The projection matrix. <br /></td></tr>
+<tr class="separator:a236cce5d377d4c24f4ca6f4c7b2fbf62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff7393c9cfbccd7e369091f00008da93"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff7393c9cfbccd7e369091f00008da93"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#aff7393c9cfbccd7e369091f00008da93">fov</a></td></tr>
+<tr class="memdesc:aff7393c9cfbccd7e369091f00008da93"><td class="mdescLeft">&#160;</td><td class="mdescRight">The field of view. <br /></td></tr>
+<tr class="separator:aff7393c9cfbccd7e369091f00008da93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a430f769a9227b6cd41fe336122fbb9dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a430f769a9227b6cd41fe336122fbb9dc"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a430f769a9227b6cd41fe336122fbb9dc">near_plane</a></td></tr>
+<tr class="memdesc:a430f769a9227b6cd41fe336122fbb9dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The near plane. <br /></td></tr>
+<tr class="separator:a430f769a9227b6cd41fe336122fbb9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a141934c2b78b48d9dd0042e8d7c87c32"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a141934c2b78b48d9dd0042e8d7c87c32"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a141934c2b78b48d9dd0042e8d7c87c32">far_plane</a></td></tr>
+<tr class="memdesc:a141934c2b78b48d9dd0042e8d7c87c32"><td class="mdescLeft">&#160;</td><td class="mdescRight">The far plane. <br /></td></tr>
+<tr class="separator:a141934c2b78b48d9dd0042e8d7c87c32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c67bc8f8a9bd2c913e08da6402c157e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3c67bc8f8a9bd2c913e08da6402c157e"></a>
 glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_camera.html#a3c67bc8f8a9bd2c913e08da6402c157e">pos</a></td></tr>
 <tr class="memdesc:a3c67bc8f8a9bd2c913e08da6402c157e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The camera position. <br /></td></tr>
@@ -181,7 +216,84 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00007">7</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00008">8</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afffebf58199ec3ad8deda39dd684d1ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Camera::Camera </td>
+          <td>(</td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>up</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fov</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>near_plane</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>far_plane</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The camera position </td></tr>
+    <tr><td class="paramname">dir</td><td>The view direction </td></tr>
+    <tr><td class="paramname">up</td><td>The up vector </td></tr>
+    <tr><td class="paramname">fov</td><td>The field of view </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the viewport </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the viewport </td></tr>
+    <tr><td class="paramname">near_plane</td><td>The near plane </td></tr>
+    <tr><td class="paramname">far_plane</td><td>The far plane </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00012">12</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -208,7 +320,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00027">27</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00060">60</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -234,7 +346,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00023">23</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00056">56</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -260,7 +372,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00019">19</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00052">52</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -286,7 +398,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00043">43</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00076">76</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -312,7 +424,146 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00070">70</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5190038110cdb4b32fae6889103e19cd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::update_projection_matrix </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recalculates the projection matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the viewport </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the viewport </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Definition at line <a class="el" href="camera_8cpp_source.html#l00037">37</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad3077a608aecce10746667c474330e0f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::update_projection_matrix </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fov</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recalculates the projection matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fov</td><td>The field of view </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the viewport </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the viewport </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00041">41</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7766bc92b742e4c00d031feebdc848b1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Camera::update_projection_matrix </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fov</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>near_plane</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>far_plane</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Recalculates the projection matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fov</td><td>The field of view </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the viewport </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the viewport </td></tr>
+    <tr><td class="paramname">near_plane</td><td>The near plane </td></tr>
+    <tr><td class="paramname">far_plane</td><td>The far plane </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00045">45</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -338,7 +589,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00031">31</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00064">64</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -349,7 +600,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 22 2015 22:35:13 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 21 2015 09:20:50 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

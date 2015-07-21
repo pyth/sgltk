@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['mesh',['Mesh',['../class_mesh.html',1,'']]],
-  ['model',['Model',['../class_model.html',1,'']]]
+  ['material',['Material',['../structsgltk_1_1_material.html',1,'sgltk']]],
+  ['mesh',['Mesh',['../class_mesh.html',1,'']]]
 ];

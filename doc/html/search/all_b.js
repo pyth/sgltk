@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['normal',['normal',['../struct_vertex.html#a5fa9b6d85ddbf6f395839ddbef5ee988',1,'Vertex']]],
-  ['num_5findices',['num_indices',['../class_mesh.html#a381d4ab62a634bbde6e3fe95507bb0d6',1,'Mesh']]],
-  ['num_5fvertex_5fattributes',['num_vertex_attributes',['../class_mesh.html#af84868f099e091c1bbe733c0ada65ca8',1,'Mesh']]]
+  ['material',['Material',['../structsgltk_1_1_material.html',1,'sgltk']]],
+  ['material',['material',['../class_mesh.html#aa6677b3ebe780be10ae85beb06f88659',1,'Mesh']]],
+  ['mesh',['Mesh',['../class_mesh.html',1,'']]],
+  ['model_5fmatrix',['model_matrix',['../class_mesh.html#a711220739070cb7658018e3351f454e6',1,'Mesh']]],
+  ['move_5fforward',['move_forward',['../class_camera.html#a07fc2e27c0fc6ab8b870ac6e717ae2aa',1,'Camera']]],
+  ['move_5fright',['move_right',['../class_camera.html#a9985be6ae95fcf83e6211acaa0f84894',1,'Camera']]],
+  ['move_5fup',['move_up',['../class_camera.html#acab319dbcc7b55200541b7217a6ec9dc',1,'Camera']]]
 ];

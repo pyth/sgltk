@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['width',['width',['../class_app.html#a2c90198ed2171c619f0f3b9eb49d005a',1,'App::width()'],['../class_image.html#ab8d12f635013c04159cd4d3d972bac88',1,'Image::width()']]],
-  ['window',['window',['../class_app.html#a47d24f96ee9543f2a5f444918347b76b',1,'App']]]
+  ['vertex',['Vertex',['../structsgltk_1_1_vertex.html',1,'sgltk']]],
+  ['vertex',['Vertex',['../structsgltk_1_1_vertex.html#a097bff410b63e439d7c75974b9dd9509',1,'sgltk::Vertex::Vertex(glm::vec3 p, glm::vec3 n)'],['../structsgltk_1_1_vertex.html#aec46eeb2006576d9ad8578779991aeec',1,'sgltk::Vertex::Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 tc)'],['../structsgltk_1_1_vertex.html#adc7029815787753ecfaf785605e429a1',1,'sgltk::Vertex::Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec3 tc)'],['../structsgltk_1_1_vertex.html#ab44ca648cd1ebadcb7daa1addc46041b',1,'sgltk::Vertex::Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec4 c, glm::vec3 tc)']]],
+  ['view_5fmatrix',['view_matrix',['../class_camera.html#ac190bcf7b89c8cbe2039a880ddcb2f77',1,'Camera']]]
 ];

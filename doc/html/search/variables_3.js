@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['height',['height',['../class_app.html#a5b13d0311b1a7dcb70a5c5774a419c31',1,'App::height()'],['../class_image.html#a51df43db420c9c0b57536cb2dd36de5c',1,'Image::height()']]]
+  ['far_5fplane',['far_plane',['../class_camera.html#a141934c2b78b48d9dd0042e8d7c87c32',1,'Camera']]],
+  ['fov',['fov',['../class_camera.html#aff7393c9cfbccd7e369091f00008da93',1,'Camera']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['key_5fpressed',['key_pressed',['../class_app.html#aee1e1d24d41db5ec245ff5b7ddba4529',1,'App']]]
+  ['image',['Image',['../class_image.html',1,'Image'],['../class_image.html#a9700f58efb58b13e23666f19c67d3839',1,'Image::Image(const char *filename)'],['../class_image.html#af8289e76021aefa3f99d14e9d76fa4e5',1,'Image::image()']]]
 ];

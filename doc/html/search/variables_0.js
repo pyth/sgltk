@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['bitangent',['bitangent',['../struct_vertex.html#a80a4085ebc872c15ce1374b2be615a5b',1,'Vertex']]]
+  ['bitangent',['bitangent',['../structsgltk_1_1_vertex.html#a5e3e0e7b462aa9ad95f6bc4274d80b79',1,'sgltk::Vertex']]],
+  ['bounding_5fbox',['bounding_box',['../class_mesh.html#abc7307f04aaef7c26621ff9e070ecb25',1,'Mesh']]]
 ];

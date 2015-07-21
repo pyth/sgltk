@@ -85,6 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_texture-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Texture Class Reference</div>  </div>
@@ -98,6 +99,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a6d70b3da63208c3c58790f4e958089bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a6d70b3da63208c3c58790f4e958089bb">Texture</a> (const char *path)</td></tr>
+<tr class="separator:a6d70b3da63208c3c58790f4e958089bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75b3bcab6951598ca0e7a487f98fe8ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a75b3bcab6951598ca0e7a487f98fe8ad">Texture</a> (<a class="el" href="class_image.html">Image</a> *image)</td></tr>
 <tr class="separator:a75b3bcab6951598ca0e7a487f98fe8ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab66275a0be9cb6cc43895c21b11b0f67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#ab66275a0be9cb6cc43895c21b11b0f67">load_texture</a> (<a class="el" href="class_image.html">Image</a> *image)</td></tr>
@@ -107,10 +110,16 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a3840dc7429982ffaddeafc8d62345b5d">bind</a> ()</td></tr>
 <tr class="memdesc:a3840dc7429982ffaddeafc8d62345b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind the texture to be used by the shader. <br /></td></tr>
 <tr class="separator:a3840dc7429982ffaddeafc8d62345b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dc10cf07e8ab17c7ed30123aa7164b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a0dc10cf07e8ab17c7ed30123aa7164b8">bind</a> (unsigned int texture_unit)</td></tr>
+<tr class="memdesc:a0dc10cf07e8ab17c7ed30123aa7164b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind the texture to be used by the shader.  <a href="#a0dc10cf07e8ab17c7ed30123aa7164b8">More...</a><br /></td></tr>
+<tr class="separator:a0dc10cf07e8ab17c7ed30123aa7164b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8480eed7ed703a937c3e6ab528f559bd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8480eed7ed703a937c3e6ab528f559bd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a8480eed7ed703a937c3e6ab528f559bd">unbind</a> ()</td></tr>
 <tr class="memdesc:a8480eed7ed703a937c3e6ab528f559bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbind the texture. <br /></td></tr>
 <tr class="separator:a8480eed7ed703a937c3e6ab528f559bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad27dbb557313472bc393ce29a767fa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#aad27dbb557313472bc393ce29a767fa7">unbind</a> (unsigned int texture_unit)</td></tr>
+<tr class="memdesc:aad27dbb557313472bc393ce29a767fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbind the texture.  <a href="#aad27dbb557313472bc393ce29a767fa7">More...</a><br /></td></tr>
+<tr class="separator:aad27dbb557313472bc393ce29a767fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -118,12 +127,43 @@ Public Attributes</h2></td></tr>
 GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#acc9aeb02adb5b558041cb25d8e5a6933">texture</a></td></tr>
 <tr class="memdesc:acc9aeb02adb5b558041cb25d8e5a6933"><td class="mdescLeft">&#160;</td><td class="mdescRight">The texture name. <br /></td></tr>
 <tr class="separator:acc9aeb02adb5b558041cb25d8e5a6933"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a5d844841925fdb74cf3a12dfc8ff5ec0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d844841925fdb74cf3a12dfc8ff5ec0"></a>
+static std::map&lt; const char *, <a class="el" href="class_texture.html">Texture</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_texture.html#a5d844841925fdb74cf3a12dfc8ff5ec0">textures</a></td></tr>
+<tr class="memdesc:a5d844841925fdb74cf3a12dfc8ff5ec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains all textures. <br /></td></tr>
+<tr class="separator:a5d844841925fdb74cf3a12dfc8ff5ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages textures. </p>
 
-<p>Definition at line <a class="el" href="texture_8h_source.html#l00110">110</a> of file <a class="el" href="texture_8h_source.html">texture.h</a>.</p>
+<p>Definition at line <a class="el" href="texture_8h_source.html#l00111">111</a> of file <a class="el" href="texture_8h_source.html">texture.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a6d70b3da63208c3c58790f4e958089bb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Texture::Texture </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The path to the image file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00009">9</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a75b3bcab6951598ca0e7a487f98fe8ad"></a>
 <div class="memitem">
 <div class="memproto">
@@ -144,11 +184,37 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00010">10</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00018">18</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a0dc10cf07e8ab17c7ed30123aa7164b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::bind </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>texture_unit</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bind the texture to be used by the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture_unit</td><td>The texture unit to bind the texture to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00034">34</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ab66275a0be9cb6cc43895c21b11b0f67"></a>
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +237,33 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00031">31</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00048">48</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aad27dbb557313472bc393ce29a767fa7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::unbind </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>texture_unit</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unbind the texture. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texture_unit</td><td>The texture unit to bind the texture to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00043">43</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -182,7 +274,7 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 22 2015 22:35:13 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 21 2015 09:20:50 for SGLTK by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
