@@ -4,6 +4,7 @@ using namespace std;
 
 Image::Image() {
 	init_lib();
+	path = NULL;
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -15,6 +16,7 @@ Image::Image(const char *filename) {
 }
 
 Image::~Image() {
+	delete[] path;
 	SDL_FreeSurface(image);
 }
 
@@ -40,7 +42,8 @@ bool Image::create_empty(int width, int height) {
 	amask = 0xff000000;
 #endif
 
-	image = SDL_CreateRGBSurface(0, width, height, 32, rmask, gmask, bmask, amask);
+	image = SDL_CreateRGBSurface(0, width, height, 32,
+				     rmask, gmask, bmask, amask);
 	if(!image) {
 		return false;
 	}
@@ -48,27 +51,37 @@ bool Image::create_empty(int width, int height) {
 }
 
 bool Image::load(const char *filename) {
-	if(filename == NULL) {
+	if(!filename) {
+		path = NULL;
+		width = 0;
+		height = 0;
 		return false;
 	}
 
-	if(image) {
+	if(image)
 		SDL_FreeSurface(image);
-		image = NULL;
-	}
 
 	image = IMG_Load(filename);
 	if(!image) {
-		cerr << "Unable to load image: " << filename << " - " << IMG_GetError() << endl;
+		cerr << "Unable to load image: " << filename << " - "
+		     << IMG_GetError() << endl;
+		path = NULL;
+		width = 0;
+		height = 0;
 		return false;
 	}
+
+	size_t len = strlen(filename);
+	path = new char[len + 1];
+	strncpy(path, filename, len);
 	width = image->w;
 	height = image->h;
 
 	return true;
 }
 
-bool Image::create_text(const char *text, TTF_Font *font, int size, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+bool Image::create_text(const char *text, TTF_Font *font, int size,
+			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if(image) {
 		SDL_FreeSurface(image);
 		image = NULL;
@@ -84,7 +97,8 @@ bool Image::create_text(const char *text, TTF_Font *font, int size, Uint8 r, Uin
 	return true;
 }
 
-bool Image::create_text(const char *text, const char *font_file, int size, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+bool Image::create_text(const char *text, const char *font_file, int size,
+			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	TTF_Font *font = TTF_OpenFont(font_file, size);
 	if(!font) {
 		cerr << "TTF_OpenFont for " << font_file << " failed." << endl;
@@ -108,13 +122,15 @@ bool Image::copy_from(const Image *src, SDL_Rect *dst_rect) {
 	return copy_from(src, dst_rect, NULL);
 }
 
-bool Image::copy_from(const Image *src, SDL_Rect *dst_rect, SDL_Rect *src_rect) {
+bool Image::copy_from(const Image *src, SDL_Rect *dst_rect,
+		      SDL_Rect *src_rect) {
 	if(!src) {
 		return false;
 	}
 
 	if(!image) {
-		image = SDL_ConvertSurface(src->image, src->image->format, src->image->flags);
+		image = SDL_ConvertSurface(src->image, src->image->format,
+					   src->image->flags);
 		if(image) {
 			return false;
 		}

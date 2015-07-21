@@ -76,8 +76,8 @@ bool init_lib() {
 		return true;
 
 	if(init_sdl())
-		if(init_ttf())
-			if(init_img())
+		if(init_img())
+			if(init_ttf())
 				if(init_mixer()) {
 					initialized = true;
 					return true;
@@ -95,61 +95,14 @@ void quit_lib() {
 	quit_sdl();
 }
 
-bool check_error(const char *file, int line) {
+bool _check_error(const char *message, const char *file, int line) {
 	GLenum err = glGetError();
-	if(err != GL_NO_ERROR) {
-		cout<<file<<" "<<line<<" "<<gluErrorString(err)<<endl;
+	while(err != GL_NO_ERROR) {
+		cout << file << " - " << line << ": " << gluErrorString(err);
+		if(strlen(message) > 1)
+			cout << " - " << message;
+		cout << endl;
+		err = glGetError();
 	}
 }
 
-const char *get_modifier(Uint16 mod) {
-	switch(mod) {
-		case KMOD_LSHIFT:
-			return "LShift";
-			break;
-		case KMOD_RSHIFT:
-			return "RShift";
-			break;
-		case KMOD_LCTRL:
-			return "LCtrl";
-			break;
-		case KMOD_RCTRL:
-			return "RCtrl";
-			break;
-		case KMOD_LALT:
-			return "LAlt";
-			break;
-		case KMOD_RALT:
-			return "RAlt";
-			break;
-		case KMOD_LGUI:
-			return "LMod";
-			break;
-		case KMOD_RGUI:
-			return "RMod";
-			break;
-		case KMOD_NUM:
-			return "Num";
-			break;
-		case KMOD_CAPS:
-			return "Caps";
-			break;
-		case KMOD_MODE:
-			return "AltGr";
-			break;
-		case KMOD_CTRL:
-			return "Ctrl";
-			break;
-		case KMOD_SHIFT:
-			return "Shift";
-			break;
-		case KMOD_ALT:
-			return "Alt";
-			break;
-		case KMOD_GUI:
-			return "Mod";
-			break;
-		default:
-			return "";
-	}
-}

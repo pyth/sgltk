@@ -1,7 +1,9 @@
-#ifndef __INIT_H__
-#define __INIT_H__
+#ifndef __CORE_H__
+#define __CORE_H__
 
-#define check_gl_error() check_error(__FILE__,__LINE__)
+#define check_gl_error(message) do{\
+	_check_error(message, __FILE__, __LINE__);\
+	}while(0)
 
 #ifdef __WIN32__
 	#include <windows.h>
@@ -15,6 +17,7 @@
 	#include <GL/gl.h>
 #endif*/
 
+#include <string>
 #include <iostream>
 #include <map>
 #include <vector>
@@ -79,8 +82,6 @@ void quit_mixer();
 bool init_lib();
 void quit_lib();
 
-bool check_error(const char *file, int line);
-
-const char *get_modifier(Uint16 mod);
+bool _check_error(const char *message, const char *file, int line);
 
 #endif

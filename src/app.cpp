@@ -16,6 +16,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl_min);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
 	width = res_x;
 	height = res_y;
@@ -46,11 +47,16 @@ void App::set_relative_mode(bool on) {
 }
 
 bool App::enable_vsync(bool on) {
+	bool ret;
 	if(on) {
-		return SDL_GL_SetSwapInterval(1);
+		ret = SDL_GL_SetSwapInterval(-1);
+		if(!ret) {
+			ret = SDL_GL_SetSwapInterval(1);
+		}
 	} else {
-		return SDL_GL_SetSwapInterval(0);
+		ret = SDL_GL_SetSwapInterval(0);
 	}
+	return ret;
 }
 
 void App::poll_events() {
@@ -62,11 +68,18 @@ void App::poll_events() {
 		case SDL_QUIT:
 			running = false;
 			break;
+		case SDL_WINDOWEVENT:
+			if(event.window.event == SDL_WINDOWEVENT_RESIZED) {
+				width = event.window.data1;
+				height = event.window.data2;
+				handle_resize();
+			}
+			break;
 		case SDL_KEYDOWN:
 		case SDL_KEYUP:
-			keys = SDL_GetKeyboardState(NULL);
 			break;
 		case SDL_MOUSEWHEEL:
+			handle_mouse_wheel(event.wheel.x, event.wheel.y);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
@@ -111,6 +124,9 @@ void App::handle_mouse_wheel(int x, int y) {
 
 void App::handle_mouse_button(int x, int y, MOUSE_BUTTON button, bool down,
 			      int clicks) {
+}
+
+void App::handle_resize() {
 }
 
 void App::display() {

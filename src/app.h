@@ -118,6 +118,11 @@ public:
 	virtual void handle_mouse_button(int x, int y, MOUSE_BUTTON button,
 					 bool down, int clicks);
 	/**
+	 * @brief This function is called by run when the window is resized. 
+	 * 	  This function should be overriden
+	 */
+	virtual void handle_resize();
+	/**
 	 * @brief This function is called by run() to draw a frame.
 	 * 	  This function should be overriden
 	 */
