@@ -50,8 +50,6 @@ void Scene::traverse_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) {
 void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	std::vector<sgltk::Vertex> vertices;
 	std::vector<unsigned short> indices;
-	aiColor4D color(0.0f, 0.0f, 0.0f, 0.0f);
-	aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
 
 	for(unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		sgltk::Vertex vert_tmp;
@@ -114,6 +112,9 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 			indices.push_back(face.mIndices[j]);
 		}
 	}
+
+	aiColor4D color(0.0f, 0.0f, 0.0f, 0.0f);
+	aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
 
 	Mesh<> *mesh_tmp = new Mesh<>();
 	mesh_tmp->attach_vertex_array(&vertices);
