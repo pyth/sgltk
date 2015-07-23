@@ -329,15 +329,37 @@ template <typename Vertex>
 void Mesh<Vertex>::setup_matrices(const char *model_view_matrix_name,
 				  const char *model_view_projection_matrix_name,
 				  const char *normal_matrix_name) {
-	if(model_view_matrix_name)
-		this->model_view_matrix_name = model_view_matrix_name;
+	size_t len;
+	if(model_view_matrix_name) {
+		len = strlen(model_view_matrix_name);
+		if(len > 0) {
+			delete[] this->model_view_matrix_name;
+			this->model_view_matrix_name = new char[len + 1];
+			strncpy(this->model_view_matrix_name,
+				model_view_matrix_name, len);
+		}
+	}
 
-	if(model_view_projection_matrix_name)
-		this->model_view_projection_matrix_name =
-			model_view_projection_matrix_name;
+	if(model_view_projection_matrix_name) {
+		len = strlen(model_view_projection_matrix_name);
+		if(len > 0) {
+			delete[] this->model_view_projection_matrix_name;
+			this->model_view_projection_matrix_name =
+				new char[len + 1];
+			strncpy(this->model_view_projection_matrix_name,
+				model_view_projection_matrix_name, len);
+		}
+	}
 
-	if(normal_matrix_name)
-		this->normal_matrix_name = normal_matrix_name;
+	if(normal_matrix_name) {
+		len = strlen(normal_matrix_name);
+		if(len > 0) {
+			delete[] this->normal_matrix_name;
+			this->normal_matrix_name = new char[len + 1];
+			strncpy(this->normal_matrix_name,
+				normal_matrix_name, len);
+		}
+	}
 }
 
 template <typename Vertex>
@@ -346,20 +368,57 @@ void Mesh<Vertex>::setup_material(const char *ambient_color_name,
 				  const char *specular_color_name,
 				  const char *shininess_name,
 				  const char *shininess_strength_name) {
-	if(ambient_color_name)
-		this->ambient_color_name = ambient_color_name;
+	size_t len;
 
-	if(diffuse_color_name)
-		this->diffuse_color_name = diffuse_color_name;
+	if(ambient_color_name) {
+		len = strlen(ambient_color_name);
+		if(len > 0) {
+			delete[] this->ambient_color_name;
+			this->ambient_color_name = new char[len + 1];
+			strncpy(this->ambient_color_name,
+				ambient_color_name, len);
+		}
+	}
 
-	if(specular_color_name)
-		this->specular_color_name = specular_color_name;
+	if(diffuse_color_name) {
+		len = strlen(diffuse_color_name);
+		if(len > 0) {
+			delete[] this->diffuse_color_name;
+			this->diffuse_color_name = new char[len + 1];
+			strncpy(this->diffuse_color_name,
+				diffuse_color_name, len);
+		}
+	}
 
-	if(shininess_name)
-		this->shininess_name = shininess_name;
+	if(specular_color_name) {
+		len = strlen(specular_color_name);
+		if(len > 0) {
+			delete[] this->specular_color_name;
+			this->specular_color_name = new char[len + 1];
+			strncpy(this->specular_color_name,
+				specular_color_name, len);
+		}
+	}
 
-	if(shininess_strength_name)
-		this->shininess_strength_name = shininess_strength_name;
+	if(shininess_name) {
+		len = strlen(shininess_name);
+		if(len > 0) {
+			delete[] this->shininess_name;
+			this->shininess_name = new char[len + 1];
+			strncpy(this->shininess_name,
+				shininess_name, len);
+		}
+	}
+
+	if(shininess_strength_name) {
+		len = strlen(shininess_strength_name);
+		if(len > 0) {
+			delete[] this->shininess_strength_name;
+			this->shininess_strength_name = new char[len + 1];
+			strncpy(this->shininess_strength_name,
+				shininess_strength_name, len);
+		}
+	}
 }
 
 template <typename Vertex>

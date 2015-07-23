@@ -109,11 +109,11 @@ public:
  * @brief Manages textures
  */
 class Texture {
-public:
 	/**
-	 * @brief Contains all textures
+	 * @brief Contains stored textures
 	 */
-	static std::map<const char *, Texture *> textures;
+	static std::map<char *, Texture> textures;
+public:
 	/**
 	 * @brief The texture name
 	 */
@@ -125,14 +125,30 @@ public:
 	 */
 	Texture(const char *path);
 	/**
-	 * @param image The image to use as the teture
+	 * @param image The image to use as the texture
 	 */
 	Texture(Image *image);
 	~Texture();
 
 	/**
+	 * @brief Stores a texture object in an internal map using the
+	 * 	  name parameter as key (no duplicates)
+	 * @param name The key used to store the texture
+	 * @param texture The texture to be stored
+	 * @return Returns true if the insertion was successful, false otherwise
+	 */
+	bool store_texture(const char *name);
+	/**
+	 * @brief Finds a texture in the internal map using the name as
+	 * 	  key
+	 * @param name The key used to find the texture
+	 * @return Returns a pointer to the found texture object or NULL 
+	 * 	   if no texture with such name could be found.
+	 */
+	static Texture *find_texture(const char *name);
+	/**
 	 * @brief Load a new image
-	 * @param image The image to use as the teture
+	 * @param image The image to use as the texture
 	 */
 	void load_texture(Image *image);
 	/**

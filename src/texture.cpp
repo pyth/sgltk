@@ -74,3 +74,14 @@ void Texture::load_texture(Image *image) {
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+bool Texture::store_texture(const char *name) {
+	return textures.insert(std::make_pair((char *)name, *this)).second;
+}
+
+Texture *Texture::find_texture(const char *name) {
+	std::map<char *, Texture>::iterator it = textures.find((char *)name);
+	if(it == textures.end())
+		return NULL;
+	return &it->second;
+}
