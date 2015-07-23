@@ -1,6 +1,6 @@
 #include "texture.h"
 
-using namespace std;
+std::map<char *, Texture> Texture::textures;
 
 Texture::Texture() {
 	Texture((const char *)NULL);
