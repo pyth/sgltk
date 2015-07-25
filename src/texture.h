@@ -109,10 +109,11 @@ public:
  * @brief Manages textures
  */
 class Texture {
+	GLenum target;
 	/**
 	 * @brief Contains stored textures
 	 */
-	static std::map<char *, Texture> textures;
+	static std::map<char *, Texture *> textures;
 public:
 	/**
 	 * @brief The texture name
@@ -121,13 +122,27 @@ public:
 
 	Texture();
 	/**
+	 * @param target The target to bind the texture
+	 */
+	Texture(GLenum target);
+	/**
 	 * @param path The path to the image file
 	 */
 	Texture(const char *path);
 	/**
+	 * @param target The target to bind the texture
+	 * @param path The path to the image file
+	 */
+	Texture(GLenum target, const char *path);
+	/**
 	 * @param image The image to use as the texture
 	 */
 	Texture(Image *image);
+	/**
+	 * @param target The target to bind the texture
+	 * @param image The image to use as the texture
+	 */
+	Texture(GLenum target, Image *image);
 	~Texture();
 
 	/**
@@ -137,7 +152,7 @@ public:
 	 * @param texture The texture to be stored
 	 * @return Returns true if the insertion was successful, false otherwise
 	 */
-	bool store_texture(const char *name);
+	static bool store_texture(const char *name, Texture *texture);
 	/**
 	 * @brief Finds a texture in the internal map using the name as
 	 * 	  key
@@ -151,6 +166,18 @@ public:
 	 * @param image The image to use as the texture
 	 */
 	void load_texture(Image *image);
+	/**
+	 * @brief Sets a texture parameter
+	 * @param name The name of the texture parameter
+	 * @param parameter The parameter value
+	 */
+	void set_parameter(GLenum name, int parameter);
+	/**
+	 * @brief Sets a texture parameter
+	 * @param name The name of the texture parameter
+	 * @param parameter The parameter value
+	 */
+	void set_parameter(GLenum name, float parameter);
 	/**
 	 * @brief Bind the texture to be used by the shader
 	 */

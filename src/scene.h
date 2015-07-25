@@ -15,7 +15,6 @@ class Scene {
 	const aiScene *scene;
 	Shader *shader;
 	std::vector<Mesh<> *> meshes;
-	std::vector<Texture> textures;
 
 	const char *model_view_matrix_name;
 	const char *model_view_projection_matrix_name;

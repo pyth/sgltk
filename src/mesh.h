@@ -119,6 +119,17 @@ namespace sgltk {
 		glm::vec4 color_ambient;
 		glm::vec4 color_diffuse;
 		glm::vec4 color_specular;
+
+		//textures
+		Texture *texture_ambient;
+		Texture *texture_diffuse;
+		Texture *texture_specular;
+		Texture *texture_shininess;
+		Texture *texture_emmisive;
+		Texture *texture_normals;
+		Texture *texture_displacement;
+		Texture *texture_opacity;
+		Texture *texture_lightmap;
 	} Material;
 
 #pragma pack(pop)
