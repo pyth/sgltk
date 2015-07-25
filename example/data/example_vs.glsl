@@ -15,6 +15,7 @@ out vec3 norm_eye;
 out vec3 tc;
 
 uniform Matrix matrix;
+uniform sampler2D Texture;
 
 void main() {
 	pos_eye = matrix.model_view * pos;

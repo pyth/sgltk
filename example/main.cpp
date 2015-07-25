@@ -42,11 +42,10 @@ void init() {
 	img1.copy_from(&img2, img1.width/2-img2.width/2,
 		       img1.height-img2.height);
 	//make a texture out of the image
-	tex = new Texture();
-	tex->load_texture(&img1);
+	tex = new Texture(&img1);
 
 	//set up the camera
-	camera = new Camera(glm::vec3(0,0,5), glm::vec3(0,0,-1),
+	camera = new Camera(glm::vec3(0,25,100), glm::vec3(0,0,-1),
 			    glm::vec3(0,1,0), 70.0f, app->width,
 			    app->height, 1.0f, 800.0f);
 
@@ -92,7 +91,7 @@ void init() {
 	mesh->set_vertex_attribute("col_in", 4, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, color));
 
-	scene = new Scene("data/Spikey.dae", shader, &camera->view_matrix,
+	scene = new Scene("data/boblampclean.md5mesh", shader, &camera->view_matrix,
 			  &camera->projection_matrix);
 	scene->set_vertex_attribute("pos", 4, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, position));

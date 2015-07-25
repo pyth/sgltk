@@ -34,17 +34,18 @@ void GUI::display() {
 	//glUniform1f(time_loc, 0);
 	glUniform1i(texture_loc, 0);
 
-	tex->bind();
+	tex->bind(0);
 
 	/*for(int i = -2; i < 3; i+=2) {
 		glm::mat4 trafo = glm::translate(glm::vec3((float)i,0.0f,0.0f));
 		mesh->draw(GL_TRIANGLE_STRIP, &trafo);
 	}*/
 	//scene->model_matrix = glm::mat4(1.0);
-	for(int i = -2; i < 3; i+=2) {
+	/*for(int i = -2; i < 3; i+=2) {
 		glm::mat4 trafo = glm::translate(glm::vec3((float)i * 2, 0.0f, 0.0f));
 		scene->draw(&trafo);
-	}
+	}*/
+	scene->draw();
 	shader->unbind();
 	check_gl_error("display");
 }

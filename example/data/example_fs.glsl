@@ -49,13 +49,10 @@ void main() {
 	diff = vec4(LN * material.color_diffuse.xyz,
 			material.color_diffuse.w);
 
-	//if(material.color_specular != vec4(0))
-		spec = material.color_specular *
-				material.shininess_strength *
-				pow(VR, material.shininess);
-	//else
-	//	spec = material.color_diffuse * 0.7 * pow(VR, 10);
+	spec = material.color_specular *
+			material.shininess_strength *
+			pow(VR, material.shininess);
 
 	color = amb + diff + spec;
-	//color = spec;
+	color = tex;
 }

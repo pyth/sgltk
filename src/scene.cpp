@@ -30,7 +30,6 @@ Scene::Scene(const char *path, Shader *shader,
 
 Scene::~Scene() {
 	meshes.clear();
-	textures.clear();
 }
 
 void Scene::traverse_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) {
@@ -51,6 +50,9 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	std::vector<sgltk::Vertex> vertices;
 	std::vector<unsigned short> indices;
 
+	//************************************
+	// Vertices
+	//************************************
 	for(unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		sgltk::Vertex vert_tmp;
 
@@ -106,6 +108,9 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 		vertices.push_back(vert_tmp);
 	}
 
+	//************************************
+	// Faces
+	//************************************
 	for(unsigned int i = 0; i < mesh->mNumFaces; i++) {
 		aiFace face = mesh->mFaces[i];
 		for(unsigned int j = 0; j < face.mNumIndices; j++) {
@@ -113,6 +118,12 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 		}
 	}
 
+	//************************************
+	// Materials
+	//************************************
+	aiString str;
+	Texture *texture;
+	unsigned int num_textures;
 	aiColor4D color(0.0f, 0.0f, 0.0f, 0.0f);
 	aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
 
@@ -157,6 +168,39 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	mesh_tmp->material.shininess_strength = 1.0;
 	mat->Get(AI_MATKEY_SHININESS_STRENGTH,
 		mesh_tmp->material.shininess_strength);
+
+	//ambient textures
+	num_textures = mat->GetTextureCount(aiTextureType_AMBIENT);
+	for(unsigned int i = 0; i < num_textures; i++) {
+		mat->GetTexture(aiTextureType_AMBIENT, i, &str);
+		texture = Texture::find_texture(str.C_Str());
+		if(!texture) {
+			texture = new Texture(str.C_Str());
+			Texture::store_texture(str.C_Str(), texture);
+		}
+	}
+
+	//diffuse textures
+	num_textures = mat->GetTextureCount(aiTextureType_DIFFUSE);
+	for(unsigned int i = 0; i < num_textures; i++) {
+		mat->GetTexture(aiTextureType_DIFFUSE, i, &str);
+		texture = Texture::find_texture(str.C_Str());
+		if(!texture) {
+			texture = new Texture(str.C_Str());
+			Texture::store_texture(str.C_Str(), texture);
+		}
+	}
+
+	//specular textures
+	num_textures = mat->GetTextureCount(aiTextureType_SPECULAR);
+	for(unsigned int i = 0; i < num_textures; i++) {
+		mat->GetTexture(aiTextureType_SPECULAR, i, &str);
+		texture = Texture::find_texture(str.C_Str());
+		if(!texture) {
+			texture = new Texture(str.C_Str());
+			Texture::store_texture(str.C_Str(), texture);
+		}
+	}
 
 	meshes.push_back(mesh_tmp);
 }
