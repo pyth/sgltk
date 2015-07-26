@@ -91,7 +91,7 @@ void init() {
 	mesh->set_vertex_attribute("col_in", 4, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, color));
 
-	scene = new Scene("data/boblampclean.md5mesh", shader, &camera->view_matrix,
+	scene = new Scene("data/Spikey.dae", shader, &camera->view_matrix,
 			  &camera->projection_matrix);
 	scene->set_vertex_attribute("pos", 4, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, position));
