@@ -10,7 +10,6 @@ using namespace std;
  * @brief Manages images
  */
 class Image {
-	char *path;
 public:
 	/**
 	 * @brief The width of the image surface

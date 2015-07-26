@@ -1,16 +1,38 @@
 #include "camera.h"
 
 Camera::Camera() {
-	Camera(glm::vec3(0,0,1), glm::vec3(0,0,-1), glm::vec3(0,1,0),
-	       70.0f, 640, 480, 1.0f, 800.0f);
+	init_lib();
+	ident = glm::mat4(1);
+
+	this->pos = glm::vec4(0, 0, 1, 1);
+	this->dir = glm::vec4(0, 0, -1, 1);
+	this->up = glm::vec4(0, 1, 0, 1);
+	right = glm::vec4(glm::cross(glm::vec3(dir), glm::vec3(up)), 1);
+	this->fov = 70.0f;
+	this->near_plane = 1.0f;
+	this->far_plane = 800.0f;
+
+	update_view_matrix();
+	update_projection_matrix(fov, 640, 480, near_plane, far_plane);
 }
 
 Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up) {
+	init_lib();
 	Camera(pos, dir, up, 70.0f, 640, 480, 1.0f, 800.0f);
+	ident = glm::mat4(1);
+
+	right = glm::vec4(glm::cross(glm::vec3(dir), glm::vec3(up)), 1);
+	this->fov = 70.0f;
+	this->near_plane = 1.0f;
+	this->far_plane = 800.0f;
+
+	update_view_matrix();
+	update_projection_matrix(fov, 640, 480, near_plane, far_plane);
 }
 
 Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fov,
 	       float width, float height, float near_plane, float far_plane) {
+	init_lib();
 	ident = glm::mat4(1);
 
 	this->pos = glm::vec4(pos, 1);
