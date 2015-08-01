@@ -112,7 +112,7 @@ bool Image::copy_from(const Image *src, int x, int y) {
 	SDL_Rect rect;
 	rect.x = x;
 	rect.y = y;
-	return copy_from(src, &rect);
+	return copy_from(src, &rect, NULL);
 }
 
 bool Image::copy_from(const Image *src, SDL_Rect *dst_rect) {
@@ -138,6 +138,10 @@ bool Image::copy_from(const Image *src, SDL_Rect *dst_rect,
 	}
 	return true;
 }
+
+/*bool Image::copy_scaled() {
+	SDL_BlitScaled(src,srcrect, dst, dstrect);
+}*/
 
 void Image::set_color_key(int r, int g, int b) {
 	SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, r, g, b));

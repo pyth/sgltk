@@ -54,5 +54,7 @@ void main() {
 			pow(VR, material.shininess);
 
 	color = amb + diff + spec;
-	color = tex;
+	//color = vec4(1);
+	//color = tex;
+	//color = vec4(tc.xy, 0, 1);
 }

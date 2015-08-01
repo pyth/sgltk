@@ -34,7 +34,7 @@ void GUI::display() {
 	//glUniform1f(time_loc, 0);
 	glUniform1i(texture_loc, 0);
 
-	tex->bind(0);
+	tex->bind();
 
 	/*for(int i = -2; i < 3; i+=2) {
 		glm::mat4 trafo = glm::translate(glm::vec3((float)i,0.0f,0.0f));

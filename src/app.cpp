@@ -1,9 +1,14 @@
 #include "app.h"
 
-using namespace std;
-
 App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	 int gl_maj, int gl_min, unsigned int flags) {
+	int GL_Maj = gl_maj;
+	if(gl_maj < 3) {
+		std::cerr << "SGLTK requires at least OpenGL version 3.0"
+			  << std::endl << "Defaulting major version number to 3"
+			  << std::endl;
+		GL_Maj = 3;
+	}
 	init_lib();
 
 	running = true;
@@ -12,7 +17,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 
 	SDL_DisableScreenSaver();
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl_maj);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, GL_Maj);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl_min);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
@@ -23,7 +28,8 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	window = SDL_CreateWindow(title, offset_x, offset_y,
 				  res_x, res_y, SDL_WINDOW_OPENGL | flags);
 	if(!window) {
-		cerr << "SDL_CreateWindow Error: " << SDL_GetError() << endl;
+		std::cerr << "SDL_CreateWindow Error: "
+			  << SDL_GetError() << std::endl;
 		return;
 	}
 	context = SDL_GL_CreateContext(window);
@@ -122,7 +128,9 @@ void App::handle_mouse_motion(int x, int y) {
 void App::handle_mouse_wheel(int x, int y) {
 }
 
-void App::handle_mouse_button(int x, int y, MOUSE_BUTTON button, bool down,
+void App::handle_mouse_button(int x, int y,
+			      MOUSE_BUTTON button,
+			      bool down,
 			      int clicks) {
 }
 
