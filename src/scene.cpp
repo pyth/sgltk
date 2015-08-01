@@ -47,8 +47,10 @@ void Scene::traverse_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) {
 }
 
 void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
+	unsigned int num_uv = mesh->GetNumUVChannels();
 	std::vector<sgltk::Vertex> vertices;
 	std::vector<unsigned short> indices;
+	//glm::vec3 tex_coord[(num_uv - 1)][mesh->mNumVertices];
 
 	//************************************
 	// Vertices
@@ -72,29 +74,33 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 		}
 
 		//texture coordinates
-		//vert_tmp.tex_coord.reserve(mesh->GetNumUVChannels());
-		//for(unsigned int j = 0; j < mesh->GetNumUVChannels(); j++) {
+		//for(unsigned int j = 0; j < num_uv; j++) {
 			if(mesh->HasTextureCoords(0)) {
+		//		continue;
+		//	if(j == 0) {
 				vert_tmp.tex_coord[0] =
 					mesh->mTextureCoords[0][i].x;
 				vert_tmp.tex_coord[1] =
 					mesh->mTextureCoords[0][i].y;
 				vert_tmp.tex_coord[2] =
 					mesh->mTextureCoords[0][i].z;
-			}
-		//}
+			/*} else {
+				tex_coord[j].push_back(glm::vec3());
+				vert_tmp.tex_coord[0] =
+					mesh->mTextureCoords[j][i].x;
+				vert_tmp.tex_coord[1] =
+					mesh->mTextureCoords[j][i].y;
+				vert_tmp.tex_coord[2] =
+					mesh->mTextureCoords[j][i].z;
+			}*/
+		}
 
-		//tangent and bitangent
+		//tangents
 		if(mesh->HasTangentsAndBitangents()) {
 			vert_tmp.tangent[0] = mesh->mTangents[i].x;
 			vert_tmp.tangent[1] = mesh->mTangents[i].y;
 			vert_tmp.tangent[2] = mesh->mTangents[i].z;
 			vert_tmp.tangent[3] = 1;
-
-			vert_tmp.bitangent[0] = mesh->mBitangents[i].x;
-			vert_tmp.bitangent[1] = mesh->mBitangents[i].y;
-			vert_tmp.bitangent[2] = mesh->mBitangents[i].z;
-			vert_tmp.bitangent[3] = 1;
 		}
 
 		//color
@@ -128,8 +134,8 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
 
 	Mesh<> *mesh_tmp = new Mesh<>();
-	mesh_tmp->attach_vertex_array(&vertices);
-	mesh_tmp->attach_index_array(&indices);
+	mesh_tmp->attach_vertex_buffer(&vertices);
+	mesh_tmp->attach_index_buffer(&indices);
 	ai_to_glm_mat4(trafo, mesh_tmp->model_matrix);
 
 	mesh_tmp->setup_shader(shader);
@@ -205,11 +211,16 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	meshes.push_back(mesh_tmp);
 }
 
-void Scene::set_vertex_attribute(const char *attrib_name, GLint size,
-				 GLenum type, GLsizei stride,
+void Scene::set_vertex_attribute(const char *attrib_name,
+				 unsigned int buffer_index,
+				 GLint size,
+				 GLenum type,
+				 GLsizei stride,
 				 const GLvoid *pointer) {
 	for(unsigned int i = 0; i < meshes.size(); i++) {
-		meshes[i]->set_vertex_attribute(attrib_name, size, type,
+		meshes[i]->set_vertex_attribute(attrib_name,
+						buffer_index,
+						size, type,
 						stride, pointer);
 	}
 }

@@ -24,10 +24,6 @@ namespace sgltk {
 		 */
 		glm::vec4 tangent;
 		/**
-		 * @brief Vertex bitangent
-		 */
-		glm::vec4 bitangent;
-		/**
 		 * @brief Vertex color
 		 */
 		glm::vec4 color;
@@ -43,11 +39,7 @@ namespace sgltk {
 
 			tangent = {0, 0, 0, 1};
 
-			bitangent = {0, 0, 0, 1};
-
 			color = {0, 0, 0, 0};
-
-			tex_coord = {0, 0, 0};
 		};
 
 		/**
@@ -58,6 +50,12 @@ namespace sgltk {
 			position = glm::vec4(p, 1);
 
 			normal = n;
+
+			tangent = {0, 0, 0, 1};
+
+			color = {0, 0, 0, 0};
+
+			tex_coord = {0, 0, 0};
 		};
 
 		/**
@@ -69,6 +67,10 @@ namespace sgltk {
 			position = glm::vec4(p, 1);
 
 			normal = n;
+
+			tangent = {0, 0, 0, 1};
+
+			color = {0, 0, 0, 0};
 
 			tex_coord = tc;
 		};
@@ -85,6 +87,8 @@ namespace sgltk {
 			normal = n;
 
 			tangent = glm::vec4(t, 1);
+
+			color = {0, 0, 0, 0};
 
 			tex_coord = tc;
 		};
@@ -157,7 +161,7 @@ class Mesh {
 	glm::mat4 *projection_matrix;
 
 	GLuint vao;
-	GLuint vbo;
+	std::vector<GLuint> vbo;
 	std::vector<GLuint> ibo;
 	std::vector<int> num_indices;
 
@@ -230,12 +234,23 @@ public:
 			    const char *shininess_strength_name);
 	/**
 	 * @brief Loads vertices into memory
+	 * @param size The number of elements
 	 * @param vertexdata The vertices to be loaded into memory
+	 * @return Returns the index that the buffer was attached to
 	 */
-	void attach_vertex_array(const std::vector<Vertex> *vertexdata);
+	int attach_vertex_buffer(unsigned int size, const void *vertexdata);
+	/**
+	 * @brief Loads vertices into memory
+	 * @param vertexdata The vertices to be loaded into memory
+	 * @return Returns the index that the buffer was attached to
+	 */
+	template <typename T = Vertex>
+	int attach_vertex_buffer(const std::vector<T> *vertexdata);
 	/**
 	 * @brief Sets pointers to vertex attribures
 	 * @param attrib_name	The name as defined in the shader
+	 * @param buffer_index	The index of the buffer that contains
+	 *			the attribute
 	 * @param size		Number of elements
 	 * @param type		Element type
 	 * @param stride	Memory offset between vertices
@@ -245,15 +260,18 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	int set_vertex_attribute(const char *attrib_name, GLint size,
-				  GLenum type, GLsizei stride,
-				  const GLvoid *pointer);
+	int set_vertex_attribute(const char *attrib_name,
+				 unsigned int buffer_index,
+				 GLint size,
+				 GLenum type,
+				 GLsizei stride,
+				 const GLvoid *pointer);
 	/**
 	 * @brief Attaches an index array to the mesh
 	 * @param indices Indices describing the topology of the mesh
 	 * You can attach multiple index arrays
 	 */
-	void attach_index_array(const std::vector<unsigned short> *indices);
+	void attach_index_buffer(const std::vector<unsigned short> *indices);
 
 	/**
 	 * @brief Renders the mesh using the first index buffer
@@ -298,7 +316,6 @@ Mesh<Vertex>::Mesh() {
 	model_matrix = glm::mat4(1.0);
 	shader = NULL;
 	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &vbo);
 
 	model_view_matrix_name =		"matrix.model_view";
 	model_view_projection_matrix_name =	"matrix.model_view_proj";
@@ -319,7 +336,7 @@ Mesh<Vertex>::Mesh() {
 
 template <typename Vertex>
 Mesh<Vertex>::~Mesh() {
-	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(vbo.size(), vbo.data());
 	glDeleteBuffers(ibo.size(), ibo.data());
 	glDeleteVertexArrays(1, &vao);
 }
@@ -433,14 +450,34 @@ void Mesh<Vertex>::setup_material(const char *ambient_color_name,
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::attach_vertex_array(const std::vector<Vertex> *vertexdata) {
-	glBindVertexArray(vao);
+int Mesh<Vertex>::attach_vertex_buffer(unsigned int size, const void *vertexdata) {
+	//glBindVertexArray(vao);
+	GLuint buf;
+	glGenBuffers(1, &buf);
+	vbo.push_back(buf);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, vertexdata->size() * sizeof(Vertex),
+	glBindBuffer(GL_ARRAY_BUFFER, buf);
+	glBufferData(GL_ARRAY_BUFFER, size * sizeof(*vertexdata),
+		     vertexdata, GL_STATIC_DRAW);
+
+	return vbo.size() - 1;
+	//glBindVertexArray(0);
+}
+
+template <typename Vertex>
+template <typename T>
+int Mesh<Vertex>::attach_vertex_buffer(const std::vector<T> *vertexdata) {
+	//glBindVertexArray(vao);
+	GLuint buf;
+	glGenBuffers(1, &buf);
+	vbo.push_back(buf);
+
+	glBindBuffer(GL_ARRAY_BUFFER, buf);
+	glBufferData(GL_ARRAY_BUFFER, vertexdata->size() * sizeof(T),
 		     vertexdata->data(), GL_STATIC_DRAW);
 
-	glBindVertexArray(0);
+	return vbo.size() - 1;
+	//glBindVertexArray(0);
 }
 
 template <typename Vertex>
@@ -448,14 +485,17 @@ void Mesh<Vertex>::compute_bounding_box(const std::vector<Vertex> *vertexdata) {
 }
 
 template <typename Vertex>
-int Mesh<Vertex>::set_vertex_attribute(const char *attrib_name, GLint size,
-				GLenum type, GLsizei stride,
-				const GLvoid *pointer) {
+int Mesh<Vertex>::set_vertex_attribute(const char *attrib_name,
+				       unsigned int buffer_index,
+				       GLint size,
+				       GLenum type,
+				       GLsizei stride,
+				       const GLvoid *pointer) {
 	if(!shader) {
 		return -1;
 	}
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
 
 	int loc = glGetAttribLocation(shader->shader, attrib_name);
 	if(loc == -1) {
@@ -470,7 +510,7 @@ int Mesh<Vertex>::set_vertex_attribute(const char *attrib_name, GLint size,
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::attach_index_array(const std::vector<unsigned short> *indices) {
+void Mesh<Vertex>::attach_index_buffer(const std::vector<unsigned short> *indices) {
 	num_indices.push_back(indices->size());
 	
 	GLuint index;

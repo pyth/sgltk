@@ -46,14 +46,19 @@ class Scene {
 		/**
 		 * @brief Sets pointers to vertex attribures
 		 * @param attrib_name	The name as defined in the shader
+		 * @param buffer_index	The index of the buffer that contains
+		 *			the attribute
 		 * @param size		Number of elements
 		 * @param type		Element type
 		 * @param stride	Memory offset between vertices
 		 * @param pointer	The offset of the attribute in the
 		 *				vertex structure
 		 */
-		void set_vertex_attribute(const char *attrib_name, GLint size,
-					  GLenum type, GLsizei stride,
+		void set_vertex_attribute(const char *attrib_name,
+					  unsigned int buffer_index,
+					  GLint size,
+					  GLenum type,
+					  GLsizei stride,
 					  const GLvoid *pointer);
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
