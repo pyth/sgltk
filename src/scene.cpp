@@ -1,35 +1,52 @@
 #include "scene.h"
 
-Scene::Scene(const char *path, Shader *shader,
-	     glm::mat4 *view_matrix,
-	     glm::mat4 *projection_matrix) {
+std::vector<std::string> Scene::paths;
 
-	unsigned int flags = aiProcess_GenSmoothNormals |
-			     aiProcess_Triangulate |
-			     aiProcess_CalcTangentSpace |
-			     aiProcess_FlipUVs;
-	scene = importer.ReadFile(path, flags);
+Scene::Scene() {
+	scene = NULL;
+	shader = NULL;
+	view_matrix = NULL;
+	projection_matrix = NULL;
 
-	if(!scene) {
-		std::cerr << "Error importing " << path << ": "
-			  << importer.GetErrorString() << std::endl;
-		return;
-	}
+	position_name = "pos_in";
+	normal_name = "norm_in";
+	tangent_name = "tang_in";
+	color_name = "col_in";
+	texture_coordinates_name = "tex_coord_in";
 
-	this->shader = shader;
-	this->model_view_matrix_name = model_view_matrix_name;
-	this->model_view_projection_matrix_name =
-		model_view_projection_matrix_name;
-	this->normal_matrix_name = normal_matrix_name;
-
-	this->view_matrix = view_matrix;
-	this->projection_matrix = projection_matrix;
-
-	traverse_nodes(scene->mRootNode, NULL);
+	model_view_matrix_name = NULL;
+	model_view_projection_matrix_name = NULL;
+	normal_matrix_name = NULL;
 }
 
 Scene::~Scene() {
 	meshes.clear();
+}
+
+bool Scene::load(const char *file) {
+	unsigned int flags = aiProcess_GenSmoothNormals |
+			     aiProcess_Triangulate |
+			     aiProcess_CalcTangentSpace |
+			     aiProcess_FlipUVs;
+	scene = importer.ReadFile(file, flags);
+
+	if(!scene) {
+		std::cerr << "Error importing " << file << ": "
+			  << importer.GetErrorString() << std::endl;
+		return false;
+	}
+
+	traverse_nodes(scene->mRootNode, NULL);
+}
+
+void Scene::setup_camera(glm::mat4 *view_matrix,
+			 glm::mat4 *projection_matrix) {
+	this->view_matrix = view_matrix;
+	this->projection_matrix = projection_matrix;
+}
+
+void Scene::setup_shader(Shader *shader) {
+	this->shader = shader;
 }
 
 void Scene::traverse_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) {
@@ -48,15 +65,17 @@ void Scene::traverse_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) {
 
 void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	unsigned int num_uv = mesh->GetNumUVChannels();
-	std::vector<sgltk::Vertex> vertices;
+	unsigned int num_col = mesh->GetNumColorChannels();
+	std::vector<Scene_vertex> vertices;
 	std::vector<unsigned short> indices;
-	//glm::vec3 tex_coord[(num_uv - 1)][mesh->mNumVertices];
+	glm::vec4 col[num_col][mesh->mNumVertices];
+	glm::vec3 tex_coord[num_uv][mesh->mNumVertices];
 
 	//************************************
 	// Vertices
 	//************************************
 	for(unsigned int i = 0; i < mesh->mNumVertices; i++) {
-		sgltk::Vertex vert_tmp;
+		Scene_vertex vert_tmp;
 
 		//position
 		if(mesh->HasPositions()) {
@@ -74,25 +93,12 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 		}
 
 		//texture coordinates
-		//for(unsigned int j = 0; j < num_uv; j++) {
-			if(mesh->HasTextureCoords(0)) {
-		//		continue;
-		//	if(j == 0) {
-				vert_tmp.tex_coord[0] =
-					mesh->mTextureCoords[0][i].x;
-				vert_tmp.tex_coord[1] =
-					mesh->mTextureCoords[0][i].y;
-				vert_tmp.tex_coord[2] =
-					mesh->mTextureCoords[0][i].z;
-			/*} else {
-				tex_coord[j].push_back(glm::vec3());
-				vert_tmp.tex_coord[0] =
-					mesh->mTextureCoords[j][i].x;
-				vert_tmp.tex_coord[1] =
-					mesh->mTextureCoords[j][i].y;
-				vert_tmp.tex_coord[2] =
-					mesh->mTextureCoords[j][i].z;
-			}*/
+		for(unsigned int j = 0; j < num_uv; j++) {
+			if(!mesh->HasTextureCoords(j))
+				continue;
+			tex_coord[j][i][0] = mesh->mTextureCoords[j][i].x;
+			tex_coord[j][i][1] = mesh->mTextureCoords[j][i].y;
+			tex_coord[j][i][2] = mesh->mTextureCoords[j][i].z;
 		}
 
 		//tangents
@@ -104,11 +110,13 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 		}
 
 		//color
-		if(mesh->HasVertexColors(0)) {
-			vert_tmp.color[0] = mesh->mColors[0][i].r;
-			vert_tmp.color[1] = mesh->mColors[0][i].g;
-			vert_tmp.color[2] = mesh->mColors[0][i].b;
-			vert_tmp.color[3] = mesh->mColors[0][i].a;
+		for(unsigned int j = 0; j < num_col; j++) {
+			if(!mesh->HasVertexColors(j))
+				continue;
+			col[j][i][0] = mesh->mColors[j][i].r;
+			col[j][i][1] = mesh->mColors[j][i].g;
+			col[j][i][2] = mesh->mColors[j][i].b;
+			col[j][i][3] = mesh->mColors[j][i].a;
 		}
 
 		vertices.push_back(vert_tmp);
@@ -125,6 +133,23 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	}
 
 	//************************************
+	// Mesh
+	//************************************
+	Mesh<Scene_vertex> *mesh_tmp = new Mesh<Scene_vertex>();
+	mesh_tmp->attach_vertex_buffer(&vertices);
+	mesh_tmp->attach_vertex_buffer(sizeof(glm::vec3) *
+				       mesh->mNumVertices * num_uv,
+				       (void *)tex_coord);
+	mesh_tmp->attach_vertex_buffer(sizeof(glm::vec4) *
+				       mesh->mNumVertices * num_col,
+				       (void *)col);
+	mesh_tmp->attach_index_buffer(&indices);
+	ai_to_glm_mat4(trafo, mesh_tmp->model_matrix);
+
+	mesh_tmp->setup_shader(shader);
+	mesh_tmp->setup_camera(view_matrix, projection_matrix);
+
+	//************************************
 	// Materials
 	//************************************
 	aiString str;
@@ -132,14 +157,6 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	unsigned int num_textures;
 	aiColor4D color(0.0f, 0.0f, 0.0f, 0.0f);
 	aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
-
-	Mesh<> *mesh_tmp = new Mesh<>();
-	mesh_tmp->attach_vertex_buffer(&vertices);
-	mesh_tmp->attach_index_buffer(&indices);
-	ai_to_glm_mat4(trafo, mesh_tmp->model_matrix);
-
-	mesh_tmp->setup_shader(shader);
-	mesh_tmp->setup_camera(view_matrix, projection_matrix);
 
 	//wireframe or solid?
 	mesh_tmp->wireframe = false;
@@ -208,21 +225,30 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 		}
 	}
 
-	meshes.push_back(mesh_tmp);
-}
+	//set attribute pointers
+	mesh_tmp->set_vertex_attribute(position_name, 0, 4, GL_FLOAT,
+				       sizeof(Scene_vertex),
+				       (void *)offsetof(Scene_vertex, position));
+	mesh_tmp->set_vertex_attribute(normal_name, 0, 3, GL_FLOAT,
+				       sizeof(Scene_vertex),
+				       (void *)offsetof(Scene_vertex, normal));
+	mesh_tmp->set_vertex_attribute(tangent_name, 0, 4, GL_FLOAT,
+				       sizeof(Scene_vertex),
+				       (void *)offsetof(Scene_vertex, tangent));
 
-void Scene::set_vertex_attribute(const char *attrib_name,
-				 unsigned int buffer_index,
-				 GLint size,
-				 GLenum type,
-				 GLsizei stride,
-				 const GLvoid *pointer) {
-	for(unsigned int i = 0; i < meshes.size(); i++) {
-		meshes[i]->set_vertex_attribute(attrib_name,
-						buffer_index,
-						size, type,
-						stride, pointer);
+	char name_buf[strlen(texture_coordinates_name) + 10];
+	for(unsigned int i = 0; i < num_uv; i++) {
+		sprintf(name_buf, "%s%d", texture_coordinates_name, i);
+		mesh_tmp->set_vertex_attribute(name_buf, 1, 3, GL_FLOAT, 0,
+					       (void *)(long)(i * mesh->mNumVertices));
 	}
+	for(unsigned int i = 0; i < num_col; i++) {
+		sprintf(name_buf, "%s%d", color_name, i);
+		mesh_tmp->set_vertex_attribute(name_buf, 2, 4, GL_FLOAT, 0,
+					       (void *)(long)(i * mesh->mNumVertices));
+	}
+
+	meshes.push_back(mesh_tmp);
 }
 
 void Scene::draw() {
@@ -238,6 +264,17 @@ void Scene::draw(glm::mat4 *model_matrix) {
 			matrix_tmp = *model_matrix * matrix_tmp;
 		meshes[i]->draw(GL_TRIANGLES, &matrix_tmp);
 	}
+}
+
+void Scene::add_path(const char *path) {
+	if(!path)
+		return;
+	std::string path_tmp(path);
+	for(unsigned int i = 0; i < paths.size(); i++) {
+		if(paths[i] == path_tmp)
+			return;
+	}
+	paths.push_back(path_tmp);
 }
 
 void Scene::ai_to_glm_mat4(aiMatrix4x4 *in, glm::mat4 &out) {
