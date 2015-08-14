@@ -30,12 +30,14 @@ void GUI::display() {
 
 	glm::vec3 light_dir = glm::vec3(camera->view_matrix *
 				glm::vec4(1.0, -1.0, -1.0, 0.0));
-	glUniform3fv(light_loc, 1, glm::value_ptr(light_dir));
+	glUniform3fv(light_loc, 1, &light_dir[0]);
 	//glUniform1f(time_loc, 0);
 	glUniform1i(texture_loc, 0);
+	shader->unbind();
 
 	tex->bind();
 
+	//mesh->draw(GL_TRIANGLE_STRIP);
 	/*for(int i = -2; i < 3; i+=2) {
 		glm::mat4 trafo = glm::translate(glm::vec3((float)i,0.0f,0.0f));
 		mesh->draw(GL_TRIANGLE_STRIP, &trafo);
@@ -46,7 +48,6 @@ void GUI::display() {
 		scene->draw(&trafo);
 	}*/
 	scene->draw();
-	shader->unbind();
 	check_gl_error("display");
 }
 
@@ -60,28 +61,28 @@ void GUI::handle_keyboard() {
 		exit(0);
 	}
 	if(key_pressed("A")) {
-		camera->move_right(-1.0/10);
+		camera->move_right(-0.01);
 	}
 	if(key_pressed("D")) {
-		camera->move_right(1.0/10);
+		camera->move_right(0.01);
 	}
 	if(key_pressed("W")) {
-		camera->move_forward(1.0/10);
+		camera->move_forward(0.01);
 	}
 	if(key_pressed("S")) {
-		camera->move_forward(-1.0/10);
+		camera->move_forward(-0.01);
 	}
 	if(key_pressed("R")) {
-		camera->move_up(1.0/10);
+		camera->move_up(0.01);
 	}
 	if(key_pressed("F")) {
-		camera->move_up(-1.0/10);
+		camera->move_up(-0.01);
 	}
 	if(key_pressed("Q")) {
-		camera->roll(-0.1);
+		camera->roll(-0.01);
 	}
 	if(key_pressed("E")) {
-		camera->roll(0.1);
+		camera->roll(0.01);
 	}
 	if(key_pressed("P")) {
 		shader->recompile();

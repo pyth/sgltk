@@ -76,27 +76,24 @@ void init() {
 	ind.push_back(3);
 
 	//create a mesh out of the vertices
-	/*mesh = new Mesh<>();
+	mesh = new Mesh<>();
 	mesh->attach_vertex_buffer(&vert);
 	mesh->attach_index_buffer(&ind);
 	mesh->setup_shader(shader);
 	mesh->setup_camera(&camera->view_matrix,
 			   &camera->projection_matrix);
-	mesh->set_vertex_attribute("pos", 0, 4, GL_FLOAT, sizeof(sgltk::Vertex),
+	mesh->set_vertex_attribute("pos_in", 0, 4, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, position));
-	mesh->set_vertex_attribute("norm", 0, 3, GL_FLOAT, sizeof(sgltk::Vertex),
+	mesh->set_vertex_attribute("norm_in", 0, 3, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, normal));
-	mesh->set_vertex_attribute("tc_in", 0, 3, GL_FLOAT, sizeof(sgltk::Vertex),
+	mesh->set_vertex_attribute("tex_coord_in0", 0, 3, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, tex_coord));
-	mesh->set_vertex_attribute("col_in", 0, 4, GL_FLOAT, sizeof(sgltk::Vertex),
-				   (void*)offsetof(sgltk::Vertex, color));*/
+	mesh->set_vertex_attribute("col_in0", 0, 4, GL_FLOAT, sizeof(sgltk::Vertex),
+				   (void*)offsetof(sgltk::Vertex, color));
 
-	scene = new Scene("data/Spikey.dae", shader, &camera->view_matrix,
-			  &camera->projection_matrix);
-	scene->set_vertex_attribute("pos", 0, 4, GL_FLOAT, sizeof(sgltk::Vertex),
-				   (void*)offsetof(sgltk::Vertex, position));
-	scene->set_vertex_attribute("norm", 0, 3, GL_FLOAT, sizeof(sgltk::Vertex),
-				   (void*)offsetof(sgltk::Vertex, normal));
-	scene->set_vertex_attribute("tc_in", 0, 3, GL_FLOAT, sizeof(sgltk::Vertex),
-				   (void*)offsetof(sgltk::Vertex, tex_coord));
+	scene = new Scene();
+	scene->setup_shader(shader);
+	scene->setup_camera(&camera->view_matrix, &camera->projection_matrix);
+	scene->load("data/Spikey.dae");
+	//scene->load("data/boblampclean.md5mesh");
 }

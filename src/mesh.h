@@ -234,7 +234,7 @@ public:
 			    const char *shininess_strength_name);
 	/**
 	 * @brief Loads vertices into memory
-	 * @param size The number of elements
+	 * @param size The size of the array in bytes
 	 * @param vertexdata The vertices to be loaded into memory
 	 * @return Returns the index that the buffer was attached to
 	 */
@@ -457,8 +457,7 @@ int Mesh<Vertex>::attach_vertex_buffer(unsigned int size, const void *vertexdata
 	vbo.push_back(buf);
 
 	glBindBuffer(GL_ARRAY_BUFFER, buf);
-	glBufferData(GL_ARRAY_BUFFER, size * sizeof(*vertexdata),
-		     vertexdata, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, size, vertexdata, GL_STATIC_DRAW);
 
 	return vbo.size() - 1;
 	//glBindVertexArray(0);
@@ -499,6 +498,7 @@ int Mesh<Vertex>::set_vertex_attribute(const char *attrib_name,
 
 	int loc = glGetAttribLocation(shader->shader, attrib_name);
 	if(loc == -1) {
+		glBindVertexArray(0);
 		return -2;
 	}
 	glEnableVertexAttribArray(loc);
