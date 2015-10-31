@@ -61,28 +61,28 @@ void GUI::handle_keyboard() {
 		exit(0);
 	}
 	if(key_pressed("A")) {
-		camera->move_right(-0.01);
+		camera->move_right(-0.01 * frame_time);
 	}
 	if(key_pressed("D")) {
-		camera->move_right(0.01);
+		camera->move_right(0.01 * frame_time);
 	}
 	if(key_pressed("W")) {
-		camera->move_forward(0.01);
+		camera->move_forward(0.01 * frame_time);
 	}
 	if(key_pressed("S")) {
-		camera->move_forward(-0.01);
+		camera->move_forward(-0.01 * frame_time);
 	}
 	if(key_pressed("R")) {
-		camera->move_up(0.01);
+		camera->move_up(0.01 * frame_time);
 	}
 	if(key_pressed("F")) {
-		camera->move_up(-0.01);
+		camera->move_up(-0.01 * frame_time);
 	}
 	if(key_pressed("Q")) {
-		camera->roll(-0.01);
+		camera->roll(-0.01 * frame_time);
 	}
 	if(key_pressed("E")) {
-		camera->roll(0.01);
+		camera->roll(0.01 * frame_time);
 	}
 	if(key_pressed("P")) {
 		shader->recompile();
