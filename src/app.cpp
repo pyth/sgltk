@@ -14,6 +14,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	running = true;
 	mouse_relative = false;
 	keys = SDL_GetKeyboardState(NULL);
+	frame_time = 0;
 
 	SDL_DisableScreenSaver();
 
@@ -148,23 +149,22 @@ void App::run() {
 
 void App::run(int fps) {
 	Timer frame_timer;
-	unsigned int frame_time;
 	bool running = true;
 
 	frame_timer.start();
 	while(running) {
+		poll_events();
 		if(!window) {
 			break;
 		}
+		frame_timer.start();
+		display();
+		frame_time = frame_timer.get_time();
 		if(fps > 0) {
-			frame_time = frame_timer.get_time();
 			if(frame_time < 1000 / fps) {
 				continue;
 			}
 		}
-		poll_events();
-		display();
 		SDL_GL_SwapWindow(window);
-		frame_timer.start();
 	}
 }

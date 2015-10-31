@@ -35,6 +35,10 @@ public:
 	 */
 	int height;
 	/**
+	 * @brief The time it took to draw the last frame
+	 */
+	unsigned int frame_time;
+	/**
 	 * @brief The window surface
 	 */
 	SDL_Window *window;
