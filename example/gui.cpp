@@ -4,6 +4,14 @@ GUI::GUI(const char *title, int res_x, int res_y, int offset_x,
 	 int offset_y, int gl_maj, int gl_min, unsigned int flags)
 	 :App(title, res_x, res_y, offset_x, offset_y, gl_maj, gl_min, flags) {
 
+	fps_trafo = glm::scale(glm::vec3(50.0, 30.0, 0.0));
+	for(int i = -4; i < 4; i+=1) {
+		for(int j = -4; j < 4; j+=1) {
+			trafos.push_back(glm::translate(glm::vec3((float)i*3, 0.0f, (float)j*3)));
+		}
+	}
+
+	fps = 0;
 	wireframe = false;
 	set_relative_mode(true);
 	enable_vsync(true);
@@ -14,17 +22,34 @@ void GUI::display() {
 	glClearDepth(1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	time_cnt += frame_time;
+	frame_cnt++;
+	if(time_cnt >= 1000) {
+		fps = frame_cnt;
+		frame_cnt = 0;
+		time_cnt = 0;
+	}
+	Image fps_text;
+	fps_text.create_text(("FPS: " + std::to_string(fps)).c_str(),
+			     "data/Oswald-Medium.ttf", 40, 0, 0, 255, 255);
+	Texture fps_tex = Texture(&fps_text);
+	std::cout<<"fps: "<<fps<<std::endl;
+
 	if(wireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	} else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	shader->bind();
+	fps_shader->bind();
+	int texture_loc = glGetUniformLocation(fps_shader->shader,
+						    "Texture");
+	glUniform1i(texture_loc, 0);
 
+	shader->bind();
 	int light_loc = glGetUniformLocation(shader->shader,
 					  "light_dir");
-	int texture_loc = glGetUniformLocation(shader->shader,
+	texture_loc = glGetUniformLocation(shader->shader,
 						    "Texture");
 	//int time_loc = glGetUniformLocation(shader->shader, "time");
 
@@ -35,24 +60,23 @@ void GUI::display() {
 	glUniform1i(texture_loc, 0);
 	shader->unbind();
 
-	tex->bind();
-
-	//mesh->draw(GL_TRIANGLE_STRIP);
+	fps_tex.bind();
+	fps_display->draw(GL_TRIANGLE_STRIP, &fps_trafo);
+	fps_tex.unbind();
 	/*for(int i = -2; i < 3; i+=2) {
 		glm::mat4 trafo = glm::translate(glm::vec3((float)i,0.0f,0.0f));
 		mesh->draw(GL_TRIANGLE_STRIP, &trafo);
 	}*/
-	//scene->model_matrix = glm::mat4(1.0);
-	/*for(int i = -2; i < 3; i+=2) {
-		glm::mat4 trafo = glm::translate(glm::vec3((float)i * 2, 0.0f, 0.0f));
-		scene->draw(&trafo);
-	}*/
-	scene->draw();
+
+	for(int i = 0; i < trafos.size(); i++) {
+		scene->draw(&trafos[i]);
+	}
 	check_gl_error("display");
 }
 
 void GUI::handle_resize() {
 	glViewport(0, 0, width, height);
+	fps_camera->update_projection_matrix(width, height);
 	camera->update_projection_matrix(width, height);
 }
 
@@ -86,6 +110,7 @@ void GUI::handle_keyboard() {
 	}
 	if(key_pressed("P")) {
 		shader->recompile();
+		fps_shader->recompile();
 	}
 	if(key_pressed("L") && !wireframe_change) {
 		wireframe_change = true;

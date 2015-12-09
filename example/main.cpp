@@ -4,9 +4,11 @@
 using namespace std;
 
 Shader *shader;
+Shader *fps_shader;
 Texture *tex;
-Mesh<> *mesh;
+Mesh<> *fps_display;
 Scene *scene;
+Camera *fps_camera;
 Camera *camera;
 glm::mat4 V, P;
 
@@ -29,7 +31,7 @@ void init() {
 	glDepthFunc(GL_LESS);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glPolygonMode(GL_FRONT, GL_FILL);
 
 	//load an image
 	Image img1;
@@ -44,29 +46,35 @@ void init() {
 	//make a texture out of the image
 	tex = new Texture(&img1);
 
-	//set up the camera
+	//set up the cameras
+	fps_camera = new Camera(sgltk::ORTHOGRAPHIC);
 	camera = new Camera(glm::vec3(0,0,10), glm::vec3(0,0,-1),
 			    glm::vec3(0,1,0), 70.0f, app->width,
 			    app->height, 1.0f, 800.0f);
 
 	//load the shaders
 	shader = new Shader();
-	shader->attach("data/example_vs.glsl", GL_VERTEX_SHADER);
-	shader->attach("data/example_fs.glsl", GL_FRAGMENT_SHADER);
+	shader->attach_file("data/example_vs.glsl", GL_VERTEX_SHADER);
+	shader->attach_file("data/example_fs.glsl", GL_FRAGMENT_SHADER);
 	shader->link();
+
+	fps_shader = new Shader();
+	fps_shader->attach_file("data/fps_vs.glsl", GL_VERTEX_SHADER);
+	fps_shader->attach_file("data/fps_fs.glsl", GL_FRAGMENT_SHADER);
+	fps_shader->link();
 
 	//arrange a few vertices into a square
 	vector<sgltk::Vertex> vert;
-	vert.push_back(sgltk::Vertex(glm::vec3(-0.5,-0.5,-1.0),
+	vert.push_back(sgltk::Vertex(glm::vec3(0.0,0.0,0.0),
 				     glm::vec3(0.0,0.0,1.0),
 				     glm::vec3(0.0,1.0,0.0)));
-	vert.push_back(sgltk::Vertex(glm::vec3(-0.5,0.5,-1.0),
+	vert.push_back(sgltk::Vertex(glm::vec3(0.0,1.0,0.0),
 				     glm::vec3(0.0,0.0,1.0),
 				     glm::vec3(0.0,0.0,0.0)));
-	vert.push_back(sgltk::Vertex(glm::vec3(0.5,-0.5,-1.0),
+	vert.push_back(sgltk::Vertex(glm::vec3(1.0,0.0,0.0),
 				     glm::vec3(0.0,0.0,1.0),
 				     glm::vec3(1.0,1.0,0.0)));
-	vert.push_back(sgltk::Vertex(glm::vec3(0.5,0.5,-1.0),
+	vert.push_back(sgltk::Vertex(glm::vec3(1.0,1.0,0.0),
 				     glm::vec3(0.0,0.0,1.0),
 				     glm::vec3(1.0,0.0,0.0)));
 	vector<unsigned short> ind;
@@ -76,24 +84,20 @@ void init() {
 	ind.push_back(3);
 
 	//create a mesh out of the vertices
-	mesh = new Mesh<>();
-	mesh->attach_vertex_buffer(&vert);
-	mesh->attach_index_buffer(&ind);
-	mesh->setup_shader(shader);
-	mesh->setup_camera(&camera->view_matrix,
-			   &camera->projection_matrix);
-	mesh->set_vertex_attribute("pos_in", 0, 4, GL_FLOAT, sizeof(sgltk::Vertex),
+	fps_display = new Mesh<>();
+	fps_display->attach_vertex_buffer(&vert);
+	fps_display->attach_index_buffer(&ind);
+	fps_display->setup_shader(fps_shader);
+	fps_display->setup_camera(&fps_camera->view_matrix,
+			   &fps_camera->projection_matrix_ortho);
+	fps_display->set_vertex_attribute("pos_in", 0, 4, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, position));
-	mesh->set_vertex_attribute("norm_in", 0, 3, GL_FLOAT, sizeof(sgltk::Vertex),
-				   (void*)offsetof(sgltk::Vertex, normal));
-	mesh->set_vertex_attribute("tex_coord_in0", 0, 3, GL_FLOAT, sizeof(sgltk::Vertex),
+	fps_display->set_vertex_attribute("tex_coord_in0", 0, 3, GL_FLOAT, sizeof(sgltk::Vertex),
 				   (void*)offsetof(sgltk::Vertex, tex_coord));
-	mesh->set_vertex_attribute("col_in0", 0, 4, GL_FLOAT, sizeof(sgltk::Vertex),
-				   (void*)offsetof(sgltk::Vertex, color));
 
 	scene = new Scene();
 	scene->setup_shader(shader);
-	scene->setup_camera(&camera->view_matrix, &camera->projection_matrix);
+	scene->setup_camera(&camera->view_matrix, &camera->projection_matrix_persp);
 	scene->load("data/Spikey.dae");
 	//scene->load("data/boblampclean.md5mesh");
 }
