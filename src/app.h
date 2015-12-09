@@ -25,6 +25,7 @@ class App {
 	SDL_GLContext context;
 	const Uint8 *keys;
 	bool mouse_relative;
+	unsigned int fps_time;
 public:
 	/**
 	 * @brief The width of the window surface
