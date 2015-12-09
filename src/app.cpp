@@ -153,16 +153,17 @@ void App::run(int fps) {
 
 	frame_timer.start();
 	while(running) {
+		frame_timer.start();
 		poll_events();
 		if(!window) {
 			break;
 		}
-		frame_timer.start();
 		display();
 		frame_time = frame_timer.get_time();
 		if(fps > 0) {
 			if(frame_time < 1000 / fps) {
-				continue;
+				SDL_Delay(1000 / fps - frame_time);
+				frame_time = 1000 / fps;
 			}
 		}
 		SDL_GL_SwapWindow(window);
