@@ -17,7 +17,6 @@ namespace sgltk {
  * A new camera uses perspective projection matrix if nothing else is specified
  */
 class Camera {
-	glm::mat4 ident;
 public:
 	/**
 	 * @brief The camera type
