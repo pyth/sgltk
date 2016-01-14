@@ -3,12 +3,11 @@
 Camera::Camera() {
 	init_lib();
 	type = sgltk::PERSPECTIVE;
-	ident = glm::mat4(1);
 
 	pos = glm::vec4(0, 0, 1, 1);
-	dir = glm::vec4(0, 0, -1, 1);
-	up = glm::vec4(0, 1, 0, 1);
-	right = glm::vec4(glm::cross(glm::vec3(dir), glm::vec3(up)), 1);
+	dir = glm::normalize(glm::vec4(0, 0, -1, 1));
+	up = glm::normalize(glm::vec4(0, 1, 0, 1));
+	right = glm::normalize(glm::vec4(glm::cross(glm::vec3(dir), glm::vec3(up)), 1));
 	fov = 70.0f;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
@@ -20,12 +19,11 @@ Camera::Camera() {
 Camera::Camera(sgltk::CAMERA_TYPE type) {
 	init_lib();
 	this->type = type;
-	ident = glm::mat4(1);
 
 	pos = glm::vec4(0, 0, 1, 1);
-	dir = glm::vec4(0, 0, -1, 1);
-	up = glm::vec4(0, 1, 0, 1);
-	right = glm::vec4(glm::cross(glm::vec3(dir), glm::vec3(up)), 1);
+	dir = glm::normalize(glm::vec4(0, 0, -1, 1));
+	up = glm::normalize(glm::vec4(0, 1, 0, 1));
+	right = glm::normalize(glm::vec4(glm::cross(glm::vec3(dir), glm::vec3(up)), 1));
 	fov = 70.0f;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
@@ -37,12 +35,11 @@ Camera::Camera(sgltk::CAMERA_TYPE type) {
 Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up) {
 	init_lib();
 	type = sgltk::PERSPECTIVE;
-	ident = glm::mat4(1);
 
 	this->pos = glm::vec4(pos, 1);
-	this->dir = glm::vec4(dir, 1);
-	this->up = glm::vec4(up, 1);
-	right = glm::vec4(glm::cross(dir, up), 1);
+	this->dir = glm::normalize(glm::vec4(dir, 1));
+	this->up = glm::normalize(glm::vec4(up, 1));
+	right = glm::normalize(glm::vec4(glm::cross(dir, up), 1));
 	fov = 70.0f;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
@@ -55,12 +52,11 @@ Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
 	       sgltk::CAMERA_TYPE type) {
 	init_lib();
 	this->type = type;
-	ident = glm::mat4(1);
 
 	this->pos = glm::vec4(pos, 1);
-	this->dir = glm::vec4(dir, 1);
-	this->up = glm::vec4(up, 1);
-	right = glm::vec4(glm::cross(dir, up), 1);
+	this->dir = glm::normalize(glm::vec4(dir, 1));
+	this->up = glm::normalize(glm::vec4(up, 1));
+	right = glm::normalize(glm::vec4(glm::cross(dir, up), 1));
 	fov = 70.0f;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
@@ -73,12 +69,11 @@ Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fov,
 	       float width, float height, float near_plane, float far_plane) {
 	init_lib();
 	type = sgltk::PERSPECTIVE;
-	ident = glm::mat4(1);
 
 	this->pos = glm::vec4(pos, 1);
-	this->dir = glm::vec4(dir, 1);
-	this->up = glm::vec4(up, 1);
-	right = glm::vec4(glm::cross(dir, up), 1);
+	this->dir = glm::normalize(glm::vec4(dir, 1));
+	this->up = glm::normalize(glm::vec4(up, 1));
+	right = glm::normalize(glm::vec4(glm::cross(dir, up), 1));
 	this->fov = fov;
 	this->near_plane = near_plane;
 	this->far_plane = far_plane;
@@ -91,12 +86,11 @@ Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fov,
 	       float width, float height, float near_plane, float far_plane, sgltk::CAMERA_TYPE type) {
 	init_lib();
 	this->type = type;
-	ident = glm::mat4(1);
 
 	this->pos = glm::vec4(pos, 1);
-	this->dir = glm::vec4(dir, 1);
-	this->up = glm::vec4(up, 1);
-	right = glm::vec4(glm::cross(dir, up), 1);
+	this->dir = glm::normalize(glm::vec4(dir, 1));
+	this->up = glm::normalize(glm::vec4(up, 1));
+	right = glm::normalize(glm::vec4(glm::cross(dir, up), 1));
 	this->fov = fov;
 	this->near_plane = near_plane;
 	this->far_plane = far_plane;
@@ -154,19 +148,19 @@ void Camera::move_forward(float delta) {
 }
 
 void Camera::yaw(float angle) {
-	glm::mat4 rot = glm::rotate(ident, angle, glm::vec3(up));
-	dir = rot * dir;
-	right = rot * right;
+	glm::mat4 rot = glm::rotate(angle, glm::vec3(up));
+	dir = glm::normalize(rot * dir);
+	right = glm::normalize(rot * right);
 }
 
 void Camera::roll(float angle) {
-	glm::mat4 rot = glm::rotate(ident, angle, glm::vec3(dir));
-	up = rot * up;
-	right = rot * right;
+	glm::mat4 rot = glm::rotate(angle, glm::vec3(dir));
+	up = glm::normalize(rot * up);
+	right = glm::normalize(rot * right);
 }
 
 void Camera::pitch(float angle) {
-	glm::mat4 rot = glm::rotate(ident, angle, glm::vec3(right));
-	dir = rot * dir;
-	up = rot * up;
+	glm::mat4 rot = glm::rotate(angle, glm::vec3(right));
+	dir = glm::normalize(rot * dir);
+	up = glm::normalize(rot * up);
 }
