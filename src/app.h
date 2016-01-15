@@ -38,7 +38,7 @@ public:
 	/**
 	 * @brief The time it took to draw the last frame
 	 */
-	unsigned int frame_time;
+	unsigned int delta_time;
 	/**
 	 * @brief The window surface
 	 */
