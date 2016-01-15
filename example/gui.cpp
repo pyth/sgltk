@@ -5,9 +5,10 @@ GUI::GUI(const char *title, int res_x, int res_y, int offset_x,
 	 :App(title, res_x, res_y, offset_x, offset_y, gl_maj, gl_min, flags) {
 
 	fps_trafo = glm::scale(glm::vec3(50.0, 30.0, 0.0));
+	fps_trafo = glm::translate(fps_trafo, glm::vec3(11.5, 15.0, 0.0));
 	for(int i = -4; i < 4; i+=1) {
 		for(int j = -4; j < 4; j+=1) {
-			trafos.push_back(glm::translate(glm::vec3((float)i*3, 0.0f, (float)j*3)));
+			trafos.push_back(glm::translate(glm::vec3((float)i*4, 0.0f, (float)j*4)));
 		}
 	}
 
@@ -22,7 +23,7 @@ void GUI::display() {
 	glClearDepth(1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	time_cnt += frame_time;
+	time_cnt += delta_time;
 	frame_cnt++;
 	if(time_cnt >= 1000) {
 		fps = frame_cnt;
@@ -33,13 +34,6 @@ void GUI::display() {
 	fps_text.create_text(("FPS: " + std::to_string(fps)).c_str(),
 			     "data/Oswald-Medium.ttf", 40, 0, 0, 255, 255);
 	Texture fps_tex = Texture(&fps_text);
-	std::cout<<"fps: "<<fps<<std::endl;
-
-	if(wireframe) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	} else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
 
 	fps_shader->bind();
 	int texture_loc = glGetUniformLocation(fps_shader->shader,
@@ -60,6 +54,7 @@ void GUI::display() {
 	glUniform1i(texture_loc, 0);
 	shader->unbind();
 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	fps_tex.bind();
 	fps_display->draw(GL_TRIANGLE_STRIP, &fps_trafo);
 	fps_tex.unbind();
@@ -67,6 +62,8 @@ void GUI::display() {
 		glm::mat4 trafo = glm::translate(glm::vec3((float)i,0.0f,0.0f));
 		mesh->draw(GL_TRIANGLE_STRIP, &trafo);
 	}*/
+	if(wireframe)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	for(int i = 0; i < trafos.size(); i++) {
 		scene->draw(&trafos[i]);
@@ -85,28 +82,28 @@ void GUI::handle_keyboard() {
 		exit(0);
 	}
 	if(key_pressed("A")) {
-		camera->move_right(-0.01 * frame_time);
+		camera->move_right(-0.01 * delta_time);
 	}
 	if(key_pressed("D")) {
-		camera->move_right(0.01 * frame_time);
+		camera->move_right(0.01 * delta_time);
 	}
 	if(key_pressed("W")) {
-		camera->move_forward(0.01 * frame_time);
+		camera->move_forward(0.01 * delta_time);
 	}
 	if(key_pressed("S")) {
-		camera->move_forward(-0.01 * frame_time);
+		camera->move_forward(-0.01 * delta_time);
 	}
 	if(key_pressed("R")) {
-		camera->move_up(0.01 * frame_time);
+		camera->move_up(0.01 * delta_time);
 	}
 	if(key_pressed("F")) {
-		camera->move_up(-0.01 * frame_time);
+		camera->move_up(-0.01 * delta_time);
 	}
 	if(key_pressed("Q")) {
-		camera->roll(-0.01 * frame_time);
+		camera->roll(-0.005 * delta_time);
 	}
 	if(key_pressed("E")) {
-		camera->roll(0.01 * frame_time);
+		camera->roll(0.005 * delta_time);
 	}
 	if(key_pressed("P")) {
 		shader->recompile();
@@ -122,8 +119,8 @@ void GUI::handle_keyboard() {
 }
 
 void GUI::handle_mouse_motion(int x, int y) {
-	camera->yaw(-glm::atan(x)/100);
-	camera->pitch(-glm::atan(y)/100);
+	camera->yaw(-glm::atan(x)/500);
+	camera->pitch(-glm::atan(y)/500);
 	camera->update_view_matrix();
 }
 

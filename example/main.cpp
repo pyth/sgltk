@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 	app = new GUI("Test", 1024, 768, 100, 100, 3, 0, 0);
 	//GL calls should be used after the App class initializes GLEW
 	init();
-	app->run();
+	app->run(60);
 	return 0;
 }
 
@@ -50,7 +50,7 @@ void init() {
 	fps_camera = new Camera(sgltk::ORTHOGRAPHIC);
 	camera = new Camera(glm::vec3(0,0,10), glm::vec3(0,0,-1),
 			    glm::vec3(0,1,0), 70.0f, app->width,
-			    app->height, 1.0f, 800.0f);
+			    app->height, 0.1f, 800.0f);
 
 	//load the shaders
 	shader = new Shader();
