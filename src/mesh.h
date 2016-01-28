@@ -312,7 +312,7 @@ public:
 
 template <typename Vertex>
 Mesh<Vertex>::Mesh() {
-	init_lib();
+	sgltk::init_lib();
 	model_matrix = glm::mat4(1.0);
 	shader = NULL;
 	glGenVertexArrays(1, &vao);

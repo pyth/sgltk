@@ -3,19 +3,19 @@
 std::map<char *, Texture *> Texture::textures;
 
 Texture::Texture() {
-	init_lib();
+	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 }
 
 Texture::Texture(GLenum target) {
-	init_lib();
+	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 }
 
 Texture::Texture(const char *path) {
-	init_lib();
+	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 	if(path) {
@@ -25,7 +25,7 @@ Texture::Texture(const char *path) {
 }
 
 Texture::Texture(GLenum target, const char *path) {
-	init_lib();
+	sgltk::init_lib();
 	this->target = target;
 	glGenTextures(1, &texture);
 	if(path) {
@@ -35,7 +35,7 @@ Texture::Texture(GLenum target, const char *path) {
 }
 
 Texture::Texture(Image *image) {
-	init_lib();
+	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 	if(image) {
@@ -44,7 +44,7 @@ Texture::Texture(Image *image) {
 }
 
 Texture::Texture(GLenum target, Image *image) {
-	init_lib();
+	sgltk::init_lib();
 	this->target = target;
 	glGenTextures(1, &texture);
 	if(image) {

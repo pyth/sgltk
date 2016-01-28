@@ -1,7 +1,7 @@
 #include "camera.h"
 
 Camera::Camera() {
-	init_lib();
+	sgltk::init_lib();
 	type = sgltk::PERSPECTIVE;
 
 	pos = glm::vec4(0, 0, 1, 1);
@@ -17,7 +17,7 @@ Camera::Camera() {
 }
 
 Camera::Camera(sgltk::CAMERA_TYPE type) {
-	init_lib();
+	sgltk::init_lib();
 	this->type = type;
 
 	pos = glm::vec4(0, 0, 1, 1);
@@ -33,7 +33,7 @@ Camera::Camera(sgltk::CAMERA_TYPE type) {
 }
 
 Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up) {
-	init_lib();
+	sgltk::init_lib();
 	type = sgltk::PERSPECTIVE;
 
 	this->pos = glm::vec4(pos, 1);
@@ -50,7 +50,7 @@ Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up) {
 
 Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
 	       sgltk::CAMERA_TYPE type) {
-	init_lib();
+	sgltk::init_lib();
 	this->type = type;
 
 	this->pos = glm::vec4(pos, 1);
@@ -67,7 +67,7 @@ Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
 
 Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fov,
 	       float width, float height, float near_plane, float far_plane) {
-	init_lib();
+	sgltk::init_lib();
 	type = sgltk::PERSPECTIVE;
 
 	this->pos = glm::vec4(pos, 1);
@@ -84,7 +84,7 @@ Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fov,
 
 Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fov,
 	       float width, float height, float near_plane, float far_plane, sgltk::CAMERA_TYPE type) {
-	init_lib();
+	sgltk::init_lib();
 	this->type = type;
 
 	this->pos = glm::vec4(pos, 1);
