@@ -2,7 +2,7 @@
 #define __CORE_H__
 
 #define check_gl_error(message) do{\
-	_check_error(message, __FILE__, __LINE__);\
+	sgltk::_check_error(message, __FILE__, __LINE__);\
 	}while(0)
 
 #ifdef __WIN32__
@@ -18,6 +18,8 @@
 #endif*/
 
 #include <string>
+#include <limits>
+#include <unistd.h>
 #include <iostream>
 #include <map>
 #include <vector>
@@ -37,51 +39,66 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-using namespace std;
+namespace sgltk {
+	static bool initialized;
 
-static bool initialized;
+	/**
+	 * @brief The path to the executable
+	 */
+	static std::string executable_path;
 
-/**
- * @brief Initializes GLEW
- * @return Returns true on success, flase otherwise
- */
-bool init_glew();
+	/**
+	 * @brief Initializes GLEW
+	 * @return Returns true on success, flase otherwise
+	 */
+	bool init_glew();
 
-/**
- * @brief Initializes SDL2_img
- * @return Returns true on success, flase otherwise
- */
-bool init_img();
-void quit_img();
+	/**
+	 * @brief Initializes SDL2_img
+	 * @return Returns true on success, flase otherwise
+	 */
+	bool init_img();
+	void quit_img();
 
-/**
- * @brief Initializes SDL2
- * @return Returns true on success, flase otherwise
- */
-bool init_sdl();
-void quit_sdl();
+	/**
+	 * @brief Initializes SDL2
+	 * @return Returns true on success, flase otherwise
+	 */
+	bool init_sdl();
+	void quit_sdl();
 
-/**
- * @brief Initializes SDL2_ttf
- * @return Returns true on success, flase otherwise
- */
-bool init_ttf();
-void quit_ttf();
+	/**
+	 * @brief Initializes SDL2_ttf
+	 * @return Returns true on success, flase otherwise
+	 */
+	bool init_ttf();
+	void quit_ttf();
 
-/**
- * @brief Initializes SDL2_mixer
- * @return Returns true on success, flase otherwise
- */
-bool init_mixer();
-void quit_mixer();
+	/**
+	 * @brief Initializes SDL2_mixer
+	 * @return Returns true on success, flase otherwise
+	 */
+	bool init_mixer();
+	void quit_mixer();
 
-/**
- * @brief Initializes all parts of SDL2 used by SGLTK
- * @return Returns true on success, flase otherwise
- */
-bool init_lib();
-void quit_lib();
+	/**
+	 * @brief Initializes all parts of SDL2 used by SGLTK
+	 * @return Returns true on success, flase otherwise
+	 */
+	bool init_lib();
+	void quit_lib();
 
-bool _check_error(const char *message, const char *file, int line);
+	/**
+	 * @brief Returns the path to the executable, that was set by a call to
+	 * 	  set_path_to_executable
+	 */
+	const char *get_path_to_executable(void);
+	/**
+	 * @brief Extracts the path to the executable from the argument list
+	 */
+	void set_path_to_executable(char **argv);
+
+	void _check_error(const char *message, char *file, unsigned int line);
+};
 
 #endif

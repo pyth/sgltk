@@ -3,7 +3,7 @@
 using namespace std;
 
 Image::Image() {
-	init_lib();
+	sgltk::init_lib();
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -11,7 +11,7 @@ Image::Image() {
 }
 
 Image::Image(const char *filename) {
-	init_lib();
+	sgltk::init_lib();
 	image = NULL;
 	width = 0;
 	height = 0;

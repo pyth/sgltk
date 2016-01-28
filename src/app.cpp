@@ -9,7 +9,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 			  << std::endl;
 		GL_Maj = 3;
 	}
-	init_lib();
+	sgltk::init_lib();
 
 	running = true;
 	mouse_relative = false;
@@ -34,14 +34,14 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 		return;
 	}
 	context = SDL_GL_CreateContext(window);
-	init_glew();
+	sgltk::init_glew();
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 }
 
 App::~App() {
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
-	quit_lib();
+	sgltk::quit_lib();
 }
 
 void App::grab_mouse(bool on) {
