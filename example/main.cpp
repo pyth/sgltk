@@ -1,4 +1,10 @@
-#include <sgltk/core.h>
+#include <sgltk/app.h>
+#include <sgltk/scene.h>
+#include <sgltk/camera.h>
+#include <sgltk/texture.h>
+#include <unistd.h>
+#include <string.h>
+
 #include "gui.h"
 
 using namespace std;
@@ -17,6 +23,13 @@ GUI *app;
 static void init(void);
 
 int main(int argc, char** argv) {
+	//change the current working directory to the one containing the executable
+	std::string path(argv[0]);
+	path = path.substr(0, path.find_last_of("\\/"));
+	chdir(path.c_str());
+
+	Image::add_path("data");
+
 	app = new GUI("Test", 1024, 768, 100, 100, 3, 0, 0);
 	//GL calls should be used after the App class initializes GLEW
 	init();
@@ -35,7 +48,7 @@ void init() {
 
 	//load an image
 	Image img1;
-	img1.load("data/earth.jpg");
+	img1.load("earth.jpg");
 	//create an image from text
 	Image img2;
 	img2.create_text("TTF fonts are cool!", "data/Oswald-Medium.ttf",

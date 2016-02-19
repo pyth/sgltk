@@ -31,7 +31,7 @@ void GUI::display() {
 		time_cnt = 0;
 	}
 	Image fps_text;
-	fps_text.create_text(("FPS: " + std::to_string(fps)).c_str(),
+	fps_text.create_text("FPS: " + std::to_string(fps),
 			     "data/Oswald-Medium.ttf", 40, 0, 0, 255, 255);
 	Texture fps_tex = Texture(&fps_text);
 
@@ -55,7 +55,8 @@ void GUI::display() {
 	shader->unbind();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	fps_tex.bind();
+	//fps_tex.bind();
+	tex->bind();
 	fps_display->draw(GL_TRIANGLE_STRIP, &fps_trafo);
 	fps_tex.unbind();
 	/*for(int i = -2; i < 3; i+=2) {
