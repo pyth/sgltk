@@ -1,6 +1,6 @@
 #include "texture.h"
 
-std::map<char *, Texture *> Texture::textures;
+std::map<std::string, Texture *> Texture::textures;
 
 Texture::Texture() {
 	sgltk::init_lib();
@@ -14,24 +14,20 @@ Texture::Texture(GLenum target) {
 	glGenTextures(1, &texture);
 }
 
-Texture::Texture(const char *path) {
+Texture::Texture(std::string path) {
 	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
-	if(path) {
-		Image img(path);
-		load_texture(&img);
-	}
+	Image img(path);
+	load_texture(&img);
 }
 
-Texture::Texture(GLenum target, const char *path) {
+Texture::Texture(GLenum target, std::string path) {
 	sgltk::init_lib();
 	this->target = target;
 	glGenTextures(1, &texture);
-	if(path) {
-		Image img(path);
-		load_texture(&img);
-	}
+	Image img(path);
+	load_texture(&img);
 }
 
 Texture::Texture(Image *image) {
@@ -116,12 +112,12 @@ void Texture::load_texture(Image *image) {
 	glBindTexture(target, 0);
 }
 
-bool Texture::store_texture(const char *name, Texture *texture) {
-	return textures.insert(std::make_pair((char *)name, texture)).second;
+bool Texture::store_texture(std::string name, Texture *texture) {
+	return textures.insert(std::make_pair(name, texture)).second;
 }
 
-Texture *Texture::find_texture(const char *name) {
-	std::map<char *, Texture *>::iterator it = textures.find((char *)name);
+Texture *Texture::find_texture(std::string name) {
+	std::map<std::string, Texture *>::iterator it = textures.find(name);
 	if(it == textures.end())
 		return NULL;
 	return it->second;

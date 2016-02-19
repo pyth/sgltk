@@ -3,14 +3,21 @@
 
 #include "core.h"
 
-using namespace std;
-
 /**
  * @class Image
  * @brief Manages images
  */
 class Image {
+	static std::vector<std::string> paths;
 public:
+	/**
+	 * @brief Adds a path to the list of paths to be searched
+	 *	  for image files.
+	 * @param path The path to add to the list
+	 * @note To avoid duplacates this function first performs
+	 *	 a search an existing entry path.
+	 */
+	static void add_path(std::string path);
 	/**
 	 * @brief The width of the image surface
 	 */
@@ -29,7 +36,7 @@ public:
 	/**
 	 * @param filename Path to the image file to load
 	 */
-	Image(const char *filename);
+	Image(std::string filename);
 	~Image();
 
 	/**
@@ -43,7 +50,7 @@ public:
 	 * @brief Loads a new image file
 	 * @param filename Path to the image file to load
 	 */
-	bool load(const char *filename);
+	bool load(std::string filename);
 
 	/**
 	 * @brief Creates an image from a string
@@ -57,7 +64,7 @@ public:
 	 * If you already have a ttf file open this function is better
 	 * 	for performance
 	 */
-	bool create_text(const char *text, TTF_Font *font, int size,
+	bool create_text(std::string text, TTF_Font *font, int size,
 			 Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 	/**
 	 * @brief Creates an image from a string
@@ -69,7 +76,7 @@ public:
 	 * @param b		The blue color channel
 	 * @param a		The alpha color channel
 	 */
-	bool create_text(const char *text, const char *font_file, int size,
+	bool create_text(std::string text, std::string font_file, int size,
 			 Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 	/**
@@ -112,7 +119,7 @@ class Texture {
 	/**
 	 * @brief Contains stored textures
 	 */
-	static std::map<char *, Texture *> textures;
+	static std::map<std::string, Texture *> textures;
 public:
 	/**
 	 * @brief The texture name
@@ -127,12 +134,12 @@ public:
 	/**
 	 * @param path The path to the image file
 	 */
-	Texture(const char *path);
+	Texture(std::string path);
 	/**
 	 * @param target The target to bind the texture
 	 * @param path The path to the image file
 	 */
-	Texture(GLenum target, const char *path);
+	Texture(GLenum target, std::string path);
 	/**
 	 * @param image The image to use as the texture
 	 */
@@ -151,7 +158,7 @@ public:
 	 * @param texture The texture to be stored
 	 * @return Returns true if the insertion was successful, false otherwise
 	 */
-	static bool store_texture(const char *name, Texture *texture);
+	static bool store_texture(std::string name, Texture *texture);
 	/**
 	 * @brief Finds a texture in the internal map using the name as
 	 * 	  key
@@ -159,7 +166,7 @@ public:
 	 * @return Returns a pointer to the found texture object or NULL 
 	 * 	   if no texture with such name could be found.
 	 */
-	static Texture *find_texture(const char *name);
+	static Texture *find_texture(std::string name);
 	/**
 	 * @brief Load a new image
 	 * @param image The image to use as the texture

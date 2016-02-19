@@ -1,6 +1,6 @@
 #include "texture.h"
 
-using namespace std;
+std::vector<std::string> Image::paths = {"./"}; 
 
 Image::Image() {
 	sgltk::init_lib();
@@ -10,7 +10,7 @@ Image::Image() {
 	image = NULL;
 }
 
-Image::Image(const char *filename) {
+Image::Image(std::string filename) {
 	sgltk::init_lib();
 	image = NULL;
 	width = 0;
@@ -52,20 +52,29 @@ bool Image::create_empty(int width, int height) {
 	return true;
 }
 
-bool Image::load(const char *filename) {
-	if(!filename) {
-		width = 0;
-		height = 0;
-		return false;
-	}
+bool Image::load(std::string filename) {
+	width = 0;
+	height = 0;
 
 	if(image)
 		SDL_FreeSurface(image);
 
-	image = IMG_Load(filename);
+	std::string filenm(filename);
+	if((filenm.length() > 1 && filenm[0] == '/') ||
+			(filenm.length() > 2 && filenm[1] == ':')) {
+		//absolute path
+		image = IMG_Load(filenm.c_str());
+	} else {
+		//relative path
+		for(unsigned int i = 0; i < Image::paths.size(); i++) {
+			image = IMG_Load((paths[i]+filenm).c_str());
+			if(image)
+				break;
+		}
+	}
 	if(!image) {
-		cerr << "Unable to load image: " << filename << " - "
-		     << IMG_GetError() << endl;
+		std::cerr << "Unable to load image: " << filename << " - "
+		     << IMG_GetError() << std::endl;
 		width = 0;
 		height = 0;
 		return false;
@@ -77,16 +86,16 @@ bool Image::load(const char *filename) {
 	return true;
 }
 
-bool Image::create_text(const char *text, TTF_Font *font, int size,
+bool Image::create_text(std::string text, TTF_Font *font, int size,
 			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if(image) {
 		SDL_FreeSurface(image);
 		image = NULL;
 	}
 	SDL_Color color = {r, g, b, a};
-	image = TTF_RenderText_Blended(font, text, color);
+	image = TTF_RenderText_Blended(font, text.c_str(), color);
 	if(!image) {
-		cerr << "TTF_RenderText_Blended failed." << endl;
+		std::cerr << "TTF_RenderText_Blended failed." << std::endl;
 		return false;
 	}
 	width = image->w;
@@ -94,11 +103,11 @@ bool Image::create_text(const char *text, TTF_Font *font, int size,
 	return true;
 }
 
-bool Image::create_text(const char *text, const char *font_file, int size,
+bool Image::create_text(std::string text, std::string font_file, int size,
 			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
-	TTF_Font *font = TTF_OpenFont(font_file, size);
+	TTF_Font *font = TTF_OpenFont(font_file.c_str(), size);
 	if(!font) {
-		cerr << "TTF_OpenFont for " << font_file << " failed." << endl;
+		std::cerr << "TTF_OpenFont for " << font_file << " failed." << std::endl;
 		return false;
 	}
 
@@ -145,4 +154,12 @@ bool Image::copy_from(const Image *src, SDL_Rect *dst_rect,
 
 void Image::set_color_key(int r, int g, int b) {
 	SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, r, g, b));
+}
+
+void Image::add_path(std::string path) {
+	if(path[path.length() - 1] != '/')
+		path += '/';
+
+	if(std::find(Image::paths.begin(), Image::paths.end(), path) == Image::paths.end())
+		Image::paths.push_back(path);
 }
