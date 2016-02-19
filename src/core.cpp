@@ -46,7 +46,6 @@ void sgltk::quit_ttf() {
 	TTF_Quit();
 }
 
-
 bool sgltk::init_mixer() {
 	unsigned int flags = MIX_INIT_FLAC|MIX_INIT_MP3|MIX_INIT_OGG;
 	unsigned int tmp = Mix_Init(flags);
