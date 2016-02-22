@@ -55,8 +55,8 @@ void GUI::display() {
 	shader->unbind();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//fps_tex.bind();
-	tex->bind();
+	fps_tex.bind();
+	//tex->bind();
 	fps_display->draw(GL_TRIANGLE_STRIP, &fps_trafo);
 	fps_tex.unbind();
 	/*for(int i = -2; i < 3; i+=2) {

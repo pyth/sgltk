@@ -40,15 +40,12 @@ class Scene {
 	Shader *shader;
 	std::vector<Mesh<Scene_vertex> *> meshes;
 
-	const char *position_name;
-	const char *normal_name;
-	const char *tangent_name;
-	const char *color_name;
-	const char *texture_coordinates_name;
+	std::string position_name;
+	std::string normal_name;
+	std::string tangent_name;
+	std::string color_name;
+	std::string texture_coordinates_name;
 	
-	const char *model_view_matrix_name;
-	const char *model_view_projection_matrix_name;
-	const char *normal_matrix_name;
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
 
@@ -73,17 +70,17 @@ class Scene {
 		 * @brief Adds a new path where files will be loaded from
 		 * @param path A new path to use
 		 */
-		static void add_path(const char *path);
+		static void add_path(std::string path);
 
 		/**
 		 * @brief Loads a scene from file
-		 * @param path The file to be loaded.
+		 * @param filename The file to be loaded.
 		 * @note If the path you pass to this function is not an
 		 *	 absolute path, all directories you specified using the
 		 *	 add_path function will be searched in addition to the
 		 *	 current working directory.
 		 */
-		bool load(const char *file);
+		bool load(std::string filename);
 		/**
 		 * @brief Specifies the shader to use to render the mesh
 		 * @param shader The shader to be used to render the mesh

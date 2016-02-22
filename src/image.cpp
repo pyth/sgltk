@@ -59,15 +59,14 @@ bool Image::load(std::string filename) {
 	if(image)
 		SDL_FreeSurface(image);
 
-	std::string filenm(filename);
-	if((filenm.length() > 1 && filenm[0] == '/') ||
-			(filenm.length() > 2 && filenm[1] == ':')) {
+	if((filename.length() > 1 && filename[0] == '/') ||
+			(filename.length() > 2 && filename[1] == ':')) {
 		//absolute path
-		image = IMG_Load(filenm.c_str());
+		image = IMG_Load(filename.c_str());
 	} else {
 		//relative path
 		for(unsigned int i = 0; i < Image::paths.size(); i++) {
-			image = IMG_Load((paths[i]+filenm).c_str());
+			image = IMG_Load((paths[i]+filename).c_str());
 			if(image)
 				break;
 		}
