@@ -1,6 +1,6 @@
 #include "scene.h"
 
-std::vector<std::string> Scene::paths;
+std::vector<std::string> Scene::paths = {"./"};
 
 Scene::Scene() {
 	scene = NULL;
@@ -13,25 +13,31 @@ Scene::Scene() {
 	tangent_name = "tang_in";
 	color_name = "col_in";
 	texture_coordinates_name = "tex_coord_in";
-
-	model_view_matrix_name = NULL;
-	model_view_projection_matrix_name = NULL;
-	normal_matrix_name = NULL;
 }
 
 Scene::~Scene() {
 	meshes.clear();
 }
 
-bool Scene::load(const char *file) {
+bool Scene::load(std::string filename) {
 	unsigned int flags = aiProcess_GenSmoothNormals |
 			     aiProcess_Triangulate |
 			     aiProcess_CalcTangentSpace |
 			     aiProcess_FlipUVs;
-	scene = importer.ReadFile(file, flags);
+
+	if((filename.length() > 1 && filename[0] == '/') ||
+			(filename.length() > 2 && filename[1] == ':')) {
+		scene = importer.ReadFile(filename.c_str(), flags);
+	} else {
+		for(unsigned int i = 0; i < Scene::paths.size(); i++) {
+			scene = importer.ReadFile(filename.c_str(), flags);
+			if(scene)
+				break;
+		}
+	}
 
 	if(!scene) {
-		std::cerr << "Error importing " << file << ": "
+		std::cerr << "Error importing " << filename << ": "
 			  << importer.GetErrorString() << std::endl;
 		return false;
 	}
@@ -236,15 +242,12 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 				       sizeof(Scene_vertex),
 				       (void *)offsetof(Scene_vertex, tangent));
 
-	char name_buf[strlen(texture_coordinates_name) + 10];
 	for(unsigned int i = 0; i < num_uv; i++) {
-		sprintf(name_buf, "%s%d", texture_coordinates_name, i);
-		mesh_tmp->set_vertex_attribute(name_buf, 1, 3, GL_FLOAT, 0,
+		mesh_tmp->set_vertex_attribute(texture_coordinates_name+std::to_string(i), 1, 3, GL_FLOAT, 0,
 					       (void *)(long)(i * mesh->mNumVertices));
 	}
 	for(unsigned int i = 0; i < num_col; i++) {
-		sprintf(name_buf, "%s%d", color_name, i);
-		mesh_tmp->set_vertex_attribute(name_buf, 2, 4, GL_FLOAT, 0,
+		mesh_tmp->set_vertex_attribute(color_name+std::to_string(i), 2, 4, GL_FLOAT, 0,
 					       (void *)(long)(i * mesh->mNumVertices));
 	}
 
@@ -266,15 +269,12 @@ void Scene::draw(glm::mat4 *model_matrix) {
 	}
 }
 
-void Scene::add_path(const char *path) {
-	if(!path)
-		return;
-	std::string path_tmp(path);
-	for(unsigned int i = 0; i < paths.size(); i++) {
-		if(paths[i] == path_tmp)
-			return;
-	}
-	paths.push_back(path_tmp);
+void Scene::add_path(std::string path) {
+	if(path[path.length() - 1] != '/')
+		path += '/';
+
+	if(std::find(Scene::paths.begin(), Scene::paths.end(), path) == Scene::paths.end())
+		Scene::paths.push_back(path);
 }
 
 void Scene::ai_to_glm_mat4(aiMatrix4x4 *in, glm::mat4 &out) {

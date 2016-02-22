@@ -147,15 +147,15 @@ template <typename Vertex = sgltk::Vertex>
 class Mesh {
 	Shader *shader;
 
-	const char *ambient_color_name;
-	const char *diffuse_color_name;
-	const char *specular_color_name;
-	const char *shininess_name;
-	const char *shininess_strength_name;
+	std::string ambient_color_name;
+	std::string diffuse_color_name;
+	std::string specular_color_name;
+	std::string shininess_name;
+	std::string shininess_strength_name;
 
-	const char *model_view_matrix_name;
-	const char *model_view_projection_matrix_name;
-	const char *normal_matrix_name;
+	std::string model_view_matrix_name;
+	std::string model_view_projection_matrix_name;
+	std::string normal_matrix_name;
 
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
@@ -216,9 +216,9 @@ public:
 	 * @param normal_matrix_name The name of the normal matrix
 	 *	in the shader
 	 */
-	void setup_matrices(const char *model_view_matrix_name,
-			    const char *model_view_projection_matrix_name,
-			    const char *normal_matrix_name);
+	void setup_matrices(std::string model_view_matrix_name,
+			    std::string model_view_projection_matrix_name,
+			    std::string normal_matrix_name);
 	/**
 	 * @brief Specifies the names of the material components in the shader
 	 * @param ambient_color_name The name of the ambient color component
@@ -227,11 +227,11 @@ public:
 	 * @param shininess_name The name of the specular exponent
 	 * @param shininess_strength_name The name of the specular intensity
 	 */
-	void setup_material(const char *ambient_color_name,
-			    const char *diffuse_color_name,
-			    const char *specular_color_name,
-			    const char *shininess_name,
-			    const char *shininess_strength_name);
+	void setup_material(std::string ambient_color_name,
+			    std::string diffuse_color_name,
+			    std::string specular_color_name,
+			    std::string shininess_name,
+			    std::string shininess_strength_name);
 	/**
 	 * @brief Loads vertices into memory
 	 * @param size The size of the array in bytes
@@ -260,7 +260,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	int set_vertex_attribute(const char *attrib_name,
+	int set_vertex_attribute(std::string attrib_name,
 				 unsigned int buffer_index,
 				 GLint size,
 				 GLenum type,
@@ -354,99 +354,42 @@ void Mesh<Vertex>::setup_camera(glm::mat4 *view_matrix,
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::setup_matrices(const char *model_view_matrix_name,
-				  const char *model_view_projection_matrix_name,
-				  const char *normal_matrix_name) {
-	size_t len;
-	if(model_view_matrix_name) {
-		len = strlen(model_view_matrix_name);
-		if(len > 0) {
-			delete[] this->model_view_matrix_name;
-			this->model_view_matrix_name = new char[len + 1];
-			strncpy(this->model_view_matrix_name,
-				model_view_matrix_name, len);
-		}
-	}
+void Mesh<Vertex>::setup_matrices(std::string model_view_matrix_name,
+				  std::string model_view_projection_matrix_name,
+				  std::string normal_matrix_name) {
 
-	if(model_view_projection_matrix_name) {
-		len = strlen(model_view_projection_matrix_name);
-		if(len > 0) {
-			delete[] this->model_view_projection_matrix_name;
-			this->model_view_projection_matrix_name =
-				new char[len + 1];
-			strncpy(this->model_view_projection_matrix_name,
-				model_view_projection_matrix_name, len);
-		}
-	}
+	if(model_view_matrix_name.length() > 0)
+		this->model_view_matrix_name = model_view_matrix_name;
+	
+	if(model_view_projection_matrix_name.length() > 0)
+		this->model_view_projection_matrix_name =
+			model_view_projection_matrix_name;
 
-	if(normal_matrix_name) {
-		len = strlen(normal_matrix_name);
-		if(len > 0) {
-			delete[] this->normal_matrix_name;
-			this->normal_matrix_name = new char[len + 1];
-			strncpy(this->normal_matrix_name,
-				normal_matrix_name, len);
-		}
-	}
+	if(normal_matrix_name.length() > 0)
+		this->normal_matrix_name = normal_matrix_name;
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::setup_material(const char *ambient_color_name,
-				  const char *diffuse_color_name,
-				  const char *specular_color_name,
-				  const char *shininess_name,
-				  const char *shininess_strength_name) {
-	size_t len;
+void Mesh<Vertex>::setup_material(std::string ambient_color_name,
+				  std::string diffuse_color_name,
+				  std::string specular_color_name,
+				  std::string shininess_name,
+				  std::string shininess_strength_name) {
 
-	if(ambient_color_name) {
-		len = strlen(ambient_color_name);
-		if(len > 0) {
-			delete[] this->ambient_color_name;
-			this->ambient_color_name = new char[len + 1];
-			strncpy(this->ambient_color_name,
-				ambient_color_name, len);
-		}
-	}
+	if(ambient_color_name.length() > 0)
+		this->ambient_color_name = ambient_color_name;
 
-	if(diffuse_color_name) {
-		len = strlen(diffuse_color_name);
-		if(len > 0) {
-			delete[] this->diffuse_color_name;
-			this->diffuse_color_name = new char[len + 1];
-			strncpy(this->diffuse_color_name,
-				diffuse_color_name, len);
-		}
-	}
+	if(diffuse_color_name.length() > 0)
+		this->diffuse_color_name = diffuse_color_name;
 
-	if(specular_color_name) {
-		len = strlen(specular_color_name);
-		if(len > 0) {
-			delete[] this->specular_color_name;
-			this->specular_color_name = new char[len + 1];
-			strncpy(this->specular_color_name,
-				specular_color_name, len);
-		}
-	}
+	if(specular_color_name.length() > 0)
+		this->specular_color_name = specular_color_name;
 
-	if(shininess_name) {
-		len = strlen(shininess_name);
-		if(len > 0) {
-			delete[] this->shininess_name;
-			this->shininess_name = new char[len + 1];
-			strncpy(this->shininess_name,
-				shininess_name, len);
-		}
-	}
+	if(shininess_name.length() > 0)
+		this->shininess_name = shininess_name;
 
-	if(shininess_strength_name) {
-		len = strlen(shininess_strength_name);
-		if(len > 0) {
-			delete[] this->shininess_strength_name;
-			this->shininess_strength_name = new char[len + 1];
-			strncpy(this->shininess_strength_name,
-				shininess_strength_name, len);
-		}
-	}
+	if(shininess_strength_name.length() > 0)
+		this->shininess_strength_name = shininess_strength_name;
 }
 
 template <typename Vertex>
@@ -484,7 +427,7 @@ void Mesh<Vertex>::compute_bounding_box(const std::vector<Vertex> *vertexdata) {
 }
 
 template <typename Vertex>
-int Mesh<Vertex>::set_vertex_attribute(const char *attrib_name,
+int Mesh<Vertex>::set_vertex_attribute(std::string attrib_name,
 				       unsigned int buffer_index,
 				       GLint size,
 				       GLenum type,
@@ -496,7 +439,7 @@ int Mesh<Vertex>::set_vertex_attribute(const char *attrib_name,
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
 
-	int loc = glGetAttribLocation(shader->shader, attrib_name);
+	int loc = glGetAttribLocation(shader->shader, attrib_name.c_str());
 	if(loc == -1) {
 		glBindVertexArray(0);
 		return -2;
@@ -541,7 +484,8 @@ void Mesh<Vertex>::draw(GLenum mode, glm::mat4 *model_matrix) {
 
 template <typename Vertex>
 void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
-		glm::mat4 *model_matrix) {
+			glm::mat4 *model_matrix) {
+
 	if(!shader) {
 		std::cerr << "Error: No shader specified" << std::endl;
 		return;
@@ -561,33 +505,33 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 
 	shader->bind();
 	int loc = glGetUniformLocation(shader->shader,
-					  model_view_matrix_name);
+				       model_view_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MV));
 
 	loc = glGetUniformLocation(shader->shader,
-					  normal_matrix_name);
+				   normal_matrix_name.c_str());
 	glUniformMatrix3fv(loc, 1, false, glm::value_ptr(NM));
 
 	loc = glGetUniformLocation(shader->shader,
-					   model_view_projection_matrix_name);
+				   model_view_projection_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MVP));
 
-	loc = glGetUniformLocation(shader->shader, ambient_color_name);
+	loc = glGetUniformLocation(shader->shader, ambient_color_name.c_str());
 	glUniform4f(loc, material.color_ambient.x, material.color_ambient.y,
 		    material.color_ambient.z, material.color_ambient.w);
 
-	loc = glGetUniformLocation(shader->shader, diffuse_color_name);
+	loc = glGetUniformLocation(shader->shader, diffuse_color_name.c_str());
 	glUniform4f(loc, material.color_diffuse.x, material.color_diffuse.y,
 		    material.color_diffuse.z, material.color_diffuse.w);
 
-	loc = glGetUniformLocation(shader->shader, specular_color_name);
+	loc = glGetUniformLocation(shader->shader, specular_color_name.c_str());
 	glUniform4f(loc, material.color_specular.x, material.color_specular.y,
 		    material.color_specular.z, material.color_specular.w);
 
-	loc = glGetUniformLocation(shader->shader, shininess_name);
+	loc = glGetUniformLocation(shader->shader, shininess_name.c_str());
 	glUniform1f(loc, material.shininess);
 
-	loc = glGetUniformLocation(shader->shader, shininess_strength_name);
+	loc = glGetUniformLocation(shader->shader, shininess_strength_name.c_str());
 	glUniform1f(loc, material.shininess_strength);
 
 	glBindVertexArray(vao);
