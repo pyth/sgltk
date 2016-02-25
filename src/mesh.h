@@ -114,28 +114,6 @@ namespace sgltk {
 		};
 	} Vertex;
 
-	/**
-	 * @brief The material used by the mesh
-	 */
-	typedef struct Material {
-		float shininess;
-		float shininess_strength;
-		glm::vec4 color_ambient;
-		glm::vec4 color_diffuse;
-		glm::vec4 color_specular;
-
-		//textures
-		Texture *texture_ambient;
-		Texture *texture_diffuse;
-		Texture *texture_specular;
-		Texture *texture_shininess;
-		Texture *texture_emmisive;
-		Texture *texture_normals;
-		Texture *texture_displacement;
-		Texture *texture_opacity;
-		Texture *texture_lightmap;
-	} Material;
-
 #pragma pack(pop)
 }
 
@@ -152,6 +130,16 @@ class Mesh {
 	std::string specular_color_name;
 	std::string shininess_name;
 	std::string shininess_strength_name;
+
+	std::string ambient_texture_name;
+	std::string diffuse_texture_name;
+	std::string specular_texture_name;
+	std::string shininess_texture_name;
+	std::string emmisive_texture_name;
+	std::string normals_texture_name;
+	std::string displacement_texture_name;
+	std::string opacity_texture_name;
+	std::string lightmap_texture_name;
 
 	std::string model_view_matrix_name;
 	std::string model_view_projection_matrix_name;
@@ -176,9 +164,62 @@ public:
 	 */
 	glm::mat4 model_matrix;
 	/**
-	 * @brief The material of the mesh
+	 * @brief The shininess of the material
 	 */
-	sgltk::Material material;
+	float shininess;
+	/**
+	 * @brief The strength of the shininess of the material
+	 */
+	float shininess_strength;
+	/**
+	 * @brief The ambient color component of the material
+	 */
+	glm::vec4 color_ambient;
+	/**
+	 * @brief The diffuse color component of the material
+	 */
+	glm::vec4 color_diffuse;
+	/**
+	 * @brief The specular color component of the material
+	 */
+	glm::vec4 color_specular;
+	/**
+	 * @brief The ambient textures
+	 */
+	std::vector<Texture *> textures_ambient;
+	/**
+	 * @brief The diffuse textures
+	 */
+	std::vector<Texture *> textures_diffuse;
+	/**
+	 * @brief The specular textures
+	 */
+	std::vector<Texture *> textures_specular;
+	/**
+	 * @brief The shininess textures
+	 */
+	std::vector<Texture *> textures_shininess;
+	/**
+	 * @brief The emmisive textures
+	 */
+	std::vector<Texture *> textures_emmisive;
+	/**
+	 * @brief The normals textures
+	 */
+	std::vector<Texture *> textures_normals;
+	/**
+	 * @brief The displacement textures
+	 */
+	std::vector<Texture *> textures_displacement;
+	/**
+	 * @brief The opacity textures
+	 */
+	std::vector<Texture *> textures_opacity;
+	/**
+	 * @brief The lightmap textures
+	 */
+	std::vector<Texture *> textures_lightmap;
+
 	/**
 	 * @brief Indicates that the mesh should be drawn as a wireframe
 	 */
@@ -232,6 +273,27 @@ public:
 			    std::string specular_color_name,
 			    std::string shininess_name,
 			    std::string shininess_strength_name);
+	/**
+	 * @brief Specifies the names of the material components in the shader
+	 * @param ambient_texture_name The name of the ambient texture
+	 * @param diffuse_texture_name The name of the diffuse texture
+	 * @param specular_texture_name The name of the specular texture
+	 * @param shininess_texture_name The name of the shininess texture
+	 * @param emmisive_texture_name The name of the emmisive texture
+	 * @param normals_texture_name The name of the normals texture
+	 * @param displacement_texture_name The name of the displacement texture
+	 * @param opacity_texture_name The name of the opacity texture
+	 * @param lightmap_texture_name The name of the lightmap texture
+	 */
+	void setup_textures(std::string ambient_texture_name,
+			    std::string diffuse_texture_name,
+			    std::string specular_texture_name,
+			    std::string shininess_texture_name,
+			    std::string emmisive_texture_name,
+			    std::string normals_texture_name,
+			    std::string displacement_texture_name,
+			    std::string opacity_texture_name,
+			    std::string lightmap_texture_name);
 	/**
 	 * @brief Loads vertices into memory
 	 * @param size The size of the array in bytes
@@ -321,17 +383,27 @@ Mesh<Vertex>::Mesh() {
 	model_view_projection_matrix_name =	"matrix.model_view_proj";
 	normal_matrix_name =			"matrix.normal_matrix";
 
-	ambient_color_name =			"material.color_ambient";
-	diffuse_color_name =			"material.color_diffuse";
-	specular_color_name =			"material.color_specular";
-	shininess_name =			"material.shininess";
-	shininess_strength_name =		"material.shininess_strength";
+	ambient_color_name =			"color_ambient";
+	diffuse_color_name =			"color_diffuse";
+	specular_color_name =			"color_specular";
+	shininess_name =			"shininess";
+	shininess_strength_name =		"shininess_strength";
 
-	material.shininess = 0.0;
-	material.shininess_strength = 1.0;
-	material.color_ambient = glm::vec4(0, 0, 0, 1);
-	material.color_diffuse = glm::vec4(0, 0, 0, 1);
-	material.color_specular = glm::vec4(0, 0, 0, 1);
+	ambient_texture_name =			"ambient_texture";
+	diffuse_texture_name =			"diffuse_texture";
+	specular_texture_name =			"specular_texture";
+	shininess_texture_name =		"shininess_texture";
+	emmisive_texture_name =			"emmisive_texture";
+	normals_texture_name =			"normals_texture";
+	displacement_texture_name =		"displacement_texture";
+	opacity_texture_name =			"opacity_texture";
+	lightmap_texture_name =			"lightmap_texture";
+
+	shininess = 0.0;
+	shininess_strength = 1.0;
+	color_ambient = glm::vec4(0, 0, 0, 1);
+	color_diffuse = glm::vec4(0, 0, 0, 1);
+	color_specular = glm::vec4(0, 0, 0, 1);
 }
 
 template <typename Vertex>
@@ -390,6 +462,46 @@ void Mesh<Vertex>::setup_material(std::string ambient_color_name,
 
 	if(shininess_strength_name.length() > 0)
 		this->shininess_strength_name = shininess_strength_name;
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::setup_textures(std::string ambient_texture_name,
+				  std::string diffuse_texture_name,
+				  std::string specular_texture_name,
+				  std::string shininess_texture_name,
+				  std::string emmisive_texture_name,
+				  std::string normals_texture_name,
+				  std::string displacement_texture_name,
+				  std::string opacity_texture_name,
+				  std::string lightmap_texture_name) {
+
+	if(ambient_texture_name.length() > 0)
+		this->ambient_texture_name = ambient_texture_name;
+
+	if(diffuse_texture_name.length() > 0)
+		this->diffuse_texture_name = diffuse_texture_name;
+
+	if(specular_texture_name.length() > 0)
+		this->specular_texture_name = specular_texture_name;
+
+	if(shininess_texture_name.length() > 0)
+		this->shininess_texture_name = shininess_texture_name;
+
+	if(emmisive_texture_name.length() > 0)
+		this->emmisive_texture_name = emmisive_texture_name;
+
+	if(normals_texture_name.length() > 0)
+		this->normals_texture_name = normals_texture_name;
+
+	if(displacement_texture_name.length() > 0)
+		this->displacement_texture_name = displacement_texture_name;
+
+	if(opacity_texture_name.length() > 0)
+		this->opacity_texture_name = opacity_texture_name;
+
+	if(lightmap_texture_name.length() > 0)
+		this->lightmap_texture_name = lightmap_texture_name;
+
 }
 
 template <typename Vertex>
@@ -517,22 +629,77 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MVP));
 
 	loc = glGetUniformLocation(shader->shader, ambient_color_name.c_str());
-	glUniform4f(loc, material.color_ambient.x, material.color_ambient.y,
-		    material.color_ambient.z, material.color_ambient.w);
+	glUniform4f(loc, color_ambient.x, color_ambient.y, color_ambient.z,
+		    color_ambient.w);
 
 	loc = glGetUniformLocation(shader->shader, diffuse_color_name.c_str());
-	glUniform4f(loc, material.color_diffuse.x, material.color_diffuse.y,
-		    material.color_diffuse.z, material.color_diffuse.w);
+	glUniform4f(loc, color_diffuse.x, color_diffuse.y, color_diffuse.z,
+		    color_diffuse.w);
 
 	loc = glGetUniformLocation(shader->shader, specular_color_name.c_str());
-	glUniform4f(loc, material.color_specular.x, material.color_specular.y,
-		    material.color_specular.z, material.color_specular.w);
+	glUniform4f(loc, color_specular.x, color_specular.y, color_specular.z,
+		    color_specular.w);
 
 	loc = glGetUniformLocation(shader->shader, shininess_name.c_str());
-	glUniform1f(loc, material.shininess);
+	glUniform1f(loc, shininess);
 
 	loc = glGetUniformLocation(shader->shader, shininess_strength_name.c_str());
-	glUniform1f(loc, material.shininess_strength);
+	glUniform1f(loc, shininess_strength);
+
+	unsigned int num_textures = 0;
+	for(unsigned int i = 0; i < textures_ambient.size(); i++) {
+		int texture_loc = glGetUniformLocation(shader->shader,
+				ambient_texture_name.c_str());
+		if(texture_loc < 0) {
+			std::string uniform_name = ambient_texture_name + '[' +
+				std::to_string(i) + ']';
+			texture_loc = glGetUniformLocation(shader->shader,
+					uniform_name.c_str());
+		}
+		glUniform1i(texture_loc, num_textures);
+		textures_ambient[i]->bind(num_textures);
+		num_textures++;
+	}
+
+	for(unsigned int i = 0; i < textures_diffuse.size(); i++) {
+		textures_diffuse[i]->bind(num_textures);
+		num_textures++;
+	}
+
+	for(unsigned int i = 0; i < textures_specular.size(); i++) {
+		textures_specular[i]->bind(num_textures);
+		num_textures++;
+	}
+
+	for(unsigned int i = 0; i < textures_shininess.size(); i++) {
+		textures_shininess[i]->bind(num_textures);
+		num_textures++;
+	}
+
+	for(unsigned int i = 0; i < textures_emmisive.size(); i++) {
+		textures_emmisive[i]->bind(num_textures);
+		num_textures++;
+	}
+
+	for(unsigned int i = 0; i < textures_normals.size(); i++) {
+		textures_normals[i]->bind(num_textures);
+		num_textures++;
+	}
+
+	for(unsigned int i = 0; i < textures_displacement.size(); i++) {
+		textures_displacement[i]->bind(num_textures);
+		num_textures++;
+	}
+
+	for(unsigned int i = 0; i < textures_opacity.size(); i++) {
+		textures_opacity[i]->bind(num_textures);
+		num_textures++;
+	}
+
+	for(unsigned int i = 0; i < textures_lightmap.size(); i++) {
+		textures_lightmap[i]->bind(num_textures);
+		num_textures++;
+	}
 
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);

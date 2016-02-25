@@ -172,31 +172,31 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	mesh_tmp->twosided = true;
 	mat->Get(AI_MATKEY_TWOSIDED, mesh_tmp->twosided);
 
-	//ambient material color
+	//ambient color
 	mat->Get(AI_MATKEY_COLOR_AMBIENT, color);
-	mesh_tmp->material.color_ambient.x = color[0];
-	mesh_tmp->material.color_ambient.y = color[1];
-	mesh_tmp->material.color_ambient.z = color[2];
-	mesh_tmp->material.color_ambient.w = color[3];
+	mesh_tmp->color_ambient.x = color[0];
+	mesh_tmp->color_ambient.y = color[1];
+	mesh_tmp->color_ambient.z = color[2];
+	mesh_tmp->color_ambient.w = color[3];
 
-	//diffuse material color
+	//diffuse color
 	mat->Get(AI_MATKEY_COLOR_DIFFUSE, color);
-	mesh_tmp->material.color_diffuse.x = color[0];
-	mesh_tmp->material.color_diffuse.y = color[1];
-	mesh_tmp->material.color_diffuse.z = color[2];
-	mesh_tmp->material.color_diffuse.w = color[3];
+	mesh_tmp->color_diffuse.x = color[0];
+	mesh_tmp->color_diffuse.y = color[1];
+	mesh_tmp->color_diffuse.z = color[2];
+	mesh_tmp->color_diffuse.w = color[3];
 
-	//specular material color
+	//specular color
 	mat->Get(AI_MATKEY_COLOR_SPECULAR, color);
-	mesh_tmp->material.color_specular.x = color[0];
-	mesh_tmp->material.color_specular.y = color[1];
-	mesh_tmp->material.color_specular.z = color[2];
-	mesh_tmp->material.color_specular.w = color[3];
-	mesh_tmp->material.shininess = 0.0;
-	mat->Get(AI_MATKEY_SHININESS, mesh_tmp->material.shininess);
-	mesh_tmp->material.shininess_strength = 1.0;
+	mesh_tmp->color_specular.x = color[0];
+	mesh_tmp->color_specular.y = color[1];
+	mesh_tmp->color_specular.z = color[2];
+	mesh_tmp->color_specular.w = color[3];
+	mesh_tmp->shininess = 0.0;
+	mat->Get(AI_MATKEY_SHININESS, mesh_tmp->shininess);
+	mesh_tmp->shininess_strength = 1.0;
 	mat->Get(AI_MATKEY_SHININESS_STRENGTH,
-		mesh_tmp->material.shininess_strength);
+		mesh_tmp->shininess_strength);
 
 	//ambient textures
 	num_textures = mat->GetTextureCount(aiTextureType_AMBIENT);
