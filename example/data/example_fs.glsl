@@ -10,6 +10,7 @@ out vec4 color;
 uniform float time;
 uniform vec3 light_dir;
 uniform sampler2D Texture;
+uniform sampler2D texture_diffuse[10];
 
 uniform vec4 color_ambient;
 uniform vec4 color_diffuse;
@@ -22,7 +23,7 @@ float rand(vec2 v) {
 }
 
 void main() {
-	vec4 tex = texture(Texture, tc.xy);
+	vec4 tex = texture(texture_diffuse[0], tc.xy);
 
 	vec3 camera = normalize(-pos_eye.xyz);
 	vec3 norm = normalize(norm_eye);
@@ -52,6 +53,5 @@ void main() {
 
 	color = amb + diff + spec;
 	//color = vec4(1);
-	//color = tex;
-	//color = vec4(tc.xy, 0, 1);
+	color = tex;
 }

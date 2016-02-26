@@ -111,6 +111,6 @@ void init() {
 	scene = new Scene();
 	scene->setup_shader(shader);
 	scene->setup_camera(&camera->view_matrix, &camera->projection_matrix_persp);
-	scene->load("data/Spikey.dae");
-	//scene->load("data/boblampclean.md5mesh");
+	//scene->load("data/Spikey.dae");
+	scene->load("data/boblampclean.md5mesh");
 }

@@ -389,15 +389,15 @@ Mesh<Vertex>::Mesh() {
 	shininess_name =			"shininess";
 	shininess_strength_name =		"shininess_strength";
 
-	ambient_texture_name =			"ambient_texture";
-	diffuse_texture_name =			"diffuse_texture";
-	specular_texture_name =			"specular_texture";
-	shininess_texture_name =		"shininess_texture";
-	emmisive_texture_name =			"emmisive_texture";
-	normals_texture_name =			"normals_texture";
-	displacement_texture_name =		"displacement_texture";
-	opacity_texture_name =			"opacity_texture";
-	lightmap_texture_name =			"lightmap_texture";
+	ambient_texture_name =			"texture_ambient";
+	diffuse_texture_name =			"texture_diffuse";
+	specular_texture_name =			"texture_specular";
+	shininess_texture_name =		"texture_shininess";
+	emmisive_texture_name =			"texture_emmisive";
+	normals_texture_name =			"texture_normals";
+	displacement_texture_name =		"texture_displacement";
+	opacity_texture_name =			"texture_opacity";
+	lightmap_texture_name =			"texture_lightmap";
 
 	shininess = 0.0;
 	shininess_strength = 1.0;
@@ -662,6 +662,15 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 	}
 
 	for(unsigned int i = 0; i < textures_diffuse.size(); i++) {
+		int texture_loc = glGetUniformLocation(shader->shader,
+				diffuse_texture_name.c_str());
+		if(texture_loc < 0) {
+			std::string uniform_name = diffuse_texture_name + '[' +
+				std::to_string(i) + ']';
+			texture_loc = glGetUniformLocation(shader->shader,
+					uniform_name.c_str());
+		}
+		glUniform1i(texture_loc, num_textures);
 		textures_diffuse[i]->bind(num_textures);
 		num_textures++;
 	}

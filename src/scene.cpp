@@ -192,6 +192,7 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	mesh_tmp->color_specular.y = color[1];
 	mesh_tmp->color_specular.z = color[2];
 	mesh_tmp->color_specular.w = color[3];
+
 	mesh_tmp->shininess = 0.0;
 	mat->Get(AI_MATKEY_SHININESS, mesh_tmp->shininess);
 	mesh_tmp->shininess_strength = 1.0;
@@ -207,6 +208,7 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
+		std::cout<<"amb: "<<str.C_Str()<<std::endl;
 	}
 
 	//diffuse textures
@@ -218,6 +220,8 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
+		mesh_tmp->textures_diffuse.push_back(texture);
+		std::cout<<"diff: "<<str.C_Str()<<std::endl;
 	}
 
 	//specular textures

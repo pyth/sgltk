@@ -66,7 +66,7 @@ void GUI::display() {
 	if(wireframe)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	for(int i = 0; i < trafos.size(); i++) {
+	for(int i = 0; i < 1;i++){//trafos.size(); i++) {
 		scene->draw(&trafos[i]);
 	}
 	check_gl_error("display");
