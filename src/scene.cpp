@@ -208,7 +208,7 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		std::cout<<"amb: "<<str.C_Str()<<std::endl;
+		mesh_tmp->textures_ambient.push_back(texture);
 	}
 
 	//diffuse textures
@@ -221,7 +221,6 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_diffuse.push_back(texture);
-		std::cout<<"diff: "<<str.C_Str()<<std::endl;
 	}
 
 	//specular textures
@@ -233,6 +232,7 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
+		mesh_tmp->textures_specular.push_back(texture);
 	}
 
 	//set attribute pointers
