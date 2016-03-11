@@ -87,13 +87,22 @@ void Texture::load_texture(Image *image) {
 		return;
 	}
 
-	int mode;
+	GLint int_format;
+	GLenum format;
 	switch(image->image->format->BytesPerPixel) {
 	case 3:
-		mode = GL_RGB;
+		int_format = GL_RGB;
+		if(image->image->format->Rmask == 0x000000ff)
+			format = GL_RGB;
+		else
+			format = GL_BGR;
 		break;
 	case 4:
-		mode = GL_RGBA;
+		int_format = GL_RGBA;
+		if(image->image->format->Rmask == 0x000000ff)
+			format = GL_RGBA;
+		else
+			format = GL_BGRA;
 		break;
 	default:
 		return;
@@ -106,8 +115,8 @@ void Texture::load_texture(Image *image) {
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(target, 0, mode, image->width, image->height, 0,
-		     mode, GL_UNSIGNED_BYTE, image->image->pixels);
+	glTexImage2D(target, 0, int_format, image->width, image->height, 0,
+		     format, GL_UNSIGNED_BYTE, image->image->pixels);
 	glGenerateMipmap(target);
 	glBindTexture(target, 0);
 }

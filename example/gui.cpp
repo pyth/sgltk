@@ -32,7 +32,7 @@ void GUI::display() {
 	}
 	Image fps_text;
 	fps_text.create_text("FPS: " + std::to_string(fps),
-			     "data/Oswald-Medium.ttf", 40, 0, 0, 255, 255);
+			     "data/Oswald-Medium.ttf", 40, 255, 0, 0, 255);
 	Texture fps_tex = Texture(&fps_text);
 
 	fps_shader->bind();
@@ -83,22 +83,22 @@ void GUI::handle_keyboard() {
 		exit(0);
 	}
 	if(key_pressed("A")) {
-		camera->move_right(-0.01 * delta_time);
+		camera->move_right(-0.05 * delta_time);
 	}
 	if(key_pressed("D")) {
-		camera->move_right(0.01 * delta_time);
+		camera->move_right(0.05 * delta_time);
 	}
 	if(key_pressed("W")) {
-		camera->move_forward(0.01 * delta_time);
+		camera->move_forward(0.05 * delta_time);
 	}
 	if(key_pressed("S")) {
-		camera->move_forward(-0.01 * delta_time);
+		camera->move_forward(-0.05 * delta_time);
 	}
 	if(key_pressed("R")) {
-		camera->move_up(0.01 * delta_time);
+		camera->move_up(0.05 * delta_time);
 	}
 	if(key_pressed("F")) {
-		camera->move_up(-0.01 * delta_time);
+		camera->move_up(-0.05 * delta_time);
 	}
 	if(key_pressed("Q")) {
 		camera->roll(-0.005 * delta_time);

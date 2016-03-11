@@ -52,6 +52,4 @@ void main() {
 			pow(VR, shininess);
 
 	color = amb + diff + spec;
-	//color = vec4(1);
-	color = tex;
 }
