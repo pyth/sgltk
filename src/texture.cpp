@@ -1,5 +1,7 @@
 #include "texture.h"
 
+using namespace sgltk;
+
 std::map<std::string, Texture *> Texture::textures;
 
 Texture::Texture() {

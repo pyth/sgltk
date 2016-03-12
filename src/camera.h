@@ -9,7 +9,6 @@ namespace sgltk {
 		ORTHOGRAPHIC =	1 << 1,
 		BOTH =		PERSPECTIVE | ORTHOGRAPHIC
 	};
-}
 
 /**
  * @class Camera
@@ -174,5 +173,6 @@ public:
 	 */
 	void pitch(float angle);
 };
+}
 
 #endif

@@ -18,7 +18,6 @@ namespace sgltk {
 		MATRIX3, /**A 3x3 float matrix*/
 		MATRIX4 /**A 4x4 float matrix*/
 	};
-}
 
 /**
  * @class Shader
@@ -79,5 +78,6 @@ public:
 	 */
 	void unbind();
 };
+}
 
 #endif

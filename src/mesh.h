@@ -8,6 +8,7 @@
 namespace sgltk {
 #pragma pack(push, 0)
 	/**
+	 * @struct Vertex
 	 * @brief A basic vertex structure 
 	 */
 	typedef struct Vertex {
@@ -115,7 +116,6 @@ namespace sgltk {
 	} Vertex;
 
 #pragma pack(pop)
-}
 
 /**
  * @class Mesh
@@ -718,4 +718,6 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 	glBindVertexArray(0);
 	shader->unbind();
 }
+}
+
 #endif
