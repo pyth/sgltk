@@ -2,7 +2,6 @@
 *.lo
 *.swp
 *.la
-*.in
 *.log
 src/Makefile
 doc/Makefile
