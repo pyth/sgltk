@@ -4,6 +4,8 @@
 #include "core.h"
 #include "timer.h"
 
+namespace sgltk {
+
 /**
  * @brief Mouse buttons
  */
@@ -143,5 +145,7 @@ public:
 	 */
 	void run(int fps);
 };
+
+}
 
 #endif

@@ -1,5 +1,7 @@
 #include "app.h"
 
+using namespace sgltk;
+
 App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	 int gl_maj, int gl_min, unsigned int flags) {
 	int GL_Maj = gl_maj;

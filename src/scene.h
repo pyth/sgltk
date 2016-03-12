@@ -4,8 +4,15 @@
 #include "core.h"
 #include "mesh.h"
 #include "shader.h"
+#include "image.h"
 #include "texture.h"
 
+namespace sgltk {
+
+/**
+ * @struct Scene_vertex
+ * @brief The vertex structure used by the Scene class
+ */
 typedef struct Scene_vertex {
 	/**
 	 * @brief Vertex position
@@ -55,14 +62,6 @@ class Scene {
 	public:
 		glm::mat4 model_matrix;
 
-		/**
-		 * @param path The path to the file to load
-		 * @param shader The shader user to render the loaded meshes
-		 * @param model_view_matrix_name The model-view matrix name in the shader
-		 * @param model_view_projection_matrix_name The model-view-projection
-		 *	  matrix name in the shader
-		 * @param normal_matrix_name The normal matrix name in the shader
-		 */
 		Scene();
 		~Scene();
 
@@ -99,10 +98,10 @@ class Scene {
 		 *		in the shader. Pass a NULL for a name to keep
 		 *		it's value!
 		 * @param position_name The name of the position vector variable
-		 * @param position_name The name of the normal vector variable
-		 * @param position_name The name of the tangent vector variable
-		 * @param position_name The name of the color vector variable
-		 * @param position_name The name of the texture coordinates
+		 * @param normal_name The name of the normal vector variable
+		 * @param tangent_name The name of the tangent vector variable
+		 * @param color_name The name of the color vector variable
+		 * @param texture_coordinates_name The name of the texture coordinates
 		 *			variable
 		 * @note A number starting at 0 will be appended to the
 		 *	 color_name and texture_coordinates_name strings you
@@ -127,5 +126,7 @@ class Scene {
 		 */
 		void draw(glm::mat4 *model_matrix);
 };
+
+}
 
 #endif

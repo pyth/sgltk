@@ -1,4 +1,6 @@
-#include "texture.h"
+#include "image.h"
+
+using namespace sgltk;
 
 std::vector<std::string> Image::paths = {"./"}; 
 

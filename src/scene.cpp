@@ -1,5 +1,7 @@
 #include "scene.h"
 
+using namespace sgltk;
+
 std::vector<std::string> Scene::paths = {"./"};
 
 Scene::Scene() {

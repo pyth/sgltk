@@ -1,5 +1,7 @@
 #include "camera.h"
 
+using namespace sgltk;
+
 Camera::Camera() {
 	sgltk::init_lib();
 	type = sgltk::PERSPECTIVE;

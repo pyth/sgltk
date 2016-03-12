@@ -3,6 +3,8 @@
 
 #include "core.h"
 
+namespace sgltk {
+
 class Particles {
 	int number;
 	glm::vec3 origin;
@@ -17,5 +19,6 @@ public:
 
 	void render();
 };
+}
 
 #endif

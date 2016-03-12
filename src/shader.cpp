@@ -1,6 +1,6 @@
 #include "shader.h"
 
-using namespace std;
+using namespace sgltk;
 
 Shader::Shader() {
 	modify = true;
@@ -23,8 +23,8 @@ bool Shader::attach_file(const char *filename, GLenum type) {
 
 	file = SDL_RWFromFile(filename, "r+b");
 	if(!file) {
-		cerr << "Could not open shader file: " << filename << " - "
-		     << SDL_GetError() << endl;
+		std::cerr << "Could not open shader file: " << filename << " - "
+		     << SDL_GetError() << std::endl;
 		return false;
 	}
 	size = (int)SDL_RWsize(file);
