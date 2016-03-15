@@ -7,7 +7,7 @@
 
 #include "gui.h"
 
-using namespace std;
+using namespace sgltk;
 
 Shader *shader;
 Shader *fps_shader;
@@ -77,7 +77,7 @@ void init() {
 	fps_shader->link();
 
 	//arrange a few vertices into a square
-	vector<sgltk::Vertex> vert;
+	std::vector<sgltk::Vertex> vert;
 	vert.push_back(sgltk::Vertex(glm::vec3(0.0,0.0,0.0),
 				     glm::vec3(0.0,0.0,1.0),
 				     glm::vec3(0.0,1.0,0.0)));
@@ -90,7 +90,7 @@ void init() {
 	vert.push_back(sgltk::Vertex(glm::vec3(1.0,1.0,0.0),
 				     glm::vec3(0.0,0.0,1.0),
 				     glm::vec3(1.0,0.0,0.0)));
-	vector<unsigned short> ind;
+	std::vector<unsigned short> ind;
 	ind.push_back(0);
 	ind.push_back(1);
 	ind.push_back(2);

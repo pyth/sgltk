@@ -8,6 +8,8 @@
 #include <sgltk/texture.h>
 #include <sgltk/shader.h>
 
+using namespace sgltk;
+
 typedef struct Vertex {
 	GLfloat position[4];
 	GLfloat normal[3];
