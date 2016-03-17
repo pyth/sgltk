@@ -1,41 +1,39 @@
 #include "texture.h"
 
-std::map<char *, Texture *> Texture::textures;
+using namespace sgltk;
+
+std::map<std::string, Texture *> Texture::textures;
 
 Texture::Texture() {
-	init_lib();
+	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 }
 
 Texture::Texture(GLenum target) {
-	init_lib();
+	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 }
 
-Texture::Texture(const char *path) {
-	init_lib();
+Texture::Texture(std::string path) {
+	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
-	if(path) {
-		Image img(path);
-		load_texture(&img);
-	}
+	Image img(path);
+	load_texture(&img);
 }
 
-Texture::Texture(GLenum target, const char *path) {
-	init_lib();
+Texture::Texture(GLenum target, std::string path) {
+	sgltk::init_lib();
 	this->target = target;
 	glGenTextures(1, &texture);
-	if(path) {
-		Image img(path);
-		load_texture(&img);
-	}
+	Image img(path);
+	load_texture(&img);
 }
 
 Texture::Texture(Image *image) {
-	init_lib();
+	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 	if(image) {
@@ -44,7 +42,7 @@ Texture::Texture(Image *image) {
 }
 
 Texture::Texture(GLenum target, Image *image) {
-	init_lib();
+	sgltk::init_lib();
 	this->target = target;
 	glGenTextures(1, &texture);
 	if(image) {
@@ -91,13 +89,22 @@ void Texture::load_texture(Image *image) {
 		return;
 	}
 
-	int mode;
+	GLint int_format;
+	GLenum format;
 	switch(image->image->format->BytesPerPixel) {
 	case 3:
-		mode = GL_RGB;
+		int_format = GL_RGB;
+		if(image->image->format->Rmask == 0x000000ff)
+			format = GL_RGB;
+		else
+			format = GL_BGR;
 		break;
 	case 4:
-		mode = GL_RGBA;
+		int_format = GL_RGBA;
+		if(image->image->format->Rmask == 0x000000ff)
+			format = GL_RGBA;
+		else
+			format = GL_BGRA;
 		break;
 	default:
 		return;
@@ -110,18 +117,18 @@ void Texture::load_texture(Image *image) {
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(target, 0, mode, image->width, image->height, 0,
-		     mode, GL_UNSIGNED_BYTE, image->image->pixels);
+	glTexImage2D(target, 0, int_format, image->width, image->height, 0,
+		     format, GL_UNSIGNED_BYTE, image->image->pixels);
 	glGenerateMipmap(target);
 	glBindTexture(target, 0);
 }
 
-bool Texture::store_texture(const char *name, Texture *texture) {
-	return textures.insert(std::make_pair((char *)name, texture)).second;
+bool Texture::store_texture(std::string name, Texture *texture) {
+	return textures.insert(std::make_pair(name, texture)).second;
 }
 
-Texture *Texture::find_texture(const char *name) {
-	std::map<char *, Texture *>::iterator it = textures.find((char *)name);
+Texture *Texture::find_texture(std::string name) {
+	std::map<std::string, Texture *>::iterator it = textures.find(name);
 	if(it == textures.end())
 		return NULL;
 	return it->second;

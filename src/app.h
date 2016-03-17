@@ -4,6 +4,8 @@
 #include "core.h"
 #include "timer.h"
 
+namespace sgltk {
+
 /**
  * @brief Mouse buttons
  */
@@ -25,6 +27,7 @@ class App {
 	SDL_GLContext context;
 	const Uint8 *keys;
 	bool mouse_relative;
+	unsigned int fps_time;
 public:
 	/**
 	 * @brief The width of the window surface
@@ -34,6 +37,10 @@ public:
 	 * @brief The height of the window surface
 	 */
 	int height;
+	/**
+	 * @brief The time it took to draw the last frame
+	 */
+	unsigned int delta_time;
 	/**
 	 * @brief The window surface
 	 */
@@ -138,5 +145,7 @@ public:
 	 */
 	void run(int fps);
 };
+
+}
 
 #endif

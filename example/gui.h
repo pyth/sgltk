@@ -8,6 +8,8 @@
 #include <sgltk/texture.h>
 #include <sgltk/shader.h>
 
+using namespace sgltk;
+
 typedef struct Vertex {
 	GLfloat position[4];
 	GLfloat normal[3];
@@ -29,14 +31,23 @@ typedef struct Vertex {
 } Vertex;
 
 extern Shader *shader;
+extern Shader *fps_shader;
 extern Texture *tex;
-extern Mesh<> *mesh;
+extern Mesh<> *fps_display;
 extern Scene *scene;
+extern Camera *fps_camera;
 extern Camera *camera;
 
 class GUI : public App {
 	bool wireframe;
 	bool wireframe_change;
+
+	glm::mat4 fps_trafo;
+	std::vector<glm::mat4> trafos;
+
+	unsigned int fps;
+	unsigned int time_cnt;
+	unsigned int frame_cnt;
 public:
 	GUI(const char *title, int res_x, int res_y, int offset_x,
 	    int offset_y, int gl_maj, int gl_min,

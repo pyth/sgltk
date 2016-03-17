@@ -2,9 +2,7 @@
 *.lo
 *.swp
 *.la
-*.in
 *.log
-example/data
 src/Makefile
 doc/Makefile
 Makefile

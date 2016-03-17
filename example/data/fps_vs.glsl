@@ -7,21 +7,17 @@ struct Matrix {
 };
 
 in vec4 pos_in;
-in vec3 norm_in;
 in vec3 tex_coord_in0;
 
-out vec4 pos_eye;
-out vec3 norm_eye;
 out vec3 tc;
 
 uniform Matrix matrix;
 uniform sampler2D Texture;
 
 void main() {
-	pos_eye = matrix.model_view * pos_in;
-	norm_eye = matrix.normal_matrix * norm_in;
+	vec4 pos = matrix.model_view_proj * pos_in;
 
 	tc = tex_coord_in0;
 
-	gl_Position = matrix.model_view_proj * pos_in;
+	gl_Position = pos;
 }
