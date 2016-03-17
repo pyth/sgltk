@@ -3,7 +3,7 @@
 using namespace std;
 
 Track::Track() {
-	init_lib();
+	sgltk::init_lib();
 	music = NULL;
 }
 

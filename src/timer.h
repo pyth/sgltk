@@ -3,6 +3,8 @@
 
 #include "core.h"
 
+namespace sgltk {
+
 /**
  * @class Timer
  * @brief Provides a simple timer
@@ -23,5 +25,6 @@ public:
 	 */
 	unsigned int get_time();
 };
+}
 
 #endif
