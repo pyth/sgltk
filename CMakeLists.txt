@@ -23,9 +23,6 @@ foreach(p LIB BIN INCLUDE CMAKE)
 	endif()
 endforeach()
 
-#find_package(GLEW REQUIRED)
-#find_package(SDL2 REQUIRED)
-
 configure_file("config.h.in"
 	"${PROJECT_SOURCE_DIR}/src/config.h")
 
@@ -42,7 +39,7 @@ add_custom_target(uninstall
 
 add_subdirectory(src)
 add_subdirectory(doc)
-add_subdirectory(example)
+add_subdirectory(example EXCLUDE_FROM_ALL)
 
 export(TARGETS sgltk sgltk_static
 	FILE "${PROJECT_BINARY_DIR}/sgltkTargets.cmake")
@@ -51,8 +48,6 @@ export(PACKAGE sgltk)
 
 file(RELATIVE_PATH REL_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/${INSTALL_CMAKE_DIR}"
 	"${CMAKE_INSTALL_PREFIX}/${INSTALL_INCLUDE_DIR}")
-#set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
-#configure_file(sgltkConfig.cmake.in "${PROJECT_BINARY_DIR}/sgltkConfig.cmake" @ONLY)
 set(CONF_INCLUDE_DIRS "\${SGLTK_CMAKE_DIR}/${REL_INCLUDE_DIR}")
 configure_file(sgltkConfig.cmake.in
 	"${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/sgltkConfig.cmake" @ONLY)
@@ -66,3 +61,13 @@ install(FILES
 
 install(EXPORT sgltkTargets
 	DESTINATION "${INSTALL_CMAKE_DIR}")
+
+if(UNIX)
+	file(WRITE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.conf "${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DIR}")
+
+	install(FILES
+		"${PROJECT_BINARY_DIR}/${PROJECT_NAME}.conf"
+		DESTINATION "/etc/ld.so.conf.d/")
+
+	install(CODE "execute_process(COMMAND ldconfig)")
+endif()

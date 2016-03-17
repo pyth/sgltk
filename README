@@ -1,2 +1,2 @@
-This project's goal is to speed up and make the development of OpenGL
-applications easier.
+This project's goal is to speed up and make the development of graphical
+applications easier by providing a layer of abstraction from OpenGL.

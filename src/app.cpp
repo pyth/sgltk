@@ -5,11 +5,13 @@ using namespace sgltk;
 App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	 int gl_maj, int gl_min, unsigned int flags) {
 	int GL_Maj = gl_maj;
+	int GL_Min = gl_min;
 	if(gl_maj < 3) {
 		std::cerr << "SGLTK requires at least OpenGL version 3.0"
-			  << std::endl << "Defaulting major version number to 3"
+			  << std::endl << "Defaulting version number to 3.0"
 			  << std::endl;
 		GL_Maj = 3;
+		GL_Min = 0;
 	}
 	sgltk::init_lib();
 
@@ -21,7 +23,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	SDL_DisableScreenSaver();
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, GL_Maj);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl_min);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, GL_Min);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
