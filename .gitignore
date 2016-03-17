@@ -1,0 +1,8 @@
+*.o
+*.lo
+*.swp
+*.la
+*.log
+src/Makefile
+doc/Makefile
+Makefile

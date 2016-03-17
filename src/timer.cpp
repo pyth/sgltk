@@ -1,7 +1,9 @@
 #include "timer.h"
 
+using namespace sgltk;
+
 Timer::Timer() {
-	init_lib();
+	sgltk::init_lib();
 	start_time = 0;
 }
 

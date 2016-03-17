@@ -3,21 +3,38 @@
 
 #include "core.h"
 
+namespace sgltk {
+	enum CAMERA_TYPE {
+		PERSPECTIVE =	1 << 0,
+		ORTHOGRAPHIC =	1 << 1,
+		BOTH =		PERSPECTIVE | ORTHOGRAPHIC
+	};
+
 /**
  * @class Camera
  * @brief Manages cameras
+ * A new camera uses perspective projection matrix if nothing else is specified
  */
 class Camera {
-	glm::mat4 ident;
 public:
+	/**
+	 * @brief The camera type
+	 * The type of the projection matrix used by the camera.
+	 * It can be a bitwise or combination of the types. 
+	 */
+	sgltk::CAMERA_TYPE type;
 	/**
 	 * @brief The view matrix
 	 */
 	glm::mat4 view_matrix;
 	/**
-	 * @brief The projection matrix
+	 * @brief The perspective projection matrix
 	 */
-	glm::mat4 projection_matrix;
+	glm::mat4 projection_matrix_persp;
+	/**
+	 * @brief The orthographic projection matrix
+	 */
+	glm::mat4 projection_matrix_ortho;
 	/**
 	 * @brief The field of view
 	 */
@@ -49,11 +66,22 @@ public:
 
 	Camera();
 	/**
+	 * @param type The camera type
+	 */
+	Camera(sgltk::CAMERA_TYPE type);
+	/**
 	 * @param pos The camera position
 	 * @param dir The view direction
 	 * @param up The up vector
 	 */
 	Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up);
+	/**
+	 * @param pos The camera position
+	 * @param dir The view direction
+	 * @param up The up vector
+	 * @param type The camera type
+	 */
+	Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, sgltk::CAMERA_TYPE type);
 	/**
 	 * @param pos The camera position
 	 * @param dir The view direction
@@ -67,6 +95,21 @@ public:
 	Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
 	       float fov, float width, float height,
 	       float near_plane, float far_plane);
+	/**
+	 * @param pos The camera position
+	 * @param dir The view direction
+	 * @param up The up vector
+	 * @param fov The field of view
+	 * @param width The width of the viewport
+	 * @param height The height of the viewport
+	 * @param near_plane The near plane
+	 * @param far_plane The far plane
+	 * @param type The camera type
+	 */
+	Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
+	       float fov, float width, float height,
+	       float near_plane, float far_plane,
+	       sgltk::CAMERA_TYPE type);
 	~Camera();
 
 	/**
@@ -130,5 +173,6 @@ public:
 	 */
 	void pitch(float angle);
 };
+}
 
 #endif

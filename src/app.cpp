@@ -1,19 +1,29 @@
 #include "app.h"
 
-using namespace std;
+using namespace sgltk;
 
 App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	 int gl_maj, int gl_min, unsigned int flags) {
-	init_lib();
+	int GL_Maj = gl_maj;
+	int GL_Min = gl_min;
+	if(gl_maj < 3) {
+		std::cerr << "SGLTK requires at least OpenGL version 3.0"
+			  << std::endl << "Defaulting version number to 3.0"
+			  << std::endl;
+		GL_Maj = 3;
+		GL_Min = 0;
+	}
+	sgltk::init_lib();
 
 	running = true;
 	mouse_relative = false;
 	keys = SDL_GetKeyboardState(NULL);
+	delta_time = 0;
 
 	SDL_DisableScreenSaver();
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl_maj);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl_min);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, GL_Maj);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, GL_Min);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
@@ -23,18 +33,19 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	window = SDL_CreateWindow(title, offset_x, offset_y,
 				  res_x, res_y, SDL_WINDOW_OPENGL | flags);
 	if(!window) {
-		cerr << "SDL_CreateWindow Error: " << SDL_GetError() << endl;
+		std::cerr << "SDL_CreateWindow Error: "
+			  << SDL_GetError() << std::endl;
 		return;
 	}
 	context = SDL_GL_CreateContext(window);
-	init_glew();
+	sgltk::init_glew();
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 }
 
 App::~App() {
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
-	quit_lib();
+	sgltk::quit_lib();
 }
 
 void App::grab_mouse(bool on) {
@@ -122,7 +133,9 @@ void App::handle_mouse_motion(int x, int y) {
 void App::handle_mouse_wheel(int x, int y) {
 }
 
-void App::handle_mouse_button(int x, int y, MOUSE_BUTTON button, bool down,
+void App::handle_mouse_button(int x, int y,
+			      MOUSE_BUTTON button,
+			      bool down,
 			      int clicks) {
 }
 
@@ -140,23 +153,24 @@ void App::run() {
 
 void App::run(int fps) {
 	Timer frame_timer;
-	unsigned int frame_time;
+	float frame_time = 1000.0 / fps;
 	bool running = true;
 
 	frame_timer.start();
 	while(running) {
+		frame_timer.start();
+		poll_events();
 		if(!window) {
 			break;
 		}
+		display();
+		delta_time = frame_timer.get_time();
 		if(fps > 0) {
-			frame_time = frame_timer.get_time();
-			if(frame_time < 1000 / fps) {
-				continue;
+			if(delta_time < frame_time) {
+				SDL_Delay(frame_time - delta_time);
+				delta_time = frame_time;
 			}
 		}
-		poll_events();
-		display();
 		SDL_GL_SwapWindow(window);
-		frame_timer.start();
 	}
 }

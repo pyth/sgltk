@@ -1,6 +1,6 @@
 #include "shader.h"
 
-using namespace std;
+using namespace sgltk;
 
 Shader::Shader() {
 	modify = true;
@@ -11,7 +11,7 @@ Shader::~Shader() {
 	glDeleteProgram(shader);
 }
 
-bool Shader::attach(const char *filename, GLenum type) {
+bool Shader::attach_file(const char *filename, GLenum type) {
 	GLint compiled;
 	char infoLog[4096];
 	int infoLogLength;
@@ -19,12 +19,12 @@ bool Shader::attach(const char *filename, GLenum type) {
 	const char *code;
 	char *buf;
 	GLuint tmp;
-	int size;
+	GLint size;
 
 	file = SDL_RWFromFile(filename, "r+b");
 	if(!file) {
-		cerr << "Could not open shader file: " << filename << " - "
-		     << SDL_GetError() << endl;
+		std::cerr << "Could not open shader file: " << filename << " - "
+		     << SDL_GetError() << std::endl;
 		return false;
 	}
 	size = (int)SDL_RWsize(file);
@@ -49,8 +49,7 @@ bool Shader::attach(const char *filename, GLenum type) {
 
 	glAttachShader(shader, tmp);
 	if(modify) {
-		shader_paths.push_back(filename);
-		shader_map[filename] = type;
+		shader_path_map[filename] = type;
 	}
 
 	glDeleteShader(tmp);
@@ -58,7 +57,35 @@ bool Shader::attach(const char *filename, GLenum type) {
 	return true;
 }
 
-void Shader::bind_uniform(char *name, UniformType type, void *data) {
+bool Shader::attach_string(const char *shader_string, GLint size, GLenum type) {
+	GLint compiled;
+	char infoLog[4096];
+	int infoLogLength;
+
+	GLuint tmp = glCreateShader(type);
+	glShaderSource(tmp, 1, &shader_string, &size);
+	glCompileShader(tmp);
+	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
+	if(!compiled) {
+		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength,
+				   infoLog);
+		if(infoLogLength > 0) {
+			printf("CompileShader() infoLog \n%s\n",
+			       infoLog);
+			return false;
+		}
+	}
+
+	glAttachShader(shader, tmp);
+	if(modify) {
+		shader_string_map[shader_string] = type;
+	}
+
+	glDeleteShader(tmp);
+	return true;
+}
+
+void Shader::bind_uniform(char *name, sgltk::UNIFORM_TYPE type, void *data) {
 	/*int location = glGetUniformLocation(shader, name);
 	switch(type) {
 	case INTEGER:
@@ -89,8 +116,11 @@ void Shader::recompile() {
 	unbind();
 	glDeleteProgram(shader);
 	shader = glCreateProgram();
-	for(int i = 0; i < shader_paths.size(); i++) {
-		attach(shader_paths[i], shader_map[shader_paths[i]]);
+	for(std::map<const char *, GLenum>::iterator it = shader_path_map.begin(); it != shader_path_map.end(); it++) {
+		attach_file(it->first, it->second);
+	}
+	for(std::map<const char *, GLenum>::iterator it = shader_string_map.begin(); it != shader_string_map.end(); it++) {
+		attach_string(it->first, strlen(it->first)+1, it->second);
 	}
 	link();
 	modify = true;

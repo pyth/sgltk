@@ -1,5 +1,7 @@
 #include "particle.h"
 
+using namespace sgltk;
+
 Particles::Particles(int number, glm::vec3 origin, glm::vec3 velocity) {
 	this->number = number;
 	this->origin = origin;
