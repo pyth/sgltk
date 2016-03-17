@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['particles',['Particles',['../class_particles.html',1,'']]]
+  ['particles',['Particles',['../classsgltk_1_1_particles.html',1,'sgltk']]]
 ];

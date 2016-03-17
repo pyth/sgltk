@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['image',['Image',['../class_image.html',1,'Image'],['../class_image.html#a9700f58efb58b13e23666f19c67d3839',1,'Image::Image(const char *filename)'],['../class_image.html#af8289e76021aefa3f99d14e9d76fa4e5',1,'Image::image()']]]
+  ['image',['Image',['../classsgltk_1_1_image.html',1,'sgltk']]],
+  ['image',['image',['../classsgltk_1_1_image.html#a5e68bb4101c8ebe30b6c8f4675e4cbef',1,'sgltk::Image::image()'],['../classsgltk_1_1_image.html#abb20937b3256735f0f7549d1b5e9c10d',1,'sgltk::Image::Image(std::string filename)']]]
 ];

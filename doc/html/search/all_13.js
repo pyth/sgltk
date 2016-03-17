@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['width',['width',['../class_app.html#a2c90198ed2171c619f0f3b9eb49d005a',1,'App::width()'],['../class_image.html#ab8d12f635013c04159cd4d3d972bac88',1,'Image::width()']]],
-  ['window',['window',['../class_app.html#a47d24f96ee9543f2a5f444918347b76b',1,'App']]],
-  ['wireframe',['wireframe',['../class_mesh.html#aaf2811f081f02c777d988536a35408a0',1,'Mesh']]]
+  ['width',['width',['../classsgltk_1_1_app.html#a46f2ff7d1bc656d44f22def6c1663ae8',1,'sgltk::App::width()'],['../classsgltk_1_1_image.html#a1b73483ce8d0fd6736ed31776c982931',1,'sgltk::Image::width()']]],
+  ['window',['window',['../classsgltk_1_1_app.html#a7ed9918a7807b64313973b60b991a72f',1,'sgltk::App']]],
+  ['wireframe',['wireframe',['../classsgltk_1_1_mesh.html#adffb7b6765d365a1a47aa76e3c055256',1,'sgltk::Mesh']]]
 ];

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['unbind',['unbind',['../class_shader.html#a227a45de0b25215955560defe26660ff',1,'Shader::unbind()'],['../class_texture.html#a8480eed7ed703a937c3e6ab528f559bd',1,'Texture::unbind()'],['../class_texture.html#aad27dbb557313472bc393ce29a767fa7',1,'Texture::unbind(unsigned int texture_unit)']]],
-  ['update_5fprojection_5fmatrix',['update_projection_matrix',['../class_camera.html#a5190038110cdb4b32fae6889103e19cd',1,'Camera::update_projection_matrix(float width, float height)'],['../class_camera.html#ad3077a608aecce10746667c474330e0f',1,'Camera::update_projection_matrix(float fov, float width, float height)'],['../class_camera.html#a7766bc92b742e4c00d031feebdc848b1',1,'Camera::update_projection_matrix(float fov, float width, float height, float near_plane, float far_plane)']]],
-  ['update_5fview_5fmatrix',['update_view_matrix',['../class_camera.html#aa8314e7d472a74170c6e5c249da1ef2a',1,'Camera']]]
+  ['texture',['Texture',['../classsgltk_1_1_texture.html#a270c8cd9229bfff9e04b33a1fd2396a8',1,'sgltk::Texture::Texture(GLenum target)'],['../classsgltk_1_1_texture.html#a7775edff718dcb5e0233734132e56c02',1,'sgltk::Texture::Texture(std::string path)'],['../classsgltk_1_1_texture.html#ac4d17540d195a9e5155db31a68370cd8',1,'sgltk::Texture::Texture(GLenum target, std::string path)'],['../classsgltk_1_1_texture.html#a75b3bcab6951598ca0e7a487f98fe8ad',1,'sgltk::Texture::Texture(Image *image)'],['../classsgltk_1_1_texture.html#ac7f952eb11543d2203ea43ef4a47fa63',1,'sgltk::Texture::Texture(GLenum target, Image *image)']]]
 ];
