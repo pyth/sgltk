@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.6)
 project(sgltk)
 
+include(CheckIncludeFiles)
+include(CheckIncludeFileCXX)
+
 set(SGLTK_VERSION_MAJOR 0)
 set(SGLTK_VERSION_MINOR 2)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})

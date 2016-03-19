@@ -21,12 +21,21 @@ set(LIB_HEADERS
 
 set(LIBS GL GLU GLEW SDL2 SDL2_ttf SDL2_mixer SDL2_image assimp)
 
+check_include_files(GL/glu.h		HAVE_GLU_H)
+check_include_files(GL/glew.h		HAVE_GLEW_H)
+check_include_files(SDL2/SDL.h		HAVE_SDL_H)
+check_include_files(SDL2/SDL_ttf.h	HAVE_SDL_TTF_H)
+check_include_files(SDL2/SDL_mixer.h	HAVE_SDL_MIXER_H)
+check_include_files(SDL2/SDL_image.h	HAVE_SDL_IMAGE_H)
+check_include_file_cxx(glm/glm.hpp		HAVE_GLM_H)
+check_include_file_cxx(assimp/Importer.hpp	HAVE_ASSIMP_H)
+
 foreach(lib ${LIBS})
 	find_library(${lib}_FOUND ${lib})
 	if(${lib}_FOUND)
 		message(STATUS "FOUND ${lib}")
 	else()
-		message(FATAL_ERROR "NOT FOUND ${lib}")
+		message(STATUS "NOT FOUND ${lib}")
 	endif()
 endforeach()
 
