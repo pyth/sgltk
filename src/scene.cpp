@@ -237,6 +237,78 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 		mesh_tmp->textures_specular.push_back(texture);
 	}
 
+	//shininess textures
+	num_textures = mat->GetTextureCount(aiTextureType_SHININESS);
+	for(unsigned int i = 0; i < num_textures; i++) {
+		mat->GetTexture(aiTextureType_SHININESS, i, &str);
+		texture = Texture::find_texture(str.C_Str());
+		if(!texture) {
+			texture = new Texture(str.C_Str());
+			Texture::store_texture(str.C_Str(), texture);
+		}
+		mesh_tmp->textures_shininess.push_back(texture);
+	}
+
+	//emmisive textures
+	num_textures = mat->GetTextureCount(aiTextureType_EMISSIVE);
+	for(unsigned int i = 0; i < num_textures; i++) {
+		mat->GetTexture(aiTextureType_EMISSIVE, i, &str);
+		texture = Texture::find_texture(str.C_Str());
+		if(!texture) {
+			texture = new Texture(str.C_Str());
+			Texture::store_texture(str.C_Str(), texture);
+		}
+		mesh_tmp->textures_emmisive.push_back(texture);
+	}
+
+	//normals textures
+	num_textures = mat->GetTextureCount(aiTextureType_NORMALS);
+	for(unsigned int i = 0; i < num_textures; i++) {
+		mat->GetTexture(aiTextureType_NORMALS, i, &str);
+		texture = Texture::find_texture(str.C_Str());
+		if(!texture) {
+			texture = new Texture(str.C_Str());
+			Texture::store_texture(str.C_Str(), texture);
+		}
+		mesh_tmp->textures_normals.push_back(texture);
+	}
+
+	//displacement textures
+	num_textures = mat->GetTextureCount(aiTextureType_DISPLACEMENT);
+	for(unsigned int i = 0; i < num_textures; i++) {
+		mat->GetTexture(aiTextureType_DISPLACEMENT, i, &str);
+		texture = Texture::find_texture(str.C_Str());
+		if(!texture) {
+			texture = new Texture(str.C_Str());
+			Texture::store_texture(str.C_Str(), texture);
+		}
+		mesh_tmp->textures_displacement.push_back(texture);
+	}
+
+	//opacity textures
+	num_textures = mat->GetTextureCount(aiTextureType_OPACITY);
+	for(unsigned int i = 0; i < num_textures; i++) {
+		mat->GetTexture(aiTextureType_OPACITY, i, &str);
+		texture = Texture::find_texture(str.C_Str());
+		if(!texture) {
+			texture = new Texture(str.C_Str());
+			Texture::store_texture(str.C_Str(), texture);
+		}
+		mesh_tmp->textures_opacity.push_back(texture);
+	}
+
+	//lightmap textures
+	num_textures = mat->GetTextureCount(aiTextureType_LIGHTMAP);
+	for(unsigned int i = 0; i < num_textures; i++) {
+		mat->GetTexture(aiTextureType_LIGHTMAP, i, &str);
+		texture = Texture::find_texture(str.C_Str());
+		if(!texture) {
+			texture = new Texture(str.C_Str());
+			Texture::store_texture(str.C_Str(), texture);
+		}
+		mesh_tmp->textures_lightmap.push_back(texture);
+	}
+
 	//set attribute pointers
 	mesh_tmp->set_vertex_attribute(position_name, 0, 4, GL_FLOAT,
 				       sizeof(Scene_vertex),

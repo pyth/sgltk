@@ -107,10 +107,35 @@ void sgltk::set_path_to_executable(char **argv) {
 }
 
 void sgltk::_check_error(const char *message, char *file, unsigned int line) {
+	std::string err_string;
 	GLenum err = glGetError();
+
+	switch(err) {
+		case GL_INVALID_ENUM:
+			err_string = "INVALID_ENUM";
+			break;
+		case GL_INVALID_VALUE:
+			err_string = "INVALID_VALUE";
+			break;
+		case GL_INVALID_OPERATION:
+			err_string = "INVALID_OPERATION";
+			break;
+		case GL_INVALID_FRAMEBUFFER_OPERATION:
+			err_string = "INVALID_FRAMEBUFFER_OPERATION";
+			break;
+		case GL_OUT_OF_MEMORY:
+			err_string = "OUT_OF_MEMORY";
+			break;
+		case GL_STACK_OVERFLOW:
+			err_string = "STACK_OVERFLOW";
+			break;
+		case GL_STACK_UNDERFLOW:
+			err_string = "STACK_UNDERFLOW";
+			break;
+	}
 	while(err != GL_NO_ERROR) {
-		std::cout << file << " - " << line << ": " << gluErrorString(err);
-		if(strlen(message) > 1)
+		std::cout << file << " - " << line << ": " << err_string;
+		if(strlen(message) > 0)
 			std::cout << " - " << message;
 		std::cout << std::endl;
 		err = glGetError();
