@@ -153,6 +153,9 @@ class Mesh {
 	std::vector<GLuint> ibo;
 	std::vector<int> num_indices;
 
+	std::vector<int> bone_ids;
+	std::vector<float> bone_weights;
+
 	void compute_bounding_box(const std::vector<Vertex> *vertexdata);
 public:
 	/**

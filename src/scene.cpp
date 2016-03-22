@@ -131,6 +131,19 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	}
 
 	//************************************
+	// Bones
+	//************************************
+	for(int i=0; i<mesh->mNumBones; i++) {
+		for(int j=0; j<mesh->mBones[i]->mNumWeights; j++) {
+			unsigned int vertex_id = mesh->mBones[i]->mWeights[j].mVertexId;
+			float weight = mesh->mBones[i]->mWeights[j].mWeight;
+			unsigned int bone_index = vertices[vertex_id].bones;
+			vertices[vertex_id].bone_ids[bone_index] = i;
+			vertices[vertex_id].bone_weights[bone_index] = weight;
+		}
+	}
+
+	//************************************
 	// Faces
 	//************************************
 	for(unsigned int i = 0; i < mesh->mNumFaces; i++) {

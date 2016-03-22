@@ -7,6 +7,10 @@
 #include "image.h"
 #include "texture.h"
 
+#ifndef BONES_PER_VERTEX
+	#define BONES_PER_VERTEX 4
+#endif
+
 namespace sgltk {
 
 /**
@@ -26,6 +30,18 @@ typedef struct Scene_vertex {
 	 * @brief Vertex tangent
 	 */
 	glm::vec4 tangent;
+	/**
+	 * @brief Number of bones
+	 */
+	unsigned int bones;
+	/**
+	 * @brief Bone ids
+	 */
+	unsigned int bone_ids[BONES_PER_VERTEX];
+	/**
+	 * @brief Bone weights
+	 */
+	float bone_weights[BONES_PER_VERTEX];
 
 	Scene_vertex() {
 		position = glm::vec4(0, 0, 0, 1);
