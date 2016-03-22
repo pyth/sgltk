@@ -9,6 +9,8 @@
 	#include <windows.h>
 #endif
 
+#include "config.h"
+
 #include <GL/glew.h>
 #include <GL/glu.h>
 /*#ifdef _WIN32
@@ -32,7 +34,9 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_mixer.h>
+#ifdef HAVE_SDL_MIXER_H
+	#include <SDL2/SDL_mixer.h>
+#endif
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
 
@@ -75,12 +79,14 @@ namespace sgltk {
 	bool init_ttf();
 	void quit_ttf();
 
+#ifdef HAVE_SDL_MIXER_H
 	/**
 	 * @brief Initializes SDL2_mixer
 	 * @return Returns true on success, flase otherwise
 	 */
 	bool init_mixer();
 	void quit_mixer();
+#endif
 
 	/**
 	 * @brief Initializes all parts of SDL2 used by SGLTK

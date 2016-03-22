@@ -30,7 +30,7 @@ check_include_file_cxx(glm/glm.hpp		HAVE_GLM_H)
 check_include_file_cxx(assimp/Importer.hpp	HAVE_ASSIMP_H)
 
 foreach(lib ${LIBS})
-	find_library(${lib}_FOUND ${lib} REQUIRED)
+	find_library(${lib}_FOUND ${lib})
 	if(${lib}_FOUND)
 		message(STATUS "FOUND ${lib}")
 	else()

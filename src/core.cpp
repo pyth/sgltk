@@ -46,6 +46,7 @@ void sgltk::quit_ttf() {
 	TTF_Quit();
 }
 
+#ifdef HAVE_SDL_MIXER_H
 bool sgltk::init_mixer() {
 	unsigned int flags = MIX_INIT_FLAC|MIX_INIT_MP3|MIX_INIT_OGG;
 	unsigned int tmp = Mix_Init(flags);
@@ -67,6 +68,7 @@ void sgltk::quit_mixer() {
 		Mix_Quit();
 	}
 }
+#endif
 
 bool sgltk::init_lib() {
 	if(sgltk::initialized)
@@ -75,10 +77,15 @@ bool sgltk::init_lib() {
 	if(sgltk::init_sdl())
 		if(sgltk::init_img())
 			if(sgltk::init_ttf())
+#ifdef HAVE_SDL_MIXER_H
 				if(sgltk::init_mixer()) {
 					sgltk::initialized = true;
 					return true;
 				}
+#else
+				sgltk::initialized = true;
+				return true;
+#endif
 
 	sgltk::quit_lib();
 	return false;
@@ -86,7 +93,9 @@ bool sgltk::init_lib() {
 
 void sgltk::quit_lib() {
 	sgltk::initialized = false;
+#ifdef HAVE_SDL_MIXER_H
 	quit_mixer();
+#endif
 	quit_img();
 	quit_ttf();
 	quit_sdl();

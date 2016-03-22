@@ -1,6 +1,7 @@
 #ifndef __AUDIO_H__
 #define __AUDIO_H__
 
+#ifdef HAVE_SDL_MIXER_H
 #include "core.h"
 
 class Track {
@@ -15,5 +16,6 @@ public:
 	void pause();
 	void stop();
 };
+#endif //HAVE_SDL_MIXER_H
 
 #endif
