@@ -9,6 +9,7 @@ set(LIB_SOURCE
 	timer.cpp)
 
 set(LIB_HEADERS
+	config.h
 	core.h
 	app.h
 	camera.h
