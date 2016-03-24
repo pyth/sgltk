@@ -75,9 +75,11 @@ class Scene {
 
 	void traverse_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
 	void create_mesh(aiMesh *mesh, aiMatrix4x4 *paren_trafo);
+	void compute_bounding_box();
 	void ai_to_glm_mat4(aiMatrix4x4 *in, glm::mat4 &out);
 	public:
 		glm::mat4 model_matrix;
+		std::vector<glm::vec3> bounding_box;
 		std::vector<Mesh<Scene_vertex> *> meshes;
 
 		Scene();

@@ -17,6 +17,9 @@ Scene::Scene() {
 	texture_coordinates_name = "tex_coord_in";
 	bone_ids_name = "bone_ids_in";
 	bone_weights_name = "bone_weights_in";
+
+	bounding_box.push_back(glm::vec3(0, 0, 0));
+	bounding_box.push_back(glm::vec3(0, 0, 0));
 }
 
 Scene::~Scene() {
@@ -47,6 +50,26 @@ bool Scene::load(std::string filename) {
 	}
 
 	traverse_nodes(scene->mRootNode, NULL);
+	compute_bounding_box();
+}
+
+void Scene::compute_bounding_box() {
+	for(unsigned int i = 0; i < meshes.size(); i++) {
+		glm::vec3 min = meshes[i]->bounding_box[0];
+		glm::vec3 max = meshes[i]->bounding_box[1];
+		if(min.x < bounding_box[0].x)
+			bounding_box[0].x = min.x;
+		if(min.y < bounding_box[0].y)
+			bounding_box[0].y = min.y;
+		if(min.z < bounding_box[0].z)
+			bounding_box[0].z = min.z;
+		if(max.x > bounding_box[1].x)
+			bounding_box[1].x = max.x;
+		if(max.y > bounding_box[1].y)
+			bounding_box[1].y = max.y;
+		if(max.z > bounding_box[1].z)
+			bounding_box[1].z = max.z;
+	}
 }
 
 void Scene::setup_camera(glm::mat4 *view_matrix,
