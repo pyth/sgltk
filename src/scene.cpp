@@ -15,6 +15,8 @@ Scene::Scene() {
 	tangent_name = "tang_in";
 	color_name = "col_in";
 	texture_coordinates_name = "tex_coord_in";
+	bone_ids_name = "bone_ids_in";
+	bone_weights_name = "bone_weights_in";
 }
 
 Scene::~Scene() {
@@ -140,6 +142,7 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 			unsigned int bone_index = vertices[vertex_id].bones;
 			vertices[vertex_id].bone_ids[bone_index] = i;
 			vertices[vertex_id].bone_weights[bone_index] = weight;
+			vertices[vertex_id].bones++;
 		}
 	}
 
@@ -157,13 +160,13 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	// Mesh
 	//************************************
 	Mesh<Scene_vertex> *mesh_tmp = new Mesh<Scene_vertex>();
-	mesh_tmp->attach_vertex_buffer(&vertices);
-	mesh_tmp->attach_vertex_buffer(sizeof(glm::vec3) *
-				       mesh->mNumVertices * num_uv,
-				       (void *)tex_coord);
-	mesh_tmp->attach_vertex_buffer(sizeof(glm::vec4) *
-				       mesh->mNumVertices * num_col,
-				       (void *)col);
+	mesh_tmp->attach_vertex_buffer(&vertices, true);
+	mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord,
+				       sizeof(glm::vec3) *
+				       mesh->mNumVertices * num_uv);
+	mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col, sizeof(glm::vec4) *
+				       mesh->mNumVertices * num_col);
+	mesh_tmp->compute_bounding_box(offsetof(Scene_vertex, position));
 	mesh_tmp->attach_index_buffer(&indices);
 	ai_to_glm_mat4(trafo, mesh_tmp->model_matrix);
 
@@ -332,6 +335,12 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	mesh_tmp->set_vertex_attribute(tangent_name, 0, 4, GL_FLOAT,
 				       sizeof(Scene_vertex),
 				       (void *)offsetof(Scene_vertex, tangent));
+	mesh_tmp->set_vertex_attribute(bone_ids_name, 0, BONES_PER_VERTEX,
+				       GL_INT, sizeof(Scene_vertex),
+				       (void *)offsetof(Scene_vertex, bone_ids));
+	mesh_tmp->set_vertex_attribute(bone_weights_name, 0, BONES_PER_VERTEX,
+				       GL_FLOAT, sizeof(Scene_vertex),
+				       (void *)offsetof(Scene_vertex, bone_weights));
 
 	for(unsigned int i = 0; i < num_uv; i++) {
 		mesh_tmp->set_vertex_attribute(texture_coordinates_name+std::to_string(i), 1, 3, GL_FLOAT, 0,

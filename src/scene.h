@@ -61,13 +61,14 @@ class Scene {
 	Assimp::Importer importer;
 	const aiScene *scene;
 	Shader *shader;
-	std::vector<Mesh<Scene_vertex> *> meshes;
 
 	std::string position_name;
 	std::string normal_name;
 	std::string tangent_name;
 	std::string color_name;
 	std::string texture_coordinates_name;
+	std::string bone_ids_name;
+	std::string bone_weights_name;
 	
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
@@ -77,6 +78,7 @@ class Scene {
 	void ai_to_glm_mat4(aiMatrix4x4 *in, glm::mat4 &out);
 	public:
 		glm::mat4 model_matrix;
+		std::vector<Mesh<Scene_vertex> *> meshes;
 
 		Scene();
 		~Scene();
@@ -119,6 +121,8 @@ class Scene {
 		 * @param color_name The name of the color vector variable
 		 * @param texture_coordinates_name The name of the texture coordinates
 		 *			variable
+		 * @param bone_ids_name The name of the bone id array
+		 * @param bone_weights_name The name of the bone weight array
 		 * @note A number starting at 0 will be appended to the
 		 *	 color_name and texture_coordinates_name strings you
 		 *	 provede. So if you set color_name to "color" the
@@ -130,7 +134,9 @@ class Scene {
 					 const char *normal_name,
 					 const char *tangent_name,
 					 const char *color_name,
-					 const char *texture_coordinates_name);
+					 const char *texture_coordinates_name,
+					 const char *bone_ids_name,
+					 const char *bone_weights_name);
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
 		 */
