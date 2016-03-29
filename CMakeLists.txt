@@ -1,9 +1,22 @@
 cmake_minimum_required(VERSION 2.6)
 project(sgltk)
 
+include(CheckIncludeFiles)
+include(CheckIncludeFileCXX)
+include(CheckCXXCompilerFlag)
+
 set(SGLTK_VERSION_MAJOR 0)
 set(SGLTK_VERSION_MINOR 2)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})
+
+check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+message(STATUS "Checking compiler ${CMAKE_CXX_COMPILER} for c++0x support")
+if(COMPILER_SUPPORTS_CXX0X)
+	message(STATUS "The compiler ${CMAKE_CXX_COMPILER} supports c++0x")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+else()
+	message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no c++0x support")
+endif()
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for the library files")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for .dll files")
@@ -27,7 +40,6 @@ configure_file("config.h.in"
 	"${PROJECT_SOURCE_DIR}/src/config.h")
 
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
