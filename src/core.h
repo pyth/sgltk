@@ -27,16 +27,19 @@
 #include <vector>
 #include <algorithm>
 
+#define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#ifdef HAVE_SDL_TTF_H
+	#include <SDL2/SDL_ttf.h>
+#endif //HAVE_SDL_TTF_H
 #ifdef HAVE_SDL_MIXER_H
 	#include <SDL2/SDL_mixer.h>
-#endif
+#endif //HAVE_SDL_MIXER_H
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
 
@@ -72,12 +75,14 @@ namespace sgltk {
 	bool init_sdl();
 	void quit_sdl();
 
+#ifdef HAVE_SDL_TTF_H
 	/**
 	 * @brief Initializes SDL2_ttf
 	 * @return Returns true on success, flase otherwise
 	 */
 	bool init_ttf();
 	void quit_ttf();
+#endif //HAVE_SDL_TTF_H
 
 #ifdef HAVE_SDL_MIXER_H
 	/**
@@ -86,7 +91,7 @@ namespace sgltk {
 	 */
 	bool init_mixer();
 	void quit_mixer();
-#endif
+#endif //HAVE_SDL_MIXER_H
 
 	/**
 	 * @brief Initializes all parts of SDL2 used by SGLTK
@@ -95,17 +100,7 @@ namespace sgltk {
 	bool init_lib();
 	void quit_lib();
 
-	/**
-	 * @brief Returns the path to the executable, that was set by a call to
-	 * 	  set_path_to_executable
-	 */
-	const char *get_path_to_executable(void);
-	/**
-	 * @brief Extracts the path to the executable from the argument list
-	 */
-	void set_path_to_executable(char **argv);
-
-	void _check_error(const char *message, char *file, unsigned int line);
+	void _check_error(std::string message, std::string file, unsigned int line);
 };
 
 #endif
