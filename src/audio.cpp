@@ -1,3 +1,4 @@
+#ifdef HAVE_SDL_MIXER_H
 #include "audio.h"
 
 using namespace std;
@@ -31,3 +32,4 @@ void Track::pause() {
 void Track::stop() {
 	Mix_HaltMusic();
 }
+#endif

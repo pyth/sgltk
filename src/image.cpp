@@ -87,6 +87,7 @@ bool Image::load(std::string filename) {
 	return true;
 }
 
+#ifdef HAVE_SDL_TTF_H
 bool Image::create_text(std::string text, TTF_Font *font, int size,
 			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if(image) {
@@ -117,6 +118,7 @@ bool Image::create_text(std::string text, std::string font_file, int size,
 
 	return ret;
 }
+#endif //HAVE_SDL_TTF_H
 
 bool Image::copy_from(const Image *src, int x, int y) {
 	SDL_Rect rect;
@@ -131,7 +133,7 @@ bool Image::copy_from(const Image *src, SDL_Rect *dst_rect) {
 
 bool Image::copy_from(const Image *src, SDL_Rect *dst_rect,
 		      SDL_Rect *src_rect) {
-	if(!src) {
+	if(!src || !src->image) {
 		return false;
 	}
 

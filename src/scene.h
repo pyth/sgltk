@@ -7,7 +7,16 @@
 #include "image.h"
 #include "texture.h"
 
+#ifndef BONES_PER_VERTEX
+	#define BONES_PER_VERTEX 4
+#endif
+
 namespace sgltk {
+
+typedef struct Bone {
+	glm::mat4 transformation;
+	glm::mat4 offset;
+} Bone;
 
 /**
  * @struct Scene_vertex
@@ -26,6 +35,18 @@ typedef struct Scene_vertex {
 	 * @brief Vertex tangent
 	 */
 	glm::vec4 tangent;
+	/**
+	 * @brief Number of bones
+	 */
+	unsigned int bones;
+	/**
+	 * @brief Bone ids
+	 */
+	unsigned int bone_ids[BONES_PER_VERTEX];
+	/**
+	 * @brief Bone weights
+	 */
+	float bone_weights[BONES_PER_VERTEX];
 
 	Scene_vertex() {
 		position = glm::vec4(0, 0, 0, 1);
@@ -45,22 +66,37 @@ class Scene {
 	Assimp::Importer importer;
 	const aiScene *scene;
 	Shader *shader;
-	std::vector<Mesh<Scene_vertex> *> meshes;
 
 	std::string position_name;
 	std::string normal_name;
 	std::string tangent_name;
 	std::string color_name;
 	std::string texture_coordinates_name;
+	std::string bone_ids_name;
+	std::string bone_weights_name;
 	
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
 
-	void traverse_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
+	double ticks_per_second;
+	unsigned int num_bones;
+	std::vector<Bone> bones;
+	glm::mat4 glob_inv_transf;
+	std::vector<glm::mat4> trafos;
+	std::map<std::string, unsigned int> bone_map;
+
+	void traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
+	void traverse_animation_nodes(float time, aiNode *node, glm::mat4 parent_transformation);
 	void create_mesh(aiMesh *mesh, aiMatrix4x4 *paren_trafo);
-	void ai_to_glm_mat4(aiMatrix4x4 *in, glm::mat4 &out);
+	void compute_bounding_box();
+	static glm::mat4 interpolate_scaling(float time, aiNodeAnim *node);
+	static glm::mat4 interpolate_translation(float time, aiNodeAnim *node);
+	static glm::mat4 interpolate_rotation(float time, aiNodeAnim *node);
+	static glm::mat4 ai_to_glm_mat4(aiMatrix4x4 *in);
 	public:
 		glm::mat4 model_matrix;
+		std::vector<glm::vec3> bounding_box;
+		std::vector<Mesh<Scene_vertex> *> meshes;
 
 		Scene();
 		~Scene();
@@ -73,7 +109,8 @@ class Scene {
 
 		/**
 		 * @brief Loads a scene from file
-		 * @param filename The file to be loaded.
+		 * @param filename The file to be loaded
+		 * @return Returns true on success, false otherwise
 		 * @note If the path you pass to this function is not an
 		 *	 absolute path, all directories you specified using the
 		 *	 add_path function will be searched in addition to the
@@ -103,6 +140,8 @@ class Scene {
 		 * @param color_name The name of the color vector variable
 		 * @param texture_coordinates_name The name of the texture coordinates
 		 *			variable
+		 * @param bone_ids_name The name of the bone id array
+		 * @param bone_weights_name The name of the bone weight array
 		 * @note A number starting at 0 will be appended to the
 		 *	 color_name and texture_coordinates_name strings you
 		 *	 provede. So if you set color_name to "color" the
@@ -114,7 +153,21 @@ class Scene {
 					 const char *normal_name,
 					 const char *tangent_name,
 					 const char *color_name,
-					 const char *texture_coordinates_name);
+					 const char *texture_coordinates_name,
+					 const char *bone_ids_name,
+					 const char *bone_weights_name);
+		/**
+		 * @brief Sets the animation speed.
+		 * @param speed The speed multiplier
+		 */
+		void set_animation_speed(double speed);
+		/**
+		 * @brief Calculates new bone matrices based on the animation time
+		 * @param time The current animation time. If time is greater than
+		 * 	the duration of the animation 
+		 * @return Returns true on success, false otherwise
+		 */
+		bool animate(float time);
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
 		 */

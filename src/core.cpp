@@ -34,6 +34,7 @@ void sgltk::quit_sdl() {
 	SDL_Quit();
 }
 
+#ifdef HAVE_SDL_TTF_H
 bool sgltk::init_ttf() {
 	if(TTF_Init()) {
 		std::cerr << "SDL_Init Error: "<< SDL_GetError() << std::endl;
@@ -45,7 +46,9 @@ bool sgltk::init_ttf() {
 void sgltk::quit_ttf() {
 	TTF_Quit();
 }
+#endif //HAVE_SDL_TTF_H
 
+#ifdef HAVE_SDL_MIXER_H
 bool sgltk::init_mixer() {
 	unsigned int flags = MIX_INIT_FLAC|MIX_INIT_MP3|MIX_INIT_OGG;
 	unsigned int tmp = Mix_Init(flags);
@@ -67,6 +70,7 @@ void sgltk::quit_mixer() {
 		Mix_Quit();
 	}
 }
+#endif //HAVE_SDL_MIXER_H
 
 bool sgltk::init_lib() {
 	if(sgltk::initialized)
@@ -74,11 +78,17 @@ bool sgltk::init_lib() {
 
 	if(sgltk::init_sdl())
 		if(sgltk::init_img())
+#ifdef HAVE_SDL_TTF_H
 			if(sgltk::init_ttf())
+#endif //HAVE_SDL_TTF_H
+#ifdef HAVE_SDL_MIXER_H
 				if(sgltk::init_mixer()) {
+#endif //HAVE_SDL_MIXER_H
 					sgltk::initialized = true;
 					return true;
+#ifdef HAVE_SDL_MIXER_H
 				}
+#endif //HAVE_SDL_MIXER_H
 
 	sgltk::quit_lib();
 	return false;
@@ -86,31 +96,46 @@ bool sgltk::init_lib() {
 
 void sgltk::quit_lib() {
 	sgltk::initialized = false;
+#ifdef HAVE_SDL_MIXER_H
 	quit_mixer();
+#endif //HAVE_SDL_MIXER_H
 	quit_img();
+#ifdef HAVE_SDL_TTF_H
 	quit_ttf();
+#endif //HAVE_SDL_TTF_H
 	quit_sdl();
 }
 
-const char *sgltk::get_path_to_executable(void) {
-	return sgltk::executable_path.c_str();
-}
-
-void sgltk::set_path_to_executable(char **argv) {
-	char buf[PATH_MAX];
-
-	getcwd(buf, PATH_MAX);
-	sgltk::executable_path = buf;
-	sgltk::executable_path += argv[0];
-
-	sgltk::executable_path = executable_path.substr(0, executable_path.find_last_of("/\\"));
-}
-
-void sgltk::_check_error(const char *message, char *file, unsigned int line) {
+void sgltk::_check_error(std::string message, std::string file, unsigned int line) {
+	std::string err_string;
 	GLenum err = glGetError();
+
+	switch(err) {
+		case GL_INVALID_ENUM:
+			err_string = "INVALID_ENUM";
+			break;
+		case GL_INVALID_VALUE:
+			err_string = "INVALID_VALUE";
+			break;
+		case GL_INVALID_OPERATION:
+			err_string = "INVALID_OPERATION";
+			break;
+		case GL_INVALID_FRAMEBUFFER_OPERATION:
+			err_string = "INVALID_FRAMEBUFFER_OPERATION";
+			break;
+		case GL_OUT_OF_MEMORY:
+			err_string = "OUT_OF_MEMORY";
+			break;
+		case GL_STACK_OVERFLOW:
+			err_string = "STACK_OVERFLOW";
+			break;
+		case GL_STACK_UNDERFLOW:
+			err_string = "STACK_UNDERFLOW";
+			break;
+	}
 	while(err != GL_NO_ERROR) {
-		std::cout << file << " - " << line << ": " << gluErrorString(err);
-		if(strlen(message) > 1)
+		std::cout << file << " - " << line << ": " << err_string;
+		if(message.length() > 0)
 			std::cout << " - " << message;
 		std::cout << std::endl;
 		err = glGetError();

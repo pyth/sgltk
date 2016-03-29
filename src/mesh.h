@@ -153,8 +153,13 @@ class Mesh {
 	std::vector<GLuint> ibo;
 	std::vector<int> num_indices;
 
-	void compute_bounding_box(const std::vector<Vertex> *vertexdata);
+	std::vector<int> bone_ids;
+	std::vector<float> bone_weights;
 public:
+	/**
+	 * @brief The mesh vertices
+	 */
+	std::vector<Vertex> vertices;
 	/**
 	 * @brief The bounding box
 	 */
@@ -296,18 +301,34 @@ public:
 			    std::string lightmap_texture_name);
 	/**
 	 * @brief Loads vertices into memory
+	 * @param vertexdata The vertices to be loaded into memory
 	 * @param size The size of the array in bytes
-	 * @param vertexdata The vertices to be loaded into memory
-	 * @return Returns the index that the buffer was attached to
-	 */
-	int attach_vertex_buffer(unsigned int size, const void *vertexdata);
-	/**
-	 * @brief Loads vertices into memory
-	 * @param vertexdata The vertices to be loaded into memory
+	 * @param contains_position If true the vertices will be saved
+	 * 	as the vertices member variable
 	 * @return Returns the index that the buffer was attached to
 	 */
 	template <typename T = Vertex>
-	int attach_vertex_buffer(const std::vector<T> *vertexdata);
+	int attach_vertex_buffer(const void *vertexdata, unsigned int size,
+				 bool contains_position = false);
+	/**
+	 * @brief Loads vertices into memory
+	 * @param vertexdata The vertices to be loaded into memory
+	 * @param contains_position If true the vertices will be saved
+	 * 	as the vertices member variable
+	 * @return Returns the index that the buffer was attached to
+	 */
+	template <typename T = Vertex>
+	int attach_vertex_buffer(const std::vector<T> *vertexdata,
+				 bool contains_position = false);
+	/**
+	 * @brief Loads vertices into memory
+	 * @param vertexdata The vertices to be loaded into memory
+	 * @param contains_position If true the vertices will be saved
+	 * 	as the vertices member variable
+	 * @return Returns the index that the buffer was attached to
+	 */
+	int attach_vertex_buffer(const std::vector<Vertex> *vertexdata,
+				 bool contains_position = false);
 	/**
 	 * @brief Sets pointers to vertex attribures
 	 * @param attrib_name	The name as defined in the shader
@@ -334,6 +355,13 @@ public:
 	 * You can attach multiple index arrays
 	 */
 	void attach_index_buffer(const std::vector<unsigned short> *indices);
+
+	/**
+	 * @brief Computes the bounding box of the mesh
+	 * @param pointer The pointer to the position vector in the vertex
+	 * 	structure
+	 */
+	void compute_bounding_box(size_t pointer);
 
 	/**
 	 * @brief Renders the mesh using the first index buffer
@@ -378,6 +406,9 @@ Mesh<Vertex>::Mesh() {
 	model_matrix = glm::mat4(1.0);
 	shader = NULL;
 	glGenVertexArrays(1, &vao);
+
+	bounding_box.push_back(glm::vec3(0, 0, 0));
+	bounding_box.push_back(glm::vec3(0, 0, 0));
 
 	model_view_matrix_name =		"matrix.model_view";
 	model_view_projection_matrix_name =	"matrix.model_view_proj";
@@ -505,22 +536,19 @@ void Mesh<Vertex>::setup_textures(std::string ambient_texture_name,
 }
 
 template <typename Vertex>
-int Mesh<Vertex>::attach_vertex_buffer(unsigned int size, const void *vertexdata) {
-	//glBindVertexArray(vao);
-	GLuint buf;
-	glGenBuffers(1, &buf);
-	vbo.push_back(buf);
-
-	glBindBuffer(GL_ARRAY_BUFFER, buf);
-	glBufferData(GL_ARRAY_BUFFER, size, vertexdata, GL_STATIC_DRAW);
-
-	return vbo.size() - 1;
-	//glBindVertexArray(0);
+template <typename T>
+int Mesh<Vertex>::attach_vertex_buffer(const void *vertexdata,
+				       unsigned int size,
+				       bool contains_position) {
+	T *ptr = (T *)vertexdata;
+	std::vector<T> tmp(ptr, ptr + size);
+	return attach_vertex_buffer(&tmp);
 }
 
 template <typename Vertex>
 template <typename T>
-int Mesh<Vertex>::attach_vertex_buffer(const std::vector<T> *vertexdata) {
+int Mesh<Vertex>::attach_vertex_buffer(const std::vector<T> *vertexdata,
+				       bool contains_position) {
 	//glBindVertexArray(vao);
 	GLuint buf;
 	glGenBuffers(1, &buf);
@@ -535,7 +563,41 @@ int Mesh<Vertex>::attach_vertex_buffer(const std::vector<T> *vertexdata) {
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::compute_bounding_box(const std::vector<Vertex> *vertexdata) {
+int Mesh<Vertex>::attach_vertex_buffer(const std::vector<Vertex> *vertexdata,
+				       bool contains_position) {
+	//glBindVertexArray(vao);
+	GLuint buf;
+	glGenBuffers(1, &buf);
+	vbo.push_back(buf);
+
+	glBindBuffer(GL_ARRAY_BUFFER, buf);
+	glBufferData(GL_ARRAY_BUFFER, vertexdata->size() * sizeof(Vertex),
+		     vertexdata->data(), GL_STATIC_DRAW);
+
+	if(contains_position)
+		vertices = *vertexdata;
+
+	return vbo.size() - 1;
+	//glBindVertexArray(0);
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::compute_bounding_box(size_t pointer) {
+	for(unsigned int i = 0; i < vertices.size(); i++) {
+		glm::vec3 *pos = (glm::vec3 *)(&vertices[i] + pointer);
+		if(pos->x < bounding_box[0].x)
+			bounding_box[0].x = pos->x;
+		if(pos->y < bounding_box[0].y)
+			bounding_box[0].y = pos->y;
+		if(pos->z < bounding_box[0].z)
+			bounding_box[0].z = pos->z;
+		if(pos->x > bounding_box[1].x)
+			bounding_box[1].x = pos->x;
+		if(pos->y > bounding_box[1].y)
+			bounding_box[1].y = pos->y;
+		if(pos->z > bounding_box[1].z)
+			bounding_box[1].z = pos->z;
+	}
 }
 
 template <typename Vertex>

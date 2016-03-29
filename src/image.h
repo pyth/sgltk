@@ -54,6 +54,7 @@ public:
 	 */
 	bool load(std::string filename);
 
+#ifdef HAVE_SDL_TTF_H
 	/**
 	 * @brief Creates an image from a string
 	 * @param text		The string to be made into an image
@@ -80,6 +81,7 @@ public:
 	 */
 	bool create_text(std::string text, std::string font_file, int size,
 			 Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+#endif //HAVE_SDL_TTF_H
 
 	/**
 	 * @brief Copies an image into the current image
