@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['set_5fattribute_5fnames',['set_attribute_names',['../classsgltk_1_1_scene.html#a46e353463dc06e0237e824437dc4e147',1,'sgltk::Scene']]],
+  ['set_5fanimation_5fspeed',['set_animation_speed',['../classsgltk_1_1_scene.html#a83595b4bbc76e79a0e5ccbfdff995a08',1,'sgltk::Scene']]],
+  ['set_5fattribute_5fnames',['set_attribute_names',['../classsgltk_1_1_scene.html#abd6421491fe2144d7e60476b9f139312',1,'sgltk::Scene']]],
   ['set_5fcolor_5fkey',['set_color_key',['../classsgltk_1_1_image.html#a6555d46090b3d2e8bd26ab2bd195825b',1,'sgltk::Image']]],
   ['set_5fparameter',['set_parameter',['../classsgltk_1_1_texture.html#ab4e3adb58d6983424c029f318ca0fc42',1,'sgltk::Texture::set_parameter(GLenum name, int parameter)'],['../classsgltk_1_1_texture.html#abecd9a0c2519f64ba22e4add3add2d9f',1,'sgltk::Texture::set_parameter(GLenum name, float parameter)']]],
   ['set_5frelative_5fmode',['set_relative_mode',['../classsgltk_1_1_app.html#a1ce5525e3bd973f446f58b4b3c106484',1,'sgltk::App']]],

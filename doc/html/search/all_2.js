@@ -6,7 +6,7 @@ var searchData=
   ['color_5fambient',['color_ambient',['../classsgltk_1_1_mesh.html#a8ebcfdab82e5174eb8f3f3359d87a4bb',1,'sgltk::Mesh']]],
   ['color_5fdiffuse',['color_diffuse',['../classsgltk_1_1_mesh.html#a5ed55be14d4af2619b163930a42075f5',1,'sgltk::Mesh']]],
   ['color_5fspecular',['color_specular',['../classsgltk_1_1_mesh.html#a11decf69357bd0ffe7756b97896141a8',1,'sgltk::Mesh']]],
+  ['compute_5fbounding_5fbox',['compute_bounding_box',['../classsgltk_1_1_mesh.html#a8bdc7640437a3ed1b6a8d942907e4338',1,'sgltk::Mesh']]],
   ['copy_5ffrom',['copy_from',['../classsgltk_1_1_image.html#a0780114662b0fc9e2048bac71c9c6466',1,'sgltk::Image::copy_from(const Image *src, int x, int y)'],['../classsgltk_1_1_image.html#a0be870ceec95114f996330885fd09544',1,'sgltk::Image::copy_from(const Image *src, SDL_Rect *dst_rect)'],['../classsgltk_1_1_image.html#a7eb234a041e64e22308153e52911cb9c',1,'sgltk::Image::copy_from(const Image *src, SDL_Rect *dst_rect, SDL_Rect *src_rect)']]],
-  ['create_5fempty',['create_empty',['../classsgltk_1_1_image.html#acd11161744db1b80c1c44e19c873ffae',1,'sgltk::Image']]],
-  ['create_5ftext',['create_text',['../classsgltk_1_1_image.html#a7bc4cbc59bef9fb4fbf6fd1a6ad904a1',1,'sgltk::Image::create_text(std::string text, TTF_Font *font, int size, Uint8 r, Uint8 g, Uint8 b, Uint8 a)'],['../classsgltk_1_1_image.html#abbfa8fa8d26929d54d77129e0b1227ed',1,'sgltk::Image::create_text(std::string text, std::string font_file, int size, Uint8 r, Uint8 g, Uint8 b, Uint8 a)']]]
+  ['create_5fempty',['create_empty',['../classsgltk_1_1_image.html#acd11161744db1b80c1c44e19c873ffae',1,'sgltk::Image']]]
 ];
