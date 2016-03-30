@@ -85,32 +85,6 @@ bool Shader::attach_string(const char *shader_string, GLint size, GLenum type) {
 	return true;
 }
 
-void Shader::bind_uniform(char *name, sgltk::UNIFORM_TYPE type, void *data) {
-	/*int location = glGetUniformLocation(shader, name);
-	switch(type) {
-	case INTEGER:
-		glUniform1i(location, *((int*)data));
-		break;
-	case FLOAT:
-		glUniform1f(location, *((float*)data));
-		break;
-	case VECTOR3F:
-		glUniform3fv(location, 1, glm::value_ptr(*(glm::vec3*)data));
-		break;
-	case VECTOR4F:
-		glUniform4fv(location, 1, glm::value_ptr(*(glm::vec4*)data));
-		break;
-	case MATRIX3:
-		glUniformMatrix3fv(location, 1, false, glm::value_ptr(*(glm::mat3*)data));
-		break;
-	case MATRIX4:
-		glUniformMatrix4fv(location, 1, false, glm::value_ptr(*(glm::mat4*)data));
-		break;
-	default:
-		break;
-	}*/
-}
-
 void Shader::recompile() {
 	modify = false;
 	unbind();

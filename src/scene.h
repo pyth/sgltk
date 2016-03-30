@@ -74,6 +74,7 @@ class Scene {
 	std::string texture_coordinates_name;
 	std::string bone_ids_name;
 	std::string bone_weights_name;
+	std::string bone_array_name;
 	
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;

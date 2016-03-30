@@ -4,20 +4,6 @@
 #include "core.h"
 
 namespace sgltk {
-	enum UNIFORM_TYPE {
-		INTEGER, /**A single integer*/
-		VECTOR2I, /**A 2d integer vector*/
-		VECTOR3I, /**A 3d integer vector*/
-		VECTOR4I, /**A 4d integer vector*/
-
-		FLOAT, /**A single float*/
-		VECTOR2F, /**A 2d float vector*/
-		VECTOR3F, /**A 3d float vector*/
-		VECTOR4F, /**A 4d float vector*/
-
-		MATRIX3, /**A 3x3 float matrix*/
-		MATRIX4 /**A 4x4 float matrix*/
-	};
 
 /**
  * @class Shader
@@ -57,14 +43,6 @@ public:
 	 * @brief Reads, compiles and links all associated shaders again.
 	 */
 	void recompile();
-	/**
-	 * @brief Binds a uniform to the shader
-	 * @param name		Uniform name
-	 * @param type		Uniform type
-	 * @param data		Pointer to the data
-	 * Warning! Function not yet implemented
-	 */
-	void bind_uniform(char *name, sgltk::UNIFORM_TYPE type, void *data);
 	/**
 	 * @brief Links the attached shaders
 	 */

@@ -17,6 +17,7 @@ Scene::Scene() {
 	texture_coordinates_name = "tex_coord_in";
 	bone_ids_name = "bone_ids_in";
 	bone_weights_name = "bone_weights_in";
+	bone_array_name = "bone_array";
 
 	num_bones = 0;
 	bounding_box.push_back(glm::vec3(0, 0, 0));
@@ -516,7 +517,7 @@ void Scene::traverse_animation_nodes(float time,
 
 void Scene::set_animation_speed(double speed) {
 	if(scene->mAnimations[0]->mTicksPerSecond == 0)
-		ticks_per_second = 0.0001;
+		ticks_per_second = 25.0 * speed;
 	else
 		ticks_per_second = scene->mAnimations[0]->mTicksPerSecond *
 								speed;
@@ -534,6 +535,10 @@ bool Scene::animate(float time) {
 	trafos.resize(bones.size());
 	for(unsigned int i = 0; i < bones.size(); i++)
 		trafos[i] = bones[i].transformation;
+	shader->bind();
+	GLint loc = glGetUniformLocation(shader->shader, bone_array_name.c_str());
+	glUniformMatrix4fv(loc, trafos.size(), GL_FALSE, (GLfloat *)&trafos[0]);
+	shader->unbind();
 	return true;
 }
 
