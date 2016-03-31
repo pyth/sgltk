@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.4)
 project(sgltk)
 
 include(CheckIncludeFiles)
@@ -17,6 +17,8 @@ if(COMPILER_SUPPORTS_CXX0X)
 else()
 	message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no c++0x support")
 endif()
+
+#link_directories(/usr/local/lib)
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for the library files")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for .dll files")
