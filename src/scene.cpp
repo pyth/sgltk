@@ -184,8 +184,16 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	unsigned int num_col = mesh->GetNumColorChannels();
 	std::vector<Scene_vertex> vertices;
 	std::vector<unsigned short> indices;
-	glm::vec4 col[num_col][mesh->mNumVertices];
-	glm::vec3 tex_coord[num_uv][mesh->mNumVertices];
+	std::vector<std::vector<glm::vec4> > col;
+	col.resize(num_col);
+	for(unsigned int i = 0; i < col.size(); i++)
+		col[i].resize(mesh->mNumVertices);
+	//glm::vec4 col[num_col][mesh->mNumVertices];
+	std::vector<std::vector<glm::vec3> > tex_coord;
+	tex_coord.resize(num_uv);
+	for(unsigned int i = 0; i < tex_coord.size(); i++)
+		tex_coord[i].resize(mesh->mNumVertices);
+	//glm::vec3 tex_coord[num_uv][mesh->mNumVertices];
 
 	//************************************
 	// Vertices
@@ -285,10 +293,10 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	//************************************
 	Mesh<Scene_vertex> *mesh_tmp = new Mesh<Scene_vertex>();
 	mesh_tmp->attach_vertex_buffer(&vertices, true);
-	mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord,
+	mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord.data(),
 				       sizeof(glm::vec3) *
 				       mesh->mNumVertices * num_uv);
-	mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col, sizeof(glm::vec4) *
+	mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col.data(), sizeof(glm::vec4) *
 				       mesh->mNumVertices * num_col);
 	mesh_tmp->compute_bounding_box(offsetof(Scene_vertex, position));
 	mesh_tmp->attach_index_buffer(&indices);
