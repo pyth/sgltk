@@ -1,6 +1,11 @@
 #ifndef __CORE_H__
 #define __CORE_H__
 
+/**
+ * @def check_gl_error(message)
+ * @brief Prints out the OpenGL error message, file and line where this macro
+ * 	was called as well as the message string passed to it.
+ */
 #define check_gl_error(message) do{\
 	sgltk::_check_error(message, __FILE__, __LINE__);\
 	}while(0)
