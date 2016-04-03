@@ -141,7 +141,10 @@ class Mesh {
 	std::string opacity_texture_name;
 	std::string lightmap_texture_name;
 
+	std::string model_matrix_name;
+	std::string view_matrix_name;
 	std::string model_view_matrix_name;
+	std::string view_proj_matrix_name;
 	std::string model_view_projection_matrix_name;
 	std::string normal_matrix_name;
 
@@ -254,51 +257,140 @@ public:
 	void setup_camera(glm::mat4 *view_matrix,
 			  glm::mat4 *projection_matrix);
 	/**
-	 * @brief Specifies the names of the matrices in the shader
-	 * @param model_view_matrix_name The name of the model-view
-	 *	matrixin in the shader
-	 * @param model_view_projection_matrix_name The name of the
-	 *	model-view-projection matrixin in the shader
-	 * @param normal_matrix_name The name of the normal matrix
-	 *	in the shader
+	 * @brief Sets the name of the model matrix in the shader
+	 * @param name The name of the model matrix.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "matrix.model_matrix"
 	 */
-	void setup_matrices(std::string model_view_matrix_name,
-			    std::string model_view_projection_matrix_name,
-			    std::string normal_matrix_name);
+	void set_model_matrix_name(std::string name);
 	/**
-	 * @brief Specifies the names of the material components in the shader
-	 * @param ambient_color_name The name of the ambient color component
-	 * @param diffuse_color_name The name of the diffuse color component
-	 * @param specular_color_name The name of the specular color component
-	 * @param shininess_name The name of the specular exponent
-	 * @param shininess_strength_name The name of the specular intensity
+	 * @brief Sets the name of the view matrix in the shader
+	 * @param name The name of the view matrix.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "matrix.model_matrix"
 	 */
-	void setup_material(std::string ambient_color_name,
-			    std::string diffuse_color_name,
-			    std::string specular_color_name,
-			    std::string shininess_name,
-			    std::string shininess_strength_name);
+	void set_view_matrix_name(std::string name);
 	/**
-	 * @brief Specifies the names of the material components in the shader
-	 * @param ambient_texture_name The name of the ambient texture
-	 * @param diffuse_texture_name The name of the diffuse texture
-	 * @param specular_texture_name The name of the specular texture
-	 * @param shininess_texture_name The name of the shininess texture
-	 * @param emmisive_texture_name The name of the emmisive texture
-	 * @param normals_texture_name The name of the normals texture
-	 * @param displacement_texture_name The name of the displacement texture
-	 * @param opacity_texture_name The name of the opacity texture
-	 * @param lightmap_texture_name The name of the lightmap texture
+	 * @brief Sets the name of the model-view matrix in the shader
+	 * @param name The name of the model-view matrix.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "matrix.model_view"
 	 */
-	void setup_textures(std::string ambient_texture_name,
-			    std::string diffuse_texture_name,
-			    std::string specular_texture_name,
-			    std::string shininess_texture_name,
-			    std::string emmisive_texture_name,
-			    std::string normals_texture_name,
-			    std::string displacement_texture_name,
-			    std::string opacity_texture_name,
-			    std::string lightmap_texture_name);
+	void set_model_view_matrix_name(std::string name);
+	/**
+	 * @brief Sets the name of the view-projection matrix in the shader
+	 * @param name The name of the view-projection matrix.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "matrix.view_proj"
+	 */
+	void set_view_proj_matrix_name(std::string name);
+	/**
+	 * @brief Sets the name of the model-view-projection matrix
+	 * 	in the shader
+	 * @param name The name of the model-view-projection matrix.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "matrix.model_view_proj"
+	 */
+	void set_model_view_proj_name(std::string name);
+	/**
+	 * @brief Sets the name of the normal matrix in the shader
+	 * @param name The name of the normal matrix.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "matrix.normal_matrix"
+	 */
+	void set_normal_matrix_name(std::string normal_matrix_name);
+	/**
+	 * @brief Sets the name of the ambient color in the shader
+	 * @param name The name of the ambient color component.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "color_ambient"
+	 */
+	void set_ambient_color_name(std::string name);
+	/**
+	 * @brief Sets the name of the diffuse color in the shader
+	 * @param name The name of the diffuse color component.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "color_diffuse"
+	 */
+	void set_diffuse_color_name(std::string name);
+	/**
+	 * @brief Sets the name of the specular color in the shader
+	 * @param name The name of the specular color component.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "color_specular"
+	 */
+	void set_specular_color_name(std::string name);
+	/**
+	 * @brief Sets the name of the shininess of the material
+	 * 	in the shader
+	 * @param name The name of the shininess component.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "shininess"
+	 */
+	void set_shininess_name(std::string name);
+	/**
+	 * @brief Sets the name of the shininess strength of the material
+	 * 	in the shader
+	 * @param name The name of the shininess strength component.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "shininess_strength"
+	 */
+	void set_shininess_strength_name(std::string name);
+	/**
+	 * @brief Sets the name of the ambient texture in the shader
+	 * @param name The name of the ambient texture.
+	 * 	The name is reset if string is empty.
+	 */
+	void set_ambient_texture_name(std::string name);
+	/**
+	 * @brief Sets the name of the diffuse texture in the shader
+	 * @param name The name of the diffuse texture.
+	 * 	The name is reset if string is empty.
+	 */
+	void set_diffuse_texture_name(std::string name);
+	/**
+	 * @brief Sets the name of the specular texture in the shader
+	 * @param name The name of the specular texture.
+	 * 	The name is reset if string is empty.
+	 */
+	void set_specular_texture_name(std::string name);
+	/**
+	 * @brief Sets the name of the shininess texture in the shader
+	 * @param name The name of the shininess texture.
+	 * 	The name is reset if string is empty.
+	 */
+	void set_shininess_texture_name(std::string name);
+	/**
+	 * @brief Sets the name of the emmisive texture in the shader
+	 * @param name The name of the emmisive texture.
+	 * 	The name is reset if string is empty.
+	 */
+	void set_emmisive_texture_name(std::string name);
+	/**
+	 * @brief Sets the name of the normals texture in the shader
+	 * @param name The name of the normals texture.
+	 * 	The name is reset if string is empty.
+	 */
+	void set_normals_texture_name(std::string name);
+	/**
+	 * @brief Sets the name of the displacement texture in the shader
+	 * @param name The name of the displacement texture.
+	 * 	The name is reset if string is empty.
+	 */
+	void set_displacement_texture_name(std::string name);
+	/**
+	 * @brief Sets the name of the opacity texture in the shader
+	 * @param name The name of the opacity texture.
+	 * 	The name is reset if string is empty.
+	 */
+	void set_opacity_texture_name(std::string name);
+	/**
+	 * @brief Sets the name of the lightmap texture in the shader
+	 * @param name The name of the lightmap texture.
+	 * 	The name is reset if string is empty.
+	 */
+	void set_lightmap_texture_name(std::string name);
+
 	/**
 	 * @brief Loads vertices into memory
 	 * @param vertexdata The vertices to be loaded into memory
@@ -410,7 +502,10 @@ Mesh<Vertex>::Mesh() {
 	bounding_box.push_back(glm::vec3(0, 0, 0));
 	bounding_box.push_back(glm::vec3(0, 0, 0));
 
+	model_matrix_name =			"matrix.model_matrix";
+	view_matrix_name =			"matrix.view_matrix";
 	model_view_matrix_name =		"matrix.model_view";
+	view_proj_matrix_name =			"matrix.view_proj";
 	model_view_projection_matrix_name =	"matrix.model_view_proj";
 	normal_matrix_name =			"matrix.normal_matrix";
 
@@ -457,82 +552,169 @@ void Mesh<Vertex>::setup_camera(glm::mat4 *view_matrix,
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::setup_matrices(std::string model_view_matrix_name,
-				  std::string model_view_projection_matrix_name,
-				  std::string normal_matrix_name) {
+void Mesh<Vertex>::set_model_matrix_name(std::string name) {
 
-	if(model_view_matrix_name.length() > 0)
-		this->model_view_matrix_name = model_view_matrix_name;
-	
-	if(model_view_projection_matrix_name.length() > 0)
-		this->model_view_projection_matrix_name =
-			model_view_projection_matrix_name;
-
-	if(normal_matrix_name.length() > 0)
-		this->normal_matrix_name = normal_matrix_name;
+	if(name.length() > 0)
+		model_matrix_name = name;
+	else
+		model_matrix_name = "matrix.model_matrix";
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::setup_material(std::string ambient_color_name,
-				  std::string diffuse_color_name,
-				  std::string specular_color_name,
-				  std::string shininess_name,
-				  std::string shininess_strength_name) {
+void Mesh<Vertex>::set_view_matrix_name(std::string name) {
 
-	if(ambient_color_name.length() > 0)
-		this->ambient_color_name = ambient_color_name;
-
-	if(diffuse_color_name.length() > 0)
-		this->diffuse_color_name = diffuse_color_name;
-
-	if(specular_color_name.length() > 0)
-		this->specular_color_name = specular_color_name;
-
-	if(shininess_name.length() > 0)
-		this->shininess_name = shininess_name;
-
-	if(shininess_strength_name.length() > 0)
-		this->shininess_strength_name = shininess_strength_name;
+	if(name.length() > 0)
+		view_matrix_name = name;
+	else
+		view_matrix_name = "matrix.view_matrix";
 }
 
 template <typename Vertex>
-void Mesh<Vertex>::setup_textures(std::string ambient_texture_name,
-				  std::string diffuse_texture_name,
-				  std::string specular_texture_name,
-				  std::string shininess_texture_name,
-				  std::string emmisive_texture_name,
-				  std::string normals_texture_name,
-				  std::string displacement_texture_name,
-				  std::string opacity_texture_name,
-				  std::string lightmap_texture_name) {
+void Mesh<Vertex>::set_model_view_matrix_name(std::string name) {
 
-	if(ambient_texture_name.length() > 0)
-		this->ambient_texture_name = ambient_texture_name;
+	if(name.length() > 0)
+		model_view_matrix_name = name;
+	else
+		model_view_matrix_name = "matrix.model_view";
+}
 
-	if(diffuse_texture_name.length() > 0)
-		this->diffuse_texture_name = diffuse_texture_name;
+template <typename Vertex>
+void Mesh<Vertex>::set_view_proj_matrix_name(std::string name) {
 
-	if(specular_texture_name.length() > 0)
-		this->specular_texture_name = specular_texture_name;
+	if(name.length() > 0)
+		view_proj_matrix_name = name;
+	else
+		view_proj_matrix_name = "matrix.view_proj";
+}
 
-	if(shininess_texture_name.length() > 0)
-		this->shininess_texture_name = shininess_texture_name;
+template <typename Vertex>
+void Mesh<Vertex>::set_model_view_proj_name(std::string name) {
 
-	if(emmisive_texture_name.length() > 0)
-		this->emmisive_texture_name = emmisive_texture_name;
+	if(name.length() > 0)
+		model_view_projection_matrix_name = name;
+	else
+		model_view_projection_matrix_name = "matrix.model_view_proj";
+}
 
-	if(normals_texture_name.length() > 0)
-		this->normals_texture_name = normals_texture_name;
+template <typename Vertex>
+void Mesh<Vertex>::set_normal_matrix_name(std::string name) {
 
-	if(displacement_texture_name.length() > 0)
-		this->displacement_texture_name = displacement_texture_name;
+	if(name.length() > 0)
+		normal_matrix_name = name;
+	else
+		normal_matrix_name = "matrix.normal_matrix";
+}
 
-	if(opacity_texture_name.length() > 0)
-		this->opacity_texture_name = opacity_texture_name;
+template <typename Vertex>
+void Mesh<Vertex>::set_ambient_color_name(std::string name) {
+	if(name.length() > 0)
+		ambient_color_name = name;
+	else
+		ambient_color_name = "color_ambient";
+}
 
-	if(lightmap_texture_name.length() > 0)
-		this->lightmap_texture_name = lightmap_texture_name;
+template <typename Vertex>
+void Mesh<Vertex>::set_diffuse_color_name(std::string name) {
+	if(name.length() > 0)
+		diffuse_color_name = name;
+	else
+		diffuse_color_name = "color_diffuse";
+}
 
+template <typename Vertex>
+void Mesh<Vertex>::set_specular_color_name(std::string name) {
+	if(name.length() > 0)
+		specular_color_name = name;
+	else
+		specular_color_name = "color_specular";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_shininess_name(std::string name) {
+	if(name.length() > 0)
+		shininess_name = name;
+	else
+		shininess_name = "shininess_name";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_shininess_strength_name(std::string name) {
+	if(name.length() > 0)
+		shininess_strength_name = name;
+	else
+		shininess_strength_name = "shininess_strength";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_ambient_texture_name(std::string name) {
+	if(name.length() > 0)
+		ambient_texture_name = name;
+	else
+		ambient_texture_name = "texture_ambient";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_diffuse_texture_name(std::string name) {
+	if(name.length() > 0)
+		diffuse_texture_name = name;
+	else
+		diffuse_texture_name = "texture_diffuse";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_specular_texture_name(std::string name) {
+	if(name.length() > 0)
+		specular_texture_name = name;
+	else
+		specular_texture_name = "texture_specular";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_shininess_texture_name(std::string name) {
+	if(name.length() > 0)
+		shininess_texture_name = name;
+	else
+		shininess_texture_name = "texture_shininess";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_emmisive_texture_name(std::string name) {
+	if(name.length() > 0)
+		emmisive_texture_name = name;
+	else
+		emmisive_texture_name = "texture_emmisive";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_normals_texture_name(std::string name) {
+	if(name.length() > 0)
+		normals_texture_name = name;
+	else
+		normals_texture_name = "texture_normals";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_displacement_texture_name(std::string name) {
+	if(name.length() > 0)
+		displacement_texture_name = name;
+	else
+		displacement_texture_name = "texture_displacement";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_opacity_texture_name(std::string name) {
+	if(name.length() > 0)
+		opacity_texture_name = name;
+	else
+		opacity_texture_name = "texture_opacity";
+}
+
+template <typename Vertex>
+void Mesh<Vertex>::set_lightmap_texture_name(std::string name) {
+	if(name.length() > 0)
+		lightmap_texture_name = name;
+	else
+		lightmap_texture_name = "texture_lightmap";
 }
 
 template <typename Vertex>
@@ -676,11 +858,24 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 	MV = (*view_matrix) * M;
 	NM = glm::mat3(glm::transpose(glm::inverse(MV)));
 	glm::mat4 MVP = (*projection_matrix) * MV;
+	glm::mat4 VP = (*projection_matrix) * (*view_matrix);
 
 	shader->bind();
 	int loc = glGetUniformLocation(shader->shader,
+				       model_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(M));
+
+	loc = glGetUniformLocation(shader->shader,
+				       view_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*view_matrix));
+
+	loc = glGetUniformLocation(shader->shader,
 				       model_view_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MV));
+
+	loc = glGetUniformLocation(shader->shader,
+				       view_proj_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(VP));
 
 	loc = glGetUniformLocation(shader->shader,
 				   normal_matrix_name.c_str());
