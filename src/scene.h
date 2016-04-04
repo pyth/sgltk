@@ -36,10 +36,6 @@ typedef struct Scene_vertex {
 	 */
 	glm::vec4 tangent;
 	/**
-	 * @brief Number of bones
-	 */
-	unsigned int bones;
-	/**
 	 * @brief Bone ids
 	 */
 	unsigned int bone_ids[BONES_PER_VERTEX];
@@ -54,6 +50,11 @@ typedef struct Scene_vertex {
 		normal = glm::vec3(0, 0, 1);
 
 		tangent = glm::vec4(0, 0, 0, 1);
+
+		for(unsigned int i = 0; i < BONES_PER_VERTEX; i++) {
+			bone_ids[i] = 0;
+			bone_weights[i] = 0.0;
+		}
 	};
 } Scene_vertex;
 

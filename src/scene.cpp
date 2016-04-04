@@ -188,18 +188,16 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	col.resize(num_col);
 	for(unsigned int i = 0; i < col.size(); i++)
 		col[i].resize(mesh->mNumVertices);
-	//glm::vec4 col[num_col][mesh->mNumVertices];
 	std::vector<std::vector<glm::vec3> > tex_coord;
 	tex_coord.resize(num_uv);
 	for(unsigned int i = 0; i < tex_coord.size(); i++)
 		tex_coord[i].resize(mesh->mNumVertices);
-	//glm::vec3 tex_coord[num_uv][mesh->mNumVertices];
 
 	//************************************
 	// Vertices
 	//************************************
 	for(unsigned int i = 0; i < mesh->mNumVertices; i++) {
-		Scene_vertex vert_tmp;
+		Scene_vertex vert_tmp = Scene_vertex();
 
 		//position
 		if(mesh->HasPositions()) {
@@ -243,12 +241,6 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 			col[j][i][3] = mesh->mColors[j][i].a;
 		}
 
-		vert_tmp.bones = 0;
-		vert_tmp.bone_weights[0] = 0.f;
-		vert_tmp.bone_weights[1] = 0.f;
-		vert_tmp.bone_weights[2] = 0.f;
-		vert_tmp.bone_weights[3] = 0.f;
-
 		vertices.push_back(vert_tmp);
 	}
 
@@ -271,10 +263,14 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 		for(int j=0; j < mesh->mBones[i]->mNumWeights; j++) {
 			unsigned int vertex_id = mesh->mBones[i]->mWeights[j].mVertexId;
 			float weight = mesh->mBones[i]->mWeights[j].mWeight;
-			unsigned int bone_index = vertices[vertex_id].bones;
-			vertices[vertex_id].bone_ids[bone_index] = index;
-			vertices[vertex_id].bone_weights[bone_index] = weight;
-			vertices[vertex_id].bones++;
+			unsigned int bone_index = BONES_PER_VERTEX + 1;
+			for(bone_index = 0; bone_index <= BONES_PER_VERTEX; bone_index++)
+				if(vertices[vertex_id].bone_weights[bone_index] == 0.0)
+					break;
+			if(bone_index < BONES_PER_VERTEX) {
+				vertices[vertex_id].bone_ids[bone_index] = index;
+				vertices[vertex_id].bone_weights[bone_index] = weight;
+			}
 		}
 	}
 
@@ -471,10 +467,10 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 				(void *)offsetof(Scene_vertex, tangent));
 	mesh_tmp->set_vertex_attribute(bone_ids_name, 0, BONES_PER_VERTEX,
 				GL_INT, sizeof(Scene_vertex),
-				(void *)offsetof(Scene_vertex, bone_ids));
+				(void *)offsetof(Scene_vertex, bone_ids[0]));
 	mesh_tmp->set_vertex_attribute(bone_weights_name, 0, BONES_PER_VERTEX,
 				GL_FLOAT, sizeof(Scene_vertex),
-				(void *)offsetof(Scene_vertex, bone_weights));
+				(void *)offsetof(Scene_vertex, bone_weights[0]));
 
 	for(unsigned int i = 0; i < num_uv; i++) {
 		mesh_tmp->set_vertex_attribute(
@@ -545,7 +541,7 @@ bool Scene::animate(float time) {
 		trafos[i] = bones[i].transformation;
 	shader->bind();
 	GLint loc = glGetUniformLocation(shader->shader, bone_array_name.c_str());
-	glUniformMatrix4fv(loc, trafos.size(), GL_FALSE, (GLfloat *)&trafos[0]);
+	glUniformMatrix4fv(loc, trafos.size(), GL_FALSE, glm::value_ptr(trafos[0]));
 	shader->unbind();
 	return true;
 }
