@@ -31,6 +31,9 @@ check_include_files(SDL2/SDL_image.h		HAVE_SDL_IMAGE_H)
 check_include_file_cxx(glm/glm.hpp		HAVE_GLM_H)
 check_include_file_cxx(assimp/Importer.hpp	HAVE_ASSIMP_H)
 
+configure_file("${PROJECT_BINARY_DIR}/config.h.in"
+	"${PROJECT_SOURCE_DIR}/src/config.h")
+
 foreach(lib ${LIBS_REQUIRED})
 	find_library(${lib}_FOUND ${lib} REQUIRED)
 	if(${lib}_FOUND)

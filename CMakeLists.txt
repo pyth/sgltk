@@ -38,9 +38,6 @@ foreach(p LIB BIN INCLUDE CMAKE)
 	endif()
 endforeach()
 
-configure_file("config.h.in"
-	"${PROJECT_SOURCE_DIR}/src/config.h")
-
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 configure_file(
