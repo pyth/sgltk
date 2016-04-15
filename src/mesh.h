@@ -6,7 +6,6 @@
 #include "texture.h"
 
 namespace sgltk {
-#pragma pack(push, 0)
 	/**
 	 * @struct Vertex
 	 * @brief A basic vertex structure 
@@ -114,8 +113,6 @@ namespace sgltk {
 			tex_coord = tc;
 		};
 	} Vertex;
-
-#pragma pack(pop)
 
 /**
  * @class Mesh
@@ -795,14 +792,31 @@ int Mesh<Vertex>::set_vertex_attribute(std::string attrib_name,
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
 
-	int loc = glGetAttribLocation(shader->shader, attrib_name.c_str());
+	int loc = glGetAttribLocation(shader->program, attrib_name.c_str());
 	if(loc == -1) {
 		glBindVertexArray(0);
 		return -2;
 	}
 	glEnableVertexAttribArray(loc);
-	glVertexAttribPointer(loc, size, type, GL_FALSE, stride,
-			      (void*)pointer);
+	switch(type) {
+		case GL_BYTE:
+		case GL_UNSIGNED_BYTE:
+		case GL_SHORT:
+		case GL_UNSIGNED_SHORT:
+		case GL_INT:
+		case GL_UNSIGNED_INT:
+			glVertexAttribIPointer(loc, size, type, stride,
+						(void *)pointer);
+			break;
+		case GL_DOUBLE:
+			glVertexAttribLPointer(loc, size, type, stride,
+						(void *)pointer);
+			break;
+		default:
+			glVertexAttribPointer(loc, size, type, GL_FALSE, stride,
+						(void*)pointer);
+			break;
+	}
 
 	glBindVertexArray(0);
 	return 0;
@@ -847,6 +861,7 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 		return;
 	}
 
+	int loc;
 	glm::mat4 M;
 	glm::mat4 MV;
 	glm::mat3 NM;
@@ -861,56 +876,56 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 	glm::mat4 VP = (*projection_matrix) * (*view_matrix);
 
 	shader->bind();
-	int loc = glGetUniformLocation(shader->shader,
+	loc = glGetUniformLocation(shader->program,
 				       model_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(M));
 
-	loc = glGetUniformLocation(shader->shader,
+	loc = glGetUniformLocation(shader->program,
 				       view_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*view_matrix));
 
-	loc = glGetUniformLocation(shader->shader,
+	loc = glGetUniformLocation(shader->program,
 				       model_view_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MV));
 
-	loc = glGetUniformLocation(shader->shader,
+	loc = glGetUniformLocation(shader->program,
 				       view_proj_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(VP));
 
-	loc = glGetUniformLocation(shader->shader,
+	loc = glGetUniformLocation(shader->program,
 				   normal_matrix_name.c_str());
 	glUniformMatrix3fv(loc, 1, false, glm::value_ptr(NM));
 
-	loc = glGetUniformLocation(shader->shader,
+	loc = glGetUniformLocation(shader->program,
 				   model_view_projection_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MVP));
 
-	loc = glGetUniformLocation(shader->shader, ambient_color_name.c_str());
+	loc = glGetUniformLocation(shader->program, ambient_color_name.c_str());
 	glUniform4f(loc, color_ambient.x, color_ambient.y, color_ambient.z,
 		    color_ambient.w);
 
-	loc = glGetUniformLocation(shader->shader, diffuse_color_name.c_str());
+	loc = glGetUniformLocation(shader->program, diffuse_color_name.c_str());
 	glUniform4f(loc, color_diffuse.x, color_diffuse.y, color_diffuse.z,
 		    color_diffuse.w);
 
-	loc = glGetUniformLocation(shader->shader, specular_color_name.c_str());
+	loc = glGetUniformLocation(shader->program, specular_color_name.c_str());
 	glUniform4f(loc, color_specular.x, color_specular.y, color_specular.z,
 		    color_specular.w);
 
-	loc = glGetUniformLocation(shader->shader, shininess_name.c_str());
+	loc = glGetUniformLocation(shader->program, shininess_name.c_str());
 	glUniform1f(loc, shininess);
 
-	loc = glGetUniformLocation(shader->shader, shininess_strength_name.c_str());
+	loc = glGetUniformLocation(shader->program, shininess_strength_name.c_str());
 	glUniform1f(loc, shininess_strength);
 
 	unsigned int num_textures = 0;
 	for(unsigned int i = 0; i < textures_ambient.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->shader,
+		int texture_loc = glGetUniformLocation(shader->program,
 				ambient_texture_name.c_str());
 		if(texture_loc < 0) {
 			std::string uniform_name = ambient_texture_name + '[' +
 				std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->shader,
+			texture_loc = glGetUniformLocation(shader->program,
 					uniform_name.c_str());
 		}
 		glUniform1i(texture_loc, num_textures);
@@ -919,12 +934,12 @@ void Mesh<Vertex>::draw(GLenum mode, unsigned int index_buffer,
 	}
 
 	for(unsigned int i = 0; i < textures_diffuse.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->shader,
+		int texture_loc = glGetUniformLocation(shader->program,
 				diffuse_texture_name.c_str());
 		if(texture_loc < 0) {
 			std::string uniform_name = diffuse_texture_name + '[' +
 				std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->shader,
+			texture_loc = glGetUniformLocation(shader->program,
 					uniform_name.c_str());
 		}
 		glUniform1i(texture_loc, num_textures);

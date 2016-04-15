@@ -47,18 +47,19 @@ bool Scene::load(std::string filename) {
 		}
 	}
 
-	if(!scene) {
+	if(scene->mFlags==AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 		std::cerr << "Error importing " << filename << ": "
 			  << importer.GetErrorString() << std::endl;
 		return false;
 	}
 
-	aiMatrix4x4 inv_transformation = scene->mRootNode->mTransformation;
-	inv_transformation.Inverse();
-	glob_inv_transf = ai_to_glm_mat4(&inv_transformation);
+	glob_inv_transf = scene->mRootNode->mTransformation;
+	glob_inv_transf.Inverse();
+
 	traverse_scene_nodes(scene->mRootNode, NULL);
 	compute_bounding_box();
-	set_animation_speed(1.0);
+	if(scene->HasAnimations())
+		set_animation_speed(1.0);
 }
 
 void Scene::compute_bounding_box() {
@@ -176,30 +177,28 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	//************************************
 	// Bones
 	//************************************
-	if(mesh->HasBones()) {
-		for(int i = 0; i < mesh->mNumBones; i++) {
-			unsigned int index = 0;
-			std::string bone_name(mesh->mBones[i]->mName.data);
+	for(int i = 0; i < mesh->mNumBones; i++) {
+		unsigned int index = 0;
+		std::string bone_name(mesh->mBones[i]->mName.data);
 
-			if(bone_map.find(bone_name) == bone_map.end()) {
-				index = bones.size();
-				bone_map[bone_name] = index;
-				Bone bone;
-				bone.offset = ai_to_glm_mat4(&mesh->mBones[i]->mOffsetMatrix);
-				bones.push_back(bone);
-			} else {
-				index = bone_map[bone_name];
-			}
+		if(bone_map.find(bone_name) == bone_map.end()) {
+			index = bones.size();
+			bone_map[bone_name] = index;
+			Bone bone;
+			bone.offset = mesh->mBones[i]->mOffsetMatrix;
+			bones.push_back(bone);
+		} else {
+			index = bone_map[bone_name];
+		}
 
-			for(unsigned int j = 0; j < mesh->mBones[i]->mNumWeights; j++) {
-				unsigned int vertex_id = mesh->mBones[i]->mWeights[j].mVertexId;
-				float weight = mesh->mBones[i]->mWeights[j].mWeight;
-				for(unsigned int k = 0; k < BONES_PER_VERTEX; k++) {
-					if(vertices[vertex_id].bone_weights[k] == 0.0) {
-						vertices[vertex_id].bone_ids[k] = index;
-						vertices[vertex_id].bone_weights[k] = weight;
-						break;
-					}
+		for(unsigned int j = 0; j < mesh->mBones[i]->mNumWeights; j++) {
+			unsigned int vertex_id = mesh->mBones[i]->mWeights[j].mVertexId;
+			float weight = mesh->mBones[i]->mWeights[j].mWeight;
+			for(unsigned int k = 0; k < BONES_PER_VERTEX; k++) {
+				if(vertices[vertex_id].bone_weights[k] == 0.0) {
+					vertices[vertex_id].bone_ids[k] = index;
+					vertices[vertex_id].bone_weights[k] = weight;
+					break;
 				}
 			}
 		}
@@ -425,28 +424,35 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 
 void Scene::traverse_animation_nodes(float time,
 			      aiNode *node,
-			      glm::mat4 parent_transformation) {
+			      aiMatrix4x4 parent_transformation) {
+
 	std::string node_name(node->mName.data);
-	glm::mat4 node_transformation = ai_to_glm_mat4(&node->mTransformation);
+	aiMatrix4x4 node_transformation = node->mTransformation;
 	aiNodeAnim *node_animation = NULL;
 	for(unsigned int i = 0; i < scene->mAnimations[0]->mNumChannels; i++) {
 		aiNodeAnim *node_anim = scene->mAnimations[0]->mChannels[i];
-		if(std::string(node_anim->mNodeName.C_Str()) == node_name)
+		if(std::string(node_anim->mNodeName.data) == node_name) {
 			node_animation = node_anim;
+			break;
+		}
 	}
 
 	if(node_animation) {
-		aiMatrix4x4 scaling = interpolate_scaling(time, node_animation);
-		aiMatrix4x4 rotation = interpolate_rotation(time,
-								node_animation);
-		aiMatrix4x4 translation = interpolate_translation(time,
-								node_animation);
+		aiMatrix4x4 scaling;
+		aiVector3D s_vec = interpolate_scaling(time, node_animation);
+		aiMatrix4x4::Scaling(s_vec, scaling);
 
-		aiMatrix4x4 tmp = translation * rotation * scaling;
-		node_transformation = ai_to_glm_mat4(&tmp);
+		aiMatrix4x4 translation;
+		aiVector3D t_vec = interpolate_translation(time, node_animation);
+		aiMatrix4x4::Translation(t_vec, translation);
+
+		aiQuaternion rot = interpolate_rotation(time, node_animation);
+		aiMatrix4x4 rotation = aiMatrix4x4(rot.GetMatrix());
+
+		node_transformation = translation * rotation * scaling;
 	}
 
-	glm::mat4 glob_transf = parent_transformation * node_transformation;
+	aiMatrix4x4 glob_transf = parent_transformation * node_transformation;
 	if(bone_map.find(node_name) != bone_map.end()) {
 		unsigned int index = bone_map[node_name];
 		bones[index].transformation = glob_inv_transf * glob_transf *
@@ -464,87 +470,71 @@ void Scene::set_animation_speed(double speed) {
 								speed;
 }
 
-aiMatrix4x4 Scene::interpolate_scaling(float time, aiNodeAnim *node) {
+aiVector3D Scene::interpolate_scaling(float time, aiNodeAnim *node) {
 
-	if(node->mNumScalingKeys == 1) {
-		aiVector3D s_vec = node->mScalingKeys[0].mValue;
-		aiMatrix4x4 ret;
-		aiMatrix4x4::Scaling(s_vec, ret);
-		return ret;
-	}
+	if(node->mNumScalingKeys == 1)
+		return node->mScalingKeys[0].mValue;
 
 	unsigned int index = 0;
-	for(unsigned int i = 0; i < node->mNumScalingKeys - 1; i++) {
-		if(time < node->mScalingKeys[i + 1].mTime)
+	for(unsigned int i = 0; i < node->mNumScalingKeys - 1; i++)
+		if(time < (float)node->mScalingKeys[i + 1].mTime) {
 			index = i;
-	}
+			break;
+		}
+
 	float dt = node->mScalingKeys[index + 1].mTime -
 		node->mScalingKeys[index].mTime;
 	float factor = (time - node->mScalingKeys[index].mTime) / dt;
 	aiVector3D start = node->mScalingKeys[index].mValue;
 	aiVector3D end = node->mScalingKeys[index + 1].mValue;
-	aiVector3D s_vec = start + factor * (end - start);
-
-	aiMatrix4x4 ret;
-	aiMatrix4x4::Scaling(s_vec, ret);
-	return ret;
+	return start + factor * (end - start);
 }
 
-aiMatrix4x4 Scene::interpolate_translation(float time, aiNodeAnim *node) {
-	if(node->mNumPositionKeys == 1) {
-		aiVector3D t_vec = node->mPositionKeys[0].mValue;
-		aiMatrix4x4 ret;
-		aiMatrix4x4::Translation(t_vec, ret);
-		return ret;
-	}
+aiVector3D Scene::interpolate_translation(float time, aiNodeAnim *node) {
+	if(node->mNumPositionKeys == 1)
+		return node->mPositionKeys[0].mValue;
 
 	unsigned int index = 0;
-	for(unsigned int i = 0; i < node->mNumPositionKeys - 1; i++) {
-		if(time < node->mPositionKeys[i + 1].mTime)
+	for(unsigned int i = 0; i < node->mNumPositionKeys - 1; i++)
+		if(time < node->mPositionKeys[i + 1].mTime) {
 			index = i;
-	}
+			break;
+		}
+
 	float dt = node->mPositionKeys[index + 1].mTime -
 		node->mPositionKeys[index].mTime;
 	float factor = (time - node->mPositionKeys[index].mTime) / dt;
 	aiVector3D start = node->mPositionKeys[index].mValue;
 	aiVector3D end = node->mPositionKeys[index + 1].mValue;
-	aiVector3D t_vec = start + factor * (end - start);
-
-	aiMatrix4x4 ret;
-	aiMatrix4x4::Translation(t_vec, ret);
-	return ret;
+	return start + factor * (end - start);
 }
 
-aiMatrix4x4 Scene::interpolate_rotation(float time, aiNodeAnim *node) {
-	if(node->mNumRotationKeys == 1) {
-		aiQuaternion rot = node->mRotationKeys[0].mValue;
-		aiMatrix4x4 ret = aiMatrix4x4(rot.GetMatrix());
-		return ret;
-	}
+aiQuaternion Scene::interpolate_rotation(float time, aiNodeAnim *node) {
+	if(node->mNumRotationKeys == 1)
+		return node->mRotationKeys[0].mValue;
 
 	unsigned int index = 0;
-	aiQuaternion rot;
-	for(unsigned int i = 0; i < node->mNumRotationKeys - 1; i++) {
-		if(time < node->mRotationKeys[i + 1].mTime)
+	for(unsigned int i = 0; i < node->mNumRotationKeys - 1; i++)
+		if(time < node->mRotationKeys[i + 1].mTime) {
 			index = i;
-	}
+			break;
+		}
+
+	aiQuaternion rot;
 	float dt = node->mRotationKeys[index + 1].mTime -
 		node->mRotationKeys[index].mTime;
 	float factor = (time - node->mRotationKeys[index].mTime) / dt;
 	aiQuaternion start = node->mRotationKeys[index].mValue;
 	aiQuaternion end = node->mRotationKeys[index + 1].mValue;
 	aiQuaternion::Interpolate(rot, start, end, factor);
-	rot = rot.Normalize();
-	aiMatrix4x4 ret = aiMatrix4x4(rot.GetMatrix());
-
-	return ret;
+	return rot.Normalize();
 }
 
 bool Scene::animate(float time) {
 	if(!scene->HasAnimations())
 		return false;
 	
-	glm::mat4 mat;
+	aiMatrix4x4 mat = aiMatrix4x4();
 	std::vector<glm::mat4> trafos;
 	trafos.resize(bones.size());
 
@@ -552,18 +542,17 @@ bool Scene::animate(float time) {
 					scene->mAnimations[0]->mDuration);
 	traverse_animation_nodes(animation_time, scene->mRootNode, mat);
 	for(unsigned int i = 0; i < bones.size(); i++) {
-		trafos[i] = bones[i].transformation;
+		trafos[i] = ai_to_glm_mat4(&bones[i].transformation);
 	}
-	GLint loc = glGetUniformLocation(shader->shader, bone_array_name.c_str());
+	shader->bind();
+	GLint loc = glGetUniformLocation(shader->program, bone_array_name.c_str());
 	if(loc >= 0) {
-		shader->bind();
-		glUniformMatrix4fv(loc, bones.size(), GL_FALSE, (GLfloat *)&trafos[0]);
-		shader->unbind();
+		glUniformMatrix4fv(loc, bones.size(), GL_FALSE,
+				glm::value_ptr(trafos[0]));
 	} else {
-		std::cerr<<"Shader has no uniform "<<bone_array_name<<"."<<std::endl;
 		return false;
 	}
-	return true;
+	shader->unbind();
 }
 
 void Scene::draw() {
@@ -572,10 +561,12 @@ void Scene::draw() {
 
 void Scene::draw(glm::mat4 *model_matrix) {
 	for(unsigned int i = 0; i < meshes.size(); i++) {
-		glm::mat4 matrix_tmp = meshes[i]->model_matrix;
-		if(model_matrix)
-			matrix_tmp = *model_matrix * matrix_tmp;
-		meshes[i]->draw(GL_TRIANGLES, &matrix_tmp);
+		if(model_matrix) {
+			glm::mat4 matrix_tmp = *model_matrix * meshes[i]->model_matrix;
+			meshes[i]->draw(GL_TRIANGLES, &matrix_tmp);
+		}
+		else
+			meshes[i]->draw(GL_TRIANGLES);
 	}
 }
 

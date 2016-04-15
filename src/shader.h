@@ -19,7 +19,7 @@ public:
 	/**
 	 * @brief Shader name
 	 */
-	GLuint shader;
+	GLuint program;
 
 	Shader();
 	~Shader();

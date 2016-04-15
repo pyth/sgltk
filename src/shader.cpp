@@ -4,11 +4,11 @@ using namespace sgltk;
 
 Shader::Shader() {
 	modify = true;
-	shader = glCreateProgram();
+	program = glCreateProgram();
 }
 
 Shader::~Shader() {
-	glDeleteProgram(shader);
+	glDeleteProgram(program);
 }
 
 bool Shader::attach_file(const char *filename, GLenum type) {
@@ -47,7 +47,7 @@ bool Shader::attach_file(const char *filename, GLenum type) {
 		}
 	}
 
-	glAttachShader(shader, tmp);
+	glAttachShader(program, tmp);
 	if(modify) {
 		shader_path_map[filename] = type;
 	}
@@ -76,7 +76,7 @@ bool Shader::attach_string(const char *shader_string, GLint size, GLenum type) {
 		}
 	}
 
-	glAttachShader(shader, tmp);
+	glAttachShader(program, tmp);
 	if(modify) {
 		shader_string_map[shader_string] = type;
 	}
@@ -88,8 +88,8 @@ bool Shader::attach_string(const char *shader_string, GLint size, GLenum type) {
 void Shader::recompile() {
 	modify = false;
 	unbind();
-	glDeleteProgram(shader);
-	shader = glCreateProgram();
+	glDeleteProgram(program);
+	program = glCreateProgram();
 	for(std::map<const char *, GLenum>::iterator it = shader_path_map.begin(); it != shader_path_map.end(); it++) {
 		attach_file(it->first, it->second);
 	}
@@ -101,11 +101,11 @@ void Shader::recompile() {
 }
 
 void Shader::link() {
-	glLinkProgram(shader);
+	glLinkProgram(program);
 }
 
 void Shader::bind() {
-	glUseProgram(shader);
+	glUseProgram(program);
 }
 
 void Shader::unbind() {

@@ -14,8 +14,8 @@
 namespace sgltk {
 
 typedef struct Bone {
-	glm::mat4 transformation;
-	glm::mat4 offset;
+	aiMatrix4x4 transformation;
+	aiMatrix4x4 offset;
 } Bone;
 
 /**
@@ -69,16 +69,16 @@ class Scene {
 
 	double ticks_per_second;
 	std::vector<Bone> bones;
-	glm::mat4 glob_inv_transf;
+	aiMatrix4x4 glob_inv_transf;
 	std::map<std::string, unsigned int> bone_map;
 
 	void traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
-	void traverse_animation_nodes(float time, aiNode *node, glm::mat4 parent_transformation);
+	void traverse_animation_nodes(float time, aiNode *node, aiMatrix4x4 parent_transformation);
 	void create_mesh(aiMesh *mesh, aiMatrix4x4 *paren_trafo);
 	void compute_bounding_box();
-	static aiMatrix4x4 interpolate_scaling(float time, aiNodeAnim *node);
-	static aiMatrix4x4 interpolate_translation(float time, aiNodeAnim *node);
-	static aiMatrix4x4 interpolate_rotation(float time, aiNodeAnim *node);
+	static aiVector3D interpolate_scaling(float time, aiNodeAnim *node);
+	static aiVector3D interpolate_translation(float time, aiNodeAnim *node);
+	static aiQuaternion interpolate_rotation(float time, aiNodeAnim *node);
 	static glm::mat4 ai_to_glm_mat4(aiMatrix4x4 *in);
 	public:
 		glm::mat4 model_matrix;
