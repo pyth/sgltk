@@ -67,6 +67,7 @@ foreach(HEADER_FILE ${HEADERS})
 			${PROJECT_BINARY_DIR}/include/sgltk/)
 endforeach()
 add_dependencies(sgltk copy_headers)
+add_dependencies(sgltk_static copy_headers)
 
 foreach(lib ${LIBS_REQUIRED} ${LIBS_OPTIONAL})
 	if(${lib}_FOUND)

@@ -10,15 +10,11 @@ set(SGLTK_VERSION_MINOR 2)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})
 
 check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-message(STATUS "Checking compiler ${CMAKE_CXX_COMPILER} for c++0x support")
 if(COMPILER_SUPPORTS_CXX0X)
-	message(STATUS "The compiler ${CMAKE_CXX_COMPILER} supports c++0x")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-else()
-	message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no c++0x support")
+	if(NOT WIN32)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+	endif()
 endif()
-
-#link_directories(/usr/local/lib)
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for the library files")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for .dll files")
