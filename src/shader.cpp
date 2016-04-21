@@ -105,9 +105,10 @@ void Shader::link() {
 }
 
 void Shader::bind() {
+	glGetIntegerv(GL_CURRENT_PROGRAM, (GLint *)&saved_program);
 	glUseProgram(program);
 }
 
 void Shader::unbind() {
-	glUseProgram(0);
+	glUseProgram(saved_program);
 }

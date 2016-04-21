@@ -12,6 +12,8 @@ namespace sgltk {
 class Shader {
 	bool modify;
 
+	GLuint saved_program;
+
 	std::map<const char *, GLenum> shader_path_map;
 
 	std::map<const char *, GLenum> shader_string_map;
@@ -48,11 +50,11 @@ public:
 	 */
 	void link();
 	/**
-	 * @brief Binds the shader
+	 * @brief Binds the shader and stores the previously bound shader
 	 */
 	void bind();
 	/**
-	 * @brief Unbinds the shader
+	 * @brief Unbinds the shader and restores the previously bound shader
 	 */
 	void unbind();
 };
