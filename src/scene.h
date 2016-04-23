@@ -72,6 +72,8 @@ class Scene {
 	aiMatrix4x4 glob_inv_transf;
 	std::map<std::string, unsigned int> bone_map;
 
+	std::map<std::string, unsigned int> mesh_map;
+
 	void traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
 	void traverse_animation_nodes(float time, aiNode *node, aiMatrix4x4 parent_transformation);
 	void create_mesh(aiMesh *mesh, aiMatrix4x4 *paren_trafo);

@@ -218,7 +218,7 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 	// Mesh
 	//************************************
 	Mesh<Scene_vertex> *mesh_tmp = new Mesh<Scene_vertex>();
-	mesh_tmp->attach_vertex_buffer(&vertices, true);
+	mesh_tmp->attach_vertex_buffer(&vertices);
 	if(num_uv) {
 		mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord[0].data(),
 					sizeof(glm::vec3) *
@@ -229,7 +229,7 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 					sizeof(glm::vec4) *
 					mesh->mNumVertices * num_col);
 	}
-	mesh_tmp->compute_bounding_box(offsetof(Scene_vertex, position));
+	mesh_tmp->compute_bounding_box(&vertices, offsetof(Scene_vertex, position));
 	mesh_tmp->attach_index_buffer(&indices);
 	mesh_tmp->model_matrix = ai_to_glm_mat4(trafo);
 
@@ -419,6 +419,10 @@ void Scene::create_mesh(aiMesh *mesh, aiMatrix4x4 *trafo) {
 			(void *)(long)(i * mesh->mNumVertices));
 	}
 
+	//************************************
+	// Save the mesh
+	//************************************
+	mesh_map[mesh->mName.C_Str()] = meshes.size();
 	meshes.push_back(mesh_tmp);
 }
 
@@ -428,7 +432,9 @@ void Scene::traverse_animation_nodes(float time,
 
 	std::string node_name(node->mName.data);
 	aiMatrix4x4 node_transformation = node->mTransformation;
+	aiMeshAnim *mesh_animation = NULL;
 	aiNodeAnim *node_animation = NULL;
+
 	for(unsigned int i = 0; i < scene->mAnimations[0]->mNumChannels; i++) {
 		aiNodeAnim *node_anim = scene->mAnimations[0]->mChannels[i];
 		if(std::string(node_anim->mNodeName.data) == node_name) {
@@ -451,6 +457,8 @@ void Scene::traverse_animation_nodes(float time,
 
 		node_transformation = translation * rotation * scaling;
 	}
+
+	//if()
 
 	aiMatrix4x4 glob_transf = parent_transformation * node_transformation;
 	if(bone_map.find(node_name) != bone_map.end()) {
@@ -530,6 +538,10 @@ aiQuaternion Scene::interpolate_rotation(float time, aiNodeAnim *node) {
 	return rot.Normalize();
 }
 
+/*void Scene::animate_mesh(float time, aiAnimation *animation) {
+	
+}*/
+
 bool Scene::animate(float time) {
 	if(!scene->HasAnimations())
 		return false;
@@ -540,6 +552,7 @@ bool Scene::animate(float time) {
 
 	double animation_time = fmod(time * ticks_per_second,
 					scene->mAnimations[0]->mDuration);
+	//animate_mesh(animation_time, scene->mAnimations[0]);
 	traverse_animation_nodes(animation_time, scene->mRootNode, mat);
 	for(unsigned int i = 0; i < bones.size(); i++) {
 		trafos[i] = ai_to_glm_mat4(&bones[i].transformation);

@@ -392,32 +392,23 @@ public:
 	 * @brief Loads vertices into memory
 	 * @param vertexdata The vertices to be loaded into memory
 	 * @param size The size of the array in bytes
-	 * @param contains_position If true the vertices will be saved
-	 * 	as the vertices member variable
+	 * @param usage A hint as to how the buffer will be accessed.
+	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return Returns the index that the buffer was attached to
 	 */
 	template <typename T = Vertex>
 	int attach_vertex_buffer(const void *vertexdata, unsigned int size,
-				 bool contains_position = false);
+				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief Loads vertices into memory
 	 * @param vertexdata The vertices to be loaded into memory
-	 * @param contains_position If true the vertices will be saved
-	 * 	as the vertices member variable
+	 * @param usage A hint as to how the buffer will be accessed.
+	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return Returns the index that the buffer was attached to
 	 */
 	template <typename T = Vertex>
 	int attach_vertex_buffer(const std::vector<T> *vertexdata,
-				 bool contains_position = false);
-	/**
-	 * @brief Loads vertices into memory
-	 * @param vertexdata The vertices to be loaded into memory
-	 * @param contains_position If true the vertices will be saved
-	 * 	as the vertices member variable
-	 * @return Returns the index that the buffer was attached to
-	 */
-	int attach_vertex_buffer(const std::vector<Vertex> *vertexdata,
-				 bool contains_position = false);
+				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief Sets pointers to vertex attribures
 	 * @param attrib_name	The name as defined in the shader
@@ -447,10 +438,12 @@ public:
 
 	/**
 	 * @brief Computes the bounding box of the mesh
+	 * @param vertexdata The vertices of the mesh
 	 * @param pointer The pointer to the position vector in the vertex
 	 * 	structure
 	 */
-	void compute_bounding_box(size_t pointer);
+	template <typename T = Vertex>
+	void compute_bounding_box(const std::vector<T> *vertexdata, size_t pointer);
 
 	/**
 	 * @brief Renders the mesh using the first index buffer
@@ -718,52 +711,35 @@ template <typename Vertex>
 template <typename T>
 int Mesh<Vertex>::attach_vertex_buffer(const void *vertexdata,
 				       unsigned int size,
-				       bool contains_position) {
+				       GLenum usage) {
 	T *ptr = (T *)vertexdata;
 	std::vector<T> tmp(ptr, ptr + size);
-	return attach_vertex_buffer(&tmp);
+	return attach_vertex_buffer<T>(&tmp, usage);
 }
 
 template <typename Vertex>
 template <typename T>
 int Mesh<Vertex>::attach_vertex_buffer(const std::vector<T> *vertexdata,
-				       bool contains_position) {
-	//glBindVertexArray(vao);
+				       GLenum usage) {
 	GLuint buf;
 	glGenBuffers(1, &buf);
 	vbo.push_back(buf);
 
 	glBindBuffer(GL_ARRAY_BUFFER, buf);
 	glBufferData(GL_ARRAY_BUFFER, vertexdata->size() * sizeof(T),
-		     vertexdata->data(), GL_STATIC_DRAW);
+		     vertexdata->data(), usage);
 
 	return vbo.size() - 1;
-	//glBindVertexArray(0);
 }
 
 template <typename Vertex>
-int Mesh<Vertex>::attach_vertex_buffer(const std::vector<Vertex> *vertexdata,
-				       bool contains_position) {
-	//glBindVertexArray(vao);
-	GLuint buf;
-	glGenBuffers(1, &buf);
-	vbo.push_back(buf);
-
-	glBindBuffer(GL_ARRAY_BUFFER, buf);
-	glBufferData(GL_ARRAY_BUFFER, vertexdata->size() * sizeof(Vertex),
-		     vertexdata->data(), GL_STATIC_DRAW);
-
-	if(contains_position)
-		vertices = *vertexdata;
-
-	return vbo.size() - 1;
-	//glBindVertexArray(0);
-}
-
-template <typename Vertex>
-void Mesh<Vertex>::compute_bounding_box(size_t pointer) {
-	for(unsigned int i = 0; i < vertices.size(); i++) {
-		glm::vec3 *pos = (glm::vec3 *)(&vertices[i] + pointer);
+template <typename T>
+void Mesh<Vertex>::compute_bounding_box(const std::vector<T> *vertexdata, size_t pointer) {
+	glm::vec3 *pos = (glm::vec3 *)(&(*vertexdata)[0] + pointer);
+	bounding_box[0] = *pos;
+	bounding_box[1] = *pos;
+	for(size_t i = 1; i < vertexdata->size(); i++) {
+		pos = (glm::vec3 *)(&(*vertexdata)[i] + pointer);
 		if(pos->x < bounding_box[0].x)
 			bounding_box[0].x = pos->x;
 		if(pos->y < bounding_box[0].y)
