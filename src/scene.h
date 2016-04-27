@@ -19,33 +19,6 @@ typedef struct Bone {
 } Bone;
 
 /**
- * @struct Scene_vertex
- * @brief The vertex structure used by the Scene class
- */
-typedef struct Scene_vertex {
-	/**
-	 * @brief Vertex position
-	 */
-	glm::vec4 position;
-	/**
-	 * @brief Vertex normal
-	 */
-	glm::vec3 normal;
-	/**
-	 * @brief Vertex tangent
-	 */
-	glm::vec4 tangent;
-	/**
-	 * @brief Bone ids
-	 */
-	unsigned int bone_ids[BONES_PER_VERTEX];
-	/**
-	 * @brief Bone weights
-	 */
-	float bone_weights[BONES_PER_VERTEX];
-} Scene_vertex;
-
-/**
  * @class Scene
  * @brief Manages imported scenes
  */
@@ -76,7 +49,7 @@ class Scene {
 
 	void traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
 	void traverse_animation_nodes(float time, aiNode *node, aiMatrix4x4 parent_transformation);
-	void create_mesh(aiMesh *mesh, aiMatrix4x4 *paren_trafo);
+	Mesh *create_mesh(aiMesh *mesh);
 	void compute_bounding_box();
 	static aiVector3D interpolate_scaling(float time, aiNodeAnim *node);
 	static aiVector3D interpolate_translation(float time, aiNodeAnim *node);
@@ -85,7 +58,7 @@ class Scene {
 	public:
 		glm::mat4 model_matrix;
 		std::vector<glm::vec3> bounding_box;
-		std::vector<Mesh<Scene_vertex> *> meshes;
+		std::vector<Mesh *> meshes;
 
 		Scene();
 		~Scene();

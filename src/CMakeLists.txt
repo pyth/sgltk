@@ -6,7 +6,8 @@ set(LIB_SOURCE
 	texture.cpp
 	scene.cpp
 	shader.cpp
-	timer.cpp)
+	timer.cpp
+	mesh.cpp)
 
 set(LIB_HEADERS
 	config.h
