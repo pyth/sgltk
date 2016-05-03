@@ -152,11 +152,14 @@ void App::run() {
 }
 
 void App::run(int fps) {
+	float frame_time;
 	Timer frame_timer;
-	float frame_time = 1000.0 / fps;
+	if(fps < 1)
+		frame_time = 1e-30;
+	else
+		frame_time = 1000.0 / fps;
 	bool running = true;
 
-	frame_timer.start();
 	while(running) {
 		frame_timer.start();
 		poll_events();

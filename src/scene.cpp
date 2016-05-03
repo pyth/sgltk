@@ -114,8 +114,8 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 	std::vector<glm::vec4> position(mesh->mNumVertices);
 	std::vector<glm::vec3> normal(mesh->mNumVertices);
 	std::vector<glm::vec4> tangent(mesh->mNumVertices);
-	std::vector<glm::ivec4> bone_ids(mesh->mNumVertices);
-	std::vector<glm::vec4> bone_weights(mesh->mNumVertices);
+	std::vector<int[BONES_PER_VERTEX]> bone_ids(mesh->mNumVertices);
+	std::vector<float[BONES_PER_VERTEX]> bone_weights(mesh->mNumVertices);
 	std::vector<std::vector<glm::vec3> > tex_coord(num_uv,
 			std::vector<glm::vec3>(mesh->mNumVertices));
 	std::vector<std::vector<glm::vec4> > col(num_col,

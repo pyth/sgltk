@@ -8,7 +8,7 @@
 namespace sgltk {
 	/**
 	 * @struct Vertex
-	 * @brief A basic vertex structure 
+	 * @brief A basic vertex structure
 	 */
 	typedef struct Vertex {
 		/**
@@ -23,6 +23,10 @@ namespace sgltk {
 		 * @brief Vertex tangent
 		 */
 		glm::vec4 tangent;
+		/**
+		 * @brief Vertex bitangent
+		 */
+		glm::vec4 bitangent;
 		/**
 		 * @brief Vertex color
 		 */
@@ -39,6 +43,8 @@ namespace sgltk {
 
 			tangent = {0, 0, 0, 1};
 
+			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+
 			color = {0, 0, 0, 0};
 		};
 
@@ -52,6 +58,8 @@ namespace sgltk {
 			normal = n;
 
 			tangent = {0, 0, 0, 1};
+
+			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
 			color = {0, 0, 0, 0};
 
@@ -70,6 +78,8 @@ namespace sgltk {
 
 			tangent = {0, 0, 0, 1};
 
+			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+
 			color = {0, 0, 0, 0};
 
 			tex_coord = tc;
@@ -87,6 +97,8 @@ namespace sgltk {
 			normal = n;
 
 			tangent = glm::vec4(t, 1);
+
+			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
 			color = {0, 0, 0, 0};
 
@@ -107,6 +119,8 @@ namespace sgltk {
 			normal = n;
 
 			tangent = glm::vec4(t, 1);
+
+			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
 			color = c;
 
@@ -152,8 +166,8 @@ class Mesh {
 	std::vector<GLuint> ibo;
 	std::vector<int> num_indices;
 
-	std::vector<int> bone_ids;
-	std::vector<float> bone_weights;
+	std::map<unsigned int, unsigned int> vertex_buffer_size_map;
+	std::map<unsigned int, GLenum> vertex_buffer_usage_map;
 public:
 	/**
 	 * @brief The bounding box
@@ -405,6 +419,21 @@ public:
 	int attach_vertex_buffer(const std::vector<T> *vertexdata,
 				 GLenum usage = GL_STATIC_DRAW);
 	/**
+	 * @brief Modifies the data in the vertex buffer
+	 * @param buffer_index The index of the buffer to be modified
+	 * @param data The data to be loaded into the buffer
+	 * @param size The size of the data in byte
+	 */
+	template <typename T = Vertex>
+	bool replace_buffer_data(unsigned int buffer_index, void *data, unsigned int size);
+	/**
+	 * @brief Modifies the data in the vertex buffer
+	 * @param buffer_index The index of the buffer to be modified
+	 * @param data The data to be loaded into the buffer
+	 */
+	template <typename T = Vertex>
+	bool replace_buffer_data(unsigned int buffer_index, std::vector<T> *data);
+	/**
 	 * @brief Sets pointers to vertex attribures
 	 * @param attrib_name	The name as defined in the shader
 	 * @param buffer_index	The index of the buffer that contains
@@ -493,11 +522,45 @@ int Mesh::attach_vertex_buffer(const std::vector<T> *vertexdata,
 	glGenBuffers(1, &buf);
 	vbo.push_back(buf);
 
-	glBindBuffer(GL_ARRAY_BUFFER, buf);
-	glBufferData(GL_ARRAY_BUFFER, vertexdata->size() * sizeof(T),
-		     vertexdata->data(), usage);
+	unsigned int buffer_size = vertexdata->size() * sizeof(T);
 
+	glBindBuffer(GL_ARRAY_BUFFER, buf);
+	glBufferData(GL_ARRAY_BUFFER, buffer_size, vertexdata->data(), usage);
+
+	vertex_buffer_size_map[vbo.size() - 1] = buffer_size;
+	vertex_buffer_usage_map[vbo.size() - 1] = usage;
 	return vbo.size() - 1;
+}
+
+template <typename T>
+bool Mesh::replace_buffer_data(unsigned int buffer_index, void *data, unsigned int size) {
+	T *ptr = (T *)data;
+	std::vector<T> tmp(ptr, ptr + size);
+	return replace_buffer_data<T>(buffer_index, &tmp);
+}
+
+template <typename T>
+bool Mesh::replace_buffer_data(unsigned int buffer_index, std::vector<T> *data) {
+	if(buffer_index >= vbo.size()) {
+		std::cerr<<"The value of the variable buffer_index if greater than ";
+		std::cerr<<"the number of vertex buffers."<<std::endl;
+		return false;
+	}
+
+	unsigned int current_size	= vertex_buffer_size_map[buffer_index];
+	unsigned int new_size		= data->size() * sizeof(T);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
+	if(current_size == new_size) {
+		//replace the buffer data without reallocation
+		glBufferSubData(GL_ARRAY_BUFFER, 0, new_size, data->data());
+	} else {
+		//replace the buffer data with reallocation
+		glBufferData(GL_ARRAY_BUFFER, new_size, data->data(),
+			vertex_buffer_usage_map[buffer_index]);
+	}
+
+	return true;
 }
 
 template <typename T>
