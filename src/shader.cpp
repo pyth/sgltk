@@ -2,6 +2,8 @@
 
 using namespace sgltk;
 
+std::vector<std::string> Shader::paths = {"./"};
+
 Shader::Shader() {
 	modify = true;
 	program = glCreateProgram();
@@ -11,7 +13,8 @@ Shader::~Shader() {
 	glDeleteProgram(program);
 }
 
-bool Shader::attach_file(const char *filename, GLenum type) {
+bool Shader::attach_file(std::string filename, GLenum type) {
+	std::string path;
 	GLint compiled;
 	char infoLog[4096];
 	int infoLogLength;
@@ -21,7 +24,23 @@ bool Shader::attach_file(const char *filename, GLenum type) {
 	GLuint tmp;
 	GLint size;
 
-	file = SDL_RWFromFile(filename, "r+b");
+	if((filename.length() > 1 && filename[0] == '/') ||
+			(filename.length() > 2 && filename[1] == ':')) {
+		//absolute path
+		file = SDL_RWFromFile(filename.c_str(), "r+b");
+		path = filename;
+	} else {
+		//relative path
+		for(unsigned int i = 0; i < paths.size(); i++) {
+			file = SDL_RWFromFile((paths[i] + filename).c_str(),
+						"r+b");
+			if(file) {
+				path = paths[i] + filename;
+				break;
+			}
+		}
+	}
+
 	if(!file) {
 		std::cerr << "Could not open shader file: " << filename << " - "
 		     << SDL_GetError() << std::endl;
@@ -49,7 +68,7 @@ bool Shader::attach_file(const char *filename, GLenum type) {
 
 	glAttachShader(program, tmp);
 	if(modify) {
-		shader_path_map[filename] = type;
+		shader_path_map[path] = type;
 	}
 
 	glDeleteShader(tmp);
@@ -90,7 +109,7 @@ void Shader::recompile() {
 	unbind();
 	glDeleteProgram(program);
 	program = glCreateProgram();
-	for(std::map<const char *, GLenum>::iterator it = shader_path_map.begin(); it != shader_path_map.end(); it++) {
+	for(std::map<std::string, GLenum>::iterator it = shader_path_map.begin(); it != shader_path_map.end(); it++) {
 		attach_file(it->first, it->second);
 	}
 	for(std::map<const char *, GLenum>::iterator it = shader_string_map.begin(); it != shader_string_map.end(); it++) {
@@ -111,4 +130,12 @@ void Shader::bind() {
 
 void Shader::unbind() {
 	glUseProgram(saved_program);
+}
+
+void Shader::add_path(std::string path) {
+	if(path[path.length() - 1] != '/')
+		path += '/';
+
+	if(std::find(paths.begin(), paths.end(), path) == paths.end())
+		paths.push_back(path);
 }

@@ -67,8 +67,8 @@ bool Image::load(std::string filename) {
 		image = IMG_Load(filename.c_str());
 	} else {
 		//relative path
-		for(unsigned int i = 0; i < Image::paths.size(); i++) {
-			image = IMG_Load((paths[i]+filename).c_str());
+		for(unsigned int i = 0; i < paths.size(); i++) {
+			image = IMG_Load((paths[i] + filename).c_str());
 			if(image)
 				break;
 		}
@@ -107,7 +107,19 @@ bool Image::create_text(std::string text, TTF_Font *font, int size,
 
 bool Image::create_text(std::string text, std::string font_file, int size,
 			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
-	TTF_Font *font = TTF_OpenFont(font_file.c_str(), size);
+	TTF_Font *font;
+	if((font_file.length() > 1 && font_file[0] == '/') ||
+			(font_file.length() > 2 && font_file[1] == ':')) {
+		//absolute path
+		font = TTF_OpenFont(font_file.c_str(), size);
+	} else {
+		//relative path
+		for(unsigned int i = 0; i < paths.size(); i++) {
+			font = TTF_OpenFont((paths[i] + font_file).c_str(), size);
+			if(font)
+				break;
+		}
+	}
 	if(!font) {
 		std::cerr << "TTF_OpenFont for " << font_file << " failed." << std::endl;
 		return false;
@@ -163,6 +175,6 @@ void Image::add_path(std::string path) {
 	if(path[path.length() - 1] != '/')
 		path += '/';
 
-	if(std::find(Image::paths.begin(), Image::paths.end(), path) == Image::paths.end())
-		Image::paths.push_back(path);
+	if(std::find(paths.begin(), paths.end(), path) == paths.end())
+		paths.push_back(path);
 }
