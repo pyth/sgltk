@@ -60,8 +60,8 @@ bool Shader::attach_file(std::string filename, GLenum type) {
 		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength,
 				   infoLog);
 		if(infoLogLength > 0) {
-			printf("CompileShader() infoLog %s \n%s\n", filename,
-			       infoLog);
+			printf("CompileShader() infoLog %s \n%s\n",
+				filename.c_str(), infoLog);
 			return false;
 		}
 	}

@@ -60,6 +60,7 @@ bool Scene::load(std::string filename) {
 	compute_bounding_box();
 	if(scene->HasAnimations())
 		set_animation_speed(1.0);
+	return true;
 }
 
 void Scene::compute_bounding_box() {
@@ -173,7 +174,7 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 	//************************************
 	// Bones
 	//************************************
-	for(int i = 0; i < mesh->mNumBones; i++) {
+	for(unsigned int i = 0; i < mesh->mNumBones; i++) {
 		unsigned int index = 0;
 		std::string bone_name(mesh->mBones[i]->mName.data);
 
@@ -567,6 +568,7 @@ bool Scene::animate(float time) {
 		return false;
 	}
 	shader->unbind();
+	return true;
 }
 
 void Scene::draw() {

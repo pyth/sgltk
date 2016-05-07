@@ -52,7 +52,7 @@
 #include <assimp/postprocess.h>
 
 namespace sgltk {
-	static bool initialized;
+	extern bool initialized;
 
 	/**
 	 * @brief The path to the executable

@@ -72,7 +72,7 @@ public:
 	 * In the relative mouse motion mode the cursor is invisible and stays
 	 * in the middle of the screen. The x and y coordinates passed to the
 	 * handle_mouse_motion function will be the relative horizontal and
-	 * vertical distances traveled. 
+	 * vertical distances traveled.
 	 * @param on	True to turn on, false to turn off
 	 */
 	void set_relative_mode(bool on);
@@ -125,10 +125,15 @@ public:
 	virtual void handle_mouse_button(int x, int y, MOUSE_BUTTON button,
 					 bool down, int clicks);
 	/**
-	 * @brief This function is called by run when the window is resized. 
+	 * @brief This function is called by run when the window is resized.
 	 * 	  This function should be overriden
 	 */
 	virtual void handle_resize();
+	/**
+	 * @brief This function is called by run when the window is being closed.
+	 * 	  This function should be overriden
+	 */
+	virtual void handle_exit();
 	/**
 	 * @brief This function is called by run() to draw a frame.
 	 * 	  This function should be overriden
@@ -144,6 +149,10 @@ public:
 	 *		Any number below 1 means no limit
 	 */
 	void run(int fps);
+	/**
+	 * @brief Stops the mainloop
+	 */
+	void stop();
 };
 
 }

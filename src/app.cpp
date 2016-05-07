@@ -71,15 +71,17 @@ bool App::enable_vsync(bool on) {
 }
 
 void App::poll_events() {
-	int x, y;
 	SDL_Event event;
 
 	while(SDL_PollEvent(&event)) {
 		switch(event.type) {
 		case SDL_QUIT:
-			running = false;
+			handle_exit();
 			break;
 		case SDL_WINDOWEVENT:
+			if(event.window.event == SDL_WINDOWEVENT_CLOSE) {
+				handle_exit();
+			}
 			if(event.window.event == SDL_WINDOWEVENT_RESIZED) {
 				width = event.window.data1;
 				height = event.window.data2;
@@ -142,9 +144,17 @@ void App::handle_mouse_button(int x, int y,
 void App::handle_resize() {
 }
 
+void App::handle_exit() {
+	stop();
+}
+
 void App::display() {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void App::stop() {
+	running = false;
 }
 
 void App::run() {

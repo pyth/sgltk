@@ -1,5 +1,7 @@
 #include "core.h"
 
+bool sgltk::initialized = false;
+
 bool sgltk::init_glew() {
 	glewExperimental=GL_TRUE;
 	if(glewInit()) {
