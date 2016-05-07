@@ -9,11 +9,8 @@ set(SGLTK_VERSION_MAJOR 0)
 set(SGLTK_VERSION_MINOR 2)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})
 
-check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-if(COMPILER_SUPPORTS_CXX0X)
-	if(NOT WIN32)
-		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-	endif()
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall")
 endif()
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for the library files")

@@ -56,6 +56,10 @@ endforeach()
 add_library(sgltk		SHARED ${LIB_SOURCE} ${LIB_HEADERS})
 add_library(sgltk_static	STATIC ${LIB_SOURCE} ${LIB_HEADERS})
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+	set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-fPIC")
+endif()
+
 file(GLOB HEADERS "${PROJECT_BINARY_DIR}/src/*.h")
 add_custom_target(copy_headers)
 add_custom_command(TARGET copy_headers PRE_BUILD
