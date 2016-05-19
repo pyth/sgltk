@@ -47,14 +47,22 @@ class Scene {
 
 	std::map<std::string, unsigned int> mesh_map;
 
+	void animate_mesh(float time, aiAnimation *animation);
 	void traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
 	void traverse_animation_nodes(float time, aiNode *node, aiMatrix4x4 parent_transformation);
+
 	Mesh *create_mesh(aiMesh *mesh);
 	void compute_bounding_box();
+
+	static glm::vec2 interpolate_vector(glm::vec2 start, glm::vec2 end, float factor);
+	static glm::vec3 interpolate_vector(glm::vec3 start, glm::vec3 end, float factor);
+	static glm::vec4 interpolate_vector(glm::vec4 start, glm::vec4 end, float factor);
+
 	static aiVector3D interpolate_scaling(float time, aiNodeAnim *node);
 	static aiVector3D interpolate_translation(float time, aiNodeAnim *node);
 	static aiQuaternion interpolate_rotation(float time, aiNodeAnim *node);
 	static glm::mat4 ai_to_glm_mat4(aiMatrix4x4 *in);
+
 	public:
 		glm::mat4 model_matrix;
 		std::vector<glm::vec3> bounding_box;

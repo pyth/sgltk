@@ -20,7 +20,6 @@ bool Shader::attach_file(std::string filename, GLenum type) {
 	int infoLogLength;
 	SDL_RWops *file;
 	const char *code;
-	char *buf;
 	GLuint tmp;
 	GLint size;
 
@@ -47,7 +46,7 @@ bool Shader::attach_file(std::string filename, GLenum type) {
 		return false;
 	}
 	size = (int)SDL_RWsize(file);
-	buf = new char[size];
+	char buf[size];
 	SDL_RWread(file, buf, size, 1);
 	SDL_RWclose(file);
 	code = buf;
@@ -72,7 +71,6 @@ bool Shader::attach_file(std::string filename, GLenum type) {
 	}
 
 	glDeleteShader(tmp);
-	delete buf;
 	return true;
 }
 

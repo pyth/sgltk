@@ -115,8 +115,8 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 	std::vector<glm::vec4> position(mesh->mNumVertices);
 	std::vector<glm::vec3> normal(mesh->mNumVertices);
 	std::vector<glm::vec4> tangent(mesh->mNumVertices);
-	std::vector<int[BONES_PER_VERTEX]> bone_ids(mesh->mNumVertices);
-	std::vector<float[BONES_PER_VERTEX]> bone_weights(mesh->mNumVertices);
+	std::vector<int> bone_ids(mesh->mNumVertices * BONES_PER_VERTEX);
+	std::vector<float> bone_weights(mesh->mNumVertices * BONES_PER_VERTEX, 0.0);
 	std::vector<std::vector<glm::vec3> > tex_coord(num_uv,
 			std::vector<glm::vec3>(mesh->mNumVertices));
 	std::vector<std::vector<glm::vec4> > col(num_col,
@@ -192,9 +192,9 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			unsigned int vertex_id = mesh->mBones[i]->mWeights[j].mVertexId;
 			float weight = mesh->mBones[i]->mWeights[j].mWeight;
 			for(unsigned int k = 0; k < BONES_PER_VERTEX; k++) {
-				if(bone_weights[vertex_id][k] == 0.0) {
-					bone_ids[vertex_id][k] = index;
-					bone_weights[vertex_id][k] = weight;
+				if(bone_weights[vertex_id * BONES_PER_VERTEX + k] == 0.0) {
+					bone_ids[vertex_id * BONES_PER_VERTEX + k] = index;
+					bone_weights[vertex_id * BONES_PER_VERTEX + k] = weight;
 					break;
 				}
 			}
@@ -219,12 +219,10 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 	int norm_buf = mesh_tmp->attach_vertex_buffer<glm::vec3>(&normal);
 	int tan_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(&tangent);
 
-	int id_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(&bone_ids[0][0],
-					sizeof(glm::vec4) *
-					bone_ids.size());
-	int weight_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(&bone_weights[0][0],
-					sizeof(glm::vec4) *
-					bone_weights.size());
+	int id_buf = mesh_tmp->attach_vertex_buffer<int>(bone_ids.data(),
+					sizeof(int) * bone_ids.size());
+	int weight_buf = mesh_tmp->attach_vertex_buffer<float>(bone_weights.data(),
+					sizeof(float) * bone_weights.size());
 
 	int tc_buf = -1;
 	int col_buf = -1;
@@ -434,7 +432,6 @@ void Scene::traverse_animation_nodes(float time,
 
 	std::string node_name(node->mName.data);
 	aiMatrix4x4 node_transformation = node->mTransformation;
-	aiMeshAnim *mesh_animation = NULL;
 	aiNodeAnim *node_animation = NULL;
 
 	for(unsigned int i = 0; i < scene->mAnimations[0]->mNumChannels; i++) {
@@ -459,8 +456,6 @@ void Scene::traverse_animation_nodes(float time,
 
 		node_transformation = translation * rotation * scaling;
 	}
-
-	//if()
 
 	aiMatrix4x4 glob_transf = parent_transformation * node_transformation;
 	if(bone_map.find(node_name) != bone_map.end()) {
@@ -540,9 +535,40 @@ aiQuaternion Scene::interpolate_rotation(float time, aiNodeAnim *node) {
 	return rot.Normalize();
 }
 
-/*void Scene::animate_mesh(float time, aiAnimation *animation) {
-	
-}*/
+glm::vec2 Scene::interpolate_vector(glm::vec2 start, glm::vec2 end, float factor) {
+	return glm::vec2(interpolate_vector(glm::vec3(start, 0), glm::vec3(end, 0), factor));
+}
+
+glm::vec3 Scene::interpolate_vector(glm::vec3 start, glm::vec3 end, float factor) {
+	return start + factor * (end - start);
+}
+
+glm::vec4 Scene::interpolate_vector(glm::vec4 start, glm::vec4 end, float factor) {
+	return glm::vec4(interpolate_vector(glm::vec3(start), glm::vec3(end), factor), start.w);
+}
+
+void Scene::animate_mesh(float time, aiAnimation *animation) {
+	/*
+	for(unsigned int i = 0; i < animation->mNumMeshChannels; i++) {
+		unsigned int key_index = 0;
+		aiMeshAnim *channel = animation->mMeshChannels[i];
+		std::string mesh_name(channel->mName.C_Str());
+		unsigned int mesh_index = mesh_map[mesh_name];
+
+		for(unsigned int j = 0; j < channel->mNumKeys - 1; j++) {
+			if(time < channel->mKeys[j + 1].mTime) {
+				key_index = j;
+				break;
+			}
+		}
+
+		float dt = channel->mKeys[key_index + 1].mTime -
+				channel->mKeys[key_index].mTime;
+		float factor = (time - channel->mKeys[key_index].mTime) / dt;
+		modify_mesh(mesh_index, key_index, factor);
+	}
+	*/
+}
 
 bool Scene::animate(float time) {
 	if(!scene->HasAnimations())
