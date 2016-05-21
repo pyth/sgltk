@@ -162,7 +162,7 @@ void App::run() {
 }
 
 void App::run(int fps) {
-	float frame_time;
+	double frame_time;
 	Timer frame_timer;
 	if(fps < 1)
 		frame_time = 1e-30;
@@ -180,7 +180,8 @@ void App::run(int fps) {
 		delta_time = frame_timer.get_time();
 		if(fps > 0) {
 			if(delta_time < frame_time) {
-				SDL_Delay(frame_time - delta_time);
+				//SDL_Delay(frame_time - delta_time);
+				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(frame_time - delta_time));
 			}
 		}
 		delta_time = frame_timer.get_time();

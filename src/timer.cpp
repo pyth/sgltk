@@ -4,16 +4,19 @@ using namespace sgltk;
 
 Timer::Timer() {
 	sgltk::init_lib();
-	start_time = 0;
+	start();
 }
 
 Timer::~Timer() {
 }
 
 void Timer::start() {
-	start_time = SDL_GetTicks();
+	start_time = std::chrono::high_resolution_clock::now();
 }
 
-unsigned int Timer::get_time() {
-	return SDL_GetTicks() - start_time;
+double Timer::get_time() {
+	std::chrono::duration<double> dt = std::chrono::high_resolution_clock::now() -
+						start_time;
+
+	return dt.count();
 }

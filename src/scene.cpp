@@ -535,41 +535,6 @@ aiQuaternion Scene::interpolate_rotation(float time, aiNodeAnim *node) {
 	return rot.Normalize();
 }
 
-glm::vec2 Scene::interpolate_vector(glm::vec2 start, glm::vec2 end, float factor) {
-	return glm::vec2(interpolate_vector(glm::vec3(start, 0), glm::vec3(end, 0), factor));
-}
-
-glm::vec3 Scene::interpolate_vector(glm::vec3 start, glm::vec3 end, float factor) {
-	return start + factor * (end - start);
-}
-
-glm::vec4 Scene::interpolate_vector(glm::vec4 start, glm::vec4 end, float factor) {
-	return glm::vec4(interpolate_vector(glm::vec3(start), glm::vec3(end), factor), start.w);
-}
-
-void Scene::animate_mesh(float time, aiAnimation *animation) {
-	/*
-	for(unsigned int i = 0; i < animation->mNumMeshChannels; i++) {
-		unsigned int key_index = 0;
-		aiMeshAnim *channel = animation->mMeshChannels[i];
-		std::string mesh_name(channel->mName.C_Str());
-		unsigned int mesh_index = mesh_map[mesh_name];
-
-		for(unsigned int j = 0; j < channel->mNumKeys - 1; j++) {
-			if(time < channel->mKeys[j + 1].mTime) {
-				key_index = j;
-				break;
-			}
-		}
-
-		float dt = channel->mKeys[key_index + 1].mTime -
-				channel->mKeys[key_index].mTime;
-		float factor = (time - channel->mKeys[key_index].mTime) / dt;
-		modify_mesh(mesh_index, key_index, factor);
-	}
-	*/
-}
-
 bool Scene::animate(float time) {
 	if(!scene->HasAnimations())
 		return false;
@@ -580,7 +545,6 @@ bool Scene::animate(float time) {
 
 	double animation_time = fmod(time * ticks_per_second,
 					scene->mAnimations[0]->mDuration);
-	//animate_mesh(animation_time, scene->mAnimations[0]);
 	traverse_animation_nodes(animation_time, scene->mRootNode, mat);
 	for(unsigned int i = 0; i < bones.size(); i++) {
 		trafos[i] = ai_to_glm_mat4(&bones[i].transformation);

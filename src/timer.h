@@ -10,7 +10,7 @@ namespace sgltk {
  * @brief Provides a simple timer
  */
 class Timer {
-	unsigned int start_time;
+	std::chrono::high_resolution_clock::time_point start_time;
 public:
 	Timer();
 	~Timer();
@@ -23,7 +23,7 @@ public:
 	 * @brief Starts the timer
 	 * @return Time in milliseconds that has passed since start() was called
 	 */
-	unsigned int get_time();
+	double get_time();
 };
 }
 

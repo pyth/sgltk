@@ -25,6 +25,8 @@
 #endif*/
 
 #include <string>
+#include <chrono>
+#include <thread>
 #include <limits>
 #include <iostream>
 #include <map>
