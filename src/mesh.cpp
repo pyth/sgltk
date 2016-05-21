@@ -275,7 +275,7 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 			glm::mat4 *model_matrix) {
 
 	if(!shader) {
-		std::cerr << "Error: No shader specified" << std::endl;
+		error_string = "Error: No shader specified";
 		return;
 	}
 

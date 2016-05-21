@@ -2,10 +2,12 @@
 
 bool sgltk::initialized = false;
 
+std::string sgltk::error_string = "";
+
 bool sgltk::init_glew() {
 	glewExperimental=GL_TRUE;
 	if(glewInit()) {
-		std::cerr << "glewInit failed" << std::endl;
+		sgltk::error_string = std::string("glewInit failed");
 		return false;
 	}
 	return true;
@@ -14,7 +16,8 @@ bool sgltk::init_glew() {
 bool sgltk::init_img() {
 	unsigned int flags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
 	if((IMG_Init(flags) & flags) != flags) {
-		std::cerr << "IMG_Init Error: "<< SDL_GetError() << std::endl;
+		sgltk::error_string = std::string("IMG_Init Error: ") +
+					SDL_GetError();
 		return false;
 	}
 	return true;
@@ -26,7 +29,8 @@ void sgltk::quit_img() {
 
 bool sgltk::init_sdl() {
 	if(SDL_Init(SDL_INIT_EVERYTHING)) {
-		std::cerr << "SDL_Init Error: "<< SDL_GetError() << std::endl;
+		sgltk::error_string = std::string("SDL_Init Error: ") +
+					SDL_GetError();
 		return false;
 	}
 	return true;
@@ -39,7 +43,8 @@ void sgltk::quit_sdl() {
 #ifdef HAVE_SDL_TTF_H
 bool sgltk::init_ttf() {
 	if(TTF_Init()) {
-		std::cerr << "SDL_Init Error: "<< SDL_GetError() << std::endl;
+		sgltk::error_string = std::string("SDL_Init Error: ") +
+					SDL_GetError();
 		return false;
 	}
 	return true;
@@ -55,11 +60,13 @@ bool sgltk::init_mixer() {
 	unsigned int flags = MIX_INIT_FLAC|MIX_INIT_MP3|MIX_INIT_OGG;
 	unsigned int tmp = Mix_Init(flags);
 	if((tmp & flags) != flags) {
-		std::cerr << "Mix_Init Error: "<< SDL_GetError() << std::endl;
+		sgltk::error_string = std::string("Mix_Init Error: ") +
+					SDL_GetError();
 		return false;
 	}
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096)==-1) {
-		std::cerr << "Mix_OpenAudio Error: "<< SDL_GetError() << std::endl;
+		sgltk::error_string = std::string("Mix_OpenAudio Error: ") +
+					SDL_GetError();
 		exit(20);
 		return false;
 	}

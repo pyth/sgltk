@@ -54,6 +54,8 @@
 namespace sgltk {
 	extern bool initialized;
 
+	extern std::string error_string;
+
 	/**
 	 * @brief The path to the executable
 	 */

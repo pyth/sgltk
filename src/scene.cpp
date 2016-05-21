@@ -48,8 +48,8 @@ bool Scene::load(std::string filename) {
 	}
 
 	if(scene->mFlags==AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-		std::cerr << "Error importing " << filename << ": "
-			  << importer.GetErrorString() << std::endl;
+		error_string = std::string("Error importing ") + filename +
+				std::string(": ") + importer.GetErrorString();
 		return false;
 	}
 

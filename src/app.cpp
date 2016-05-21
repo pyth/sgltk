@@ -7,9 +7,9 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	int GL_Maj = gl_maj;
 	int GL_Min = gl_min;
 	if(gl_maj < 3) {
-		std::cerr << "SGLTK requires at least OpenGL version 3.0"
-			  << std::endl << "Defaulting version number to 3.0"
-			  << std::endl;
+		error_string =
+			std::string("SGLTK requires at least OpenGL version 3.0"
+				"\nDefaulting version number to 3.0");
 		GL_Maj = 3;
 		GL_Min = 0;
 	}
@@ -33,8 +33,8 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	window = SDL_CreateWindow(title, offset_x, offset_y,
 				  res_x, res_y, SDL_WINDOW_OPENGL | flags);
 	if(!window) {
-		std::cerr << "SDL_CreateWindow Error: "
-			  << SDL_GetError() << std::endl;
+		error_string = std::string("SDL_CreateWindow Error: ") +
+				SDL_GetError();
 		return;
 	}
 	context = SDL_GL_CreateContext(window);

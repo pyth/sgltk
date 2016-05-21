@@ -41,8 +41,8 @@ bool Shader::attach_file(std::string filename, GLenum type) {
 	}
 
 	if(!file) {
-		std::cerr << "Could not open shader file: " << filename << " - "
-		     << SDL_GetError() << std::endl;
+		error_string = std::string("Could not open shader file: ")
+				+ filename + std::string(" - ") + SDL_GetError();
 		return false;
 	}
 	size = (int)SDL_RWsize(file);
