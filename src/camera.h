@@ -5,9 +5,9 @@
 
 namespace sgltk {
 	enum CAMERA_TYPE {
-		PERSPECTIVE =	1 << 0,
-		ORTHOGRAPHIC =	1 << 1,
-		BOTH =		PERSPECTIVE | ORTHOGRAPHIC
+		PERSPECTIVE =		1 << 0,
+		INF_PERSPECTIVE =	1 << 1,
+		ORTHOGRAPHIC =		1 << 2,
 	};
 
 /**
@@ -32,6 +32,10 @@ public:
 	 */
 	glm::mat4 projection_matrix_persp;
 	/**
+	 * @brief The infinite projection matrix
+	 */
+	glm::mat4 projection_matrix_persp_inf;
+	/**
 	 * @brief The orthographic projection matrix
 	 */
 	glm::mat4 projection_matrix_ortho;
@@ -39,6 +43,14 @@ public:
 	 * @brief The field of view
 	 */
 	float fov;
+	/**
+	 * @brief Viewport width
+	 */
+	float width;
+	/**
+	 * @brief Viewport height
+	 */
+	float height;
 	/**
 	 * @brief The near plane
 	 */
@@ -130,6 +142,15 @@ public:
 	 * @param height The height of the viewport
 	 */
 	void update_projection_matrix(float fov, float width, float height);
+	/**
+	 * @brief Recalculates the projection matrix
+	 * @param fov The field of view
+	 * @param width The width of the viewport
+	 * @param height The height of the viewport
+	 * @param near_plane The near plane
+	 */
+	void update_projection_matrix(float fov, float width, float height,
+				      float near_plane);
 	/**
 	 * @brief Recalculates the projection matrix
 	 * @param fov The field of view

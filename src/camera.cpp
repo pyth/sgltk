@@ -111,11 +111,27 @@ void Camera::update_view_matrix() {
 }
 
 void Camera::update_projection_matrix(float width, float height) {
+	this->width = width;
+	this->height = height;
+
 	update_projection_matrix(fov, width, height, near_plane, far_plane);
 }
 
 void Camera::update_projection_matrix(float fov, float width, float height) {
 	this->fov = fov;
+	this->width = width;
+	this->height = height;
+
+
+	update_projection_matrix(fov, width, height, near_plane, far_plane);
+}
+
+void Camera::update_projection_matrix(float fov, float width, float height,
+				      float near_plane) {
+	this->fov = fov;
+	this->width = width;
+	this->height = height;
+	this->near_plane = near_plane;
 
 	update_projection_matrix(fov, width, height, near_plane, far_plane);
 }
@@ -123,6 +139,8 @@ void Camera::update_projection_matrix(float fov, float width, float height) {
 void Camera::update_projection_matrix(float fov, float width, float height,
 				      float near_plane, float far_plane) {
 	this->fov = fov;
+	this->width = width;
+	this->height = height;
 	this->near_plane = near_plane;
 	this->far_plane = far_plane;
 
@@ -130,6 +148,11 @@ void Camera::update_projection_matrix(float fov, float width, float height,
 		projection_matrix_persp = glm::perspective(fov,
 					  (GLfloat)width/(GLfloat)height,
 					  near_plane, far_plane);
+	}
+	if(type & sgltk::INF_PERSPECTIVE) {
+		projection_matrix_persp_inf = glm::infinitePerspective(fov,
+					      (GLfloat)width/(GLfloat)height,
+					      near_plane);
 	}
 	if(type & sgltk::ORTHOGRAPHIC) {
 		projection_matrix_ortho = glm::ortho(0.0f, width, 0.0f, height,
