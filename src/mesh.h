@@ -153,6 +153,7 @@ class Mesh {
 
 	std::string model_matrix_name;
 	std::string view_matrix_name;
+	std::string projection_matrix_name;
 	std::string model_view_matrix_name;
 	std::string view_proj_matrix_name;
 	std::string model_view_projection_matrix_name;
@@ -273,9 +274,16 @@ public:
 	 * @brief Sets the name of the view matrix in the shader
 	 * @param name The name of the view matrix.
 	 * 	The name is reset if string is empty.
-	 * @note Default value is "matrix.model_matrix"
+	 * @note Default value is "matrix.view_matrix"
 	 */
 	void set_view_matrix_name(std::string name);
+	/**
+	 * @brief Sets the name of the projection matrix in the shader
+	 * @param name The name of the projection matrix.
+	 * 	The name is reset if string is empty.
+	 * @note Default value is "matrix.proj_matrix"
+	 */
+	void set_projection_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the model-view matrix in the shader
 	 * @param name The name of the model-view matrix.

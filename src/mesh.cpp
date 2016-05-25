@@ -13,6 +13,7 @@ Mesh::Mesh() {
 
 	model_matrix_name =			"matrix.model_matrix";
 	view_matrix_name =			"matrix.view_matrix";
+	projection_matrix_name =		"matrix.proj_matrix";
 	model_view_matrix_name =		"matrix.model_view";
 	view_proj_matrix_name =			"matrix.view_proj";
 	model_view_projection_matrix_name =	"matrix.model_view_proj";
@@ -71,6 +72,14 @@ void Mesh::set_view_matrix_name(std::string name) {
 		view_matrix_name = name;
 	else
 		view_matrix_name = "matrix.view_matrix";
+}
+
+void Mesh::set_projection_matrix_name(std::string name) {
+
+	if(name.length() > 0)
+		projection_matrix_name = name;
+	else
+		projection_matrix_name = "matrix.proj_matrix";
 }
 
 void Mesh::set_model_view_matrix_name(std::string name) {
@@ -301,6 +310,10 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 	loc = glGetUniformLocation(shader->program,
 				       view_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*view_matrix));
+
+	loc = glGetUniformLocation(shader->program,
+				   projection_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*projection_matrix));
 
 	loc = glGetUniformLocation(shader->program,
 				       model_view_matrix_name.c_str());
