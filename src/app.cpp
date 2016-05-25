@@ -31,7 +31,7 @@ App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
 	width = res_x;
 	height = res_y;
 	window = SDL_CreateWindow(title, offset_x, offset_y,
-				  res_x, res_y, SDL_WINDOW_OPENGL | flags);
+				  res_x, res_y, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | flags);
 	if(!window) {
 		error_string = std::string("SDL_CreateWindow Error: ") +
 				SDL_GetError();
