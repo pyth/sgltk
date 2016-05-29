@@ -80,7 +80,7 @@ void Texture::set_parameter(GLenum name, int parameter) {
 
 void Texture::set_parameter(GLenum name, float parameter) {
 	glBindTexture(target, texture);
-	glTexParameterf(target, name, parameter);
+	glTexParameteri(target, name, parameter);
 	glBindTexture(target, 0);
 }
 
