@@ -291,16 +291,19 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 	int loc;
 	glm::mat4 M;
 	glm::mat4 MV;
+	glm::mat4 MVP;
+	glm::mat4 VP;
 	glm::mat3 NM;
 	if(model_matrix)
 		M = *model_matrix;
 	else
 		M = this->model_matrix;
 
+	NM = glm::mat3(glm::transpose(glm::inverse(M)));
 	MV = (*view_matrix) * M;
-	NM = glm::mat3(glm::transpose(glm::inverse(MV)));
-	glm::mat4 MVP = (*projection_matrix) * MV;
-	glm::mat4 VP = (*projection_matrix) * (*view_matrix);
+	//NV = glm::mat3(glm::transpose(glm::inverse(MV)));
+	MVP = (*projection_matrix) * MV;
+	VP = (*projection_matrix) * (*view_matrix);
 
 	shader->bind();
 	loc = glGetUniformLocation(shader->program,
