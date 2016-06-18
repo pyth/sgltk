@@ -169,6 +169,8 @@ class Mesh {
 
 	std::map<unsigned int, unsigned int> vertex_buffer_size_map;
 	std::map<unsigned int, GLenum> vertex_buffer_usage_map;
+
+	void material_uniform();
 public:
 	/**
 	 * @brief The bounding box
@@ -442,25 +444,145 @@ public:
 	template <typename T = Vertex>
 	bool replace_buffer_data(unsigned int buffer_index, std::vector<T> *data);
 	/**
+	 * @brief This is a convinience function that combines attach_vertex_buffer and
+	 * 		set_vertex_attribute.
+	 * @param attrib_name		The attribute name in the shader
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param data			The vertices to be loaded into memory
+	 * @param size			The size of the data buffer
+	 * @param usage A hint as to how the buffer will be accessed.
+	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
+	 */
+	template <typename T = glm::vec3>
+	int add_vertex_attribute(std::string attrib_name,
+					GLint number_elements,
+					GLenum type,
+					const void *data,
+					unsigned int size,
+					GLenum usage = GL_STATIC_DRAW);
+	/**
+	 * @brief This is a convinience function that combines attach_vertex_buffer and
+	 * 		set_vertex_attribute.
+	 * @param attrib_name		The attribute name in the shader
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param data			The vertices to be loaded into memory
+	 * @param usage A hint as to how the buffer will be accessed.
+	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
+	 */
+	template <typename T = glm::vec3>
+	int add_vertex_attribute(std::string attrib_name,
+					GLint number_elements,
+					GLenum type,
+					std::vector<T> *data,
+					GLenum usage = GL_STATIC_DRAW);
+	/**
+	 * @brief This is a convinience function that combines attach_vertex_buffer and
+	 * 		set_vertex_attribute.
+	 * @param attrib_location	The attribute location in the shader
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param data			The vertices to be loaded into memory
+	 * @param size			The size of the data buffer
+	 * @param usage A hint as to how the buffer will be accessed.
+	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
+	 */
+	template <typename T = glm::vec3>
+	int add_vertex_attribute(int attrib_location,
+					GLint number_elements,
+					GLenum type,
+					const void *data,
+					unsigned int size,
+					GLenum usage = GL_STATIC_DRAW);
+	/**
+	 * @brief This is a convinience function that combines attach_vertex_buffer and
+	 * 		set_vertex_attribute.
+	 * @param attrib_location	The attribute location in the shader
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param data			The vertices to be loaded into memory
+	 * @param usage A hint as to how the buffer will be accessed.
+	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
+	 */
+	template <typename T = glm::vec3>
+	int add_vertex_attribute(int attrib_location,
+					GLint number_elements,
+					GLenum type,
+					std::vector<T> *data,
+					GLenum usage = GL_STATIC_DRAW);
+	/**
 	 * @brief Sets pointers to vertex attribures
-	 * @param attrib_name	The name as defined in the shader
-	 * @param buffer_index	The index of the buffer that contains
-	 *			the attribute
-	 * @param size		Number of elements
-	 * @param type		Element type
-	 * @param stride	Memory offset between vertices
-	 * @param pointer	The offset of the attribute in the
-	 * 			vertex structure
+	 * @param attrib_name		The attribute name in the shader
+	 * @param buffer_index		The index of the buffer that contains
+	 *				the attribute
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param stride		Memory offset between vertices
+	 * @param pointer		The offset of the attribute in the
+	 * 				vertex structure
 	 * @return	Returns 0 on success, -1 if no shader was
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
 	int set_vertex_attribute(std::string attrib_name,
 				 unsigned int buffer_index,
-				 GLint size,
+				 GLint number_elements,
 				 GLenum type,
 				 GLsizei stride,
 				 const GLvoid *pointer);
+	/**
+	 * @brief Sets pointers to vertex attribures
+	 * @param attrib_location	The attribute location in the shader
+	 * @param buffer_index		The index of the buffer that contains
+	 *				the attribute
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param stride		Memory offset between vertices
+	 * @param pointer		The offset of the attribute in the
+	 * 				vertex structure
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
+	 */
+	int set_vertex_attribute(int attrib_location,
+				 unsigned int buffer_index,
+				 GLint number_elements,
+				 GLenum type,
+				 GLsizei stride,
+				 const GLvoid *pointer);
+	/**
+	 * @brief Sets how often the vertex attribute should be updated to the next value.
+	 * @param attrib_name The name of the attribute in shader
+	 * @param divisor Determines how many instances share the same attribute value.
+	 * 		0 means that every shader gets a new value, 1 means every
+	 * 		instance gets a new value, 2 means that two instances get the
+	 * 		same value and so on.
+	 */
+	void set_vertex_attribute_divisor(std::string attrib_name,
+						unsigned int divisor);
+	/**
+	 * @brief Sets how often the vertex attribute should be updated to the next value.
+	 * @param attrib_location The location of the attribute in shader
+	 * @param divisor Determines how many instances share the same attribute value.
+	 * 		0 means that every shader gets a new value, 1 means every
+	 * 		instance gets a new value, 2 means that two instances get the
+	 * 		same value and so on.
+	 */
+	void set_vertex_attribute_divisor(unsigned int attrib_location,
+						unsigned int divisor);
 	/**
 	 * @brief Attaches an index array to the mesh
 	 * @param indices Indices describing the topology of the mesh
@@ -512,7 +634,79 @@ public:
 	 */
 	void draw(GLenum mode, unsigned int index_buffer,
 		  glm::mat4 *model_matrix);
+
+	/**
+	 * @brief Renders the mesh multiple times
+	 * @param mode Specifies the primitive that will be created from
+	 * 	  vertices
+	 * @param model_matrix The model matrices to use
+	 *	  (NULL to draw one instance using the model_matrix member)
+	 */
+	void draw_instanced(GLenum mode, std::vector<glm::mat4> *model_matrices);
+
+	/**
+	 * @brief Renders the mesh multiple times
+	 * @param mode Specifies the primitive that will be created from
+	 * 	  vertices
+	 * @param index_buffer The index buffer to use
+	 * @param model_matrix The model matrices to use
+	 *	  (NULL to draw one instance using the model_matrix member)
+	 */
+	void draw_instanced(GLenum mode, unsigned int index_buffer,
+				std::vector<glm::mat4> *model_matrices);
 };
+
+template <typename T>
+int Mesh::add_vertex_attribute(std::string attrib_name,
+				GLint number_elements,
+				GLenum type,
+				const void *data,
+				unsigned int size,
+				GLenum usage) {
+	int buffer_index;
+	T *ptr = (T *)data;
+	std::vector<T> tmp(ptr, ptr + size);
+	buffer_index = attach_vertex_buffer<T>(&tmp, usage);
+	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
+					type, 0, 0);
+}
+
+template <typename T>
+int Mesh::add_vertex_attribute(std::string attrib_name,
+				GLint number_elements,
+				GLenum type,
+				std::vector<T> *data,
+				GLenum usage) {
+	int buffer_index = attach_vertex_buffer<T>(data, usage);
+	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
+					type, 0, 0);
+}
+
+template <typename T>
+int Mesh::add_vertex_attribute(int attrib_location,
+				GLint number_elements,
+				GLenum type,
+				const void *data,
+				unsigned int size,
+				GLenum usage) {
+	int buffer_index;
+	T *ptr = (T *)data;
+	std::vector<T> tmp(ptr, ptr + size);
+	buffer_index = attach_vertex_buffer<T>(&tmp, usage);
+	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
+					type, 0, 0);
+}
+
+template <typename T>
+int Mesh::add_vertex_attribute(int attrib_location,
+				GLint number_elements,
+				GLenum type,
+				std::vector<T> *data,
+				GLenum usage) {
+	int buffer_index = attach_vertex_buffer<T>(data, usage);
+	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
+					type, 0, 0);
+}
 
 template <typename T>
 int Mesh::attach_vertex_buffer(const void *vertexdata,

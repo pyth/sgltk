@@ -213,23 +213,38 @@ void Mesh::set_lightmap_texture_name(std::string name) {
 }
 
 int Mesh::set_vertex_attribute(std::string attrib_name,
-				       unsigned int buffer_index,
-				       GLint size,
-				       GLenum type,
-				       GLsizei stride,
-				       const GLvoid *pointer) {
+				unsigned int buffer_index,
+				GLint number_elements,
+				GLenum type,
+				GLsizei stride,
+				const GLvoid *pointer) {
+	int loc = glGetAttribLocation(shader->program, attrib_name.c_str());
+	if(loc == -1) {
+		return -2;
+	}
+
+	return set_vertex_attribute(loc, buffer_index, number_elements, type,
+					stride, pointer);
+}
+
+int Mesh::set_vertex_attribute(int attrib_location,
+				unsigned int buffer_index,
+				GLint number_elements,
+				GLenum type,
+				GLsizei stride,
+				const GLvoid *pointer) {
 	if(!shader) {
 		return -1;
 	}
+
+	if(attrib_location == -1) {
+		return -2;
+	}
+
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
 
-	int loc = glGetAttribLocation(shader->program, attrib_name.c_str());
-	if(loc == -1) {
-		glBindVertexArray(0);
-		return -2;
-	}
-	glEnableVertexAttribArray(loc);
+	glEnableVertexAttribArray(attrib_location);
 	switch(type) {
 		case GL_BYTE:
 		case GL_UNSIGNED_BYTE:
@@ -237,21 +252,40 @@ int Mesh::set_vertex_attribute(std::string attrib_name,
 		case GL_UNSIGNED_SHORT:
 		case GL_INT:
 		case GL_UNSIGNED_INT:
-			glVertexAttribIPointer(loc, size, type, stride,
-						(void *)pointer);
+			glVertexAttribIPointer(attrib_location, number_elements,
+						type, stride, (void *)pointer);
 			break;
 		case GL_DOUBLE:
-			glVertexAttribLPointer(loc, size, type, stride,
-						(void *)pointer);
+			glVertexAttribLPointer(attrib_location, number_elements,
+						type, stride, (void *)pointer);
 			break;
 		default:
-			glVertexAttribPointer(loc, size, type, GL_FALSE, stride,
+			glVertexAttribPointer(attrib_location, number_elements,
+						type, GL_FALSE, stride, 
 						(void*)pointer);
 			break;
 	}
 
 	glBindVertexArray(0);
 	return 0;
+}
+
+void Mesh::set_vertex_attribute_divisor(std::string attrib_name,
+						unsigned int divisor) {
+	int loc = glGetAttribLocation(shader->program, attrib_name.c_str());
+	if(loc == -1) {
+		return;
+	}
+
+	glVertexAttribDivisor(loc, divisor);
+}
+
+void Mesh::set_vertex_attribute_divisor(unsigned int attrib_location,
+					unsigned int divisor) {
+	if(attrib_location < 0)
+		return;
+
+	glVertexAttribDivisor(attrib_location, divisor);
 }
 
 void Mesh::attach_index_buffer(const std::vector<unsigned short> *indices) {
@@ -268,71 +302,8 @@ void Mesh::attach_index_buffer(const std::vector<unsigned short> *indices) {
 	ibo.push_back(index);
 }
 
-void Mesh::draw(GLenum mode) {
-	draw(mode, 0, NULL);
-}
-
-void Mesh::draw(GLenum mode, unsigned int index_buffer) {
-	draw(mode, index_buffer, NULL);
-}
-
-void Mesh::draw(GLenum mode, glm::mat4 *model_matrix) {
-	draw(mode, 0, model_matrix);
-}
-
-void Mesh::draw(GLenum mode, unsigned int index_buffer,
-			glm::mat4 *model_matrix) {
-
-	if(!shader) {
-		error_string = "Error: No shader specified";
-		return;
-	}
-
+void Mesh::material_uniform() {
 	int loc;
-	glm::mat4 M;
-	glm::mat4 MV;
-	glm::mat4 MVP;
-	glm::mat4 VP;
-	glm::mat3 NM;
-	if(model_matrix)
-		M = *model_matrix;
-	else
-		M = this->model_matrix;
-
-	NM = glm::mat3(glm::transpose(glm::inverse(M)));
-	MV = (*view_matrix) * M;
-	//NV = glm::mat3(glm::transpose(glm::inverse(MV)));
-	MVP = (*projection_matrix) * MV;
-	VP = (*projection_matrix) * (*view_matrix);
-
-	shader->bind();
-	loc = glGetUniformLocation(shader->program,
-				       model_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(M));
-
-	loc = glGetUniformLocation(shader->program,
-				       view_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*view_matrix));
-
-	loc = glGetUniformLocation(shader->program,
-				   projection_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*projection_matrix));
-
-	loc = glGetUniformLocation(shader->program,
-				       model_view_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MV));
-
-	loc = glGetUniformLocation(shader->program,
-				       view_proj_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(VP));
-
-	loc = glGetUniformLocation(shader->program,
-				   normal_matrix_name.c_str());
-	glUniformMatrix3fv(loc, 1, false, glm::value_ptr(NM));
-
-	loc = glGetUniformLocation(shader->program,
-				   model_view_projection_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MVP));
 
 	loc = glGetUniformLocation(shader->program, ambient_color_name.c_str());
 	glUniform4f(loc, color_ambient.x, color_ambient.y, color_ambient.z,
@@ -479,10 +450,163 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 		num_textures++;
 	}
 
+}
+
+void Mesh::draw(GLenum mode) {
+	draw(mode, 0, NULL);
+}
+
+void Mesh::draw(GLenum mode, unsigned int index_buffer) {
+	draw(mode, index_buffer, NULL);
+}
+
+void Mesh::draw(GLenum mode, glm::mat4 *model_matrix) {
+	draw(mode, 0, model_matrix);
+}
+
+void Mesh::draw(GLenum mode, unsigned int index_buffer,
+			glm::mat4 *model_matrix) {
+
+	if(!shader) {
+		error_string = "Error: No shader specified";
+		return;
+	}
+
+	int loc;
+	glm::mat4 M;
+	glm::mat4 MV;
+	glm::mat4 MVP;
+	glm::mat4 VP;
+	glm::mat3 NM;
+	if(model_matrix)
+		M = *model_matrix;
+	else
+		M = this->model_matrix;
+
+	NM = glm::mat3(glm::transpose(glm::inverse(M)));
+	MV = (*view_matrix) * M;
+	MVP = (*projection_matrix) * MV;
+	VP = (*projection_matrix) * (*view_matrix);
+
+	shader->bind();
+	loc = glGetUniformLocation(shader->program,
+				       model_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(M));
+
+	loc = glGetUniformLocation(shader->program,
+				       view_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*view_matrix));
+
+	loc = glGetUniformLocation(shader->program,
+				   projection_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*projection_matrix));
+
+	loc = glGetUniformLocation(shader->program,
+				       model_view_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MV));
+
+	loc = glGetUniformLocation(shader->program,
+				       view_proj_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(VP));
+
+	loc = glGetUniformLocation(shader->program,
+				   normal_matrix_name.c_str());
+	glUniformMatrix3fv(loc, 1, false, glm::value_ptr(NM));
+
+	loc = glGetUniformLocation(shader->program,
+				   model_view_projection_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MVP));
+
+	material_uniform();
+
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
 	glDrawElements(mode, num_indices[index_buffer],
 		       GL_UNSIGNED_SHORT, (void*)0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	shader->unbind();
+}
+
+void Mesh::draw_instanced(GLenum mode, std::vector<glm::mat4> *model_matrices) {
+	draw_instanced(mode, 0, model_matrices);
+}
+
+void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
+			std::vector<glm::mat4> *model_matrices) {
+
+	if(!shader) {
+		error_string = "Error: No shader specified";
+		return;
+	}
+
+	if(model_matrices == NULL) {
+		draw(mode, index_buffer);
+		return;
+	}
+
+	if(model_matrices->size() == 0) {
+		draw(mode, index_buffer);
+		return;
+	}
+
+	if(model_matrices->size() == 1) {
+		draw(mode, index_buffer, &(*model_matrices)[0]);
+		return;
+	}
+
+	int loc;
+	glm::mat4 M;
+	glm::mat4 MV;
+	glm::mat4 MVP;
+	glm::mat4 VP;
+	glm::mat3 NM;
+
+	VP = (*projection_matrix) * (*view_matrix);
+	shader->bind();
+
+	for(unsigned int i = 0; i < model_matrices->size(); i++) {
+		std::string index = "[" + std::to_string(i) + "]";
+		M = (*model_matrices)[i];
+		NM = glm::mat3(glm::transpose(glm::inverse(M)));
+		MV = (*view_matrix) * M;
+		MVP = (*projection_matrix) * MV;
+
+		loc = glGetUniformLocation(shader->program,
+				(model_matrix_name + index).c_str());
+		glUniformMatrix4fv(loc, 1, false, glm::value_ptr(M));
+
+		loc = glGetUniformLocation(shader->program,
+				(model_view_matrix_name + index).c_str());
+		glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MV));
+
+		loc = glGetUniformLocation(shader->program,
+				(normal_matrix_name + index).c_str());
+		glUniformMatrix3fv(loc, 1, false, glm::value_ptr(NM));
+
+		loc = glGetUniformLocation(shader->program,
+				(model_view_projection_matrix_name + index).c_str());
+		glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MVP));
+	}
+
+	loc = glGetUniformLocation(shader->program,
+			view_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*view_matrix));
+
+	loc = glGetUniformLocation(shader->program,
+			projection_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*projection_matrix));
+
+	loc = glGetUniformLocation(shader->program,
+			view_proj_matrix_name.c_str());
+	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(VP));
+
+	material_uniform();
+
+	glBindVertexArray(vao);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
+	glDrawElementsInstanced(mode, num_indices[index_buffer],
+		       GL_UNSIGNED_SHORT, (void*)0, model_matrices->size());
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	shader->unbind();
