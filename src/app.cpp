@@ -145,16 +145,12 @@ void App::handle_resize() {
 }
 
 void App::handle_exit() {
-	stop();
+	exit(0);
 }
 
 void App::display() {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
-}
-
-void App::stop() {
-	running = false;
 }
 
 void App::run() {

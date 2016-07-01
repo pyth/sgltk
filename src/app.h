@@ -149,10 +149,6 @@ public:
 	 *		Any number below 1 means no limit
 	 */
 	void run(int fps);
-	/**
-	 * @brief Stops the mainloop
-	 */
-	void stop();
 };
 
 }
