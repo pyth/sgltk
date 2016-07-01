@@ -11,13 +11,13 @@ Mesh::Mesh() {
 	bounding_box.push_back(glm::vec3(0, 0, 0));
 	bounding_box.push_back(glm::vec3(0, 0, 0));
 
-	model_matrix_name =			"matrix.model_matrix";
-	view_matrix_name =			"matrix.view_matrix";
-	projection_matrix_name =		"matrix.proj_matrix";
-	model_view_matrix_name =		"matrix.model_view";
-	view_proj_matrix_name =			"matrix.view_proj";
-	model_view_projection_matrix_name =	"matrix.model_view_proj";
-	normal_matrix_name =			"matrix.normal_matrix";
+	model_matrix_name =			"model_matrix";
+	view_matrix_name =			"view_matrix";
+	projection_matrix_name =		"proj_matrix";
+	model_view_matrix_name =		"model_view_matrix";
+	view_proj_matrix_name =			"view_proj_matrix";
+	model_view_projection_matrix_name =	"model_view_proj_matrix";
+	normal_matrix_name =			"normal_matrix";
 
 	ambient_color_name =			"color_ambient";
 	diffuse_color_name =			"color_diffuse";
@@ -63,7 +63,7 @@ void Mesh::set_model_matrix_name(std::string name) {
 	if(name.length() > 0)
 		model_matrix_name = name;
 	else
-		model_matrix_name = "matrix.model_matrix";
+		model_matrix_name = "model_matrix";
 }
 
 void Mesh::set_view_matrix_name(std::string name) {
@@ -71,7 +71,7 @@ void Mesh::set_view_matrix_name(std::string name) {
 	if(name.length() > 0)
 		view_matrix_name = name;
 	else
-		view_matrix_name = "matrix.view_matrix";
+		view_matrix_name = "view_matrix";
 }
 
 void Mesh::set_projection_matrix_name(std::string name) {
@@ -79,7 +79,7 @@ void Mesh::set_projection_matrix_name(std::string name) {
 	if(name.length() > 0)
 		projection_matrix_name = name;
 	else
-		projection_matrix_name = "matrix.proj_matrix";
+		projection_matrix_name = "proj_matrix";
 }
 
 void Mesh::set_model_view_matrix_name(std::string name) {
@@ -87,7 +87,7 @@ void Mesh::set_model_view_matrix_name(std::string name) {
 	if(name.length() > 0)
 		model_view_matrix_name = name;
 	else
-		model_view_matrix_name = "matrix.model_view";
+		model_view_matrix_name = "model_view_matrix";
 }
 
 void Mesh::set_view_proj_matrix_name(std::string name) {
@@ -95,7 +95,7 @@ void Mesh::set_view_proj_matrix_name(std::string name) {
 	if(name.length() > 0)
 		view_proj_matrix_name = name;
 	else
-		view_proj_matrix_name = "matrix.view_proj";
+		view_proj_matrix_name = "view_proj_matrix";
 }
 
 void Mesh::set_model_view_proj_name(std::string name) {
@@ -103,7 +103,7 @@ void Mesh::set_model_view_proj_name(std::string name) {
 	if(name.length() > 0)
 		model_view_projection_matrix_name = name;
 	else
-		model_view_projection_matrix_name = "matrix.model_view_proj";
+		model_view_projection_matrix_name = "model_view_proj_matrix";
 }
 
 void Mesh::set_normal_matrix_name(std::string name) {
@@ -111,7 +111,7 @@ void Mesh::set_normal_matrix_name(std::string name) {
 	if(name.length() > 0)
 		normal_matrix_name = name;
 	else
-		normal_matrix_name = "matrix.normal_matrix";
+		normal_matrix_name = "normal_matrix";
 }
 
 void Mesh::set_ambient_color_name(std::string name) {
@@ -270,8 +270,7 @@ int Mesh::set_vertex_attribute(int attrib_location,
 	return 0;
 }
 
-void Mesh::set_vertex_attribute_divisor(std::string attrib_name,
-						unsigned int divisor) {
+void Mesh::set_vertex_attribute_divisor(std::string attrib_name, unsigned int divisor) {
 	int loc = glGetAttribLocation(shader->program, attrib_name.c_str());
 	if(loc == -1) {
 		return;
@@ -280,8 +279,7 @@ void Mesh::set_vertex_attribute_divisor(std::string attrib_name,
 	glVertexAttribDivisor(loc, divisor);
 }
 
-void Mesh::set_vertex_attribute_divisor(unsigned int attrib_location,
-					unsigned int divisor) {
+void Mesh::set_vertex_attribute_divisor(unsigned int attrib_location, unsigned int divisor) {
 	if(attrib_location < 0)
 		return;
 
@@ -528,66 +526,21 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 	shader->unbind();
 }
 
-void Mesh::draw_instanced(GLenum mode, std::vector<glm::mat4> *model_matrices) {
-	draw_instanced(mode, 0, model_matrices);
+void Mesh::draw_instanced(GLenum mode, unsigned int num_instances) {
+	draw_instanced(mode, 0, num_instances);
 }
 
 void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
-			std::vector<glm::mat4> *model_matrices) {
+					unsigned int num_instances) {
 
 	if(!shader) {
 		error_string = "Error: No shader specified";
 		return;
 	}
 
-	if(model_matrices == NULL) {
-		draw(mode, index_buffer);
-		return;
-	}
-
-	if(model_matrices->size() == 0) {
-		draw(mode, index_buffer);
-		return;
-	}
-
-	if(model_matrices->size() == 1) {
-		draw(mode, index_buffer, &(*model_matrices)[0]);
-		return;
-	}
-
-	int loc;
-	glm::mat4 M;
-	glm::mat4 MV;
-	glm::mat4 MVP;
-	glm::mat4 VP;
-	glm::mat3 NM;
-
-	VP = (*projection_matrix) * (*view_matrix);
 	shader->bind();
 
-	for(unsigned int i = 0; i < model_matrices->size(); i++) {
-		std::string index = "[" + std::to_string(i) + "]";
-		M = (*model_matrices)[i];
-		NM = glm::mat3(glm::transpose(glm::inverse(M)));
-		MV = (*view_matrix) * M;
-		MVP = (*projection_matrix) * MV;
-
-		loc = glGetUniformLocation(shader->program,
-				(model_matrix_name + index).c_str());
-		glUniformMatrix4fv(loc, 1, false, glm::value_ptr(M));
-
-		loc = glGetUniformLocation(shader->program,
-				(model_view_matrix_name + index).c_str());
-		glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MV));
-
-		loc = glGetUniformLocation(shader->program,
-				(normal_matrix_name + index).c_str());
-		glUniformMatrix3fv(loc, 1, false, glm::value_ptr(NM));
-
-		loc = glGetUniformLocation(shader->program,
-				(model_view_projection_matrix_name + index).c_str());
-		glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MVP));
-	}
+	int loc;
 
 	loc = glGetUniformLocation(shader->program,
 			view_matrix_name.c_str());
@@ -599,14 +552,15 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 
 	loc = glGetUniformLocation(shader->program,
 			view_proj_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(VP));
+	glUniformMatrix4fv(loc, 1, false,
+		glm::value_ptr((*projection_matrix) * (*view_matrix)));
 
 	material_uniform();
 
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
 	glDrawElementsInstanced(mode, num_indices[index_buffer],
-		       GL_UNSIGNED_SHORT, (void*)0, model_matrices->size());
+		       GL_UNSIGNED_SHORT, (void*)0, num_instances);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	shader->unbind();

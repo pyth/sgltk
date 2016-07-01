@@ -269,35 +269,35 @@ public:
 	 * @brief Sets the name of the model matrix in the shader
 	 * @param name The name of the model matrix.
 	 * 	The name is reset if string is empty.
-	 * @note Default value is "matrix.model_matrix"
+	 * @note Default value is "model_matrix"
 	 */
 	void set_model_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the view matrix in the shader
 	 * @param name The name of the view matrix.
 	 * 	The name is reset if string is empty.
-	 * @note Default value is "matrix.view_matrix"
+	 * @note Default value is "view_matrix"
 	 */
 	void set_view_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the projection matrix in the shader
 	 * @param name The name of the projection matrix.
 	 * 	The name is reset if string is empty.
-	 * @note Default value is "matrix.proj_matrix"
+	 * @note Default value is "proj_matrix"
 	 */
 	void set_projection_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the model-view matrix in the shader
 	 * @param name The name of the model-view matrix.
 	 * 	The name is reset if string is empty.
-	 * @note Default value is "matrix.model_view"
+	 * @note Default value is "model_view_matrix"
 	 */
 	void set_model_view_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the view-projection matrix in the shader
 	 * @param name The name of the view-projection matrix.
 	 * 	The name is reset if string is empty.
-	 * @note Default value is "matrix.view_proj"
+	 * @note Default value is "view_proj_matrix"
 	 */
 	void set_view_proj_matrix_name(std::string name);
 	/**
@@ -305,14 +305,14 @@ public:
 	 * 	in the shader
 	 * @param name The name of the model-view-projection matrix.
 	 * 	The name is reset if string is empty.
-	 * @note Default value is "matrix.model_view_proj"
+	 * @note Default value is "model_view_proj_matrix"
 	 */
 	void set_model_view_proj_name(std::string name);
 	/**
 	 * @brief Sets the name of the normal matrix in the shader
 	 * @param name The name of the normal matrix.
 	 * 	The name is reset if string is empty.
-	 * @note Default value is "matrix.normal_matrix"
+	 * @note Default value is "normal_matrix"
 	 */
 	void set_normal_matrix_name(std::string normal_matrix_name);
 	/**
@@ -571,8 +571,7 @@ public:
 	 * 		instance gets a new value, 2 means that two instances get the
 	 * 		same value and so on.
 	 */
-	void set_vertex_attribute_divisor(std::string attrib_name,
-						unsigned int divisor);
+	void set_vertex_attribute_divisor(std::string attrib_name, unsigned int divisor);
 	/**
 	 * @brief Sets how often the vertex attribute should be updated to the next value.
 	 * @param attrib_location The location of the attribute in shader
@@ -581,8 +580,7 @@ public:
 	 * 		instance gets a new value, 2 means that two instances get the
 	 * 		same value and so on.
 	 */
-	void set_vertex_attribute_divisor(unsigned int attrib_location,
-						unsigned int divisor);
+	void set_vertex_attribute_divisor(unsigned int attrib_location, unsigned int divisor);
 	/**
 	 * @brief Attaches an index array to the mesh
 	 * @param indices Indices describing the topology of the mesh
@@ -639,21 +637,19 @@ public:
 	 * @brief Renders the mesh multiple times
 	 * @param mode Specifies the primitive that will be created from
 	 * 	  vertices
-	 * @param model_matrix The model matrices to use
-	 *	  (NULL to draw one instance using the model_matrix member)
+	 * @param num_instances Number of instances to be drawn
 	 */
-	void draw_instanced(GLenum mode, std::vector<glm::mat4> *model_matrices);
+	void draw_instanced(GLenum mode, unsigned int num_instances);
 
 	/**
 	 * @brief Renders the mesh multiple times
 	 * @param mode Specifies the primitive that will be created from
 	 * 	  vertices
 	 * @param index_buffer The index buffer to use
-	 * @param model_matrix The model matrices to use
-	 *	  (NULL to draw one instance using the model_matrix member)
+	 * @param num_instances Number of instances to be drawn
 	 */
 	void draw_instanced(GLenum mode, unsigned int index_buffer,
-				std::vector<glm::mat4> *model_matrices);
+						unsigned int num_instances);
 };
 
 template <typename T>
