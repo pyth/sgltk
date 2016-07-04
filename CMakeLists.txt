@@ -43,7 +43,6 @@ add_custom_target(uninstall
 
 add_subdirectory(src)
 add_subdirectory(doc)
-add_subdirectory(example EXCLUDE_FROM_ALL)
 
 export(TARGETS sgltk sgltk_static
 	FILE "${PROJECT_BINARY_DIR}/sgltkTargets.cmake")
