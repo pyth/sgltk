@@ -22,12 +22,11 @@ set(LIB_HEADERS
 	mesh.h)
 
 set(LIBS_REQUIRED GL GLEW SDL2 SDL2_image assimp)
-set(LIBS_OPTIONAL SDL2_ttf SDL2_mixer)
+set(LIBS_OPTIONAL SDL2_ttf)
 
 check_include_files(GL/glew.h			HAVE_GLEW_H)
 check_include_files(SDL2/SDL.h			HAVE_SDL_H)
 check_include_files(SDL2/SDL_ttf.h		HAVE_SDL_TTF_H)
-check_include_files(SDL2/SDL_mixer.h		HAVE_SDL_MIXER_H)
 check_include_files(SDL2/SDL_image.h		HAVE_SDL_IMAGE_H)
 check_include_file_cxx(glm/glm.hpp		HAVE_GLM_H)
 check_include_file_cxx(assimp/Importer.hpp	HAVE_ASSIMP_H)

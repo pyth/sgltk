@@ -43,9 +43,6 @@
 #ifdef HAVE_SDL_TTF_H
 	#include <SDL2/SDL_ttf.h>
 #endif //HAVE_SDL_TTF_H
-#ifdef HAVE_SDL_MIXER_H
-	#include <SDL2/SDL_mixer.h>
-#endif //HAVE_SDL_MIXER_H
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
 
@@ -91,15 +88,6 @@ namespace sgltk {
 	bool init_ttf();
 	void quit_ttf();
 #endif //HAVE_SDL_TTF_H
-
-#ifdef HAVE_SDL_MIXER_H
-	/**
-	 * @brief Initializes SDL2_mixer
-	 * @return Returns true on success, flase otherwise
-	 */
-	bool init_mixer();
-	void quit_mixer();
-#endif //HAVE_SDL_MIXER_H
 
 	/**
 	 * @brief Initializes all parts of SDL2 used by SGLTK
