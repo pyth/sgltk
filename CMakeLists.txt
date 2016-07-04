@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.4)
 project(sgltk)
 
 include(CheckIncludeFiles)
@@ -9,13 +9,8 @@ set(SGLTK_VERSION_MAJOR 0)
 set(SGLTK_VERSION_MINOR 2)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})
 
-check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-message(STATUS "Checking compiler ${CMAKE_CXX_COMPILER} for c++0x support")
-if(COMPILER_SUPPORTS_CXX0X)
-	message(STATUS "The compiler ${CMAKE_CXX_COMPILER} supports c++0x")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-else()
-	message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no c++0x support")
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall")
 endif()
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for the library files")
@@ -36,9 +31,6 @@ foreach(p LIB BIN INCLUDE CMAKE)
 	endif()
 endforeach()
 
-configure_file("config.h.in"
-	"${PROJECT_SOURCE_DIR}/src/config.h")
-
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 configure_file(
@@ -51,7 +43,6 @@ add_custom_target(uninstall
 
 add_subdirectory(src)
 add_subdirectory(doc)
-add_subdirectory(example EXCLUDE_FROM_ALL)
 
 export(TARGETS sgltk sgltk_static
 	FILE "${PROJECT_BINARY_DIR}/sgltkTargets.cmake")

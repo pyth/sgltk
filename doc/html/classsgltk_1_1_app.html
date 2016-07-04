@@ -138,6 +138,10 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a0237a46b83333b479c789aeff7359aa5">handle_resize</a> ()</td></tr>
 <tr class="memdesc:a0237a46b83333b479c789aeff7359aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by run when the window is resized. This function should be overriden. <br /></td></tr>
 <tr class="separator:a0237a46b83333b479c789aeff7359aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21574c06efa8f47a58a9627f0e2f17b3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21574c06efa8f47a58a9627f0e2f17b3"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a21574c06efa8f47a58a9627f0e2f17b3">handle_exit</a> ()</td></tr>
+<tr class="memdesc:a21574c06efa8f47a58a9627f0e2f17b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by run when the window is being closed. This function should be overriden. <br /></td></tr>
+<tr class="separator:a21574c06efa8f47a58a9627f0e2f17b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83cc59edf2eb24895f259164294a98ea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83cc59edf2eb24895f259164294a98ea"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a83cc59edf2eb24895f259164294a98ea">display</a> ()</td></tr>
 <tr class="memdesc:a83cc59edf2eb24895f259164294a98ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_app.html#ae09dc71078b64c56c673b1ad1d25b5d1" title="This is the mainloop. It does not limit the framerate. ">run()</a> to draw a frame. This function should be overriden. <br /></td></tr>
@@ -160,10 +164,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a0bc7c7d56137e8bd5b9030bb7e444426">height</a></td></tr>
 <tr class="memdesc:a0bc7c7d56137e8bd5b9030bb7e444426"><td class="mdescLeft">&#160;</td><td class="mdescRight">The height of the window surface. <br /></td></tr>
 <tr class="separator:a0bc7c7d56137e8bd5b9030bb7e444426"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab177a23c26a9fcdec35a214a67925822"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab177a23c26a9fcdec35a214a67925822"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#ab177a23c26a9fcdec35a214a67925822">delta_time</a></td></tr>
-<tr class="memdesc:ab177a23c26a9fcdec35a214a67925822"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time it took to draw the last frame. <br /></td></tr>
-<tr class="separator:ab177a23c26a9fcdec35a214a67925822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75f995fff586dc7e7bab4f0f6e6c3b5c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75f995fff586dc7e7bab4f0f6e6c3b5c"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a75f995fff586dc7e7bab4f0f6e6c3b5c">delta_time</a></td></tr>
+<tr class="memdesc:a75f995fff586dc7e7bab4f0f6e6c3b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time it took to draw the last frame. <br /></td></tr>
+<tr class="separator:a75f995fff586dc7e7bab4f0f6e6c3b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ed9918a7807b64313973b60b991a72f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ed9918a7807b64313973b60b991a72f"></a>
 SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a7ed9918a7807b64313973b60b991a72f">window</a></td></tr>
 <tr class="memdesc:a7ed9918a7807b64313973b60b991a72f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The window surface. <br /></td></tr>
@@ -367,7 +371,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00136">136</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00138">138</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
@@ -412,7 +416,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00130">130</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00132">132</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
@@ -457,7 +461,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00133">133</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00135">135</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
@@ -484,7 +488,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Retruns true if the key is pressed, false otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00123">123</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00125">125</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
@@ -510,7 +514,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00154">154</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00160">160</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
@@ -547,7 +551,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 28 2016 03:06:16 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 5 2016 01:46:34 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

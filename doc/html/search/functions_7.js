@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['handle_5fexit',['handle_exit',['../classsgltk_1_1_app.html#a21574c06efa8f47a58a9627f0e2f17b3',1,'sgltk::App']]],
   ['handle_5fkeyboard',['handle_keyboard',['../classsgltk_1_1_app.html#a88438f83e994ffb4657b8085d8092f0d',1,'sgltk::App']]],
   ['handle_5fmouse_5fbutton',['handle_mouse_button',['../classsgltk_1_1_app.html#ab59ec8d4fede7de347588c157b8e6b08',1,'sgltk::App']]],
   ['handle_5fmouse_5fmotion',['handle_mouse_motion',['../classsgltk_1_1_app.html#ac17a93e8a3e3e68f893c863ab632b4e5',1,'sgltk::App']]],

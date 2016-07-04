@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classsgltk_1_1_shader-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -103,9 +104,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0450e0fb59dd7b8db45ba48eb064acb4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_shader.html#a0450e0fb59dd7b8db45ba48eb064acb4">attach_file</a> (const char *filename, GLenum type)</td></tr>
-<tr class="memdesc:a0450e0fb59dd7b8db45ba48eb064acb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles and attaches shader files.  <a href="#a0450e0fb59dd7b8db45ba48eb064acb4">More...</a><br /></td></tr>
-<tr class="separator:a0450e0fb59dd7b8db45ba48eb064acb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f1ab227dc66a1240205eedcf645945"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_shader.html#a25f1ab227dc66a1240205eedcf645945">attach_file</a> (std::string filename, GLenum type)</td></tr>
+<tr class="memdesc:a25f1ab227dc66a1240205eedcf645945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles and attaches shader files.  <a href="#a25f1ab227dc66a1240205eedcf645945">More...</a><br /></td></tr>
+<tr class="separator:a25f1ab227dc66a1240205eedcf645945"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a870db8002c4c299ec15d7fac4544ce6d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_shader.html#a870db8002c4c299ec15d7fac4544ce6d">attach_string</a> (const char *shader_string, GLint size, GLenum type)</td></tr>
 <tr class="memdesc:a870db8002c4c299ec15d7fac4544ce6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles and attaches shader strings.  <a href="#a870db8002c4c299ec15d7fac4544ce6d">More...</a><br /></td></tr>
 <tr class="separator:a870db8002c4c299ec15d7fac4544ce6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,6 +127,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a227a45de0b25215955560defe26660ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbinds the shader and restores the previously bound shader. <br /></td></tr>
 <tr class="separator:a227a45de0b25215955560defe26660ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af0095d57c455fd73dc0ba6912a38b9bc"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_shader.html#af0095d57c455fd73dc0ba6912a38b9bc">add_path</a> (std::string path)</td></tr>
+<tr class="memdesc:af0095d57c455fd73dc0ba6912a38b9bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a path to the list of paths to be searched ▸ for image files.  <a href="#af0095d57c455fd73dc0ba6912a38b9bc">More...</a><br /></td></tr>
+<tr class="separator:af0095d57c455fd73dc0ba6912a38b9bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a81b067c3c22eb1ec25e106a3891b1d9a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81b067c3c22eb1ec25e106a3891b1d9a"></a>
@@ -138,14 +145,49 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>Definition at line <a class="el" href="shader_8h_source.html#l00012">12</a> of file <a class="el" href="shader_8h_source.html">shader.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a0450e0fb59dd7b8db45ba48eb064acb4"></a>
+<a class="anchor" id="af0095d57c455fd73dc0ba6912a38b9bc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shader::add_path </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a path to the list of paths to be searched ▸ for image files. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The path to add to the list </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>To avoid duplacates this function first performs ▸ a search an existing entry path. </dd></dl>
+
+<p>Definition at line <a class="el" href="shader_8cpp_source.html#l00133">133</a> of file <a class="el" href="shader_8cpp_source.html">shader.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a25f1ab227dc66a1240205eedcf645945"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool Shader::attach_file </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>filename</em>, </td>
         </tr>
         <tr>
@@ -172,7 +214,7 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success or false otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="shader_8cpp_source.html#l00014">14</a> of file <a class="el" href="shader_8cpp_source.html">shader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="shader_8cpp_source.html#l00016">16</a> of file <a class="el" href="shader_8cpp_source.html">shader.cpp</a>.</p>
 
 </div>
 </div>
@@ -217,7 +259,7 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success or false otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="shader_8cpp_source.html#l00060">60</a> of file <a class="el" href="shader_8cpp_source.html">shader.cpp</a>.</p>
+<p>Definition at line <a class="el" href="shader_8cpp_source.html#l00077">77</a> of file <a class="el" href="shader_8cpp_source.html">shader.cpp</a>.</p>
 
 </div>
 </div>
@@ -228,7 +270,7 @@ GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Apr 28 2016 03:06:16 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 5 2016 01:46:34 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
