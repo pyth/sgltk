@@ -5,19 +5,16 @@ using namespace sgltk;
 std::map<std::string, Texture *> Texture::textures;
 
 Texture::Texture() {
-	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 }
 
 Texture::Texture(GLenum target) {
-	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 }
 
 Texture::Texture(std::string path) {
-	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 	Image img(path);
@@ -25,7 +22,6 @@ Texture::Texture(std::string path) {
 }
 
 Texture::Texture(GLenum target, std::string path) {
-	sgltk::init_lib();
 	this->target = target;
 	glGenTextures(1, &texture);
 	Image img(path);
@@ -33,7 +29,6 @@ Texture::Texture(GLenum target, std::string path) {
 }
 
 Texture::Texture(Image *image) {
-	sgltk::init_lib();
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 	if(image) {
@@ -42,7 +37,6 @@ Texture::Texture(Image *image) {
 }
 
 Texture::Texture(GLenum target, Image *image) {
-	sgltk::init_lib();
 	this->target = target;
 	glGenTextures(1, &texture);
 	if(image) {

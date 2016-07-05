@@ -1,7 +1,7 @@
 #ifndef __MESH_H__
 #define __MESH_H__
 
-#include "core.h"
+#include "app.h"
 #include "shader.h"
 #include "texture.h"
 
@@ -740,8 +740,9 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index, void *data, unsigned i
 template <typename T>
 bool Mesh::replace_buffer_data(unsigned int buffer_index, std::vector<T> *data) {
 	if(buffer_index >= vbo.size()) {
-		error_string = "The value of the variable buffer_index if greater than "
-				"the number of vertex buffers.";
+		App::error_string.push_back("The value of the variable"
+				"buffer_index if greater than the number"
+				"of vertex buffers.");
 		return false;
 	}
 

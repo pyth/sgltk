@@ -1,7 +1,7 @@
 #ifndef __PARTICLE_H__
 #define __PARTICLE_H__
 
-#include "core.h"
+#include "app.h"
 
 namespace sgltk {
 

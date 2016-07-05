@@ -1,6 +1,6 @@
 set(LIB_SOURCE
-	core.cpp
 	app.cpp
+	window.cpp
 	camera.cpp
 	image.cpp
 	texture.cpp
@@ -11,8 +11,8 @@ set(LIB_SOURCE
 
 set(LIB_HEADERS
 	config.h
-	core.h
 	app.h
+	window.h
 	camera.h
 	image.h
 	texture.h

@@ -1,7 +1,7 @@
 #ifndef __SCENE_H__
 #define __SCENE_H__
 
-#include "core.h"
+#include "app.h"
 #include "mesh.h"
 #include "shader.h"
 #include "image.h"

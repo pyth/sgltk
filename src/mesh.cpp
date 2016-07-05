@@ -3,7 +3,6 @@
 using namespace sgltk;
 
 Mesh::Mesh() {
-	sgltk::init_lib();
 	model_matrix = glm::mat4(1.0);
 	shader = NULL;
 	glGenVertexArrays(1, &vao);
@@ -466,7 +465,7 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 			glm::mat4 *model_matrix) {
 
 	if(!shader) {
-		error_string = "Error: No shader specified";
+		App::error_string.push_back("Error: No shader specified");
 		return;
 	}
 
@@ -534,7 +533,7 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 					unsigned int num_instances) {
 
 	if(!shader) {
-		error_string = "Error: No shader specified";
+		App::error_string.push_back("Error: No shader specified");
 		return;
 	}
 
