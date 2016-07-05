@@ -1,7 +1,7 @@
 #ifndef __TIMER_H__
 #define __TIMER_H__
 
-#include "core.h"
+#include "app.h"
 
 namespace sgltk {
 

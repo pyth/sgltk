@@ -5,7 +5,6 @@ using namespace sgltk;
 std::vector<std::string> Image::paths = {"./"}; 
 
 Image::Image() {
-	sgltk::init_lib();
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -13,7 +12,6 @@ Image::Image() {
 }
 
 Image::Image(std::string filename) {
-	sgltk::init_lib();
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -74,8 +72,8 @@ bool Image::load(std::string filename) {
 		}
 	}
 	if(!image) {
-		error_string = std::string("Unable to load image: ")
-			+ filename + std::string(" - ") + IMG_GetError();
+		App::error_string.push_back(std::string("Unable to load image: ")
+			+ filename + std::string(" - ") + IMG_GetError());
 		width = 0;
 		height = 0;
 		return false;
@@ -97,7 +95,7 @@ bool Image::create_text(std::string text, TTF_Font *font, int size,
 	SDL_Color color = {r, g, b, a};
 	image = TTF_RenderText_Blended(font, text.c_str(), color);
 	if(!image) {
-		error_string = std::string("TTF_RenderText_Blended failed.");
+		App::error_string.push_back(std::string("TTF_RenderText_Blended failed."));
 		return false;
 	}
 	width = image->w;
@@ -121,8 +119,8 @@ bool Image::create_text(std::string text, std::string font_file, int size,
 		}
 	}
 	if(!font) {
-		error_string = std::string("TTF_OpenFont for ") + font_file +
-				std::string(" failed.");
+		App::error_string.push_back(std::string("TTF_OpenFont for ")
+				+ font_file + std::string(" failed."));
 		return false;
 	}
 

@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['handle_5fexit',['handle_exit',['../classsgltk_1_1_app.html#a21574c06efa8f47a58a9627f0e2f17b3',1,'sgltk::App']]],
-  ['handle_5fkeyboard',['handle_keyboard',['../classsgltk_1_1_app.html#a88438f83e994ffb4657b8085d8092f0d',1,'sgltk::App']]],
-  ['handle_5fmouse_5fbutton',['handle_mouse_button',['../classsgltk_1_1_app.html#ab59ec8d4fede7de347588c157b8e6b08',1,'sgltk::App']]],
-  ['handle_5fmouse_5fmotion',['handle_mouse_motion',['../classsgltk_1_1_app.html#ac17a93e8a3e3e68f893c863ab632b4e5',1,'sgltk::App']]],
-  ['handle_5fmouse_5fwheel',['handle_mouse_wheel',['../classsgltk_1_1_app.html#ae5dd0f614174ab9f29f9309c6ed5121c',1,'sgltk::App']]],
-  ['handle_5fresize',['handle_resize',['../classsgltk_1_1_app.html#a0237a46b83333b479c789aeff7359aa5',1,'sgltk::App']]]
+  ['handle_5fexit',['handle_exit',['../classsgltk_1_1_window.html#a6fcdea490a19dcc238e6434f869003db',1,'sgltk::Window']]],
+  ['handle_5fkeyboard',['handle_keyboard',['../classsgltk_1_1_window.html#a02bd1b8928ec360bfed6d38de65a609b',1,'sgltk::Window']]],
+  ['handle_5fmouse_5fbutton',['handle_mouse_button',['../classsgltk_1_1_window.html#a9a3f7605ac66ed0dc810296defa15322',1,'sgltk::Window']]],
+  ['handle_5fmouse_5fmotion',['handle_mouse_motion',['../classsgltk_1_1_window.html#a1996146fe79681ad7e9df91d86ee4eb5',1,'sgltk::Window']]],
+  ['handle_5fmouse_5fwheel',['handle_mouse_wheel',['../classsgltk_1_1_window.html#a326db8dffe42b95ca084ad64f2907bda',1,'sgltk::Window']]],
+  ['handle_5fresize',['handle_resize',['../classsgltk_1_1_window.html#af339c264f9940fa2e149fe408d8c4744',1,'sgltk::Window']]]
 ];

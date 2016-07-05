@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['key_5fpressed',['key_pressed',['../classsgltk_1_1_app.html#aee1e1d24d41db5ec245ff5b7ddba4529',1,'sgltk::App']]]
+  ['key_5fpressed',['key_pressed',['../classsgltk_1_1_window.html#ac7a7d3286cc6591ed96feda714d891be',1,'sgltk::Window']]]
 ];

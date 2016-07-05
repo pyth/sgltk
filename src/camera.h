@@ -1,7 +1,7 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 
-#include "core.h"
+#include "app.h"
 
 namespace sgltk {
 	enum CAMERA_TYPE {

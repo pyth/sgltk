@@ -1,156 +1,126 @@
-#ifndef __APP_H__
-#define __APP_H__
+#ifndef __CORE_H__
+#define __CORE_H__
 
-#include "core.h"
-#include "timer.h"
+/**
+ * @def check_gl_error(message)
+ * @brief Prints out the OpenGL error message, file and line where this macro
+ * 	was called as well as the message string passed to it.
+ */
+#define check_gl_error(message) do{\
+	sgltk::App::_check_error(message, __FILE__, __LINE__);\
+}while(0)
+
+#ifdef __WIN32__
+	#include <windows.h>
+#endif
+
+#include "config.h"
+
+#include <GL/glew.h>
+#include <GL/glu.h>
+/*#ifdef _WIN32
+	#include <GL/GL.h>
+#else
+	#include <GL/gl.h>
+#endif*/
+
+#include <string>
+#include <chrono>
+#include <thread>
+#include <limits>
+#include <iostream>
+#include <map>
+#include <vector>
+#include <algorithm>
+
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#include <SDL2/SDL.h>
+#ifdef HAVE_SDL_TTF_H
+	#include <SDL2/SDL_ttf.h>
+#endif //HAVE_SDL_TTF_H
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_opengl.h>
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 namespace sgltk {
+	/**
+	 * @class App Handles the initialization of the library.
+	 */
+	class App {
+		static bool initialized;
 
-/**
- * @brief Mouse buttons
- */
-enum MOUSE_BUTTON {
-	/**Left mouse button*/
-	MOUSE_LEFT = SDL_BUTTON_LEFT,
-	/**Middle mouse button*/
-	MOUSE_MIDDLE = SDL_BUTTON_MIDDLE,
-	/**Right mouse button*/
-	MOUSE_RIGHT = SDL_BUTTON_RIGHT
+		App();
+		~App();
+
+		static void _check_error(std::string message, std::string file, unsigned int line);
+
+		public:
+
+		/**
+		 * @brief The major OpenGL version number that the library was
+		 * 	initialized with
+		 */
+		static int gl_maj;
+
+		/**
+		 * @brief The minor OpenGL version number that the library was
+		 * 	initialized with
+		 */
+		static int gl_min;
+
+
+		/**
+		 * @brief A list of all error strings.
+		 */
+		static std::vector<std::string> error_string;
+
+		/**
+		 * @brief Initializes GLEW
+		 * @return Returns true on success, flase otherwise
+		 */
+		static bool init_glew();
+
+		/**
+		 * @brief Initializes SDL2_img
+		 * @return Returns true on success, flase otherwise
+		 */
+		static bool init_img();
+		static void quit_img();
+
+		/**
+		 * @brief Initializes SDL2
+		 * @return Returns true on success, flase otherwise
+		 */
+		static bool init_sdl();
+		static void quit_sdl();
+
+#ifdef HAVE_SDL_TTF_H
+		/**
+		 * @brief Initializes SDL2_ttf
+		 * @return Returns true on success, flase otherwise
+		 */
+		static bool init_ttf();
+		static void quit_ttf();
+#endif //HAVE_SDL_TTF_H
+
+		/**
+		 * @brief Initializes all parts of SDL2 used by SGLTK
+		 * @param gl_maj Major OpenGL version number
+		 * @param gl_min Minor OpenGL version number
+		 * @return Returns true on success, flase otherwise
+		 */
+		static bool init(int gl_maj, int gl_min);
+		static void quit();
+
+	};
 };
-
-/**
- * @class App
- * @brief Provides windows with OpenGL context
- */
-class App {
-	bool running;
-	SDL_GLContext context;
-	const Uint8 *keys;
-	bool mouse_relative;
-	unsigned int fps_time;
-public:
-	/**
-	 * @brief The width of the window surface
-	 */
-	int width;
-	/**
-	 * @brief The height of the window surface
-	 */
-	int height;
-	/**
-	 * @brief The time it took to draw the last frame
-	 */
-	double delta_time;
-	/**
-	 * @brief The window surface
-	 */
-	SDL_Window *window;
-
-	/**
-	 * @param title		The window tile
-	 * @param res_x		The x window resolution
-	 * @param res_y		The y window resolution
-	 * @param offset_x	The x position offset of the window
-	 * @param offset_y	The y position offset of the window
-	 * @param gl_maj	The major GL version number to be used
-	 * @param gl_min	The minor GL version number to be used
-	 * @param flags		Additional flags to be used by SDL_CreateWindow.
-				The default flag is SDL_WINDOW_OPENGL
-	 */
-	App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
-	    int gl_maj, int gl_min, unsigned int flags);
-	~App();
-
-	/**
-	 * @brief Sets the window to grab the mouse
-	 * When activate the mouse can not leave the window boundaries
-	 * @param on	True to turn on, false to turn off
-	 */
-	void grab_mouse(bool on);
-	/**
-	 * @brief Activates the relative mouse motion mode
-	 * In the relative mouse motion mode the cursor is invisible and stays
-	 * in the middle of the screen. The x and y coordinates passed to the
-	 * handle_mouse_motion function will be the relative horizontal and
-	 * vertical distances traveled.
-	 * @param on	True to turn on, false to turn off
-	 */
-	void set_relative_mode(bool on);
-	/**
-	 * @brief Turns VSync on or off
-	 * @param on	True turns VSync on, false turns it off
-	 * @return	Returns false if VSync is not supported, true otherwise
-	 */
-	bool enable_vsync(bool on);
-	/**
-	 * @brief Polls all events and calls the handlers. Called by the run function
-	 */
-	void poll_events();
-	/**
-	 * @brief This function is called by poll_events() to handle
-	 *	  keyboard input. This function should be overriden
-	 */
-	virtual void handle_keyboard();
-	/**
-	 * @brief Checks if the key is currently pressed
-	 * @param key The key to check
-	 * @return Retruns true if the key is pressed, false otherwise
-	 */
-	bool key_pressed(const char *key);
-	/**
-	 * @brief This function is called by poll_events() to handle
-	 *	  mouse motion. This function should be overriden
-	 * @param x The x coordinate where the event occured or the relative mouse
-		    movement along the x axis (see set_relative_mode)
-	 * @param y The y coordinate where the event occured or the relative  mouse
-		    movement along the y axis (see set_relative_mode)
-	 */
-	virtual void handle_mouse_motion(int x, int y);
-	/**
-	 * @brief This function is called by poll_events() to handle
-	 *	  mouse wheel movements. This function should be overriden
-	 * @param x The amount scrolled horizontally
-	 * @param y The amount scrolled vertically
-	 */
-	virtual void handle_mouse_wheel(int x, int y);
-	/**
-	 * @brief This function is called by poll_events() to handle
-	 *	  mouse button presses. This function should be overriden
-	 * @param x The x coordinate where the event occured
-	 * @param y The y coordinate where the event occured
-	 * @param button The button that caused the event
-	 * @param down True if a button was pressed, false if it was released
-	 * @param clicks The number of clicks (e.g. doubleclick)
-	 */
-	virtual void handle_mouse_button(int x, int y, MOUSE_BUTTON button,
-					 bool down, int clicks);
-	/**
-	 * @brief This function is called by run when the window is resized.
-	 * 	  This function should be overriden
-	 */
-	virtual void handle_resize();
-	/**
-	 * @brief This function is called by run when the window is being closed.
-	 * 	  This function should be overriden
-	 */
-	virtual void handle_exit();
-	/**
-	 * @brief This function is called by run() to draw a frame.
-	 * 	  This function should be overriden
-	 */
-	virtual void display();
-	/**
-	 * @brief This is the mainloop. It does not limit the framerate
-	 */
-	void run();
-	/**
-	 * @brief This is the mainloop. It calls poll_events() and display()
-	 * @param fps	The frames per second limit.
-	 *		Any number below 1 means no limit
-	 */
-	void run(int fps);
-};
-
-}
 
 #endif

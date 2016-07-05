@@ -1,7 +1,7 @@
 #ifndef __SHADER_H__
 #define __SHADER_H__
 
-#include "core.h"
+#include "app.h"
 
 namespace sgltk {
 

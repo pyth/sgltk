@@ -2,185 +2,132 @@
 
 using namespace sgltk;
 
-App::App(const char* title, int res_x, int res_y, int offset_x, int offset_y,
-	 int gl_maj, int gl_min, unsigned int flags) {
-	int GL_Maj = gl_maj;
-	int GL_Min = gl_min;
-	if(gl_maj < 3) {
-		error_string =
-			std::string("SGLTK requires at least OpenGL version 3.0"
-				"\nDefaulting version number to 3.0");
-		GL_Maj = 3;
-		GL_Min = 0;
+bool App::initialized = false;
+int App::gl_maj = 3;
+int App::gl_min = 0;
+std::vector<std::string> App::error_string = {};
+
+bool App::init_glew() {
+	glewExperimental=GL_TRUE;
+	if(glewInit()) {
+		App::error_string.push_back("glewInit failed");
+		return false;
 	}
-	sgltk::init_lib();
+	return true;
+}
 
-	running = true;
-	mouse_relative = false;
-	keys = SDL_GetKeyboardState(NULL);
-	delta_time = 0;
-
-	SDL_DisableScreenSaver();
-
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, GL_Maj);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, GL_Min);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-
-	width = res_x;
-	height = res_y;
-	window = SDL_CreateWindow(title, offset_x, offset_y,
-				  res_x, res_y, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | flags);
-	if(!window) {
-		error_string = std::string("SDL_CreateWindow Error: ") +
-				SDL_GetError();
-		return;
+bool App::init_img() {
+	unsigned int flags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
+	if((IMG_Init(flags) & flags) != flags) {
+		App::error_string.push_back(std::string("IMG_Init Error: ") +
+							SDL_GetError());
+		return false;
 	}
-	context = SDL_GL_CreateContext(window);
-	sgltk::init_glew();
-	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
+	return true;
 }
 
-App::~App() {
-	SDL_GL_DeleteContext(context);
-	SDL_DestroyWindow(window);
-	sgltk::quit_lib();
+void App::quit_img() {
+	IMG_Quit();
 }
 
-void App::grab_mouse(bool on) {
-	SDL_SetWindowGrab(window, (SDL_bool)on);
-}
-
-void App::set_relative_mode(bool on) {
-	mouse_relative = on;
-	SDL_SetRelativeMouseMode((SDL_bool)on);
-}
-
-bool App::enable_vsync(bool on) {
-	bool ret;
-	if(on) {
-		ret = SDL_GL_SetSwapInterval(-1);
-		if(!ret) {
-			ret = SDL_GL_SetSwapInterval(1);
-		}
-	} else {
-		ret = SDL_GL_SetSwapInterval(0);
+bool App::init_sdl() {
+	if(SDL_Init(SDL_INIT_EVERYTHING)) {
+		App::error_string.push_back(std::string("SDL_Init Error: ") +
+							SDL_GetError());
+		return false;
 	}
-	return ret;
+	return true;
 }
 
-void App::poll_events() {
-	SDL_Event event;
+void App::quit_sdl() {
+	SDL_Quit();
+}
 
-	while(SDL_PollEvent(&event)) {
-		switch(event.type) {
-		case SDL_QUIT:
-			handle_exit();
-			break;
-		case SDL_WINDOWEVENT:
-			if(event.window.event == SDL_WINDOWEVENT_CLOSE) {
-				handle_exit();
-			}
-			if(event.window.event == SDL_WINDOWEVENT_RESIZED) {
-				width = event.window.data1;
-				height = event.window.data2;
-				handle_resize();
-			}
-			break;
-		case SDL_KEYDOWN:
-		case SDL_KEYUP:
-			break;
-		case SDL_MOUSEWHEEL:
-			handle_mouse_wheel(event.wheel.x, event.wheel.y);
-			break;
-		case SDL_MOUSEBUTTONDOWN:
-		case SDL_MOUSEBUTTONUP:
-			if(mouse_relative)
-				handle_mouse_button(0, 0, (MOUSE_BUTTON)event.button.button,
-						    (event.button.state == SDL_PRESSED),
-						    event.button.clicks);
-			else
-				handle_mouse_button(event.button.x, event.button.y,
-						    (MOUSE_BUTTON)event.button.button,
-						    (event.button.state == SDL_PRESSED),
-						    event.button.clicks);
-			break;
-		case SDL_MOUSEMOTION:
-			if(mouse_relative)
-				handle_mouse_motion(event.motion.xrel,
-						    event.motion.yrel);
-			else
-				handle_mouse_motion(event.motion.x,
-						    event.motion.y);
-			break;
-		}
+#ifdef HAVE_SDL_TTF_H
+bool App::init_ttf() {
+	if(TTF_Init()) {
+		App::error_string.push_back(std::string("SDL_Init Error: ") +
+							SDL_GetError());
+		return false;
 	}
-	handle_keyboard();
+	return true;
 }
 
-void App::handle_keyboard() {
+void App::quit_ttf() {
+	TTF_Quit();
 }
+#endif //HAVE_SDL_TTF_H
 
-bool App::key_pressed(const char *key) {
-	if(keys[SDL_GetScancodeFromName(key)]) {
+bool App::init(int gl_maj, int gl_min) {
+	if(App::initialized)
 		return true;
-	}
+
+	if(App::init_sdl())
+		if(App::init_img()) {
+#ifdef HAVE_SDL_TTF_H
+			if(App::init_ttf()) {
+#endif //HAVE_SDL_TTF_H
+				if(gl_maj >= 3) {
+					App::gl_maj = gl_maj;
+					App::gl_min = gl_min;
+				} else {
+					App::error_string.push_back(std::string("SGLTK requires at least OpenGL version 3.0"
+											"\nDefaulting version number to 3.0"));
+				}
+
+				App::initialized = true;
+				return true;
+#ifdef HAVE_SDL_TTF_H
+			}
+#endif //HAVE_SDL_TTF_H
+		}
+
+	App::quit();
 	return false;
 }
 
-void App::handle_mouse_motion(int x, int y) {
+void App::quit() {
+	App::initialized = false;
+	App::quit_img();
+#ifdef HAVE_SDL_TTF_H
+	App::quit_ttf();
+#endif //HAVE_SDL_TTF_H
+	App::quit_sdl();
 }
 
-void App::handle_mouse_wheel(int x, int y) {
-}
+void App::_check_error(std::string message, std::string file, unsigned int line) {
+	std::string err_string;
+	GLenum err = glGetError();
 
-void App::handle_mouse_button(int x, int y,
-			      MOUSE_BUTTON button,
-			      bool down,
-			      int clicks) {
-}
-
-void App::handle_resize() {
-}
-
-void App::handle_exit() {
-	exit(0);
-}
-
-void App::display() {
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-}
-
-void App::run() {
-	run(0);
-}
-
-void App::run(int fps) {
-	double frame_time;
-	Timer frame_timer;
-	if(fps < 1)
-		frame_time = 1e-30;
-	else
-		frame_time = 1000.0 / fps;
-	bool running = true;
-
-	while(running) {
-		frame_timer.start();
-		poll_events();
-		if(!window) {
+	switch(err) {
+		case GL_INVALID_ENUM:
+			err_string = "INVALID_ENUM";
 			break;
-		}
-		display();
-		delta_time = frame_timer.get_time();
-		if(fps > 0) {
-			if(delta_time < frame_time) {
-				//SDL_Delay(frame_time - delta_time);
-				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(frame_time - delta_time));
-			}
-		}
-		delta_time = frame_timer.get_time();
-		SDL_GL_SwapWindow(window);
+		case GL_INVALID_VALUE:
+			err_string = "INVALID_VALUE";
+			break;
+		case GL_INVALID_OPERATION:
+			err_string = "INVALID_OPERATION";
+			break;
+		case GL_INVALID_FRAMEBUFFER_OPERATION:
+			err_string = "INVALID_FRAMEBUFFER_OPERATION";
+			break;
+		case GL_OUT_OF_MEMORY:
+			err_string = "OUT_OF_MEMORY";
+			break;
+		case GL_STACK_OVERFLOW:
+			err_string = "STACK_OVERFLOW";
+			break;
+		case GL_STACK_UNDERFLOW:
+			err_string = "STACK_UNDERFLOW";
+			break;
+	}
+	while(err != GL_NO_ERROR) {
+		std::cout << file << " - " << line << ": " << err_string;
+		if(message.length() > 0)
+			std::cout << " - " << message;
+		std::cout << std::endl;
+		err = glGetError();
 	}
 }
+

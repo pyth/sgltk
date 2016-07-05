@@ -88,133 +88,68 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classsgltk_1_1_app-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">sgltk::App Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Provides windows with OpenGL context.  
- <a href="classsgltk_1_1_app.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="app_8h_source.html">app.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:af8f1d080849d4590a92329ca27c60322"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#af8f1d080849d4590a92329ca27c60322">App</a> (const char *title, int res_x, int res_y, int offset_x, int offset_y, int gl_maj, int gl_min, unsigned int flags)</td></tr>
-<tr class="separator:af8f1d080849d4590a92329ca27c60322"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dbe21a0fbe975e9ee24e2363986786c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a7dbe21a0fbe975e9ee24e2363986786c">grab_mouse</a> (bool on)</td></tr>
-<tr class="memdesc:a7dbe21a0fbe975e9ee24e2363986786c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the window to grab the mouse When activate the mouse can not leave the window boundaries.  <a href="#a7dbe21a0fbe975e9ee24e2363986786c">More...</a><br /></td></tr>
-<tr class="separator:a7dbe21a0fbe975e9ee24e2363986786c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ce5525e3bd973f446f58b4b3c106484"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a1ce5525e3bd973f446f58b4b3c106484">set_relative_mode</a> (bool on)</td></tr>
-<tr class="memdesc:a1ce5525e3bd973f446f58b4b3c106484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the relative mouse motion mode In the relative mouse motion mode the cursor is invisible and stays in the middle of the screen. The x and y coordinates passed to the handle_mouse_motion function will be the relative horizontal and vertical distances traveled.  <a href="#a1ce5525e3bd973f446f58b4b3c106484">More...</a><br /></td></tr>
-<tr class="separator:a1ce5525e3bd973f446f58b4b3c106484"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a34e9ef8809782d63ddc6d15595d574"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a5a34e9ef8809782d63ddc6d15595d574">enable_vsync</a> (bool on)</td></tr>
-<tr class="memdesc:a5a34e9ef8809782d63ddc6d15595d574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns VSync on or off.  <a href="#a5a34e9ef8809782d63ddc6d15595d574">More...</a><br /></td></tr>
-<tr class="separator:a5a34e9ef8809782d63ddc6d15595d574"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2373a36e8077951a218e90a6f004ec1a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2373a36e8077951a218e90a6f004ec1a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a">poll_events</a> ()</td></tr>
-<tr class="memdesc:a2373a36e8077951a218e90a6f004ec1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls all events and calls the handlers. Called by the run function. <br /></td></tr>
-<tr class="separator:a2373a36e8077951a218e90a6f004ec1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88438f83e994ffb4657b8085d8092f0d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88438f83e994ffb4657b8085d8092f0d"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a88438f83e994ffb4657b8085d8092f0d">handle_keyboard</a> ()</td></tr>
-<tr class="memdesc:a88438f83e994ffb4657b8085d8092f0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle keyboard input. This function should be overriden. <br /></td></tr>
-<tr class="separator:a88438f83e994ffb4657b8085d8092f0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee1e1d24d41db5ec245ff5b7ddba4529"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#aee1e1d24d41db5ec245ff5b7ddba4529">key_pressed</a> (const char *key)</td></tr>
-<tr class="memdesc:aee1e1d24d41db5ec245ff5b7ddba4529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the key is currently pressed.  <a href="#aee1e1d24d41db5ec245ff5b7ddba4529">More...</a><br /></td></tr>
-<tr class="separator:aee1e1d24d41db5ec245ff5b7ddba4529"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac17a93e8a3e3e68f893c863ab632b4e5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#ac17a93e8a3e3e68f893c863ab632b4e5">handle_mouse_motion</a> (int x, int y)</td></tr>
-<tr class="memdesc:ac17a93e8a3e3e68f893c863ab632b4e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse motion. This function should be overriden.  <a href="#ac17a93e8a3e3e68f893c863ab632b4e5">More...</a><br /></td></tr>
-<tr class="separator:ac17a93e8a3e3e68f893c863ab632b4e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5dd0f614174ab9f29f9309c6ed5121c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#ae5dd0f614174ab9f29f9309c6ed5121c">handle_mouse_wheel</a> (int x, int y)</td></tr>
-<tr class="memdesc:ae5dd0f614174ab9f29f9309c6ed5121c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse wheel movements. This function should be overriden.  <a href="#ae5dd0f614174ab9f29f9309c6ed5121c">More...</a><br /></td></tr>
-<tr class="separator:ae5dd0f614174ab9f29f9309c6ed5121c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab59ec8d4fede7de347588c157b8e6b08"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#ab59ec8d4fede7de347588c157b8e6b08">handle_mouse_button</a> (int x, int y, MOUSE_BUTTON button, bool down, int clicks)</td></tr>
-<tr class="memdesc:ab59ec8d4fede7de347588c157b8e6b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse button presses. This function should be overriden.  <a href="#ab59ec8d4fede7de347588c157b8e6b08">More...</a><br /></td></tr>
-<tr class="separator:ab59ec8d4fede7de347588c157b8e6b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0237a46b83333b479c789aeff7359aa5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0237a46b83333b479c789aeff7359aa5"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a0237a46b83333b479c789aeff7359aa5">handle_resize</a> ()</td></tr>
-<tr class="memdesc:a0237a46b83333b479c789aeff7359aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by run when the window is resized. This function should be overriden. <br /></td></tr>
-<tr class="separator:a0237a46b83333b479c789aeff7359aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21574c06efa8f47a58a9627f0e2f17b3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21574c06efa8f47a58a9627f0e2f17b3"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a21574c06efa8f47a58a9627f0e2f17b3">handle_exit</a> ()</td></tr>
-<tr class="memdesc:a21574c06efa8f47a58a9627f0e2f17b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by run when the window is being closed. This function should be overriden. <br /></td></tr>
-<tr class="separator:a21574c06efa8f47a58a9627f0e2f17b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83cc59edf2eb24895f259164294a98ea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a83cc59edf2eb24895f259164294a98ea"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a83cc59edf2eb24895f259164294a98ea">display</a> ()</td></tr>
-<tr class="memdesc:a83cc59edf2eb24895f259164294a98ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_app.html#ae09dc71078b64c56c673b1ad1d25b5d1" title="This is the mainloop. It does not limit the framerate. ">run()</a> to draw a frame. This function should be overriden. <br /></td></tr>
-<tr class="separator:a83cc59edf2eb24895f259164294a98ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae09dc71078b64c56c673b1ad1d25b5d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae09dc71078b64c56c673b1ad1d25b5d1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#ae09dc71078b64c56c673b1ad1d25b5d1">run</a> ()</td></tr>
-<tr class="memdesc:ae09dc71078b64c56c673b1ad1d25b5d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the mainloop. It does not limit the framerate. <br /></td></tr>
-<tr class="separator:ae09dc71078b64c56c673b1ad1d25b5d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d2dc75c7e66c6c61ac72541bb99a7ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a6d2dc75c7e66c6c61ac72541bb99a7ea">run</a> (int fps)</td></tr>
-<tr class="memdesc:a6d2dc75c7e66c6c61ac72541bb99a7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the mainloop. It calls <a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> and <a class="el" href="classsgltk_1_1_app.html#a83cc59edf2eb24895f259164294a98ea" title="This function is called by run() to draw a frame. This function should be overriden. ">display()</a>  <a href="#a6d2dc75c7e66c6c61ac72541bb99a7ea">More...</a><br /></td></tr>
-<tr class="separator:a6d2dc75c7e66c6c61ac72541bb99a7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aa4fe1cb39d908f165678cc52784ee952"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#aa4fe1cb39d908f165678cc52784ee952">init_glew</a> ()</td></tr>
+<tr class="memdesc:aa4fe1cb39d908f165678cc52784ee952"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes GLEW.  <a href="#aa4fe1cb39d908f165678cc52784ee952">More...</a><br /></td></tr>
+<tr class="separator:aa4fe1cb39d908f165678cc52784ee952"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf785b980f5499082def92893569c766"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#aaf785b980f5499082def92893569c766">init_img</a> ()</td></tr>
+<tr class="memdesc:aaf785b980f5499082def92893569c766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes SDL2_img.  <a href="#aaf785b980f5499082def92893569c766">More...</a><br /></td></tr>
+<tr class="separator:aaf785b980f5499082def92893569c766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc2d456a1349a9a638e78d0a5bbe624e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc2d456a1349a9a638e78d0a5bbe624e"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>quit_img</b> ()</td></tr>
+<tr class="separator:abc2d456a1349a9a638e78d0a5bbe624e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1811098f8eb5f470daf7b481296f4a6"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#ac1811098f8eb5f470daf7b481296f4a6">init_sdl</a> ()</td></tr>
+<tr class="memdesc:ac1811098f8eb5f470daf7b481296f4a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes SDL2.  <a href="#ac1811098f8eb5f470daf7b481296f4a6">More...</a><br /></td></tr>
+<tr class="separator:ac1811098f8eb5f470daf7b481296f4a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab84497c13b1e5c15b7254f60b4386cf9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab84497c13b1e5c15b7254f60b4386cf9"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>quit_sdl</b> ()</td></tr>
+<tr class="separator:ab84497c13b1e5c15b7254f60b4386cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9f48ea95cd07dfbe5bd6050035da3a9"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#aa9f48ea95cd07dfbe5bd6050035da3a9">init</a> (int <a class="el" href="classsgltk_1_1_app.html#acfa5d6e4422ab31e5a3e5f5d49742266">gl_maj</a>, int <a class="el" href="classsgltk_1_1_app.html#a0aa8a53cc5805619e63471e6d79022d1">gl_min</a>)</td></tr>
+<tr class="memdesc:aa9f48ea95cd07dfbe5bd6050035da3a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes all parts of SDL2 used by SGLTK.  <a href="#aa9f48ea95cd07dfbe5bd6050035da3a9">More...</a><br /></td></tr>
+<tr class="separator:aa9f48ea95cd07dfbe5bd6050035da3a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab474007a8e53ffa41f9a13e0640b387f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab474007a8e53ffa41f9a13e0640b387f"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>quit</b> ()</td></tr>
+<tr class="separator:ab474007a8e53ffa41f9a13e0640b387f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a46f2ff7d1bc656d44f22def6c1663ae8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a46f2ff7d1bc656d44f22def6c1663ae8"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a46f2ff7d1bc656d44f22def6c1663ae8">width</a></td></tr>
-<tr class="memdesc:a46f2ff7d1bc656d44f22def6c1663ae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The width of the window surface. <br /></td></tr>
-<tr class="separator:a46f2ff7d1bc656d44f22def6c1663ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bc7c7d56137e8bd5b9030bb7e444426"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0bc7c7d56137e8bd5b9030bb7e444426"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a0bc7c7d56137e8bd5b9030bb7e444426">height</a></td></tr>
-<tr class="memdesc:a0bc7c7d56137e8bd5b9030bb7e444426"><td class="mdescLeft">&#160;</td><td class="mdescRight">The height of the window surface. <br /></td></tr>
-<tr class="separator:a0bc7c7d56137e8bd5b9030bb7e444426"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75f995fff586dc7e7bab4f0f6e6c3b5c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a75f995fff586dc7e7bab4f0f6e6c3b5c"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a75f995fff586dc7e7bab4f0f6e6c3b5c">delta_time</a></td></tr>
-<tr class="memdesc:a75f995fff586dc7e7bab4f0f6e6c3b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time it took to draw the last frame. <br /></td></tr>
-<tr class="separator:a75f995fff586dc7e7bab4f0f6e6c3b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ed9918a7807b64313973b60b991a72f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ed9918a7807b64313973b60b991a72f"></a>
-SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a7ed9918a7807b64313973b60b991a72f">window</a></td></tr>
-<tr class="memdesc:a7ed9918a7807b64313973b60b991a72f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The window surface. <br /></td></tr>
-<tr class="separator:a7ed9918a7807b64313973b60b991a72f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:acfa5d6e4422ab31e5a3e5f5d49742266"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acfa5d6e4422ab31e5a3e5f5d49742266"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#acfa5d6e4422ab31e5a3e5f5d49742266">gl_maj</a> = 3</td></tr>
+<tr class="memdesc:acfa5d6e4422ab31e5a3e5f5d49742266"><td class="mdescLeft">&#160;</td><td class="mdescRight">The major OpenGL version number that the library was initialized with. <br /></td></tr>
+<tr class="separator:acfa5d6e4422ab31e5a3e5f5d49742266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aa8a53cc5805619e63471e6d79022d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0aa8a53cc5805619e63471e6d79022d1"></a>
+static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a0aa8a53cc5805619e63471e6d79022d1">gl_min</a> = 0</td></tr>
+<tr class="memdesc:a0aa8a53cc5805619e63471e6d79022d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The minor OpenGL version number that the library was initialized with. <br /></td></tr>
+<tr class="separator:a0aa8a53cc5805619e63471e6d79022d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08fb02f90387cd3c3feb67d2e0583c7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a08fb02f90387cd3c3feb67d2e0583c7e"></a>
+static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a08fb02f90387cd3c3feb67d2e0583c7e">error_string</a> = {}</td></tr>
+<tr class="memdesc:a08fb02f90387cd3c3feb67d2e0583c7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of all error strings. <br /></td></tr>
+<tr class="separator:a08fb02f90387cd3c3feb67d2e0583c7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Provides windows with OpenGL context. </p>
+<div class="textblock"><p>initialization of the library. </p>
 
-<p>Definition at line <a class="el" href="app_8h_source.html#l00025">25</a> of file <a class="el" href="app_8h_source.html">app.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="af8f1d080849d4590a92329ca27c60322"></a>
+<p>Definition at line <a class="el" href="app_8h_source.html#l00057">57</a> of file <a class="el" href="app_8h_source.html">app.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aa9f48ea95cd07dfbe5bd6050035da3a9"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">App::App </td>
+          <td class="memname">bool App::init </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>title</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>res_x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>res_y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>offset_x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>offset_y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>gl_maj</em>, </td>
         </tr>
@@ -222,129 +157,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>gl_min</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>flags</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">title</td><td>The window tile </td></tr>
-    <tr><td class="paramname">res_x</td><td>The x window resolution </td></tr>
-    <tr><td class="paramname">res_y</td><td>The y window resolution </td></tr>
-    <tr><td class="paramname">offset_x</td><td>The x position offset of the window </td></tr>
-    <tr><td class="paramname">offset_y</td><td>The y position offset of the window </td></tr>
-    <tr><td class="paramname">gl_maj</td><td>The major GL version number to be used </td></tr>
-    <tr><td class="paramname">gl_min</td><td>The minor GL version number to be used </td></tr>
-    <tr><td class="paramname">flags</td><td>Additional flags to be used by SDL_CreateWindow. The default flag is SDL_WINDOW_OPENGL </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00005">5</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a5a34e9ef8809782d63ddc6d15595d574"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool App::enable_vsync </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>on</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Turns VSync on or off. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">on</td><td>True turns VSync on, false turns it off </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns false if VSync is not supported, true otherwise </dd></dl>
-
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00060">60</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7dbe21a0fbe975e9ee24e2363986786c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void App::grab_mouse </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>on</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the window to grab the mouse When activate the mouse can not leave the window boundaries. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">on</td><td>True to turn on, false to turn off </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00051">51</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab59ec8d4fede7de347588c157b8e6b08"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void App::handle_mouse_button </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">MOUSE_BUTTON&#160;</td>
-          <td class="paramname"><em>button</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>down</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>clicks</em>&#160;</td>
+          <td class="paramname"><em>gl_min</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -354,28 +167,26 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse button presses. This function should be overriden. </p>
+<p>Initializes all parts of SDL2 used by SGLTK. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The x coordinate where the event occured </td></tr>
-    <tr><td class="paramname">y</td><td>The y coordinate where the event occured </td></tr>
-    <tr><td class="paramname">button</td><td>The button that caused the event </td></tr>
-    <tr><td class="paramname">down</td><td>True if a button was pressed, false if it was released </td></tr>
-    <tr><td class="paramname">clicks</td><td>The number of clicks (e.g. doubleclick) </td></tr>
+    <tr><td class="paramname">gl_maj</td><td>Major OpenGL version number </td></tr>
+    <tr><td class="paramname">gl_min</td><td>Minor OpenGL version number </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00138">138</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00061">61</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac17a93e8a3e3e68f893c863ab632b4e5"></a>
+<a class="anchor" id="aa4fe1cb39d908f165678cc52784ee952"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -383,44 +194,27 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void App::handle_mouse_motion </td>
+          <td class="memname">bool App::init_glew </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse motion. This function should be overriden. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>The x coordinate where the event occured or the relative mouse movement along the x axis (see set_relative_mode) </td></tr>
-    <tr><td class="paramname">y</td><td>The y coordinate where the event occured or the relative mouse movement along the y axis (see set_relative_mode) </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Initializes GLEW. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00132">132</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00010">10</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae5dd0f614174ab9f29f9309c6ed5121c"></a>
+<a class="anchor" id="aaf785b980f5499082def92893569c766"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -428,119 +222,51 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void App::handle_mouse_wheel </td>
+          <td class="memname">bool App::init_img </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse wheel movements. This function should be overriden. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>The amount scrolled horizontally </td></tr>
-    <tr><td class="paramname">y</td><td>The amount scrolled vertically </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Initializes SDL2_img. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00135">135</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00019">19</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aee1e1d24d41db5ec245ff5b7ddba4529"></a>
+<a class="anchor" id="ac1811098f8eb5f470daf7b481296f4a6"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool App::key_pressed </td>
+          <td class="memname">bool App::init_sdl </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Checks if the key is currently pressed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Retruns true if the key is pressed, false otherwise </dd></dl>
+<p>Initializes SDL2. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00125">125</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6d2dc75c7e66c6c61ac72541bb99a7ea"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void App::run </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fps</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This is the mainloop. It calls <a class="el" href="classsgltk_1_1_app.html#a2373a36e8077951a218e90a6f004ec1a" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> and <a class="el" href="classsgltk_1_1_app.html#a83cc59edf2eb24895f259164294a98ea" title="This function is called by run() to draw a frame. This function should be overriden. ">display()</a> </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fps</td><td>The frames per second limit. Any number below 1 means no limit </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00160">160</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1ce5525e3bd973f446f58b4b3c106484"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void App::set_relative_mode </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>on</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Activates the relative mouse motion mode In the relative mouse motion mode the cursor is invisible and stays in the middle of the screen. The x and y coordinates passed to the handle_mouse_motion function will be the relative horizontal and vertical distances traveled. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">on</td><td>True to turn on, false to turn off </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00055">55</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00033">33</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
@@ -551,7 +277,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jul 5 2016 01:46:34 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jul 5 2016 23:53:33 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

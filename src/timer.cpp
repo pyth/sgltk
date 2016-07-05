@@ -3,7 +3,6 @@
 using namespace sgltk;
 
 Timer::Timer() {
-	sgltk::init_lib();
 	start();
 }
 

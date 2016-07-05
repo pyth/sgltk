@@ -18,7 +18,7 @@ var searchData=
   ['set_5fopacity_5ftexture_5fname',['set_opacity_texture_name',['../classsgltk_1_1_mesh.html#aac119c551481ad41e0f9dd4a66b7427f',1,'sgltk::Mesh']]],
   ['set_5fparameter',['set_parameter',['../classsgltk_1_1_texture.html#ab4e3adb58d6983424c029f318ca0fc42',1,'sgltk::Texture::set_parameter(GLenum name, int parameter)'],['../classsgltk_1_1_texture.html#abecd9a0c2519f64ba22e4add3add2d9f',1,'sgltk::Texture::set_parameter(GLenum name, float parameter)']]],
   ['set_5fprojection_5fmatrix_5fname',['set_projection_matrix_name',['../classsgltk_1_1_mesh.html#a4d2eb92b28d7f1b2cfadb382926cc4d3',1,'sgltk::Mesh']]],
-  ['set_5frelative_5fmode',['set_relative_mode',['../classsgltk_1_1_app.html#a1ce5525e3bd973f446f58b4b3c106484',1,'sgltk::App']]],
+  ['set_5frelative_5fmode',['set_relative_mode',['../classsgltk_1_1_window.html#a1888856053f5299de71cad41ec9484f7',1,'sgltk::Window']]],
   ['set_5fshininess_5fname',['set_shininess_name',['../classsgltk_1_1_mesh.html#ac15b57028c50e2fbe0f09ed7f001c0b3',1,'sgltk::Mesh']]],
   ['set_5fshininess_5fstrength_5fname',['set_shininess_strength_name',['../classsgltk_1_1_mesh.html#a9cac2cdf8faefee25b0a9882813d9141',1,'sgltk::Mesh']]],
   ['set_5fshininess_5ftexture_5fname',['set_shininess_texture_name',['../classsgltk_1_1_mesh.html#af91514b9cc51084c36d56b5b38c7cacc',1,'sgltk::Mesh']]],
