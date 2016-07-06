@@ -41,6 +41,10 @@ Window::~Window() {
 	SDL_DestroyWindow(window);
 }
 
+void Window::set_icon(Image *icon) {
+	SDL_SetWindowIcon(this->window, icon->image);
+}
+
 void Window::grab_mouse(bool on) {
 	SDL_SetWindowGrab(window, (SDL_bool)on);
 }

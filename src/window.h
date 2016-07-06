@@ -2,6 +2,7 @@
 #define __WINDOW_H__
 
 #include "app.h"
+#include "image.h"
 #include "timer.h"
 
 namespace sgltk {
@@ -58,6 +59,12 @@ public:
 	Window(const char* title, int res_x, int res_y,
 			int offset_x, int offset_y, unsigned int flags);
 	~Window();
+
+	/**
+	 * @brief Sets the window icon
+	 * @param icon The icon to use
+	 */
+	void set_icon(Image *icon);
 
 	/**
 	 * @brief Sets the window to grab the mouse
