@@ -5,6 +5,7 @@ using namespace sgltk;
 bool App::initialized = false;
 int App::gl_maj = 3;
 int App::gl_min = 0;
+struct sgltk::App::SYS_INFO App::sys_info;
 std::vector<std::string> App::error_string = {};
 
 bool App::init_glew() {
@@ -131,3 +132,33 @@ void App::_check_error(std::string message, std::string file, unsigned int line)
 	}
 }
 
+void App::get_sys_info() {
+	sys_info.platform_name = std::string(SDL_GetPlatform());
+	sys_info.num_logical_cores = SDL_GetCPUCount();
+	sys_info.system_ram = SDL_GetSystemRAM();
+	sys_info.gl_version_major = 1;
+	sys_info.gl_version_minor = 0;
+	if(GL_VERSION_4_0) {
+		sys_info.gl_version_major = 4;
+		sys_info.gl_version_minor = 0;
+		if(GL_VERSION_4_5)
+			sys_info.gl_version_minor = 5;
+		else if(GL_VERSION_4_4)
+			sys_info.gl_version_minor = 4;
+		else if(GL_VERSION_4_3)
+			sys_info.gl_version_minor = 3;
+		else if(GL_VERSION_4_2)
+			sys_info.gl_version_minor = 2;
+		else if(GL_VERSION_4_1)
+			sys_info.gl_version_minor = 1;
+	} else if(GL_VERSION_3_0) {
+		sys_info.gl_version_major = 3;
+		sys_info.gl_version_minor = 0;
+		if(GL_VERSION_3_3)
+			sys_info.gl_version_minor = 3;
+		else if(GL_VERSION_3_2)
+			sys_info.gl_version_minor = 2;
+		else if(GL_VERSION_3_1)
+			sys_info.gl_version_minor = 1;
+	}
+}

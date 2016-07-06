@@ -52,7 +52,8 @@
 
 namespace sgltk {
 	/**
-	 * @class App Handles the initialization of the library.
+	 * @class App
+	 * @brief Handles library initialization and provides system information.
 	 */
 	class App {
 		static bool initialized;
@@ -63,6 +64,34 @@ namespace sgltk {
 		static void _check_error(std::string message, std::string file, unsigned int line);
 
 		public:
+
+		/**
+		 * @brief System information
+		 */
+		static struct SYS_INFO {
+			/**
+			 * @brief The name of the platform
+			 */
+			std::string platform_name;
+			/**
+			 * @brief The number of logical cores
+			 */
+			int num_logical_cores;
+			/**
+			 * @brief The amount of ram in MB
+			 */
+			int system_ram;
+			/**
+			 * @brief The major number of the highest OpenGL version
+			 * 	that is supported by the system
+			 */
+			int gl_version_major;
+			/**
+			 * @brief The minor number of the highest OpenGL version
+			 * 	that is supported by the system
+			 */
+			int gl_version_minor;
+		} sys_info;
 
 		/**
 		 * @brief The major OpenGL version number that the library was
@@ -120,6 +149,11 @@ namespace sgltk {
 		static bool init(int gl_maj, int gl_min);
 		static void quit();
 
+		/**
+		 * @brief Gathers system information
+		 * @return Returns a structure containing system information
+		 */
+		static void get_sys_info();
 	};
 };
 
