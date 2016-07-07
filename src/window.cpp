@@ -4,6 +4,7 @@ using namespace sgltk;
 
 Window::Window(const char* title, int res_x, int res_y,
 		int offset_x, int offset_y,
+		int gl_maj, int gl_min,
 		unsigned int flags) {
 
 	running = true;
@@ -11,10 +12,19 @@ Window::Window(const char* title, int res_x, int res_y,
 	keys = SDL_GetKeyboardState(NULL);
 	delta_time = 0;
 
+	int glmaj = gl_maj;
+	int glmin = gl_min;
+	if(gl_maj < 3) {
+		App::error_string.push_back("sgltk requires opengl version 3.0"
+			"or newer. Defaulting to version 3.0");
+		glmaj = 3;
+		glmin = 0;
+	}
+
 	SDL_DisableScreenSaver();
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, App::gl_maj);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, App::gl_min);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, glmaj);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, glmin);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);

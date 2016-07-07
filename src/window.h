@@ -53,11 +53,15 @@ public:
 	 * @param res_y		The y window resolution
 	 * @param offset_x	The x position offset of the window
 	 * @param offset_y	The y position offset of the window
+	 * @param gl_maj	The major OpenGL version number
+	 * @param gl_min	The minor OpenGL version number
 	 * @param flags		Additional flags to be used by SDL_CreateWindow.
 				The default flag is SDL_WINDOW_OPENGL
 	 */
 	Window(const char* title, int res_x, int res_y,
-			int offset_x, int offset_y, unsigned int flags);
+			int offset_x, int offset_y,
+			int gl_maj, int gl_min,
+			unsigned int flags);
 	~Window();
 
 	/**

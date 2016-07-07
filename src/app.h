@@ -82,6 +82,10 @@ namespace sgltk {
 			 */
 			int system_ram;
 			/**
+			 * @brief The number of screens
+			 */
+			int num_screens;
+			/**
 			 * @brief The major number of the highest OpenGL version
 			 * 	that is supported by the system
 			 */
@@ -92,19 +96,6 @@ namespace sgltk {
 			 */
 			int gl_version_minor;
 		} sys_info;
-
-		/**
-		 * @brief The major OpenGL version number that the library was
-		 * 	initialized with
-		 */
-		static int gl_maj;
-
-		/**
-		 * @brief The minor OpenGL version number that the library was
-		 * 	initialized with
-		 */
-		static int gl_min;
-
 
 		/**
 		 * @brief A list of all error strings.
@@ -142,16 +133,13 @@ namespace sgltk {
 
 		/**
 		 * @brief Initializes all parts of SDL2 used by SGLTK
-		 * @param gl_maj Major OpenGL version number
-		 * @param gl_min Minor OpenGL version number
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init(int gl_maj, int gl_min);
+		static bool init();
 		static void quit();
 
 		/**
-		 * @brief Gathers system information
-		 * @return Returns a structure containing system information
+		 * @brief Gathers system information and populates the sys_info attribute
 		 */
 		static void get_sys_info();
 	};
