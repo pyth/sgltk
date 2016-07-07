@@ -82,9 +82,18 @@ namespace sgltk {
 			 */
 			int system_ram;
 			/**
-			 * @brief The number of screens
+			 * @brief The number of displays
 			 */
-			int num_screens;
+			int num_displays;
+			/**
+			 * @brief The display modes of each display
+			 */
+			std::vector<SDL_DisplayMode> desktop_display_modes;
+			/**
+			 * @brief A list of all supported display modes for every
+			 * 	detected display
+			 */
+			std::vector<std::vector<SDL_DisplayMode> > supported_display_modes;
 			/**
 			 * @brief The major number of the highest OpenGL version
 			 * 	that is supported by the system

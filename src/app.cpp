@@ -125,9 +125,21 @@ void App::_check_error(std::string message, std::string file, unsigned int line)
 
 void App::get_sys_info() {
 	sys_info.platform_name = std::string(SDL_GetPlatform());
+
 	sys_info.num_logical_cores = SDL_GetCPUCount();
 	sys_info.system_ram = SDL_GetSystemRAM();
-	sys_info.num_screens = SDL_GetNumVideoDisplays();
+
+	sys_info.num_displays = SDL_GetNumVideoDisplays();
+	sys_info.desktop_display_modes.resize(sys_info.num_displays);
+	sys_info.supported_display_modes.resize(sys_info.num_displays);
+	for(int i = 0; i < sys_info.num_displays; i++) {
+		int num_modes = SDL_GetNumDisplayModes(i);
+		sys_info.supported_display_modes[i].resize(num_modes);
+		SDL_GetDesktopDisplayMode(i, &sys_info.desktop_display_modes[i]);
+		for(int j = 0; j < num_modes; j++)
+			SDL_GetDisplayMode(i, j, &sys_info.supported_display_modes[i][j]);
+	}
+
 	sys_info.gl_version_major = 1;
 	sys_info.gl_version_minor = 0;
 	if(GL_VERSION_4_0) {
