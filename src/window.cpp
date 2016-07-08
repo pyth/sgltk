@@ -21,8 +21,6 @@ Window::Window(const char* title, int res_x, int res_y,
 		glmin = 0;
 	}
 
-	SDL_DisableScreenSaver();
-
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, glmaj);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, glmin);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -53,6 +51,14 @@ Window::~Window() {
 
 void Window::set_icon(Image *icon) {
 	SDL_SetWindowIcon(this->window, icon->image);
+}
+
+void Window::enable_screensaver() {
+	SDL_EnableScreenSaver();
+}
+
+void Window::disable_screensaver() {
+	SDL_DisableScreenSaver();
 }
 
 void Window::grab_mouse(bool on) {

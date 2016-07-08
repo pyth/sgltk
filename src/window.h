@@ -69,7 +69,14 @@ public:
 	 * @param icon The icon to use
 	 */
 	void set_icon(Image *icon);
-
+	/**
+	 * @brief Enables the screensaver
+	 */
+	void enable_screensaver();
+	/**
+	 * @brief Disables the screensaver
+	 */
+	void disable_screensaver();
 	/**
 	 * @brief Sets the window to grab the mouse
 	 * When activate the mouse can not leave the window boundaries
