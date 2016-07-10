@@ -139,6 +139,9 @@ void App::get_sys_info() {
 		for(int j = 0; j < num_modes; j++)
 			SDL_GetDisplayMode(i, j, &sys_info.supported_display_modes[i][j]);
 	}
+	sys_info.display_bounds.resize(sys_info.num_displays);
+	for(int i = 0; i < sys_info.num_displays; i++)
+		SDL_GetDisplayBounds(i, &sys_info.display_bounds[i]);
 
 	sys_info.gl_version_major = 1;
 	sys_info.gl_version_minor = 0;

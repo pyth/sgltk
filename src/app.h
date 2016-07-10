@@ -90,10 +90,14 @@ namespace sgltk {
 			 */
 			std::vector<SDL_DisplayMode> desktop_display_modes;
 			/**
-			 * @brief A list of all supported display modes for every
+			 * @brief A list of other supported display modes for every
 			 * 	detected display
 			 */
 			std::vector<std::vector<SDL_DisplayMode> > supported_display_modes;
+			/**
+			 * @brief Display bounds
+			 */
+			std::vector<SDL_Rect> display_bounds;
 			/**
 			 * @brief The major number of the highest OpenGL version
 			 * 	that is supported by the system
