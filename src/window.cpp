@@ -16,21 +16,21 @@ Window::Window(const char* title, int res_x, int res_y,
 	int glmin = gl_min;
 	if(gl_min < 0) {
 		App::error_string.push_back("Minor version number cannot be"
-			"negative. Defaulting to version x.0");
+			" negative. Defaulting to version x.0");
 		glmin = 0;
 	}
 	if(gl_maj < 3) {
 		App::error_string.push_back("sgltk requires opengl version 3.0"
-			"or newer. Defaulting to version 3.0");
+			" or newer. Defaulting to version 3.0");
 		glmaj = 3;
 		glmin = 0;
 	} else if(gl_maj == 3 && gl_min > 3) {
 		App::error_string.push_back("Did you mean 3.3?"
-			"Defaulting to version 3.3");
+			" Defaulting to version 3.3");
 		glmin = 3;
 	} else if(gl_maj == 4 && gl_min > 5) {
 		App::error_string.push_back("Did you mean 4.5?"
-			"Defaulting to version 4.5");
+			" Defaulting to version 4.5");
 		glmin = 5;
 	}
 
@@ -53,6 +53,11 @@ Window::Window(const char* title, int res_x, int res_y,
 		return;
 	}
 	context = SDL_GL_CreateContext(window);
+	if(!context) {
+		App::error_string.push_back(std::string("SDL_GL_CreateContext"
+					" Error: ") + SDL_GetError());
+		return;
+	}
 	App::init_glew();
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 }
