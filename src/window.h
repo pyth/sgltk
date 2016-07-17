@@ -29,6 +29,8 @@ class Window {
 	const Uint8 *keys;
 	bool mouse_relative;
 	unsigned int fps_time;
+	static std::map<unsigned int, SDL_GameController *> gamepad_map;
+	static std::map<unsigned int, SDL_Haptic *> haptic_map;
 public:
 	/**
 	 * @brief The width of the window surface
@@ -102,6 +104,46 @@ public:
 	 * @brief Polls all events and calls the handlers. Called by the run function
 	 */
 	void poll_events();
+	/**
+	 * @brief This function is called by poll_events() to handle
+	 *	  the addition of new gamepads. This function should be overriden
+	 * @param gamepad_id The gamepad instance id
+	 */
+	virtual void handle_gamepad_added(unsigned int gamepad_id);
+	/**
+	 * @brief This function is called by poll_events() to handle
+	 *	  the removal of gamepads. This function should be overriden
+	 * @param gamepad_id The gamepad instance id
+	 */
+	virtual void handle_gamepad_removed(unsigned int gamepad_id);
+	/**
+	 * @brief This function is called by poll_events() to handle
+	 *	  gamepad button presses. This function should be overriden
+	 * @param gamepad_id The gamepad instance id
+	 * @param button The number of the button pressed or released
+	 * @param pressed Indicates whether the button was pressed (true) or released (false)
+	 */
+	virtual void handle_gamepad_button(unsigned int gamepad_id, int button, bool pressed);
+	/**
+	 * @brief This function is called by poll_events() to handle
+	 *	  gamepad axis motion. This function should be overriden
+	 * @param gamepad_id The gamepad instance id
+	 * @param axis The number of the axis that has a new value
+	 * @param value The new value of the axis
+	 */
+	virtual void handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value);
+	/**
+	 * @brief Plays a rumble effect on the gamepad
+	 * @param gamepad_id The gamepad instance id
+	 * @param magnitude The strength of the rumble on a scale of 0 to 1
+	 * @param duration The duration of the effect in milliseconds
+	 */
+	void play_rumble(unsigned int gamepad_id, float magnitude, unsigned int duration);
+	/**
+	 * @brief Stops the rumble effect
+	 * @param gamepad_id The gamepad instance id
+	 */
+	void stop_rumble(unsigned int gamepad_id);
 	/**
 	 * @brief This function is called by poll_events() to handle
 	 *	  keyboard input. This function should be overriden
