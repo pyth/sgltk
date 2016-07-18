@@ -4,6 +4,7 @@
 #include "app.h"
 #include "image.h"
 #include "timer.h"
+#include "gamepad.h"
 
 namespace sgltk {
 
@@ -29,8 +30,6 @@ class Window {
 	const Uint8 *keys;
 	bool mouse_relative;
 	unsigned int fps_time;
-	static std::map<unsigned int, SDL_GameController *> gamepad_map;
-	static std::map<unsigned int, SDL_Haptic *> haptic_map;
 public:
 	/**
 	 * @brief The width of the window surface
@@ -132,18 +131,6 @@ public:
 	 * @param value The new value of the axis
 	 */
 	virtual void handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value);
-	/**
-	 * @brief Plays a rumble effect on the gamepad
-	 * @param gamepad_id The gamepad instance id
-	 * @param magnitude The strength of the rumble on a scale of 0 to 1
-	 * @param duration The duration of the effect in milliseconds
-	 */
-	void play_rumble(unsigned int gamepad_id, float magnitude, unsigned int duration);
-	/**
-	 * @brief Stops the rumble effect
-	 * @param gamepad_id The gamepad instance id
-	 */
-	void stop_rumble(unsigned int gamepad_id);
 	/**
 	 * @brief This function is called by poll_events() to handle
 	 *	  keyboard input. This function should be overriden

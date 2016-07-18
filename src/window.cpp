@@ -2,9 +2,6 @@
 
 using namespace sgltk;
 
-std::map<unsigned int, SDL_GameController *> Window::gamepad_map;
-std::map<unsigned int, SDL_Haptic *> Window::haptic_map;
-
 Window::Window(const char* title, int res_x, int res_y,
 		int offset_x, int offset_y,
 		int gl_maj, int gl_min,
@@ -106,10 +103,7 @@ bool Window::enable_vsync(bool on) {
 
 void Window::poll_events() {
 	SDL_Event event;
-	int instance_id;
-	SDL_Haptic *haptic_tmp;
-	SDL_Joystick *joystick;
-	SDL_GameController *gamepad_tmp;
+	Gamepad *gamepad;
 
 	while(SDL_PollEvent(&event)) {
 		switch(event.type) {
@@ -155,43 +149,24 @@ void Window::poll_events() {
 						    event.motion.y);
 			break;
 		case SDL_CONTROLLERDEVICEADDED:
-			gamepad_tmp = SDL_GameControllerOpen(event.cdevice.which);
-			if(!gamepad_tmp) {
-				App::error_string.push_back(std::string("Error opening"
-					" a new game controller: ") +
-					SDL_GetError());
-			} else {
-				joystick = SDL_GameControllerGetJoystick(gamepad_tmp);
-				instance_id = SDL_JoystickInstanceID(joystick);
-				haptic_tmp = SDL_HapticOpenFromJoystick(joystick);
-				if(!haptic_tmp) {
-					App::error_string.push_back(std::string("Error opening"
-						" a new haptic device: ") +
-						SDL_GetError());
-				} else {
-					haptic_map[instance_id] = haptic_tmp;
-					if(SDL_HapticRumbleSupported(haptic_tmp) == SDL_TRUE)
-						SDL_HapticRumbleInit(haptic_tmp);
-				}
-				gamepad_map[instance_id] = gamepad_tmp;
-			}
-			handle_gamepad_added(instance_id);
+			gamepad = new sgltk::Gamepad(event.cdevice.which);
+			handle_gamepad_added(gamepad->id);
 			break;
 		case SDL_CONTROLLERDEVICEREMOVED:
-			SDL_GameControllerClose(gamepad_map[event.cdevice.which]);
-			SDL_HapticClose(haptic_map[event.cdevice.which]);
-			gamepad_map.erase(event.cdevice.which);
-			haptic_map.erase(event.cdevice.which);
-			handle_gamepad_removed(event.cdevice.which);
+			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
+			handle_gamepad_removed(gamepad->id);
+			delete sgltk::Gamepad::id_map[gamepad->id];
 			break;
 		case SDL_CONTROLLERBUTTONDOWN:
 		case SDL_CONTROLLERBUTTONUP:
-			handle_gamepad_button(event.cbutton.which,
+			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
+			handle_gamepad_button(gamepad->id,
 				event.cbutton.button,
 				(event.cbutton.state == SDL_PRESSED));
 			break;
 		case SDL_CONTROLLERAXISMOTION:
-			handle_gamepad_axis(event.caxis.which,
+			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
+			handle_gamepad_axis(gamepad->id,
 				event.caxis.axis,
 				event.caxis.value);
 		}
@@ -209,14 +184,6 @@ void Window::handle_gamepad_button(unsigned int gamepad_id, int button, bool pre
 }
 
 void Window::handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value) {
-}
-
-void Window::play_rumble(unsigned int gamepad_id, float magnitude, unsigned int duration) {
-	SDL_HapticRumblePlay(haptic_map[gamepad_id], magnitude, duration);
-}
-
-void Window::stop_rumble(unsigned int gamepad_id) {
-	SDL_HapticRumbleStop(haptic_map[gamepad_id]);
 }
 
 void Window::handle_keyboard() {
