@@ -1,21 +1,22 @@
 cmake_minimum_required(VERSION 2.8.4)
 project(sgltk)
 
-include(CheckIncludeFiles)
-include(CheckIncludeFileCXX)
 include(CheckCXXCompilerFlag)
 
 set(SGLTK_VERSION_MAJOR 0)
 set(SGLTK_VERSION_MINOR 2)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall")
 endif()
+
+set(CMAKE_PREFIX_PATH "" CACHE PATH "3rd party libraries and headers")
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for the library files")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for .dll files")
 set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
+
 if(WIN32 AND NOT CYGWIN)
 	set(DEF_INSTALL_CMAKE_DIR cmake)
 else()
