@@ -46,10 +46,10 @@ bool Shader::attach_file(std::string filename, GLenum type) {
 		return false;
 	}
 	size = (int)SDL_RWsize(file);
-	char buf[size];
-	SDL_RWread(file, buf, size, 1);
+	std::vector<char> buf(size);
+	SDL_RWread(file, buf.data(), size, 1);
 	SDL_RWclose(file);
-	code = buf;
+	code = buf.data();
 
 	tmp = glCreateShader(type);
 	glShaderSource(tmp, 1, &code, &size);
