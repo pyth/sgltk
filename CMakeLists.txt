@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 3.4)
 project(sgltk)
 
 include(CheckCXXCompilerFlag)
@@ -6,6 +6,8 @@ include(CheckCXXCompilerFlag)
 set(SGLTK_VERSION_MAJOR 0)
 set(SGLTK_VERSION_MINOR 2)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})
+
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall")
