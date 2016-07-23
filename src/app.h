@@ -10,25 +10,20 @@
 	sgltk::App::_check_error(message, __FILE__, __LINE__);\
 }while(0)
 
-#define EXPORT
-#ifdef MAKEDLL
-	#undef EXPORT
-	#define EXPORT __declspec(dllexport)
-#endif // MAKEDLL
-
-#ifdef __WIN32__
-	#include <windows.h>
+#ifdef _WIN32
+	#ifdef MAKEDLL
+		#define EXPORT __declspec(dllexport)
+	#else
+		#define EXPORT __declspec(dllimport)
+	#endif
+#else
+	#define EXPORT
 #endif
 
 #include "config.h"
 
 #include <GL/glew.h>
 #include <GL/glu.h>
-/*#ifdef _WIN32
-	#include <GL/GL.h>
-#else
-	#include <GL/gl.h>
-#endif*/
 
 #include <string>
 #include <chrono>

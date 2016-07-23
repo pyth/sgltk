@@ -87,6 +87,10 @@ void App::quit() {
 	App::quit_sdl();
 }
 
+sgltk::App::~App()
+{
+}
+
 void App::_check_error(std::string message, std::string file, unsigned int line) {
 	std::string err_string;
 	GLenum err = glGetError();
