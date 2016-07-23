@@ -410,13 +410,14 @@ public:
 	/**
 	 * @brief Loads vertices into memory
 	 * @param vertexdata The vertices to be loaded into memory
-	 * @param size The size of the array in bytes
+	 * @param number_elements Number of elements
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return Returns the index that the buffer was attached to
 	 */
 	template <typename T = Vertex>
-	int attach_vertex_buffer(const void *vertexdata, unsigned int size,
+	int attach_vertex_buffer(const void *vertexdata,
+				 unsigned int number_elements,
 				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief Loads vertices into memory
@@ -432,10 +433,12 @@ public:
 	 * @brief Modifies the data in the vertex buffer
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param data The data to be loaded into the buffer
-	 * @param size The size of the data in byte
+	 * @param number_elements Number of elements
 	 */
 	template <typename T = Vertex>
-	bool replace_buffer_data(unsigned int buffer_index, void *data, unsigned int size);
+	bool replace_buffer_data(unsigned int buffer_index,
+				 void *data,
+				 unsigned int number_elements);
 	/**
 	 * @brief Modifies the data in the vertex buffer
 	 * @param buffer_index The index of the buffer to be modified
@@ -450,7 +453,6 @@ public:
 	 * @param number_elements	Number of elements
 	 * @param type			Element type
 	 * @param data			The vertices to be loaded into memory
-	 * @param size			The size of the data buffer
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return	Returns 0 on success, -1 if no shader was
@@ -462,7 +464,6 @@ public:
 					GLint number_elements,
 					GLenum type,
 					const void *data,
-					unsigned int size,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convinience function that combines attach_vertex_buffer and
@@ -490,7 +491,6 @@ public:
 	 * @param number_elements	Number of elements
 	 * @param type			Element type
 	 * @param data			The vertices to be loaded into memory
-	 * @param size			The size of the data buffer
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return	Returns 0 on success, -1 if no shader was
@@ -502,7 +502,6 @@ public:
 					GLint number_elements,
 					GLenum type,
 					const void *data,
-					unsigned int size,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convinience function that combines attach_vertex_buffer and
@@ -657,11 +656,10 @@ int Mesh::add_vertex_attribute(std::string attrib_name,
 				GLint number_elements,
 				GLenum type,
 				const void *data,
-				unsigned int size,
 				GLenum usage) {
 	int buffer_index;
 	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + size);
+	std::vector<T> tmp(ptr, ptr + number_elements);
 	buffer_index = attach_vertex_buffer<T>(&tmp, usage);
 	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
 					type, 0, 0);
@@ -683,11 +681,10 @@ int Mesh::add_vertex_attribute(int attrib_location,
 				GLint number_elements,
 				GLenum type,
 				const void *data,
-				unsigned int size,
 				GLenum usage) {
 	int buffer_index;
 	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + size);
+	std::vector<T> tmp(ptr, ptr + number_elements);
 	buffer_index = attach_vertex_buffer<T>(&tmp, usage);
 	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
 					type, 0, 0);
@@ -706,10 +703,10 @@ int Mesh::add_vertex_attribute(int attrib_location,
 
 template <typename T>
 int Mesh::attach_vertex_buffer(const void *vertexdata,
-				       unsigned int size,
+				       unsigned int number_elements,
 				       GLenum usage) {
 	T *ptr = (T *)vertexdata;
-	std::vector<T> tmp(ptr, ptr + size);
+	std::vector<T> tmp(ptr, ptr + number_elements);
 	return attach_vertex_buffer<T>(&tmp, usage);
 }
 
@@ -731,9 +728,11 @@ int Mesh::attach_vertex_buffer(const std::vector<T> *vertexdata,
 }
 
 template <typename T>
-bool Mesh::replace_buffer_data(unsigned int buffer_index, void *data, unsigned int size) {
+bool Mesh::replace_buffer_data(unsigned int buffer_index,
+				void *data,
+				unsigned int number_elements) {
 	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + size);
+	std::vector<T> tmp(ptr, ptr + number_elements);
 	return replace_buffer_data<T>(buffer_index, &tmp);
 }
 

@@ -221,20 +221,18 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 	int tan_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(&tangent);
 
 	int id_buf = mesh_tmp->attach_vertex_buffer<int>(bone_ids.data(),
-					sizeof(int) * bone_ids.size());
+					bone_ids.size());
 	int weight_buf = mesh_tmp->attach_vertex_buffer<float>(bone_weights.data(),
-					sizeof(float) * bone_weights.size());
+					bone_weights.size());
 
 	int tc_buf = -1;
 	int col_buf = -1;
 	if(num_uv) {
 		tc_buf = mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord[0].data(),
-					sizeof(glm::vec3) *
 					mesh->mNumVertices * num_uv);
 	}
 	if(num_col) {
 		col_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col[0].data(),
-					sizeof(glm::vec4) *
 					mesh->mNumVertices * num_col);
 	}
 	mesh_tmp->compute_bounding_box(&position, 0);
