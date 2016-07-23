@@ -89,7 +89,7 @@ void Window::set_relative_mode(bool on) {
 }
 
 bool Window::enable_vsync(bool on) {
-	bool ret;
+	int ret;
 	if(on) {
 		ret = SDL_GL_SetSwapInterval(-1);
 		if(!ret) {
@@ -98,7 +98,7 @@ bool Window::enable_vsync(bool on) {
 	} else {
 		ret = SDL_GL_SetSwapInterval(0);
 	}
-	return ret;
+	return (ret == 1);
 }
 
 void Window::poll_events() {

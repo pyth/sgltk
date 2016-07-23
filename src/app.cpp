@@ -3,7 +3,7 @@
 using namespace sgltk;
 
 bool App::initialized = false;
-struct sgltk::App::SYS_INFO App::sys_info;
+struct App::SYS_INFO App::sys_info;
 std::vector<std::string> App::error_string = {};
 
 bool App::init_glew() {

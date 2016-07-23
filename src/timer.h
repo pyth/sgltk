@@ -12,18 +12,18 @@ namespace sgltk {
 class Timer {
 	std::chrono::high_resolution_clock::time_point start_time;
 public:
-	Timer();
-	~Timer();
+	EXPORT Timer();
+	EXPORT ~Timer();
 
 	/**
 	 * @brief Starts the timer
 	 */
-	void start();
+	EXPORT void start();
 	/**
 	 * @brief Starts the timer
 	 * @return Time in milliseconds that has passed since start() was called
 	 */
-	double get_time();
+	EXPORT double get_time();
 };
 }
 

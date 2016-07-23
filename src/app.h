@@ -1,5 +1,5 @@
-#ifndef __CORE_H__
-#define __CORE_H__
+#ifndef __APP_H__
+#define __APP_H__
 
 /**
  * @def check_gl_error(message)
@@ -9,6 +9,12 @@
 #define check_gl_error(message) do{\
 	sgltk::App::_check_error(message, __FILE__, __LINE__);\
 }while(0)
+
+#define EXPORT
+#ifdef MAKEDLL
+	#undef EXPORT
+	#define EXPORT __declspec(dllexport)
+#endif // MAKEDLL
 
 #ifdef __WIN32__
 	#include <windows.h>
@@ -39,6 +45,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 #ifdef HAVE_SDL_TTF_H
 	#include <SDL2/SDL_ttf.h>
@@ -68,7 +75,7 @@ namespace sgltk {
 		/**
 		 * @brief System information
 		 */
-		static struct SYS_INFO {
+		EXPORT static struct SYS_INFO {
 			/**
 			 * @brief The name of the platform
 			 */
@@ -113,48 +120,48 @@ namespace sgltk {
 		/**
 		 * @brief A list of all error strings.
 		 */
-		static std::vector<std::string> error_string;
+		EXPORT static std::vector<std::string> error_string;
 
 		/**
 		 * @brief Initializes GLEW
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init_glew();
+		EXPORT static bool init_glew();
 
 		/**
 		 * @brief Initializes SDL2_img
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init_img();
-		static void quit_img();
+		EXPORT static bool init_img();
+		EXPORT static void quit_img();
 
 		/**
 		 * @brief Initializes SDL2
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init_sdl();
-		static void quit_sdl();
+		EXPORT static bool init_sdl();
+		EXPORT static void quit_sdl();
 
 #ifdef HAVE_SDL_TTF_H
 		/**
 		 * @brief Initializes SDL2_ttf
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init_ttf();
-		static void quit_ttf();
+		EXPORT static bool init_ttf();
+		EXPORT static void quit_ttf();
 #endif //HAVE_SDL_TTF_H
 
 		/**
 		 * @brief Initializes all parts of SDL2 used by SGLTK
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init();
-		static void quit();
+		EXPORT static bool init();
+		EXPORT static void quit();
 
 		/**
 		 * @brief Gathers system information and populates the sys_info attribute
 		 */
-		static void get_sys_info();
+		EXPORT static void get_sys_info();
 	};
 };
 

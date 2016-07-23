@@ -4,7 +4,7 @@ using namespace sgltk;
 
 Mesh::Mesh() {
 	model_matrix = glm::mat4(1.0);
-	shader = NULL;
+	shader = nullptr;
 	glGenVertexArrays(1, &vao);
 
 	bounding_box.push_back(glm::vec3(0, 0, 0));

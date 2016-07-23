@@ -22,28 +22,28 @@ class Gamepad {
 	/**
 	 * @brief Maps a gamepad id to a gamepad object
 	 */
-	static std::map<unsigned int, Gamepad *> id_map;
+	EXPORT static std::map<unsigned int, Gamepad *> id_map;
 	/**
 	 * @brief Maps the instance ids as provided by SDL2 events to a gamepad objects
 	 */
-	static std::map<unsigned int, Gamepad *> instance_id_map;
+	EXPORT static std::map<unsigned int, Gamepad *> instance_id_map;
 
 	/**
 	 * @param device_id The device id as provided by the SDL_CONTROLLERDEVICEADDED event
 	 */
-	Gamepad(unsigned int device_id);
-	~Gamepad();
+	EXPORT Gamepad(unsigned int device_id);
+	EXPORT ~Gamepad();
 
 	/**
 	 * @brief Plays a rumble effect
 	 * @param magnitude The strength of the rumble on a scale from 0 to 1
 	 * @param duration The duration of the effect in milliseconds
 	 */
-	void play_rumble(float magnitude, unsigned int duration);
+	EXPORT void play_rumble(float magnitude, unsigned int duration);
 	/**
 	 * @brief Stops the rumble effect
 	 */
-	void stop_rumble();
+	EXPORT void stop_rumble();
 };
 
 }

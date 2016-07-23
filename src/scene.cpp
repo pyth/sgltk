@@ -47,6 +47,9 @@ bool Scene::load(std::string filename) {
 		}
 	}
 
+	if (!scene)
+		App::error_string.push_back(std::string("Error importing ") + filename);
+
 	if(scene->mFlags==AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
 		App::error_string.push_back(std::string("Error importing ") +
 				filename + std::string(": ") +
@@ -486,9 +489,9 @@ aiVector3D Scene::interpolate_scaling(float time, aiNodeAnim *node) {
 			break;
 		}
 
-	float dt = node->mScalingKeys[index + 1].mTime -
-		node->mScalingKeys[index].mTime;
-	float factor = (time - node->mScalingKeys[index].mTime) / dt;
+	float dt = (float)(node->mScalingKeys[index + 1].mTime -
+		node->mScalingKeys[index].mTime);
+	float factor = (float)(time - node->mScalingKeys[index].mTime) / dt;
 	aiVector3D start = node->mScalingKeys[index].mValue;
 	aiVector3D end = node->mScalingKeys[index + 1].mValue;
 	return start + factor * (end - start);
@@ -505,9 +508,9 @@ aiVector3D Scene::interpolate_translation(float time, aiNodeAnim *node) {
 			break;
 		}
 
-	float dt = node->mPositionKeys[index + 1].mTime -
-		node->mPositionKeys[index].mTime;
-	float factor = (time - node->mPositionKeys[index].mTime) / dt;
+	float dt = (float)(node->mPositionKeys[index + 1].mTime -
+		node->mPositionKeys[index].mTime);
+	float factor = (float)(time - node->mPositionKeys[index].mTime) / dt;
 	aiVector3D start = node->mPositionKeys[index].mValue;
 	aiVector3D end = node->mPositionKeys[index + 1].mValue;
 	return start + factor * (end - start);
@@ -525,9 +528,9 @@ aiQuaternion Scene::interpolate_rotation(float time, aiNodeAnim *node) {
 		}
 
 	aiQuaternion rot;
-	float dt = node->mRotationKeys[index + 1].mTime -
-		node->mRotationKeys[index].mTime;
-	float factor = (time - node->mRotationKeys[index].mTime) / dt;
+	float dt = (float)(node->mRotationKeys[index + 1].mTime -
+		node->mRotationKeys[index].mTime);
+	float factor = (float)(time - node->mRotationKeys[index].mTime) / dt;
 	aiQuaternion start = node->mRotationKeys[index].mValue;
 	aiQuaternion end = node->mRotationKeys[index + 1].mValue;
 	aiQuaternion::Interpolate(rot, start, end, factor);
@@ -544,7 +547,7 @@ bool Scene::animate(float time) {
 
 	double animation_time = fmod(time * ticks_per_second,
 					scene->mAnimations[0]->mDuration);
-	traverse_animation_nodes(animation_time, scene->mRootNode, mat);
+	traverse_animation_nodes((float)animation_time, scene->mRootNode, mat);
 	for(unsigned int i = 0; i < bones.size(); i++) {
 		trafos[i] = ai_to_glm_mat4(&bones[i].transformation);
 	}

@@ -80,6 +80,10 @@ endforeach()
 add_library(sgltk		SHARED ${LIB_SOURCE} ${LIB_HEADERS})
 add_library(sgltk_static	STATIC ${LIB_SOURCE} ${LIB_HEADERS})
 
+if(WIN32)
+	target_compile_definitions(sgltk PUBLIC MAKEDLL)
+endif()
+
 if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 	set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
