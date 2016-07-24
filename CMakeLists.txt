@@ -1,21 +1,28 @@
-cmake_minimum_required(VERSION 2.8.4)
+if(WIN32)
+	cmake_minimum_required(VERSION 3.4)
+else()
+	cmake_minimum_required(VERSION 2.8.4)
+endif()
 project(sgltk)
 
-include(CheckIncludeFiles)
-include(CheckIncludeFileCXX)
 include(CheckCXXCompilerFlag)
 
 set(SGLTK_VERSION_MAJOR 0)
 set(SGLTK_VERSION_MINOR 2)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall")
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 endif()
+
+set(CMAKE_PREFIX_PATH "" CACHE PATH "3rd party libraries and headers")
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for the library files")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for .dll files")
 set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
+
 if(WIN32 AND NOT CYGWIN)
 	set(DEF_INSTALL_CMAKE_DIR cmake)
 else()
@@ -31,7 +38,15 @@ foreach(p LIB BIN INCLUDE CMAKE)
 	endif()
 endforeach()
 
-set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+    string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${PROJECT_BINARY_DIR}/lib)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${PROJECT_BINARY_DIR}/lib)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${PROJECT_BINARY_DIR}/lib)
+endforeach()
 
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"

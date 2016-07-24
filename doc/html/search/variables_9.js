@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['near_5fplane',['near_plane',['../classsgltk_1_1_camera.html#aa08fab8114767a6fa5c0b317b2746263',1,'sgltk::Camera']]],
-  ['normal',['normal',['../structsgltk_1_1_vertex.html#a54eaf21e19c331f38e3e1db9a6ffea4b',1,'sgltk::Vertex']]]
+  ['pos',['pos',['../classsgltk_1_1_camera.html#ae222d623bc064e09f992ea334bce308b',1,'sgltk::Camera']]],
+  ['position',['position',['../structsgltk_1_1_vertex.html#ad23198ffa44ec9f032b7195b2a59254f',1,'sgltk::Vertex']]],
+  ['program',['program',['../classsgltk_1_1_shader.html#a81b067c3c22eb1ec25e106a3891b1d9a',1,'sgltk::Shader']]],
+  ['projection_5fmatrix_5fortho',['projection_matrix_ortho',['../classsgltk_1_1_camera.html#ab05074ad20413f32a3fd6637e67229bd',1,'sgltk::Camera']]],
+  ['projection_5fmatrix_5fpersp',['projection_matrix_persp',['../classsgltk_1_1_camera.html#a1010f4f32e42d5841133aab1ed44e697',1,'sgltk::Camera']]],
+  ['projection_5fmatrix_5fpersp_5finf',['projection_matrix_persp_inf',['../classsgltk_1_1_camera.html#adfaa4de975cc304a2b5f27640d4de7ed',1,'sgltk::Camera']]]
 ];

@@ -4,6 +4,7 @@ using namespace sgltk;
 
 Window::Window(const char* title, int res_x, int res_y,
 		int offset_x, int offset_y,
+		int gl_maj, int gl_min,
 		unsigned int flags) {
 
 	running = true;
@@ -11,10 +12,30 @@ Window::Window(const char* title, int res_x, int res_y,
 	keys = SDL_GetKeyboardState(NULL);
 	delta_time = 0;
 
-	SDL_DisableScreenSaver();
+	int glmaj = gl_maj;
+	int glmin = gl_min;
+	if(gl_min < 0) {
+		App::error_string.push_back("Minor version number cannot be"
+			" negative. Defaulting to version x.0");
+		glmin = 0;
+	}
+	if(gl_maj < 3) {
+		App::error_string.push_back("sgltk requires opengl version 3.0"
+			" or newer. Defaulting to version 3.0");
+		glmaj = 3;
+		glmin = 0;
+	} else if(gl_maj == 3 && gl_min > 3) {
+		App::error_string.push_back("Did you mean 3.3?"
+			" Defaulting to version 3.3");
+		glmin = 3;
+	} else if(gl_maj == 4 && gl_min > 5) {
+		App::error_string.push_back("Did you mean 4.5?"
+			" Defaulting to version 4.5");
+		glmin = 5;
+	}
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, App::gl_maj);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, App::gl_min);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, glmaj);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, glmin);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
@@ -32,6 +53,11 @@ Window::Window(const char* title, int res_x, int res_y,
 		return;
 	}
 	context = SDL_GL_CreateContext(window);
+	if(!context) {
+		App::error_string.push_back(std::string("SDL_GL_CreateContext"
+					" Error: ") + SDL_GetError());
+		return;
+	}
 	App::init_glew();
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 }
@@ -39,6 +65,18 @@ Window::Window(const char* title, int res_x, int res_y,
 Window::~Window() {
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
+}
+
+void Window::set_icon(Image *icon) {
+	SDL_SetWindowIcon(this->window, icon->image);
+}
+
+void Window::enable_screensaver() {
+	SDL_EnableScreenSaver();
+}
+
+void Window::disable_screensaver() {
+	SDL_DisableScreenSaver();
 }
 
 void Window::grab_mouse(bool on) {
@@ -51,7 +89,7 @@ void Window::set_relative_mode(bool on) {
 }
 
 bool Window::enable_vsync(bool on) {
-	bool ret;
+	int ret;
 	if(on) {
 		ret = SDL_GL_SetSwapInterval(-1);
 		if(!ret) {
@@ -60,11 +98,12 @@ bool Window::enable_vsync(bool on) {
 	} else {
 		ret = SDL_GL_SetSwapInterval(0);
 	}
-	return ret;
+	return (ret == 1);
 }
 
 void Window::poll_events() {
 	SDL_Event event;
+	Gamepad *gamepad;
 
 	while(SDL_PollEvent(&event)) {
 		switch(event.type) {
@@ -72,13 +111,15 @@ void Window::poll_events() {
 			handle_exit();
 			break;
 		case SDL_WINDOWEVENT:
-			if(event.window.event == SDL_WINDOWEVENT_CLOSE) {
+			switch(event.window.event) {
+			case SDL_WINDOWEVENT_CLOSE:
 				handle_exit();
-			}
-			if(event.window.event == SDL_WINDOWEVENT_RESIZED) {
+				break;
+			case SDL_WINDOWEVENT_RESIZED:
 				width = event.window.data1;
 				height = event.window.data2;
 				handle_resize();
+				break;
 			}
 			break;
 		case SDL_KEYDOWN:
@@ -107,9 +148,42 @@ void Window::poll_events() {
 				handle_mouse_motion(event.motion.x,
 						    event.motion.y);
 			break;
+		case SDL_CONTROLLERDEVICEADDED:
+			gamepad = new sgltk::Gamepad(event.cdevice.which);
+			handle_gamepad_added(gamepad->id);
+			break;
+		case SDL_CONTROLLERDEVICEREMOVED:
+			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
+			handle_gamepad_removed(gamepad->id);
+			delete sgltk::Gamepad::id_map[gamepad->id];
+			break;
+		case SDL_CONTROLLERBUTTONDOWN:
+		case SDL_CONTROLLERBUTTONUP:
+			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
+			handle_gamepad_button(gamepad->id,
+				event.cbutton.button,
+				(event.cbutton.state == SDL_PRESSED));
+			break;
+		case SDL_CONTROLLERAXISMOTION:
+			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
+			handle_gamepad_axis(gamepad->id,
+				event.caxis.axis,
+				event.caxis.value);
 		}
 	}
 	handle_keyboard();
+}
+
+void Window::handle_gamepad_added(unsigned int gamepad_id) {
+}
+
+void Window::handle_gamepad_removed(unsigned int gamepad_id) {
+}
+
+void Window::handle_gamepad_button(unsigned int gamepad_id, int button, bool pressed) {
+}
+
+void Window::handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value) {
 }
 
 void Window::handle_keyboard() {

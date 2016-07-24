@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['window',['Window',['../classsgltk_1_1_window.html',1,'sgltk']]]
+  ['vertex',['Vertex',['../structsgltk_1_1_vertex.html',1,'sgltk']]]
 ];

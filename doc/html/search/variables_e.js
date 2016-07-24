@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['up',['up',['../classsgltk_1_1_camera.html#a31707683b92a242406560c0bb5cdbe28',1,'sgltk::Camera']]]
+  ['view_5fmatrix',['view_matrix',['../classsgltk_1_1_camera.html#a2a88122e745abb8db0c3c8eb79ceb57e',1,'sgltk::Camera']]]
 ];

@@ -1,5 +1,5 @@
-#ifndef __CORE_H__
-#define __CORE_H__
+#ifndef __APP_H__
+#define __APP_H__
 
 /**
  * @def check_gl_error(message)
@@ -10,19 +10,28 @@
 	sgltk::App::_check_error(message, __FILE__, __LINE__);\
 }while(0)
 
-#ifdef __WIN32__
-	#include <windows.h>
+#ifdef _WIN32
+	#ifdef MAKE_LIB
+		#ifdef MAKE_DLL
+			#define EXPORT __declspec(dllexport)
+		#elif MAKE_STATIC
+			#define EXPORT
+		#endif
+	#else
+		#ifdef DYNAMIC
+			#define EXPORT __declspec(dllimport)
+		#elif STATIC
+			#define EXPORT
+		#endif
+	#endif
+#else
+	#define EXPORT
 #endif
 
 #include "config.h"
 
 #include <GL/glew.h>
 #include <GL/glu.h>
-/*#ifdef _WIN32
-	#include <GL/GL.h>
-#else
-	#include <GL/gl.h>
-#endif*/
 
 #include <string>
 #include <chrono>
@@ -39,6 +48,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 #ifdef HAVE_SDL_TTF_H
 	#include <SDL2/SDL_ttf.h>
@@ -52,7 +62,8 @@
 
 namespace sgltk {
 	/**
-	 * @class App Handles the initialization of the library.
+	 * @class App
+	 * @brief Handles library initialization and provides system information.
 	 */
 	class App {
 		static bool initialized;
@@ -65,61 +76,95 @@ namespace sgltk {
 		public:
 
 		/**
-		 * @brief The major OpenGL version number that the library was
-		 * 	initialized with
+		 * @brief System information
 		 */
-		static int gl_maj;
-
-		/**
-		 * @brief The minor OpenGL version number that the library was
-		 * 	initialized with
-		 */
-		static int gl_min;
-
+		EXPORT static struct SYS_INFO {
+			/**
+			 * @brief The name of the platform
+			 */
+			std::string platform_name;
+			/**
+			 * @brief The number of logical cores
+			 */
+			int num_logical_cores;
+			/**
+			 * @brief The amount of ram in MB
+			 */
+			int system_ram;
+			/**
+			 * @brief The number of displays
+			 */
+			int num_displays;
+			/**
+			 * @brief The display modes of each display
+			 */
+			std::vector<SDL_DisplayMode> desktop_display_modes;
+			/**
+			 * @brief A list of other supported display modes for every
+			 * 	detected display
+			 */
+			std::vector<std::vector<SDL_DisplayMode> > supported_display_modes;
+			/**
+			 * @brief Display bounds
+			 */
+			std::vector<SDL_Rect> display_bounds;
+			/**
+			 * @brief The major number of the highest OpenGL version
+			 * 	that is supported by the system
+			 */
+			int gl_version_major;
+			/**
+			 * @brief The minor number of the highest OpenGL version
+			 * 	that is supported by the system
+			 */
+			int gl_version_minor;
+		} sys_info;
 
 		/**
 		 * @brief A list of all error strings.
 		 */
-		static std::vector<std::string> error_string;
+		EXPORT static std::vector<std::string> error_string;
 
 		/**
 		 * @brief Initializes GLEW
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init_glew();
+		EXPORT static bool init_glew();
 
 		/**
 		 * @brief Initializes SDL2_img
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init_img();
-		static void quit_img();
+		EXPORT static bool init_img();
+		EXPORT static void quit_img();
 
 		/**
 		 * @brief Initializes SDL2
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init_sdl();
-		static void quit_sdl();
+		EXPORT static bool init_sdl();
+		EXPORT static void quit_sdl();
 
 #ifdef HAVE_SDL_TTF_H
 		/**
 		 * @brief Initializes SDL2_ttf
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init_ttf();
-		static void quit_ttf();
+		EXPORT static bool init_ttf();
+		EXPORT static void quit_ttf();
 #endif //HAVE_SDL_TTF_H
 
 		/**
 		 * @brief Initializes all parts of SDL2 used by SGLTK
-		 * @param gl_maj Major OpenGL version number
-		 * @param gl_min Minor OpenGL version number
 		 * @return Returns true on success, flase otherwise
 		 */
-		static bool init(int gl_maj, int gl_min);
-		static void quit();
+		EXPORT static bool init();
+		EXPORT static void quit();
 
+		/**
+		 * @brief Gathers system information and populates the sys_info attribute
+		 */
+		EXPORT static void get_sys_info();
 	};
 };
 

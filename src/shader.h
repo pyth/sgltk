@@ -27,15 +27,15 @@ public:
 	 * @note To avoid duplacates this function first performs
 	 *▸      a search an existing entry path.
 	 */
-	static void add_path(std::string path);
+	EXPORT static void add_path(std::string path);
 
 	/**
 	 * @brief Shader name
 	 */
 	GLuint program;
 
-	Shader();
-	~Shader();
+	EXPORT Shader();
+	EXPORT ~Shader();
 
 	/**
 	 * @brief Compiles and attaches shader files
@@ -43,7 +43,7 @@ public:
 	 * @param type		Shader type
 	 * @return		Returns true on success or false otherwise
 	 */
-	bool attach_file(std::string filename, GLenum type);
+	EXPORT bool attach_file(std::string filename, GLenum type);
 	/**
 	 * @brief Compiles and attaches shader strings
 	 * @param shader_string	A string containing the shader
@@ -51,23 +51,23 @@ public:
 	 * @param type		Shader type
 	 * @return		Returns true on success or false otherwise
 	 */
-	bool attach_string(const char *shader_string, GLint size, GLenum type);
+	EXPORT bool attach_string(const char *shader_string, GLint size, GLenum type);
 	/**
 	 * @brief Reads, compiles and links all associated shaders again.
 	 */
-	void recompile();
+	EXPORT void recompile();
 	/**
 	 * @brief Links the attached shaders
 	 */
-	void link();
+	EXPORT void link();
 	/**
 	 * @brief Binds the shader and stores the previously bound shader
 	 */
-	void bind();
+	EXPORT void bind();
 	/**
 	 * @brief Unbinds the shader and restores the previously bound shader
 	 */
-	void unbind();
+	EXPORT void unbind();
 };
 }
 

@@ -3,12 +3,13 @@ var searchData=
   ['set_5fambient_5fcolor_5fname',['set_ambient_color_name',['../classsgltk_1_1_mesh.html#a136f8e5bd7d0fd94f5a4aa73bc389daf',1,'sgltk::Mesh']]],
   ['set_5fambient_5ftexture_5fname',['set_ambient_texture_name',['../classsgltk_1_1_mesh.html#a8bc52f3979a2b8b9bcd30349d876ca82',1,'sgltk::Mesh']]],
   ['set_5fanimation_5fspeed',['set_animation_speed',['../classsgltk_1_1_scene.html#a83595b4bbc76e79a0e5ccbfdff995a08',1,'sgltk::Scene']]],
-  ['set_5fattribute_5fnames',['set_attribute_names',['../classsgltk_1_1_scene.html#abd6421491fe2144d7e60476b9f139312',1,'sgltk::Scene']]],
+  ['set_5fattribute_5fnames',['set_attribute_names',['../classsgltk_1_1_scene.html#a700a67257aa73c695bfe026e97a803e4',1,'sgltk::Scene']]],
   ['set_5fcolor_5fkey',['set_color_key',['../classsgltk_1_1_image.html#a6555d46090b3d2e8bd26ab2bd195825b',1,'sgltk::Image']]],
   ['set_5fdiffuse_5fcolor_5fname',['set_diffuse_color_name',['../classsgltk_1_1_mesh.html#a2f01f40697eb0b4f9da382cef39c20e2',1,'sgltk::Mesh']]],
   ['set_5fdiffuse_5ftexture_5fname',['set_diffuse_texture_name',['../classsgltk_1_1_mesh.html#ab924e6d9c5ce7be1264d27466333b7c2',1,'sgltk::Mesh']]],
   ['set_5fdisplacement_5ftexture_5fname',['set_displacement_texture_name',['../classsgltk_1_1_mesh.html#aca778dd1dfae27eb6524990ad8d0dc0d',1,'sgltk::Mesh']]],
   ['set_5femmisive_5ftexture_5fname',['set_emmisive_texture_name',['../classsgltk_1_1_mesh.html#ac9cc7bd9226e0242924d312aed8ec02b',1,'sgltk::Mesh']]],
+  ['set_5ficon',['set_icon',['../classsgltk_1_1_window.html#accb31acf73228de27d52a38ceb25b3ec',1,'sgltk::Window']]],
   ['set_5flightmap_5ftexture_5fname',['set_lightmap_texture_name',['../classsgltk_1_1_mesh.html#a4f8bb3e25445c25cd6b3344d0748e68a',1,'sgltk::Mesh']]],
   ['set_5fmodel_5fmatrix_5fname',['set_model_matrix_name',['../classsgltk_1_1_mesh.html#a4a98c9afeb7c330719549a8768309417',1,'sgltk::Mesh']]],
   ['set_5fmodel_5fview_5fmatrix_5fname',['set_model_view_matrix_name',['../classsgltk_1_1_mesh.html#a10ba3fa618551b605a324dc0c3fdc332',1,'sgltk::Mesh']]],
@@ -31,5 +32,6 @@ var searchData=
   ['setup_5fcamera',['setup_camera',['../classsgltk_1_1_mesh.html#a833efc310a751b3b5f2cd1fbf33f987a',1,'sgltk::Mesh::setup_camera()'],['../classsgltk_1_1_scene.html#a829d827edf048bc47f9347e61187a6a1',1,'sgltk::Scene::setup_camera()']]],
   ['setup_5fshader',['setup_shader',['../classsgltk_1_1_mesh.html#aa017b8b57a083aa5b3e47d4f2b3f1b3d',1,'sgltk::Mesh::setup_shader()'],['../classsgltk_1_1_scene.html#abb81a71e84f78bb6b77ee0708829db0d',1,'sgltk::Scene::setup_shader()']]],
   ['start',['start',['../classsgltk_1_1_timer.html#a3a8b5272198d029779dc9302a54305a8',1,'sgltk::Timer']]],
+  ['stop_5frumble',['stop_rumble',['../classsgltk_1_1_gamepad.html#acec8bfc315ca231b80353d49966b6f36',1,'sgltk::Gamepad']]],
   ['store_5ftexture',['store_texture',['../classsgltk_1_1_texture.html#ad991293c63961c477c6f395e27fdb790',1,'sgltk::Texture']]]
 ];

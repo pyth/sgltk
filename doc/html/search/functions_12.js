@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['window',['Window',['../classsgltk_1_1_window.html#a52f71741133a0fffff49549330067247',1,'sgltk::Window']]]
+  ['window',['Window',['../classsgltk_1_1_window.html#ac3aabc7c13fbe112d0d828dfae39a2a2',1,'sgltk::Window']]]
 ];

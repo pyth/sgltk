@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['image',['image',['../classsgltk_1_1_image.html#a5e68bb4101c8ebe30b6c8f4675e4cbef',1,'sgltk::Image']]]
+  ['model_5fmatrix',['model_matrix',['../classsgltk_1_1_mesh.html#ad18b136b3c932919acd252fec8567a28',1,'sgltk::Mesh']]]
 ];

@@ -10,7 +10,7 @@ namespace sgltk {
 	 * @struct Vertex
 	 * @brief A basic vertex structure
 	 */
-	typedef struct Vertex {
+	typedef EXPORT struct Vertex {
 		/**
 		 * @brief Vertex position
 		 */
@@ -249,21 +249,21 @@ public:
 	//std::vector<Texture> textures;
 	//std::vector<float> texture_blend;
 
-	Mesh();
-	~Mesh();
+	EXPORT Mesh();
+	EXPORT ~Mesh();
 
 	/**
 	 * @brief Specifies the shader to use to render the mesh
 	 * @param shader The shader to be used to render the mesh
 	 */
-	void setup_shader(Shader *shader);
+	EXPORT void setup_shader(Shader *shader);
 	/**
 	 * @brief Sets up the view and projection matrices that will be used
 	 * 	  by the mesh
 	 * @param view_matrix The view matrix
 	 * @param projection_matrix The projection matrix
 	 */
-	void setup_camera(glm::mat4 *view_matrix,
+	EXPORT void setup_camera(glm::mat4 *view_matrix,
 			  glm::mat4 *projection_matrix);
 	/**
 	 * @brief Sets the name of the model matrix in the shader
@@ -271,35 +271,35 @@ public:
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "model_matrix"
 	 */
-	void set_model_matrix_name(std::string name);
+	EXPORT void set_model_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the view matrix in the shader
 	 * @param name The name of the view matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "view_matrix"
 	 */
-	void set_view_matrix_name(std::string name);
+	EXPORT void set_view_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the projection matrix in the shader
 	 * @param name The name of the projection matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "proj_matrix"
 	 */
-	void set_projection_matrix_name(std::string name);
+	EXPORT void set_projection_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the model-view matrix in the shader
 	 * @param name The name of the model-view matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "model_view_matrix"
 	 */
-	void set_model_view_matrix_name(std::string name);
+	EXPORT void set_model_view_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the view-projection matrix in the shader
 	 * @param name The name of the view-projection matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "view_proj_matrix"
 	 */
-	void set_view_proj_matrix_name(std::string name);
+	EXPORT void set_view_proj_matrix_name(std::string name);
 	/**
 	 * @brief Sets the name of the model-view-projection matrix
 	 * 	in the shader
@@ -307,35 +307,35 @@ public:
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "model_view_proj_matrix"
 	 */
-	void set_model_view_proj_name(std::string name);
+	EXPORT void set_model_view_proj_name(std::string name);
 	/**
 	 * @brief Sets the name of the normal matrix in the shader
 	 * @param name The name of the normal matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "normal_matrix"
 	 */
-	void set_normal_matrix_name(std::string normal_matrix_name);
+	EXPORT void set_normal_matrix_name(std::string normal_matrix_name);
 	/**
 	 * @brief Sets the name of the ambient color in the shader
 	 * @param name The name of the ambient color component.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "color_ambient"
 	 */
-	void set_ambient_color_name(std::string name);
+	EXPORT void set_ambient_color_name(std::string name);
 	/**
 	 * @brief Sets the name of the diffuse color in the shader
 	 * @param name The name of the diffuse color component.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "color_diffuse"
 	 */
-	void set_diffuse_color_name(std::string name);
+	EXPORT void set_diffuse_color_name(std::string name);
 	/**
 	 * @brief Sets the name of the specular color in the shader
 	 * @param name The name of the specular color component.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "color_specular"
 	 */
-	void set_specular_color_name(std::string name);
+	EXPORT void set_specular_color_name(std::string name);
 	/**
 	 * @brief Sets the name of the shininess of the material
 	 * 	in the shader
@@ -343,7 +343,7 @@ public:
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "shininess"
 	 */
-	void set_shininess_name(std::string name);
+	EXPORT void set_shininess_name(std::string name);
 	/**
 	 * @brief Sets the name of the shininess strength of the material
 	 * 	in the shader
@@ -351,72 +351,73 @@ public:
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "shininess_strength"
 	 */
-	void set_shininess_strength_name(std::string name);
+	EXPORT void set_shininess_strength_name(std::string name);
 	/**
 	 * @brief Sets the name of the ambient texture in the shader
 	 * @param name The name of the ambient texture.
 	 * 	The name is reset if string is empty.
 	 */
-	void set_ambient_texture_name(std::string name);
+	EXPORT void set_ambient_texture_name(std::string name);
 	/**
 	 * @brief Sets the name of the diffuse texture in the shader
 	 * @param name The name of the diffuse texture.
 	 * 	The name is reset if string is empty.
 	 */
-	void set_diffuse_texture_name(std::string name);
+	EXPORT void set_diffuse_texture_name(std::string name);
 	/**
 	 * @brief Sets the name of the specular texture in the shader
 	 * @param name The name of the specular texture.
 	 * 	The name is reset if string is empty.
 	 */
-	void set_specular_texture_name(std::string name);
+	EXPORT void set_specular_texture_name(std::string name);
 	/**
 	 * @brief Sets the name of the shininess texture in the shader
 	 * @param name The name of the shininess texture.
 	 * 	The name is reset if string is empty.
 	 */
-	void set_shininess_texture_name(std::string name);
+	EXPORT void set_shininess_texture_name(std::string name);
 	/**
 	 * @brief Sets the name of the emmisive texture in the shader
 	 * @param name The name of the emmisive texture.
 	 * 	The name is reset if string is empty.
 	 */
-	void set_emmisive_texture_name(std::string name);
+	EXPORT void set_emmisive_texture_name(std::string name);
 	/**
 	 * @brief Sets the name of the normals texture in the shader
 	 * @param name The name of the normals texture.
 	 * 	The name is reset if string is empty.
 	 */
-	void set_normals_texture_name(std::string name);
+	EXPORT void set_normals_texture_name(std::string name);
 	/**
 	 * @brief Sets the name of the displacement texture in the shader
 	 * @param name The name of the displacement texture.
 	 * 	The name is reset if string is empty.
 	 */
-	void set_displacement_texture_name(std::string name);
+	EXPORT void set_displacement_texture_name(std::string name);
 	/**
 	 * @brief Sets the name of the opacity texture in the shader
 	 * @param name The name of the opacity texture.
 	 * 	The name is reset if string is empty.
 	 */
-	void set_opacity_texture_name(std::string name);
+	EXPORT void set_opacity_texture_name(std::string name);
 	/**
 	 * @brief Sets the name of the lightmap texture in the shader
 	 * @param name The name of the lightmap texture.
 	 * 	The name is reset if string is empty.
 	 */
-	void set_lightmap_texture_name(std::string name);
+	EXPORT void set_lightmap_texture_name(std::string name);
 
 	/**
 	 * @brief Loads vertices into memory
 	 * @param vertexdata The vertices to be loaded into memory
-	 * @param size The size of the array in bytes
+	 * @param number_elements Number of elements
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return Returns the index that the buffer was attached to
 	 */
 	template <typename T = Vertex>
-	int attach_vertex_buffer(const void *vertexdata, unsigned int size,
+	int attach_vertex_buffer(const void *vertexdata,
+				 unsigned int number_elements,
 				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief Loads vertices into memory
@@ -432,10 +433,12 @@ public:
 	 * @brief Modifies the data in the vertex buffer
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param data The data to be loaded into the buffer
-	 * @param size The size of the data in byte
+	 * @param number_elements Number of elements
 	 */
 	template <typename T = Vertex>
-	bool replace_buffer_data(unsigned int buffer_index, void *data, unsigned int size);
+	bool replace_buffer_data(unsigned int buffer_index,
+				 void *data,
+				 unsigned int number_elements);
 	/**
 	 * @brief Modifies the data in the vertex buffer
 	 * @param buffer_index The index of the buffer to be modified
@@ -450,7 +453,6 @@ public:
 	 * @param number_elements	Number of elements
 	 * @param type			Element type
 	 * @param data			The vertices to be loaded into memory
-	 * @param size			The size of the data buffer
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return	Returns 0 on success, -1 if no shader was
@@ -462,7 +464,6 @@ public:
 					GLint number_elements,
 					GLenum type,
 					const void *data,
-					unsigned int size,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convinience function that combines attach_vertex_buffer and
@@ -490,7 +491,6 @@ public:
 	 * @param number_elements	Number of elements
 	 * @param type			Element type
 	 * @param data			The vertices to be loaded into memory
-	 * @param size			The size of the data buffer
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return	Returns 0 on success, -1 if no shader was
@@ -502,7 +502,6 @@ public:
 					GLint number_elements,
 					GLenum type,
 					const void *data,
-					unsigned int size,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convinience function that combines attach_vertex_buffer and
@@ -537,7 +536,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	int set_vertex_attribute(std::string attrib_name,
+	EXPORT int set_vertex_attribute(std::string attrib_name,
 				 unsigned int buffer_index,
 				 GLint number_elements,
 				 GLenum type,
@@ -557,7 +556,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	int set_vertex_attribute(int attrib_location,
+	EXPORT int set_vertex_attribute(int attrib_location,
 				 unsigned int buffer_index,
 				 GLint number_elements,
 				 GLenum type,
@@ -571,7 +570,7 @@ public:
 	 * 		instance gets a new value, 2 means that two instances get the
 	 * 		same value and so on.
 	 */
-	void set_vertex_attribute_divisor(std::string attrib_name, unsigned int divisor);
+	EXPORT void set_vertex_attribute_divisor(std::string attrib_name, unsigned int divisor);
 	/**
 	 * @brief Sets how often the vertex attribute should be updated to the next value.
 	 * @param attrib_location The location of the attribute in shader
@@ -580,13 +579,13 @@ public:
 	 * 		instance gets a new value, 2 means that two instances get the
 	 * 		same value and so on.
 	 */
-	void set_vertex_attribute_divisor(unsigned int attrib_location, unsigned int divisor);
+	EXPORT void set_vertex_attribute_divisor(unsigned int attrib_location, unsigned int divisor);
 	/**
 	 * @brief Attaches an index array to the mesh
 	 * @param indices Indices describing the topology of the mesh
 	 * You can attach multiple index arrays
 	 */
-	void attach_index_buffer(const std::vector<unsigned short> *indices);
+	EXPORT void attach_index_buffer(const std::vector<unsigned short> *indices);
 
 	/**
 	 * @brief Computes the bounding box of the mesh
@@ -602,7 +601,7 @@ public:
 	 * @param mode Specifies the primitive that will be created from
 	 * 	vertices
 	 */
-	void draw(GLenum mode);
+	EXPORT void draw(GLenum mode);
 
 	/**
 	 * @brief Renders the mesh using the first index buffer and the
@@ -611,7 +610,7 @@ public:
 	 * 	  vertices
 	 * @param index_buffer The index buffer to use
 	 */
-	void draw(GLenum mode, unsigned int index_buffer);
+	EXPORT void draw(GLenum mode, unsigned int index_buffer);
 
 	/**
 	 * @brief Renders the mesh using the first index buffer
@@ -620,7 +619,7 @@ public:
 	 * @param model_matrix The model matrix to use
 	 *	  (NULL to use the model_matrix member)
 	 */
-	void draw(GLenum mode, glm::mat4 *model_matrix);
+	EXPORT void draw(GLenum mode, glm::mat4 *model_matrix);
 
 	/**
 	 * @brief Renders the mesh
@@ -630,7 +629,7 @@ public:
 	 * @param model_matrix The model matrix to use
 	 *	  (NULL to use the model_matrix member)
 	 */
-	void draw(GLenum mode, unsigned int index_buffer,
+	EXPORT void draw(GLenum mode, unsigned int index_buffer,
 		  glm::mat4 *model_matrix);
 
 	/**
@@ -639,7 +638,7 @@ public:
 	 * 	  vertices
 	 * @param num_instances Number of instances to be drawn
 	 */
-	void draw_instanced(GLenum mode, unsigned int num_instances);
+	EXPORT void draw_instanced(GLenum mode, unsigned int num_instances);
 
 	/**
 	 * @brief Renders the mesh multiple times
@@ -648,7 +647,7 @@ public:
 	 * @param index_buffer The index buffer to use
 	 * @param num_instances Number of instances to be drawn
 	 */
-	void draw_instanced(GLenum mode, unsigned int index_buffer,
+	EXPORT void draw_instanced(GLenum mode, unsigned int index_buffer,
 						unsigned int num_instances);
 };
 
@@ -657,11 +656,10 @@ int Mesh::add_vertex_attribute(std::string attrib_name,
 				GLint number_elements,
 				GLenum type,
 				const void *data,
-				unsigned int size,
 				GLenum usage) {
 	int buffer_index;
 	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + size);
+	std::vector<T> tmp(ptr, ptr + number_elements);
 	buffer_index = attach_vertex_buffer<T>(&tmp, usage);
 	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
 					type, 0, 0);
@@ -683,11 +681,10 @@ int Mesh::add_vertex_attribute(int attrib_location,
 				GLint number_elements,
 				GLenum type,
 				const void *data,
-				unsigned int size,
 				GLenum usage) {
 	int buffer_index;
 	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + size);
+	std::vector<T> tmp(ptr, ptr + number_elements);
 	buffer_index = attach_vertex_buffer<T>(&tmp, usage);
 	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
 					type, 0, 0);
@@ -706,10 +703,10 @@ int Mesh::add_vertex_attribute(int attrib_location,
 
 template <typename T>
 int Mesh::attach_vertex_buffer(const void *vertexdata,
-				       unsigned int size,
+				       unsigned int number_elements,
 				       GLenum usage) {
 	T *ptr = (T *)vertexdata;
-	std::vector<T> tmp(ptr, ptr + size);
+	std::vector<T> tmp(ptr, ptr + number_elements);
 	return attach_vertex_buffer<T>(&tmp, usage);
 }
 
@@ -731,9 +728,11 @@ int Mesh::attach_vertex_buffer(const std::vector<T> *vertexdata,
 }
 
 template <typename T>
-bool Mesh::replace_buffer_data(unsigned int buffer_index, void *data, unsigned int size) {
+bool Mesh::replace_buffer_data(unsigned int buffer_index,
+				void *data,
+				unsigned int number_elements) {
 	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + size);
+	std::vector<T> tmp(ptr, ptr + number_elements);
 	return replace_buffer_data<T>(buffer_index, &tmp);
 }
 

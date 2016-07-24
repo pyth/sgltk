@@ -3,8 +3,7 @@
 using namespace sgltk;
 
 bool App::initialized = false;
-int App::gl_maj = 3;
-int App::gl_min = 0;
+struct App::SYS_INFO App::sys_info;
 std::vector<std::string> App::error_string = {};
 
 bool App::init_glew() {
@@ -58,7 +57,7 @@ void App::quit_ttf() {
 }
 #endif //HAVE_SDL_TTF_H
 
-bool App::init(int gl_maj, int gl_min) {
+bool App::init() {
 	if(App::initialized)
 		return true;
 
@@ -67,15 +66,8 @@ bool App::init(int gl_maj, int gl_min) {
 #ifdef HAVE_SDL_TTF_H
 			if(App::init_ttf()) {
 #endif //HAVE_SDL_TTF_H
-				if(gl_maj >= 3) {
-					App::gl_maj = gl_maj;
-					App::gl_min = gl_min;
-				} else {
-					App::error_string.push_back(std::string("SGLTK requires at least OpenGL version 3.0"
-											"\nDefaulting version number to 3.0"));
-				}
-
 				App::initialized = true;
+				App::get_sys_info();
 				return true;
 #ifdef HAVE_SDL_TTF_H
 			}
@@ -93,6 +85,10 @@ void App::quit() {
 	App::quit_ttf();
 #endif //HAVE_SDL_TTF_H
 	App::quit_sdl();
+}
+
+sgltk::App::~App()
+{
 }
 
 void App::_check_error(std::string message, std::string file, unsigned int line) {
@@ -131,3 +127,49 @@ void App::_check_error(std::string message, std::string file, unsigned int line)
 	}
 }
 
+void App::get_sys_info() {
+	sys_info.platform_name = std::string(SDL_GetPlatform());
+
+	sys_info.num_logical_cores = SDL_GetCPUCount();
+	sys_info.system_ram = SDL_GetSystemRAM();
+
+	sys_info.num_displays = SDL_GetNumVideoDisplays();
+	sys_info.desktop_display_modes.resize(sys_info.num_displays);
+	sys_info.supported_display_modes.resize(sys_info.num_displays);
+	for(int i = 0; i < sys_info.num_displays; i++) {
+		int num_modes = SDL_GetNumDisplayModes(i);
+		sys_info.supported_display_modes[i].resize(num_modes);
+		SDL_GetDesktopDisplayMode(i, &sys_info.desktop_display_modes[i]);
+		for(int j = 0; j < num_modes; j++)
+			SDL_GetDisplayMode(i, j, &sys_info.supported_display_modes[i][j]);
+	}
+	sys_info.display_bounds.resize(sys_info.num_displays);
+	for(int i = 0; i < sys_info.num_displays; i++)
+		SDL_GetDisplayBounds(i, &sys_info.display_bounds[i]);
+
+	sys_info.gl_version_major = 1;
+	sys_info.gl_version_minor = 0;
+	if(GL_VERSION_4_0) {
+		sys_info.gl_version_major = 4;
+		sys_info.gl_version_minor = 0;
+		if(GL_VERSION_4_5)
+			sys_info.gl_version_minor = 5;
+		else if(GL_VERSION_4_4)
+			sys_info.gl_version_minor = 4;
+		else if(GL_VERSION_4_3)
+			sys_info.gl_version_minor = 3;
+		else if(GL_VERSION_4_2)
+			sys_info.gl_version_minor = 2;
+		else if(GL_VERSION_4_1)
+			sys_info.gl_version_minor = 1;
+	} else if(GL_VERSION_3_0) {
+		sys_info.gl_version_major = 3;
+		sys_info.gl_version_minor = 0;
+		if(GL_VERSION_3_3)
+			sys_info.gl_version_minor = 3;
+		else if(GL_VERSION_3_2)
+			sys_info.gl_version_minor = 2;
+		else if(GL_VERSION_3_1)
+			sys_info.gl_version_minor = 1;
+	}
+}

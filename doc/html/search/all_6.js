@@ -1,7 +1,8 @@
 var searchData=
 [
+  ['gamepad',['Gamepad',['../classsgltk_1_1_gamepad.html',1,'sgltk']]],
+  ['gamepad',['Gamepad',['../classsgltk_1_1_gamepad.html#a639435264ae70a0577ff1c5bb14dadd8',1,'sgltk::Gamepad']]],
+  ['get_5fsys_5finfo',['get_sys_info',['../classsgltk_1_1_app.html#a074f0b9aac784adb75b9c121760af910',1,'sgltk::App']]],
   ['get_5ftime',['get_time',['../classsgltk_1_1_timer.html#a71f709ed25564085ca99a184b3b09df8',1,'sgltk::Timer']]],
-  ['gl_5fmaj',['gl_maj',['../classsgltk_1_1_app.html#acfa5d6e4422ab31e5a3e5f5d49742266',1,'sgltk::App']]],
-  ['gl_5fmin',['gl_min',['../classsgltk_1_1_app.html#a0aa8a53cc5805619e63471e6d79022d1',1,'sgltk::App']]],
   ['grab_5fmouse',['grab_mouse',['../classsgltk_1_1_window.html#abe33cf09e3e7776d2ab421668690e1c9',1,'sgltk::Window']]]
 ];

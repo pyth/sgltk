@@ -68,14 +68,14 @@ class Scene {
 		std::vector<glm::vec3> bounding_box;
 		std::vector<Mesh *> meshes;
 
-		Scene();
-		~Scene();
+		EXPORT Scene();
+		EXPORT ~Scene();
 
 		/**
 		 * @brief Adds a new path where files will be loaded from
 		 * @param path A new path to use
 		 */
-		static void add_path(std::string path);
+		EXPORT static void add_path(std::string path);
 
 		/**
 		 * @brief Loads a scene from file
@@ -86,19 +86,19 @@ class Scene {
 		 *	 add_path function will be searched in addition to the
 		 *	 current working directory.
 		 */
-		bool load(std::string filename);
+		EXPORT bool load(std::string filename);
 		/**
 		 * @brief Specifies the shader to use to render the mesh
 		 * @param shader The shader to be used to render the mesh
 		 */
-		void setup_shader(Shader *shader);
+		EXPORT void setup_shader(Shader *shader);
 		/**
 		 * @brief Sets up the view and projection matrices that will be
 		 *	  used by the meshes in the scene
 		 * @param view_matrix The view matrix
 		 * @param projection_matrix The projection matrix
 		 */
-		void setup_camera(glm::mat4 *view_matrix,
+		EXPORT void setup_camera(glm::mat4 *view_matrix,
 				  glm::mat4 *projection_matrix);
 		/**
 		 * @brief Sets the names of the vertex attribute variables
@@ -119,7 +119,7 @@ class Scene {
 		 *	 to be "color0" for the first color channer,
 		 *	 "color1" for the second etc.
 		 */
-		void set_attribute_names(const char *position_name,
+		EXPORT void set_attribute_names(const char *position_name,
 					 const char *normal_name,
 					 const char *tangent_name,
 					 const char *color_name,
@@ -130,24 +130,24 @@ class Scene {
 		 * @brief Sets the animation speed.
 		 * @param speed The speed multiplier
 		 */
-		void set_animation_speed(double speed);
+		EXPORT void set_animation_speed(double speed);
 		/**
 		 * @brief Calculates new bone matrices based on the animation time
 		 * @param time The current animation time. If time is greater than
 		 * 	the duration of the animation 
 		 * @return Returns true on success, false otherwise
 		 */
-		bool animate(float time);
+		EXPORT bool animate(float time);
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
 		 */
-		void draw();
+		EXPORT void draw();
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
 		 * @param model_matrix The model matrix to use
 		 *	  (NULL to use the model_matrix member)
 		 */
-		void draw(glm::mat4 *model_matrix);
+		EXPORT void draw(glm::mat4 *model_matrix);
 };
 
 }
