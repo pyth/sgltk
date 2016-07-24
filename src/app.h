@@ -11,10 +11,18 @@
 }while(0)
 
 #ifdef _WIN32
-	#ifdef MAKEDLL
-		#define EXPORT __declspec(dllexport)
+	#ifdef MAKE_LIB
+		#ifdef MAKE_DLL
+			#define EXPORT __declspec(dllexport)
+		#elif MAKE_STATIC
+			#define EXPORT
+		#endif
 	#else
-		#define EXPORT __declspec(dllimport)
+		#ifdef DYNAMIC
+			#define EXPORT __declspec(dllimport)
+		#elif STATIC
+			#define EXPORT
+		#endif
 	#endif
 #else
 	#define EXPORT

@@ -80,8 +80,11 @@ endforeach()
 add_library(sgltk		SHARED ${LIB_SOURCE} ${LIB_HEADERS})
 add_library(sgltk_static	STATIC ${LIB_SOURCE} ${LIB_HEADERS})
 
+target_compile_definitions(sgltk PRIVATE MAKE_LIB)
+target_compile_definitions(sgltk_static PRIVATE MAKE_LIB)
 if(WIN32)
-	target_compile_definitions(sgltk PRIVATE MAKEDLL)
+	target_compile_definitions(sgltk PRIVATE MAKE_DLL)
+	target_compile_definitions(sgltk_static PRIVATE MAKE_STATIC)
 endif()
 
 if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")

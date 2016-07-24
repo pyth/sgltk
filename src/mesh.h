@@ -415,7 +415,7 @@ public:
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return Returns the index that the buffer was attached to
 	 */
-	template <typename T = Vertex> EXPORT
+	template <typename T = Vertex>
 	int attach_vertex_buffer(const void *vertexdata,
 				 unsigned int number_elements,
 				 GLenum usage = GL_STATIC_DRAW);
@@ -426,7 +426,7 @@ public:
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 * @return Returns the index that the buffer was attached to
 	 */
-	template <typename T = Vertex> EXPORT
+	template <typename T = Vertex>
 	int attach_vertex_buffer(const std::vector<T> *vertexdata,
 				 GLenum usage = GL_STATIC_DRAW);
 	/**
@@ -435,7 +435,7 @@ public:
 	 * @param data The data to be loaded into the buffer
 	 * @param number_elements Number of elements
 	 */
-	template <typename T = Vertex> EXPORT
+	template <typename T = Vertex>
 	bool replace_buffer_data(unsigned int buffer_index,
 				 void *data,
 				 unsigned int number_elements);
@@ -444,7 +444,7 @@ public:
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param data The data to be loaded into the buffer
 	 */
-	template <typename T = Vertex> EXPORT
+	template <typename T = Vertex>
 	bool replace_buffer_data(unsigned int buffer_index, std::vector<T> *data);
 	/**
 	 * @brief This is a convinience function that combines attach_vertex_buffer and
@@ -459,7 +459,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	template <typename T = glm::vec3> EXPORT
+	template <typename T = glm::vec3>
 	int add_vertex_attribute(std::string attrib_name,
 					GLint number_elements,
 					GLenum type,
@@ -478,7 +478,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	template <typename T = glm::vec3> EXPORT
+	template <typename T = glm::vec3>
 	int add_vertex_attribute(std::string attrib_name,
 					GLint number_elements,
 					GLenum type,
@@ -497,7 +497,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	template <typename T = glm::vec3> EXPORT
+	template <typename T = glm::vec3>
 	int add_vertex_attribute(int attrib_location,
 					GLint number_elements,
 					GLenum type,
@@ -516,7 +516,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	template <typename T = glm::vec3> EXPORT
+	template <typename T = glm::vec3>
 	int add_vertex_attribute(int attrib_location,
 					GLint number_elements,
 					GLenum type,
@@ -593,7 +593,7 @@ public:
 	 * @param pointer The pointer to the position vector in the vertex
 	 * 	structure
 	 */
-	template <typename T = Vertex> EXPORT
+	template <typename T = Vertex>
 	void compute_bounding_box(const std::vector<T> *vertexdata, size_t pointer);
 
 	/**
