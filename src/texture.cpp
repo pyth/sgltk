@@ -79,9 +79,10 @@ void Texture::set_parameter(GLenum name, float parameter) {
 }
 
 void Texture::load_texture(Image *image) {
-	if(!image || !(image->image)) {
+	if(!image)
 		return;
-	}
+	if(!image->image)
+		return;
 
 	SDL_Surface *tmp = SDL_ConvertSurfaceFormat(image->image, SDL_PIXELFORMAT_RGBA8888, 0);
 
@@ -95,6 +96,7 @@ void Texture::load_texture(Image *image) {
 		     GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, tmp->pixels);
 	glGenerateMipmap(target);
 	glBindTexture(target, 0);
+	SDL_FreeSurface(tmp);
 }
 
 bool Texture::store_texture(std::string name, Texture *texture) {

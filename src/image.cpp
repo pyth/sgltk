@@ -88,6 +88,8 @@ bool Image::load(std::string filename) {
 #ifdef HAVE_SDL_TTF_H
 bool Image::create_text(std::string text, TTF_Font *font, int size,
 			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+	if (!font)
+		return false;
 	if(image) {
 		SDL_FreeSurface(image);
 		image = NULL;
@@ -126,7 +128,6 @@ bool Image::create_text(std::string text, std::string font_file, int size,
 
 	bool ret = create_text(text, font, size, r, g, b, a);
 	TTF_CloseFont(font);
-
 	return ret;
 }
 #endif //HAVE_SDL_TTF_H
@@ -151,7 +152,7 @@ bool Image::copy_from(const Image *src, SDL_Rect *dst_rect,
 	if(!image) {
 		image = SDL_ConvertSurface(src->image, src->image->format,
 					   src->image->flags);
-		if(image) {
+		if(!image) {
 			return false;
 		}
 	}

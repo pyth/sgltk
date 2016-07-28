@@ -87,8 +87,8 @@ void App::quit() {
 	App::quit_sdl();
 }
 
-sgltk::App::~App()
-{
+sgltk::App::~App() {
+	error_string.clear();
 }
 
 void App::_check_error(std::string message, std::string file, unsigned int line) {

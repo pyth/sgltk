@@ -54,6 +54,7 @@ Window::Window(const char* title, int res_x, int res_y,
 	}
 	context = SDL_GL_CreateContext(window);
 	if(!context) {
+		SDL_DestroyWindow(window);
 		App::error_string.push_back(std::string("SDL_GL_CreateContext"
 					" Error: ") + SDL_GetError());
 		return;
@@ -212,7 +213,7 @@ void Window::handle_resize() {
 }
 
 void Window::handle_exit() {
-	exit(0);
+	running = false;
 }
 
 void Window::display() {

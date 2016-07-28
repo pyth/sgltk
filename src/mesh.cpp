@@ -7,8 +7,7 @@ Mesh::Mesh() {
 	shader = nullptr;
 	glGenVertexArrays(1, &vao);
 
-	bounding_box.push_back(glm::vec3(0, 0, 0));
-	bounding_box.push_back(glm::vec3(0, 0, 0));
+	bounding_box = { glm::vec3(0, 0, 0), glm::vec3(0, 0, 0) };
 
 	model_matrix_name =			"model_matrix";
 	view_matrix_name =			"view_matrix";
@@ -42,9 +41,23 @@ Mesh::Mesh() {
 }
 
 Mesh::~Mesh() {
+	textures_ambient.clear();
+	textures_diffuse.clear();
+	textures_specular.clear();
+	textures_shininess.clear();
+	textures_emmisive.clear();
+	textures_normals.clear();
+	textures_displacement.clear();
+	textures_opacity.clear();
+	textures_lightmap.clear();
 	glDeleteBuffers(vbo.size(), vbo.data());
 	glDeleteBuffers(ibo.size(), ibo.data());
 	glDeleteVertexArrays(1, &vao);
+	vbo.clear();
+	ibo.clear();
+	num_indices.clear();
+	vertex_buffer_size_map.clear();
+	vertex_buffer_usage_map.clear();
 }
 
 void Mesh::setup_shader(Shader *shader) {
