@@ -30,7 +30,10 @@ void App::quit_img() {
 }
 
 bool App::init_sdl() {
-	if(SDL_Init(SDL_INIT_EVERYTHING)) {
+	if(SDL_Init(SDL_INIT_VIDEO |
+			SDL_INIT_JOYSTICK |
+			SDL_INIT_HAPTIC |
+			SDL_INIT_GAMECONTROLLER)) {
 		App::error_string.push_back(std::string("SDL_Init Error: ") +
 							SDL_GetError());
 		return false;
