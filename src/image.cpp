@@ -15,7 +15,12 @@ Image::Image(std::string filename) {
 	image = NULL;
 	width = 0;
 	height = 0;
-	load(filename);
+	if(!load(filename)) {
+		std::string error = std::string("Error loading image: ") +
+			SDL_GetError();
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
 }
 
 Image::~Image() {

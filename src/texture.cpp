@@ -4,13 +4,8 @@ using namespace sgltk;
 
 std::map<std::string, Texture *> Texture::textures;
 
-Texture::Texture() {
-	target = GL_TEXTURE_2D;
-	glGenTextures(1, &texture);
-}
-
 Texture::Texture(GLenum target) {
-	target = GL_TEXTURE_2D;
+	this->target = target;
 	glGenTextures(1, &texture);
 }
 

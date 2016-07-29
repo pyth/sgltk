@@ -22,11 +22,10 @@ public:
 	 */
 	GLuint texture;
 
-	EXPORT Texture();
 	/**
 	 * @param target The target to bind the texture
 	 */
-	EXPORT Texture(GLenum target);
+	EXPORT Texture(GLenum target = GL_TEXTURE_2D);
 	/**
 	 * @param path The path to the image file
 	 */

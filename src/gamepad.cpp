@@ -9,10 +9,10 @@ std::map<unsigned int, Gamepad *> Gamepad::instance_id_map;
 Gamepad::Gamepad(unsigned int device_id) {
 	gamepad = SDL_GameControllerOpen(device_id);
 	if(!gamepad) {
-		App::error_string.push_back(std::string("Error opening a new "
-			"game controller: ") + SDL_GetError());
-		//subject to change
-		throw -1;
+		std::string error = std::string("Error opening a new gamepad: ") +
+			SDL_GetError();
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
 	}
 
 	SDL_Joystick *joystick = SDL_GameControllerGetJoystick(gamepad);
@@ -22,9 +22,10 @@ Gamepad::Gamepad(unsigned int device_id) {
 	if(SDL_JoystickIsHaptic(joystick)) {
 		haptic = SDL_HapticOpenFromJoystick(joystick);
 		if(!haptic) {
-			App::error_string.push_back(std::string("Error opening"
-				" a new haptic device: ") + SDL_GetError());
-			throw -2;
+			std::string error = std::string("Error opening a new haptic device: ") +
+				SDL_GetError();
+			App::error_string.push_back(error);
+			throw std::runtime_error(error);
 		}
 		if(SDL_HapticRumbleSupported(haptic) == SDL_TRUE)
 			SDL_HapticRumbleInit(haptic);

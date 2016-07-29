@@ -7,6 +7,11 @@ std::vector<std::string> Shader::paths = {"./"};
 Shader::Shader() {
 	modify = true;
 	program = glCreateProgram();
+	if(!program) {
+		std::string error("Error creating new shader program");
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
 }
 
 Shader::~Shader() {

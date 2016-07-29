@@ -19,11 +19,10 @@ Scene::Scene() {
 	bone_weights_name = "bone_weights_in";
 	bone_array_name = "bone_array";
 
-	bounding_box = {glm::vec3(0, 0, 0), glm::vec3(0, 0, 0) };
+	bounding_box = {glm::vec3(0, 0, 0), glm::vec3(0, 0, 0)};
 }
 
 Scene::~Scene() {
-	delete scene;
 	meshes.clear();
 	bounding_box.clear();
 	bones.clear();

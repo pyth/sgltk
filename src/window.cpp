@@ -48,16 +48,17 @@ Window::Window(const char* title, int res_x, int res_y,
 				  SDL_WINDOW_RESIZABLE |
 				  flags);
 	if(!window) {
-		App::error_string.push_back(std::string("SDL_CreateWindow Error: ") +
-					SDL_GetError());
-		return;
+		std::string error = std::string("Error opening window: ") + SDL_GetError();
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
 	}
 	context = SDL_GL_CreateContext(window);
 	if(!context) {
 		SDL_DestroyWindow(window);
-		App::error_string.push_back(std::string("SDL_GL_CreateContext"
-					" Error: ") + SDL_GetError());
-		return;
+		std::string error = std::string("Error creating OpenGL context: ") +
+			SDL_GetError();
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
 	}
 	App::init_glew();
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);

@@ -41,6 +41,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <exception>
 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
