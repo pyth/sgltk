@@ -253,3 +253,7 @@ void Window::run(int fps) {
 		SDL_GL_SwapWindow(window);
 	}
 }
+
+void Window::stop() {
+	running = false;
+}

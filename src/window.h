@@ -185,15 +185,19 @@ public:
 	 */
 	EXPORT virtual void display();
 	/**
-	 * @brief This is the mainloop. It does not limit the framerate
+	 * @brief Starts the mainloop with no framera limit
 	 */
 	EXPORT void run();
 	/**
-	 * @brief This is the mainloop. It calls poll_events() and display()
+	 * @brief Starts the mainloop. This function calls poll_events() and display()
 	 * @param fps	The frames per second limit.
 	 *		Any number below 1 means no limit
 	 */
 	EXPORT void run(int fps);
+	/**
+	 * @brief Stops the mainloop
+	 */
+	EXPORT void stop();
 };
 
 }
