@@ -67,6 +67,7 @@ Window::Window(const char* title, int res_x, int res_y,
 Window::~Window() {
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
+	keys_pressed.clear();
 }
 
 void Window::set_icon(Image *icon) {
@@ -125,7 +126,17 @@ void Window::poll_events() {
 			}
 			break;
 		case SDL_KEYDOWN:
+			if(event.key.repeat == 0) {
+				keys_pressed.push_back(SDL_GetKeyName(event.key.keysym.sym));
+				handle_key_press(SDL_GetKeyName(event.key.keysym.sym), true);
+			}
+			break;
 		case SDL_KEYUP:
+			keys_pressed.erase(std::find(keys_pressed.begin(),
+				keys_pressed.end(),
+				SDL_GetKeyName(event.key.keysym.sym)));
+			handle_keyboard(SDL_GetKeyName(event.key.keysym.sym), false);
+			handle_key_press(SDL_GetKeyName(event.key.keysym.sym), false);
 			break;
 		case SDL_MOUSEWHEEL:
 			handle_mouse_wheel(event.wheel.x, event.wheel.y);
@@ -133,12 +144,12 @@ void Window::poll_events() {
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
 			if(mouse_relative)
-				handle_mouse_button(0, 0, (MOUSE_BUTTON)event.button.button,
+				handle_mouse_button(0, 0, event.button.button,
 						    (event.button.state == SDL_PRESSED),
 						    event.button.clicks);
 			else
 				handle_mouse_button(event.button.x, event.button.y,
-						    (MOUSE_BUTTON)event.button.button,
+						    event.button.button,
 						    (event.button.state == SDL_PRESSED),
 						    event.button.clicks);
 			break;
@@ -171,9 +182,12 @@ void Window::poll_events() {
 			handle_gamepad_axis(gamepad->id,
 				event.caxis.axis,
 				event.caxis.value);
+			break;
 		}
 	}
-	handle_keyboard();
+	for(auto key : keys_pressed) {
+		handle_keyboard(key, true);
+	}
 }
 
 void Window::handle_gamepad_added(unsigned int gamepad_id) {
@@ -188,14 +202,10 @@ void Window::handle_gamepad_button(unsigned int gamepad_id, int button, bool pre
 void Window::handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value) {
 }
 
-void Window::handle_keyboard() {
+void Window::handle_keyboard(std::string key, bool pressed) {
 }
 
-bool Window::key_pressed(const char *key) {
-	if(keys[SDL_GetScancodeFromName(key)]) {
-		return true;
-	}
-	return false;
+void Window::handle_key_press(std::string key, bool pressed) {
 }
 
 void Window::handle_mouse_motion(int x, int y) {
@@ -205,7 +215,7 @@ void Window::handle_mouse_wheel(int x, int y) {
 }
 
 void Window::handle_mouse_button(int x, int y,
-			      MOUSE_BUTTON button,
+			      int button,
 			      bool down,
 			      int clicks) {
 }
@@ -214,7 +224,7 @@ void Window::handle_resize() {
 }
 
 void Window::handle_exit() {
-	running = false;
+	stop();
 }
 
 void Window::display() {
@@ -233,7 +243,7 @@ void Window::run(int fps) {
 		frame_time = 1e-30;
 	else
 		frame_time = 1000.0 / fps;
-	bool running = true;
+	running = true;
 
 	while(running) {
 		frame_timer.start();

@@ -30,6 +30,7 @@ class Window {
 	const Uint8 *keys;
 	bool mouse_relative;
 	unsigned int fps_time;
+	std::vector<std::string> keys_pressed;
 public:
 	/**
 	 * @brief The width of the window surface
@@ -132,16 +133,19 @@ public:
 	 */
 	EXPORT virtual void handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value);
 	/**
-	 * @brief This function is called by poll_events() to handle
-	 *	  keyboard input. This function should be overriden
+	 * @brief This function is called by poll_events() every frame for every key
+	 * 	currently being pressed. This function should be overriden
+	 * @param key The name of the key being pressed
+	 * @param key True if the key has been pressed, false otherwise
 	 */
-	EXPORT virtual void handle_keyboard();
+	EXPORT virtual void handle_keyboard(std::string key, bool pressed);
 	/**
-	 * @brief Checks if the key is currently pressed
-	 * @param key The key to check
-	 * @return Retruns true if the key is pressed, false otherwise
+	 * @brief This function is called by poll_events() once for every key
+	 * 	pressed. This function should be overriden
+	 * @param key The name of the key being pressed
+	 * @param key True if the key has been pressed, false otherwise
 	 */
-	EXPORT bool key_pressed(const char *key);
+	EXPORT virtual void handle_key_press(std::string key, bool pressed);
 	/**
 	 * @brief This function is called by poll_events() to handle
 	 *	  mouse motion. This function should be overriden
@@ -167,7 +171,7 @@ public:
 	 * @param down True if a button was pressed, false if it was released
 	 * @param clicks The number of clicks (e.g. doubleclick)
 	 */
-	EXPORT virtual void handle_mouse_button(int x, int y, MOUSE_BUTTON button,
+	EXPORT virtual void handle_mouse_button(int x, int y, int button,
 					 bool down, int clicks);
 	/**
 	 * @brief This function is called by run when the window is resized.
