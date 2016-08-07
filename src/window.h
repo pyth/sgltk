@@ -117,33 +117,47 @@ public:
 	 */
 	EXPORT virtual void handle_gamepad_removed(unsigned int gamepad_id);
 	/**
-	 * @brief This function is called by poll_events() to handle
-	 *	  gamepad button presses. This function should be overriden
+	 * @brief This function is called by poll_events() every frame for every gamepad
+	 * 	  button currently being pressed. This function should be overriden
+	 * @param gamepad_id The gamepad instance id
+	 * @param button The number of the button pressed or released
+	 */
+	EXPORT virtual void handle_gamepad_button(unsigned int gamepad_id, int button);
+	/**
+	 * @brief This function is called by poll_events() once for every gamepad button
+	 * 	  pressed or released. This function should be overriden
 	 * @param gamepad_id The gamepad instance id
 	 * @param button The number of the button pressed or released
 	 * @param pressed Indicates whether the button was pressed (true) or released (false)
 	 */
-	EXPORT virtual void handle_gamepad_button(unsigned int gamepad_id, int button, bool pressed);
+	EXPORT virtual void handle_gamepad_button_press(unsigned int gamepad_id, int button, bool pressed);
 	/**
-	 * @brief This function is called by poll_events() to handle
-	 *	  gamepad axis motion. This function should be overriden
+	 * @brief This function is called by poll_events() for every frame for  every axis.
+	 * 	  This function should be overriden
 	 * @param gamepad_id The gamepad instance id
 	 * @param axis The number of the axis that has a new value
 	 * @param value The new value of the axis
 	 */
 	EXPORT virtual void handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value);
 	/**
+	 * @brief This function is called by poll_events() for every axis value change.
+	 *	  This function should be overriden
+	 * @param gamepad_id The gamepad instance id
+	 * @param axis The number of the axis that has a new value
+	 * @param value The new value of the axis
+	 */
+	EXPORT virtual void handle_gamepad_axis_change(unsigned int gamepad_id, unsigned int axis, int value);
+	/**
 	 * @brief This function is called by poll_events() every frame for every key
 	 * 	currently being pressed. This function should be overriden
 	 * @param key The name of the key being pressed
-	 * @param key True if the key has been pressed, false otherwise
 	 */
-	EXPORT virtual void handle_keyboard(std::string key, bool pressed);
+	EXPORT virtual void handle_keyboard(std::string key);
 	/**
 	 * @brief This function is called by poll_events() once for every key
-	 * 	pressed. This function should be overriden
+	 * 	pressed or released. This function should be overriden
 	 * @param key The name of the key being pressed
-	 * @param key True if the key has been pressed, false otherwise
+	 * @param pressed True if the key has been pressed, false otherwise
 	 */
 	EXPORT virtual void handle_key_press(std::string key, bool pressed);
 	/**

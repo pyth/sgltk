@@ -105,8 +105,10 @@ bool Window::enable_vsync(bool on) {
 }
 
 void Window::poll_events() {
+	int value;
 	SDL_Event event;
 	Gamepad *gamepad;
+	std::vector<int>::iterator button;
 
 	while(SDL_PollEvent(&event)) {
 		switch(event.type) {
@@ -135,7 +137,6 @@ void Window::poll_events() {
 			keys_pressed.erase(std::find(keys_pressed.begin(),
 				keys_pressed.end(),
 				SDL_GetKeyName(event.key.keysym.sym)));
-			handle_keyboard(SDL_GetKeyName(event.key.keysym.sym), false);
 			handle_key_press(SDL_GetKeyName(event.key.keysym.sym), false);
 			break;
 		case SDL_MOUSEWHEEL:
@@ -171,22 +172,45 @@ void Window::poll_events() {
 			delete sgltk::Gamepad::id_map[gamepad->id];
 			break;
 		case SDL_CONTROLLERBUTTONDOWN:
+			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
+			gamepad->buttons_pressed.push_back(event.cbutton.button);
+			handle_gamepad_button_press(gamepad->id,
+				event.cbutton.button,
+				(event.cbutton.state == SDL_PRESSED));
+			break;
 		case SDL_CONTROLLERBUTTONUP:
 			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
-			handle_gamepad_button(gamepad->id,
+			button = std::find(gamepad->buttons_pressed.begin(),
+					gamepad->buttons_pressed.end(),
+					event.cbutton.button);
+			gamepad->buttons_pressed.erase(button);
+			handle_gamepad_button_press(gamepad->id,
 				event.cbutton.button,
 				(event.cbutton.state == SDL_PRESSED));
 			break;
 		case SDL_CONTROLLERAXISMOTION:
 			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
-			handle_gamepad_axis(gamepad->id,
+			handle_gamepad_axis_change(gamepad->id,
 				event.caxis.axis,
 				event.caxis.value);
 			break;
 		}
 	}
+
 	for(auto key : keys_pressed) {
-		handle_keyboard(key, true);
+		handle_keyboard(key);
+	}
+
+	for(auto device : sgltk::Gamepad::instance_id_map) {
+		if(!device.second)
+			continue;
+		for(unsigned int axis = 0; axis < device.second->num_axes; axis++) {
+			value = SDL_GameControllerGetAxis(device.second->gamepad, (SDL_GameControllerAxis)axis);
+			handle_gamepad_axis(device.second->id, axis, value);
+		}
+		for(unsigned int button = 0; button < device.second->buttons_pressed.size(); button++) {
+			handle_gamepad_button(device.second->id, device.second->buttons_pressed[button]);
+		}
 	}
 }
 
@@ -196,13 +220,19 @@ void Window::handle_gamepad_added(unsigned int gamepad_id) {
 void Window::handle_gamepad_removed(unsigned int gamepad_id) {
 }
 
-void Window::handle_gamepad_button(unsigned int gamepad_id, int button, bool pressed) {
+void Window::handle_gamepad_button(unsigned int gamepad_id, int button) {
+}
+
+void Window::handle_gamepad_button_press(unsigned int gamepad_id, int button, bool pressed) {
 }
 
 void Window::handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value) {
 }
 
-void Window::handle_keyboard(std::string key, bool pressed) {
+void Window::handle_gamepad_axis_change(unsigned int gamepad_id, unsigned int axis, int value) {
+}
+
+void Window::handle_keyboard(std::string key) {
 }
 
 void Window::handle_key_press(std::string key, bool pressed) {

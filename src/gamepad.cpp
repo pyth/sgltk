@@ -15,9 +15,12 @@ Gamepad::Gamepad(unsigned int device_id) {
 		throw std::runtime_error(error);
 	}
 
-	SDL_Joystick *joystick = SDL_GameControllerGetJoystick(gamepad);
+	joystick = SDL_GameControllerGetJoystick(gamepad);
 	instance_id = SDL_JoystickInstanceID(joystick);
 	instance_id_map[instance_id] = this;
+
+	num_axes = SDL_JoystickNumAxes(joystick);
+	num_buttons = SDL_JoystickNumButtons(joystick);
 
 	if(SDL_JoystickIsHaptic(joystick)) {
 		haptic = SDL_HapticOpenFromJoystick(joystick);
@@ -46,10 +49,11 @@ Gamepad::Gamepad(unsigned int device_id) {
 }
 
 Gamepad::~Gamepad() {
-	id_map.erase(id);
 	instance_id_map.erase(instance_id);
+	buttons_pressed.clear();
 	SDL_HapticClose(haptic);
 	SDL_GameControllerClose(gamepad);
+	id_map.erase(id);
 }
 
 void Gamepad::play_rumble(float magnitude, unsigned int duration) {
