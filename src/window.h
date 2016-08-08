@@ -72,6 +72,11 @@ public:
 	 */
 	EXPORT void set_icon(Image *icon);
 	/**
+	 * @brief Set window title
+	 * @param title The new window title
+	 */
+	EXPORT void set_title(std::string title);
+	/**
 	 * @brief Enables the screensaver
 	 */
 	EXPORT void enable_screensaver();

@@ -74,6 +74,10 @@ void Window::set_icon(Image *icon) {
 	SDL_SetWindowIcon(this->window, icon->image);
 }
 
+void sgltk::Window::set_title(std::string title) {
+	SDL_SetWindowTitle(window, title.c_str());
+}
+
 void Window::enable_screensaver() {
 	SDL_EnableScreenSaver();
 }
