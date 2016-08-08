@@ -78,14 +78,6 @@ void sgltk::Window::set_title(std::string title) {
 	SDL_SetWindowTitle(window, title.c_str());
 }
 
-void Window::enable_screensaver() {
-	SDL_EnableScreenSaver();
-}
-
-void Window::disable_screensaver() {
-	SDL_DisableScreenSaver();
-}
-
 void Window::grab_mouse(bool on) {
 	SDL_SetWindowGrab(window, (SDL_bool)on);
 }
@@ -93,19 +85,6 @@ void Window::grab_mouse(bool on) {
 void Window::set_relative_mode(bool on) {
 	mouse_relative = on;
 	SDL_SetRelativeMouseMode((SDL_bool)on);
-}
-
-bool Window::enable_vsync(bool on) {
-	int ret;
-	if(on) {
-		ret = SDL_GL_SetSwapInterval(-1);
-		if(!ret) {
-			ret = SDL_GL_SetSwapInterval(1);
-		}
-	} else {
-		ret = SDL_GL_SetSwapInterval(0);
-	}
-	return (ret == 1);
 }
 
 void Window::poll_events() {

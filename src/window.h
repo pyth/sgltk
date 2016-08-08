@@ -77,14 +77,6 @@ public:
 	 */
 	EXPORT void set_title(std::string title);
 	/**
-	 * @brief Enables the screensaver
-	 */
-	EXPORT void enable_screensaver();
-	/**
-	 * @brief Disables the screensaver
-	 */
-	EXPORT void disable_screensaver();
-	/**
 	 * @brief Sets the window to grab the mouse
 	 * When activate the mouse can not leave the window boundaries
 	 * @param on	True to turn on, false to turn off
@@ -99,12 +91,6 @@ public:
 	 * @param on	True to turn on, false to turn off
 	 */
 	EXPORT void set_relative_mode(bool on);
-	/**
-	 * @brief Turns VSync on or off
-	 * @param on	True turns VSync on, false turns it off
-	 * @return	Returns false if VSync is not supported, true otherwise
-	 */
-	EXPORT bool enable_vsync(bool on);
 	/**
 	 * @brief Polls all events and calls the handlers. Called by the run function
 	 */

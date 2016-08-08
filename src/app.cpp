@@ -94,6 +94,28 @@ sgltk::App::~App() {
 	error_string.clear();
 }
 
+void App::enable_screensaver() {
+	SDL_EnableScreenSaver();
+}
+
+void App::disable_screensaver() {
+	SDL_DisableScreenSaver();
+}
+
+bool App::enable_vsync(bool on) {
+	int ret;
+	if (on) {
+		ret = SDL_GL_SetSwapInterval(-1);
+		if (!ret) {
+			ret = SDL_GL_SetSwapInterval(1);
+		}
+	}
+	else {
+		ret = SDL_GL_SetSwapInterval(0);
+	}
+	return (ret == 1);
+}
+
 void App::_check_error(std::string message, std::string file, unsigned int line) {
 	std::string err_string;
 	GLenum err = glGetError();
