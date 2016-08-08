@@ -166,6 +166,16 @@ void Camera::move_forward(float delta) {
 	pos += glm::normalize(dir) * delta;
 }
 
+void sgltk::Camera::move_by(float x, float y, float z) {
+	pos.x += x;
+	pos.y += y;
+	pos.z += z;
+}
+
+void sgltk::Camera::move_by(glm::vec3 vector) {
+	pos += glm::vec4(vector, 1);
+}
+
 void Camera::yaw(float angle) {
 	glm::mat4 rot = glm::rotate(angle, glm::vec3(up));
 	dir = glm::normalize(rot * dir);

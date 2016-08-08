@@ -177,7 +177,18 @@ public:
 	 * @param delta The distance to move the camera
 	 */
 	EXPORT void move_forward(float delta);
-
+	/**
+	 * @brief Move the camera by the vector (x, y, z)
+	 * @param x The x component
+	 * @param y The y component
+	 * @param z The z component
+	 */
+	EXPORT void move_by(float x, float y,  float z);
+	/**
+	 * @brief Move the camera by the vector
+	 * @param vector The vector to move the camera by
+	 */
+	EXPORT void move_by(glm::vec3 vector);
 	/**
 	 * @brief Rotate the camera using the up vector as the axis
 	 * @param angle The angle to rotate the camera
