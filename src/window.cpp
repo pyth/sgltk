@@ -82,6 +82,33 @@ void Window::grab_mouse(bool on) {
 	SDL_SetWindowGrab(window, (SDL_bool)on);
 }
 
+int Window::get_display_index() {
+	int ret = SDL_GetWindowDisplayIndex(window);
+	if(ret < 0) {
+		App::error_string.push_back(std::string("Error on acquiring the "
+			"display index: ") + SDL_GetError());
+	}
+	return ret;
+}
+
+bool Window::set_display_mode(SDL_DisplayMode *mode) {
+	if(SDL_SetWindowDisplayMode(window, mode)) {
+		App::error_string.push_back(std::string("Error on changing "
+			"window display mode: ") + SDL_GetError());
+		return false;
+	}
+	return true;
+}
+
+bool Window::fullscreen_mode(FULLSCREEN_MODE mode) {
+	if(SDL_SetWindowFullscreen(window, mode) < 0) {
+		App::error_string.push_back(std::string("Error on changing "
+		"window fullscreen state: ") + SDL_GetError());
+		return false;
+	}
+	return true;
+}
+
 void Window::set_relative_mode(bool on) {
 	mouse_relative = on;
 	SDL_SetRelativeMouseMode((SDL_bool)on);

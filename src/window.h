@@ -9,15 +9,21 @@
 namespace sgltk {
 
 /**
- * @brief Mouse buttons
+ * @brief Window fullscreen states
  */
-enum MOUSE_BUTTON {
-	/**Left mouse button*/
-	MOUSE_LEFT = SDL_BUTTON_LEFT,
-	/**Middle mouse button*/
-	MOUSE_MIDDLE = SDL_BUTTON_MIDDLE,
-	/**Right mouse button*/
-	MOUSE_RIGHT = SDL_BUTTON_RIGHT
+enum FULLSCREEN_MODE {
+	/**
+	 * @brief Windowed mode
+	 */
+	WINDOWED = 0,
+	/**
+	 * @brief Real Fullscrren mode
+	 */
+	FULLSCREEN = SDL_WINDOW_FULLSCREEN,
+	/**
+	 * @brief Fake fullscreen mode
+	 */
+	FAKE_FULLSCREEN = SDL_WINDOW_FULLSCREEN_DESKTOP
 };
 
 /**
@@ -82,6 +88,27 @@ public:
 	 * @param on	True to turn on, false to turn off
 	 */
 	EXPORT void grab_mouse(bool on);
+	/**
+	 * @brief Returns the index of the display that currently contains the
+	 * 	window. This index corresponds to the indices in the
+	 * 	sgltk::App::sys_info.desktop_display_modes and
+	 * 	sgltk::app::sys_info.supported_display_modes lists
+	 * @return Returns the index of the display that currently contains the
+	 * 	window or a negative number of failure.
+	 */
+	EXPORT int get_display_index();
+	/**
+	 * @brief Changes the window display mode when in fullscreen mode
+	 * @param mode The display mode to set
+	 * @return Returns true on success, false otherwise
+	 */
+	EXPORT bool set_display_mode(SDL_DisplayMode *mode);
+	/**
+	 * @brief Changes the window fullscreen mode
+	 * @param mode The fullscreen mode to set
+	 * @return Returns true on success or false on failure
+	 */
+	EXPORT bool fullscreen_mode(FULLSCREEN_MODE mode);
 	/**
 	 * @brief Activates the relative mouse motion mode
 	 * In the relative mouse motion mode the cursor is invisible and stays
