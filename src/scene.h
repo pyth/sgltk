@@ -96,31 +96,53 @@ class Scene {
 		EXPORT void setup_camera(glm::mat4 *view_matrix,
 				  glm::mat4 *projection_matrix);
 		/**
-		 * @brief Sets the names of the vertex attribute variables
-		 *		in the shader. Pass a NULL for a name to keep
-		 *		it's value!
-		 * @param position_name The name of the position vector variable
-		 * @param normal_name The name of the normal vector variable
-		 * @param tangent_name The name of the tangent vector variable
-		 * @param color_name The name of the color vector variable
-		 * @param texture_coordinates_name The name of the texture coordinates
-		 *			variable
-		 * @param bone_ids_name The name of the bone id array
-		 * @param bone_weights_name The name of the bone weight array
-		 * @note A number starting at 0 will be appended to the
-		 *	 color_name and texture_coordinates_name strings you
-		 *	 provede. So if you set color_name to "color" the
-		 *	 corresponding shader input variables would have
-		 *	 to be "color0" for the first color channer,
-		 *	 "color1" for the second etc.
+		 * @brief Sets the position vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "pos_in"
 		 */
-		EXPORT void set_attribute_names(const char *position_name,
-					 const char *normal_name,
-					 const char *tangent_name,
-					 const char *color_name,
-					 const char *texture_coordinates_name,
-					 const char *bone_ids_name,
-					 const char *bone_weights_name);
+		EXPORT void set_position_name(std::string name);
+		/**
+		 * @brief Sets the normal vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "norm_in"
+		 */
+		EXPORT void set_normal_name(std::string name);
+		/**
+		 * @brief Sets the tangent vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "tang_in"
+		 */
+		EXPORT void set_tangent_name(std::string name);
+		/**
+		 * @brief Sets the color vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "col_in"
+		 */
+		EXPORT void set_color_name(std::string name);
+		/**
+		 * @brief Sets the texture coordiantes vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "tex_coord_in"
+		 */
+		EXPORT void set_texture_coordinates_name(std::string name);
+		/**
+		 * @brief Sets the bone ids vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "bone_ids_in"
+		 */
+		EXPORT void set_bone_ids_name(std::string name);
+		/**
+		 * @brief Sets the bone weights vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "bone_weights_in"
+		 */
+		EXPORT void set_bone_weights_name(std::string name);
+		/**
+		* @brief Sets the bone array uniform name in the shader
+		* @param name The new uniform name. An empty string resets
+		*		the name to the default value "bone_array"
+		*/
+		EXPORT void set_bone_array_name(std::string name);
 		/**
 		 * @brief Sets the animation speed.
 		 * @param speed The speed multiplier

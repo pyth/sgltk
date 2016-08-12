@@ -91,6 +91,62 @@ void Scene::setup_camera(glm::mat4 *view_matrix,
 	this->projection_matrix = projection_matrix;
 }
 
+void Scene::set_position_name(std::string name) {
+	if(name.length() == 0)
+		position_name = "pos_in";
+
+	position_name = name;
+}
+
+void Scene::set_normal_name(std::string name) {
+	if(name.length() == 0)
+		normal_name = "norm_in";
+
+	normal_name = name;
+}
+
+void Scene::set_tangent_name(std::string name) {
+	if(name.length() == 0)
+		tangent_name = "tang_in";
+
+	tangent_name = name;
+}
+
+void Scene::set_color_name(std::string name) {
+	if(name.length() == 0)
+		color_name = "col_in";
+
+	color_name = name;
+}
+
+void Scene::set_texture_coordinates_name(std::string name) {
+	if(name.length() == 0)
+		texture_coordinates_name = "tex_coord_in";
+
+	texture_coordinates_name = name;
+}
+
+void Scene::set_bone_ids_name(std::string name) {
+	if(name.length() == 0)
+		bone_ids_name = "bone_ids_in";
+
+	bone_ids_name = name;
+}
+
+void Scene::set_bone_weights_name(std::string name) {
+	if(name.length() == 0)
+		bone_weights_name = "bone_weights_in";
+
+	bone_weights_name = name;
+}
+
+void sgltk::Scene::set_bone_array_name(std::string name) {
+	if(name.length() == 0)
+		bone_array_name = "bone_array";
+
+	bone_array_name = name;
+}
+
 void Scene::setup_shader(Shader *shader) {
 	this->shader = shader;
 }
