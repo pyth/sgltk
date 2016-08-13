@@ -24,7 +24,7 @@ namespace sgltk {
 		 */
 		glm::vec4 tangent;
 		/**
-		 * @brief Vertex bitangent
+		 * @brief Vertex bi-tangent
 		 */
 		glm::vec4 bitangent;
 		/**
@@ -447,7 +447,7 @@ public:
 	template <typename T = Vertex>
 	bool replace_buffer_data(unsigned int buffer_index, std::vector<T> *data);
 	/**
-	 * @brief This is a convinience function that combines attach_vertex_buffer and
+	 * @brief This is a convenience function that combines attach_vertex_buffer and
 	 * 		set_vertex_attribute.
 	 * @param attrib_name		The attribute name in the shader
 	 * @param number_elements	Number of elements
@@ -466,7 +466,7 @@ public:
 					const void *data,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
-	 * @brief This is a convinience function that combines attach_vertex_buffer and
+	 * @brief This is a convenience function that combines attach_vertex_buffer and
 	 * 		set_vertex_attribute.
 	 * @param attrib_name		The attribute name in the shader
 	 * @param number_elements	Number of elements
@@ -485,7 +485,7 @@ public:
 					std::vector<T> *data,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
-	 * @brief This is a convinience function that combines attach_vertex_buffer and
+	 * @brief This is a convenience function that combines attach_vertex_buffer and
 	 * 		set_vertex_attribute.
 	 * @param attrib_location	The attribute location in the shader
 	 * @param number_elements	Number of elements
@@ -504,7 +504,7 @@ public:
 					const void *data,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
-	 * @brief This is a convinience function that combines attach_vertex_buffer and
+	 * @brief This is a convenience function that combines attach_vertex_buffer and
 	 * 		set_vertex_attribute.
 	 * @param attrib_location	The attribute location in the shader
 	 * @param number_elements	Number of elements
@@ -523,7 +523,7 @@ public:
 					std::vector<T> *data,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
-	 * @brief Sets pointers to vertex attribures
+	 * @brief Sets pointers to vertex attributes
 	 * @param attrib_name		The attribute name in the shader
 	 * @param buffer_index		The index of the buffer that contains
 	 *				the attribute
@@ -543,7 +543,7 @@ public:
 				 GLsizei stride,
 				 const GLvoid *pointer);
 	/**
-	 * @brief Sets pointers to vertex attribures
+	 * @brief Sets pointers to vertex attributes
 	 * @param attrib_location	The attribute location in the shader
 	 * @param buffer_index		The index of the buffer that contains
 	 *				the attribute

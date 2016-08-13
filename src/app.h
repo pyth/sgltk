@@ -128,20 +128,20 @@ namespace sgltk {
 
 		/**
 		 * @brief Initializes GLEW
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init_glew();
 
 		/**
 		 * @brief Initializes SDL2_img
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init_img();
 		EXPORT static void quit_img();
 
 		/**
 		 * @brief Initializes SDL2
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init_sdl();
 		EXPORT static void quit_sdl();
@@ -149,7 +149,7 @@ namespace sgltk {
 #ifdef HAVE_SDL_TTF_H
 		/**
 		 * @brief Initializes SDL2_ttf
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init_ttf();
 		EXPORT static void quit_ttf();
@@ -157,7 +157,7 @@ namespace sgltk {
 
 		/**
 		 * @brief Initializes all parts of SDL2 used by SGLTK
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init();
 		EXPORT static void quit();

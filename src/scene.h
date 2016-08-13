@@ -120,7 +120,7 @@ class Scene {
 		 */
 		EXPORT void set_color_name(std::string name);
 		/**
-		 * @brief Sets the texture coordiantes vertex attribute name in the shader
+		 * @brief Sets the texture coordinates vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets
 		 *		the name to the default value "tex_coord_in"
 		 */

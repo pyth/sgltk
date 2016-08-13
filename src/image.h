@@ -16,7 +16,7 @@ public:
 	 * @brief Adds a path to the list of paths to be searched
 	 *	  for image files.
 	 * @param path The path to add to the list
-	 * @note To avoid duplacates this function first performs
+	 * @note To avoid duplicates this function first performs
 	 *	 a search an existing entry path.
 	 */
 	EXPORT static void add_path(std::string path);
