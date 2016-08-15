@@ -21,8 +21,14 @@ applications easier by providing a layer of abstraction from OpenGL.
 
 ## Building the library
 * **Windows**
+    1. Generate the makefiles or project files using `cmake`:
 
-    Coming soon.
+        `cmake -G` to get the list of available generators
+
+        `cmake -G "generator_name" -DCMAKE_PREFIX_PATH="path/to/libraries/directory" .`
+
+    2. Use `make` or open the project file in the appropriate IDE to build the project
+    3. When linking your program with the static library `sgltk_static` you will have to define `STATIC` in the precompiler
 
 * **Linux**
     1. Generate the makefiles using `cmake`:
@@ -35,9 +41,9 @@ applications easier by providing a layer of abstraction from OpenGL.
 
         This will build both a shared and a static library. To build only one of these you can use the build targets `sgltk` or `sgltk_static`.
 
-    3. Install the library using `make` with appropriate privileges:
+    3. Optionally you can install the library using `make` with appropriate privileges:
 
         `make install`
 
 ## Documentation
-The documentation is available at [here](http://pyth.github.io/sgltk/doc/html/annotated.html).
+The documentation is available [here](http://pyth.github.io/sgltk/doc/html/annotated.html).
