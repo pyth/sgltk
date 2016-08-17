@@ -229,14 +229,16 @@ int Mesh::set_vertex_attribute(std::string attrib_name,
 				GLint number_elements,
 				GLenum type,
 				GLsizei stride,
-				const GLvoid *pointer) {
+				const GLvoid *pointer,
+				unsigned int divisor) {
+
 	int loc = glGetAttribLocation(shader->program, attrib_name.c_str());
-	if(loc == -1) {
+	if(loc < 0) {
 		return -2;
 	}
 
 	return set_vertex_attribute(loc, buffer_index, number_elements, type,
-					stride, pointer);
+					stride, pointer, divisor);
 }
 
 int Mesh::set_vertex_attribute(int attrib_location,
@@ -244,12 +246,14 @@ int Mesh::set_vertex_attribute(int attrib_location,
 				GLint number_elements,
 				GLenum type,
 				GLsizei stride,
-				const GLvoid *pointer) {
+				const GLvoid *pointer,
+				unsigned int divisor) {
+
 	if(!shader) {
 		return -1;
 	}
 
-	if(attrib_location == -1) {
+	if(attrib_location < 0) {
 		return -2;
 	}
 
@@ -278,24 +282,9 @@ int Mesh::set_vertex_attribute(int attrib_location,
 			break;
 	}
 
+	glVertexAttribDivisor(attrib_location, divisor);
 	glBindVertexArray(0);
 	return 0;
-}
-
-void Mesh::set_vertex_attribute_divisor(std::string attrib_name, unsigned int divisor) {
-	int loc = glGetAttribLocation(shader->program, attrib_name.c_str());
-	if(loc == -1) {
-		return;
-	}
-
-	glVertexAttribDivisor(loc, divisor);
-}
-
-void Mesh::set_vertex_attribute_divisor(unsigned int attrib_location, unsigned int divisor) {
-	if(attrib_location < 0)
-		return;
-
-	glVertexAttribDivisor(attrib_location, divisor);
 }
 
 void Mesh::attach_index_buffer(const std::vector<unsigned short> *indices) {
@@ -553,6 +542,9 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 	shader->bind();
 
 	int loc;
+	glm::mat4 VP;
+
+	VP = (*projection_matrix) * (*view_matrix);
 
 	loc = glGetUniformLocation(shader->program,
 			view_matrix_name.c_str());
@@ -565,7 +557,7 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 	loc = glGetUniformLocation(shader->program,
 			view_proj_matrix_name.c_str());
 	glUniformMatrix4fv(loc, 1, false,
-		glm::value_ptr((*projection_matrix) * (*view_matrix)));
+		glm::value_ptr(VP));
 
 	material_uniform();
 

@@ -532,6 +532,10 @@ public:
 	 * @param stride		Memory offset between vertices
 	 * @param pointer		The offset of the attribute in the
 	 * 				vertex structure
+	 * @param divisor Determines how many instances share the same attribute value.
+	 * 		0 means that every shader instance gets a new value,
+	 * 		1 means every mesh instance gets a new value,
+	 * 		2 means that two instances get the same value and so on.
 	 * @return	Returns 0 on success, -1 if no shader was
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
@@ -541,7 +545,8 @@ public:
 				 GLint number_elements,
 				 GLenum type,
 				 GLsizei stride,
-				 const GLvoid *pointer);
+				 const GLvoid *pointer,
+				 unsigned int divisor = 0);
 	/**
 	 * @brief Sets pointers to vertex attributes
 	 * @param attrib_location	The attribute location in the shader
@@ -552,6 +557,10 @@ public:
 	 * @param stride		Memory offset between vertices
 	 * @param pointer		The offset of the attribute in the
 	 * 				vertex structure
+	 * @param divisor Determines how many instances share the same attribute value.
+	 * 		0 means that every shader instance gets a new value,
+	 * 		1 means every mesh instance gets a new value,
+	 * 		2 means that two instances get the same value and so on.
 	 * @return	Returns 0 on success, -1 if no shader was
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
@@ -561,25 +570,8 @@ public:
 				 GLint number_elements,
 				 GLenum type,
 				 GLsizei stride,
-				 const GLvoid *pointer);
-	/**
-	 * @brief Sets how often the vertex attribute should be updated to the next value.
-	 * @param attrib_name The name of the attribute in shader
-	 * @param divisor Determines how many instances share the same attribute value.
-	 * 		0 means that every shader gets a new value, 1 means every
-	 * 		instance gets a new value, 2 means that two instances get the
-	 * 		same value and so on.
-	 */
-	EXPORT void set_vertex_attribute_divisor(std::string attrib_name, unsigned int divisor);
-	/**
-	 * @brief Sets how often the vertex attribute should be updated to the next value.
-	 * @param attrib_location The location of the attribute in shader
-	 * @param divisor Determines how many instances share the same attribute value.
-	 * 		0 means that every shader gets a new value, 1 means every
-	 * 		instance gets a new value, 2 means that two instances get the
-	 * 		same value and so on.
-	 */
-	EXPORT void set_vertex_attribute_divisor(unsigned int attrib_location, unsigned int divisor);
+				 const GLvoid *pointer,
+				 unsigned int divisor = 0);
 	/**
 	 * @brief Attaches an index array to the mesh
 	 * @param indices Indices describing the topology of the mesh
