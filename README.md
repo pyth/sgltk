@@ -25,7 +25,7 @@ applications easier by providing a layer of abstraction from OpenGL.
 
         `cmake -G` to get the list of available generators
 
-        `cmake -G "generator_name" -DCMAKE_PREFIX_PATH="path/to/libraries/directory" .`
+        `cmake -G "generator_name" -DCMAKE_PREFIX_PATH="path/to/include;path/to/lib" .`
 
     2. Use `make` or open the project file in the appropriate IDE to build the project
     3. When linking your program with the static library `sgltk_static` you will have to define `STATIC` in the precompiler
