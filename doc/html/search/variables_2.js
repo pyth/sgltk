@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['delta_5ftime',['delta_time',['../classsgltk_1_1_window.html#a049830cea6791d782984fc5e70b59b8f',1,'sgltk::Window']]],
-  ['dir',['dir',['../classsgltk_1_1_camera.html#ab760c41f73bb2521652d67cfce7d16ae',1,'sgltk::Camera']]]
+  ['color',['color',['../structsgltk_1_1_vertex.html#a61d9a06d9f1cbb076161c639d4f36cd3',1,'sgltk::Vertex']]],
+  ['color_5fambient',['color_ambient',['../classsgltk_1_1_mesh.html#aabb31603fe06cfba81907c89faac299c',1,'sgltk::Mesh']]],
+  ['color_5fdiffuse',['color_diffuse',['../classsgltk_1_1_mesh.html#a1625657c560ed466dc79c9be6cab2369',1,'sgltk::Mesh']]],
+  ['color_5fspecular',['color_specular',['../classsgltk_1_1_mesh.html#ac7371ae595e0303743e5d317177edcb0',1,'sgltk::Mesh']]]
 ];

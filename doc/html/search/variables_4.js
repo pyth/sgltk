@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['far_5fplane',['far_plane',['../classsgltk_1_1_camera.html#a00b77bb69202531b79170699540b0cfc',1,'sgltk::Camera']]],
-  ['fov',['fov',['../classsgltk_1_1_camera.html#aeeacf486b511b6a1817eefd48fa11d98',1,'sgltk::Camera']]]
+  ['emissive_5ftexture_5fname',['emissive_texture_name',['../classsgltk_1_1_mesh.html#a79fbf2dffc57b7eab237729c297da7e3',1,'sgltk::Mesh']]],
+  ['error_5fstring',['error_string',['../classsgltk_1_1_app.html#a08fb02f90387cd3c3feb67d2e0583c7e',1,'sgltk::App']]]
 ];

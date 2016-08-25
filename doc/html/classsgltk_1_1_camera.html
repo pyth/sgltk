@@ -138,6 +138,12 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a07fc2e27c0fc6ab8b870ac6e717ae2aa"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a07fc2e27c0fc6ab8b870ac6e717ae2aa">move_forward</a> (float delta)</td></tr>
 <tr class="memdesc:a07fc2e27c0fc6ab8b870ac6e717ae2aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the camera along the forward vector.  <a href="#a07fc2e27c0fc6ab8b870ac6e717ae2aa">More...</a><br /></td></tr>
 <tr class="separator:a07fc2e27c0fc6ab8b870ac6e717ae2aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70c11be1780726c76ecd36b1114419a2"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a70c11be1780726c76ecd36b1114419a2">move_by</a> (float x, float y, float z)</td></tr>
+<tr class="memdesc:a70c11be1780726c76ecd36b1114419a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the camera by the vector (x, y, z)  <a href="#a70c11be1780726c76ecd36b1114419a2">More...</a><br /></td></tr>
+<tr class="separator:a70c11be1780726c76ecd36b1114419a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6081514bdd53403c629b6e618efd389b"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a6081514bdd53403c629b6e618efd389b">move_by</a> (glm::vec3 vector)</td></tr>
+<tr class="memdesc:a6081514bdd53403c629b6e618efd389b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the camera by the vector.  <a href="#a6081514bdd53403c629b6e618efd389b">More...</a><br /></td></tr>
+<tr class="separator:a6081514bdd53403c629b6e618efd389b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4eab94754431725c572d528a07a35cc"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#ab4eab94754431725c572d528a07a35cc">yaw</a> (float angle)</td></tr>
 <tr class="memdesc:ab4eab94754431725c572d528a07a35cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the camera using the up vector as the axis.  <a href="#ab4eab94754431725c572d528a07a35cc">More...</a><br /></td></tr>
 <tr class="separator:ab4eab94754431725c572d528a07a35cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -489,6 +495,76 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a70c11be1780726c76ecd36b1114419a2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgltk::Camera::move_by </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>z</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move the camera by the vector (x, y, z) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The x component </td></tr>
+    <tr><td class="paramname">y</td><td>The y component </td></tr>
+    <tr><td class="paramname">z</td><td>The z component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00169">169</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6081514bdd53403c629b6e618efd389b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgltk::Camera::move_by </td>
+          <td>(</td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>vector</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move the camera by the vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td>The vector to move the camera by </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00175">175</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a07fc2e27c0fc6ab8b870ac6e717ae2aa"></a>
 <div class="memitem">
 <div class="memproto">
@@ -589,7 +665,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00181">181</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00191">191</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -615,7 +691,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00175">175</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00185">185</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -831,7 +907,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00169">169</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00179">179</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -842,7 +918,7 @@ glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jul 24 2016 22:50:02 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 25 2016 17:14:44 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

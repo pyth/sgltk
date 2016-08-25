@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['up',['up',['../classsgltk_1_1_camera.html#a31707683b92a242406560c0bb5cdbe28',1,'sgltk::Camera']]]
+  ['right',['right',['../classsgltk_1_1_camera.html#a4c30e6c74c7ae8c365f1d753b0168701',1,'sgltk::Camera']]]
 ];

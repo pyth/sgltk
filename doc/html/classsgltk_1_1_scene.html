@@ -113,15 +113,39 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a829d827edf048bc47f9347e61187a6a1"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a829d827edf048bc47f9347e61187a6a1">setup_camera</a> (glm::mat4 *view_matrix, glm::mat4 *projection_matrix)</td></tr>
 <tr class="memdesc:a829d827edf048bc47f9347e61187a6a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the view and projection matrices that will be used by the meshes in the scene.  <a href="#a829d827edf048bc47f9347e61187a6a1">More...</a><br /></td></tr>
 <tr class="separator:a829d827edf048bc47f9347e61187a6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a700a67257aa73c695bfe026e97a803e4"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a700a67257aa73c695bfe026e97a803e4">set_attribute_names</a> (const char *position_name, const char *normal_name, const char *tangent_name, const char *color_name, const char *texture_coordinates_name, const char *bone_ids_name, const char *bone_weights_name)</td></tr>
-<tr class="memdesc:a700a67257aa73c695bfe026e97a803e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the names of the vertex attribute variables in the shader. Pass a NULL for a name to keep it's value!  <a href="#a700a67257aa73c695bfe026e97a803e4">More...</a><br /></td></tr>
-<tr class="separator:a700a67257aa73c695bfe026e97a803e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6d84bfa5bdcf1a40f8b651acf53ddd3"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#ac6d84bfa5bdcf1a40f8b651acf53ddd3">set_position_name</a> (std::string name)</td></tr>
+<tr class="memdesc:ac6d84bfa5bdcf1a40f8b651acf53ddd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the position vertex attribute name in the shader.  <a href="#ac6d84bfa5bdcf1a40f8b651acf53ddd3">More...</a><br /></td></tr>
+<tr class="separator:ac6d84bfa5bdcf1a40f8b651acf53ddd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a8d051f33fb5f11ab78f90130389e4f"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a6a8d051f33fb5f11ab78f90130389e4f">set_normal_name</a> (std::string name)</td></tr>
+<tr class="memdesc:a6a8d051f33fb5f11ab78f90130389e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the normal vertex attribute name in the shader.  <a href="#a6a8d051f33fb5f11ab78f90130389e4f">More...</a><br /></td></tr>
+<tr class="separator:a6a8d051f33fb5f11ab78f90130389e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81bf189444c47f91604681577c0d524a"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a81bf189444c47f91604681577c0d524a">set_tangent_name</a> (std::string name)</td></tr>
+<tr class="memdesc:a81bf189444c47f91604681577c0d524a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the tangent vertex attribute name in the shader.  <a href="#a81bf189444c47f91604681577c0d524a">More...</a><br /></td></tr>
+<tr class="separator:a81bf189444c47f91604681577c0d524a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d229ac4351f7d6b4763e47fbbc51f09"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a4d229ac4351f7d6b4763e47fbbc51f09">set_color_name</a> (std::string name)</td></tr>
+<tr class="memdesc:a4d229ac4351f7d6b4763e47fbbc51f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color vertex attribute name in the shader.  <a href="#a4d229ac4351f7d6b4763e47fbbc51f09">More...</a><br /></td></tr>
+<tr class="separator:a4d229ac4351f7d6b4763e47fbbc51f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aad3c3e0486054bdc2faae17add727e"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a6aad3c3e0486054bdc2faae17add727e">set_texture_coordinates_name</a> (std::string name)</td></tr>
+<tr class="memdesc:a6aad3c3e0486054bdc2faae17add727e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the texture coordinates vertex attribute name in the shader.  <a href="#a6aad3c3e0486054bdc2faae17add727e">More...</a><br /></td></tr>
+<tr class="separator:a6aad3c3e0486054bdc2faae17add727e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85971ddc5a4f2e6058fc450a5c911dfd"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a85971ddc5a4f2e6058fc450a5c911dfd">set_bone_ids_name</a> (std::string name)</td></tr>
+<tr class="memdesc:a85971ddc5a4f2e6058fc450a5c911dfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the bone ids vertex attribute name in the shader.  <a href="#a85971ddc5a4f2e6058fc450a5c911dfd">More...</a><br /></td></tr>
+<tr class="separator:a85971ddc5a4f2e6058fc450a5c911dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39c2706fbb45fdb4df8f16999dbe78da"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a39c2706fbb45fdb4df8f16999dbe78da">set_bone_weights_name</a> (std::string name)</td></tr>
+<tr class="memdesc:a39c2706fbb45fdb4df8f16999dbe78da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the bone weights vertex attribute name in the shader.  <a href="#a39c2706fbb45fdb4df8f16999dbe78da">More...</a><br /></td></tr>
+<tr class="separator:a39c2706fbb45fdb4df8f16999dbe78da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31f27a68316d4433b636e3a95ec3fe87"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a31f27a68316d4433b636e3a95ec3fe87">set_bone_array_name</a> (std::string name)</td></tr>
+<tr class="memdesc:a31f27a68316d4433b636e3a95ec3fe87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the bone array uniform name in the shader.  <a href="#a31f27a68316d4433b636e3a95ec3fe87">More...</a><br /></td></tr>
+<tr class="separator:a31f27a68316d4433b636e3a95ec3fe87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83595b4bbc76e79a0e5ccbfdff995a08"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a83595b4bbc76e79a0e5ccbfdff995a08">set_animation_speed</a> (double speed)</td></tr>
 <tr class="memdesc:a83595b4bbc76e79a0e5ccbfdff995a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the animation speed.  <a href="#a83595b4bbc76e79a0e5ccbfdff995a08">More...</a><br /></td></tr>
 <tr class="separator:a83595b4bbc76e79a0e5ccbfdff995a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9258b71bf401ddac5f02e00ec4b7ccec"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a9258b71bf401ddac5f02e00ec4b7ccec">animate</a> (float time)</td></tr>
-<tr class="memdesc:a9258b71bf401ddac5f02e00ec4b7ccec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates new bone matrices based on the animation time.  <a href="#a9258b71bf401ddac5f02e00ec4b7ccec">More...</a><br /></td></tr>
+<tr class="memdesc:a9258b71bf401ddac5f02e00ec4b7ccec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates a new bone pose based on the animation time.  <a href="#a9258b71bf401ddac5f02e00ec4b7ccec">More...</a><br /></td></tr>
 <tr class="separator:a9258b71bf401ddac5f02e00ec4b7ccec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a460235f317cf5015f41bbcf986bac779"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a460235f317cf5015f41bbcf986bac779">setup_instanced_matrix</a> (std::vector&lt; glm::mat4 &gt; *model_matrix, GLenum usage=GL_STATIC_DRAW)</td></tr>
+<tr class="memdesc:a460235f317cf5015f41bbcf986bac779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches the buffers and sets the model and normal matrix vertex attributes.  <a href="#a460235f317cf5015f41bbcf986bac779">More...</a><br /></td></tr>
+<tr class="separator:a460235f317cf5015f41bbcf986bac779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0e3d2c98ba6063a086467fb2c19142f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0e3d2c98ba6063a086467fb2c19142f"></a>
 EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#ac0e3d2c98ba6063a086467fb2c19142f">draw</a> ()</td></tr>
 <tr class="memdesc:ac0e3d2c98ba6063a086467fb2c19142f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws all associated meshes with the index buffer 0. <br /></td></tr>
@@ -129,6 +153,9 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:ae256a97ed74d3dde2e4099ee00260473"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#ae256a97ed74d3dde2e4099ee00260473">draw</a> (glm::mat4 *model_matrix)</td></tr>
 <tr class="memdesc:ae256a97ed74d3dde2e4099ee00260473"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws all associated meshes with the index buffer 0.  <a href="#ae256a97ed74d3dde2e4099ee00260473">More...</a><br /></td></tr>
 <tr class="separator:ae256a97ed74d3dde2e4099ee00260473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52306e24fffdec66d8e58cd428872489"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_scene.html#a52306e24fffdec66d8e58cd428872489">draw_instanced</a> (unsigned int num_instances)</td></tr>
+<tr class="memdesc:a52306e24fffdec66d8e58cd428872489"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws all associated meshes multiple times.  <a href="#a52306e24fffdec66d8e58cd428872489">More...</a><br /></td></tr>
+<tr class="separator:a52306e24fffdec66d8e58cd428872489"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -183,7 +210,7 @@ std::vector&lt; <a class="el" href="classsgltk_1_1_mesh.html">Mesh</a> * &gt;&#1
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00581">581</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00696">696</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
 
 </div>
 </div>
@@ -201,7 +228,7 @@ std::vector&lt; <a class="el" href="classsgltk_1_1_mesh.html">Mesh</a> * &gt;&#1
       </table>
 </div><div class="memdoc">
 
-<p>Calculates new bone matrices based on the animation time. </p>
+<p>Calculates a new bone pose based on the animation time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">time</td><td>The current animation time. If time is greater than the duration of the animation </td></tr>
@@ -210,7 +237,7 @@ std::vector&lt; <a class="el" href="classsgltk_1_1_mesh.html">Mesh</a> * &gt;&#1
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00540">540</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00602">602</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
 
 </div>
 </div>
@@ -236,7 +263,33 @@ std::vector&lt; <a class="el" href="classsgltk_1_1_mesh.html">Mesh</a> * &gt;&#1
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00570">570</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00676">676</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a52306e24fffdec66d8e58cd428872489"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::draw_instanced </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>num_instances</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws all associated meshes multiple times. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_instances</td><td>The number of instances to be drawn </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00687">687</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
 
 </div>
 </div>
@@ -264,7 +317,7 @@ std::vector&lt; <a class="el" href="classsgltk_1_1_mesh.html">Mesh</a> * &gt;&#1
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If the path you pass to this function is not an absolute path, all directories you specified using the add_path function will be searched in addition to the current working directory. </dd></dl>
 
-<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00033">33</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00032">32</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
 
 </div>
 </div>
@@ -290,78 +343,215 @@ std::vector&lt; <a class="el" href="classsgltk_1_1_mesh.html">Mesh</a> * &gt;&#1
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00472">472</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00534">534</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a700a67257aa73c695bfe026e97a803e4"></a>
+<a class="anchor" id="a31f27a68316d4433b636e3a95ec3fe87"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">EXPORT void sgltk::Scene::set_attribute_names </td>
+          <td class="memname">void sgltk::Scene::set_bone_array_name </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>position_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>normal_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>tangent_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>color_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>texture_coordinates_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>bone_ids_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>bone_weights_name</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the names of the vertex attribute variables in the shader. Pass a NULL for a name to keep it's value! </p>
+<p>Sets the bone array uniform name in the shader. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position_name</td><td>The name of the position vector variable </td></tr>
-    <tr><td class="paramname">normal_name</td><td>The name of the normal vector variable </td></tr>
-    <tr><td class="paramname">tangent_name</td><td>The name of the tangent vector variable </td></tr>
-    <tr><td class="paramname">color_name</td><td>The name of the color vector variable </td></tr>
-    <tr><td class="paramname">texture_coordinates_name</td><td>The name of the texture coordinates variable </td></tr>
-    <tr><td class="paramname">bone_ids_name</td><td>The name of the bone id array </td></tr>
-    <tr><td class="paramname">bone_weights_name</td><td>The name of the bone weight array </td></tr>
+    <tr><td class="paramname">name</td><td>The new uniform name. An empty string resets the name to the default value "bone_array" </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>A number starting at 0 will be appended to the color_name and texture_coordinates_name strings you provede. So if you set color_name to "color" the corresponding shader input variables would have to be "color0" for the first color channer, "color1" for the second etc. </dd></dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00150">150</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a85971ddc5a4f2e6058fc450a5c911dfd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::set_bone_ids_name </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the bone ids vertex attribute name in the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The new vertex attribute name. An empty string resets the name to the default value "bone_ids_in" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00136">136</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a39c2706fbb45fdb4df8f16999dbe78da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::set_bone_weights_name </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the bone weights vertex attribute name in the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The new vertex attribute name. An empty string resets the name to the default value "bone_weights_in" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00143">143</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4d229ac4351f7d6b4763e47fbbc51f09"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::set_color_name </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the color vertex attribute name in the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The new vertex attribute name. An empty string resets the name to the default value "col_in" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00122">122</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6a8d051f33fb5f11ab78f90130389e4f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::set_normal_name </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the normal vertex attribute name in the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The new vertex attribute name. An empty string resets the name to the default value "norm_in" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00108">108</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac6d84bfa5bdcf1a40f8b651acf53ddd3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::set_position_name </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the position vertex attribute name in the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The new vertex attribute name. An empty string resets the name to the default value "pos_in" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00101">101</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a81bf189444c47f91604681577c0d524a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::set_tangent_name </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the tangent vertex attribute name in the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The new vertex attribute name. An empty string resets the name to the default value "tang_in" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00115">115</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6aad3c3e0486054bdc2faae17add727e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::set_texture_coordinates_name </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the texture coordinates vertex attribute name in the shader. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The new vertex attribute name. An empty string resets the name to the default value "tex_coord_in" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00129">129</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
 
 </div>
 </div>
@@ -398,7 +588,44 @@ std::vector&lt; <a class="el" href="classsgltk_1_1_mesh.html">Mesh</a> * &gt;&#1
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00089">89</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00095">95</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a460235f317cf5015f41bbcf986bac779"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::setup_instanced_matrix </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; glm::mat4 &gt; *&#160;</td>
+          <td class="paramname"><em>model_matrix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>usage</em> = <code>GL_STATIC_DRAW</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attaches the buffers and sets the model and normal matrix vertex attributes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">model_matrix</td><td>The model matrices to be used for instanced drawing </td></tr>
+    <tr><td class="paramname">usage</td><td>A hint as to how the buffer will be accessed. Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00628">628</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
 
 </div>
 </div>
@@ -424,7 +651,7 @@ std::vector&lt; <a class="el" href="classsgltk_1_1_mesh.html">Mesh</a> * &gt;&#1
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00095">95</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
+<p>Definition at line <a class="el" href="scene_8cpp_source.html#l00157">157</a> of file <a class="el" href="scene_8cpp_source.html">scene.cpp</a>.</p>
 
 </div>
 </div>
@@ -435,7 +662,7 @@ std::vector&lt; <a class="el" href="classsgltk_1_1_mesh.html">Mesh</a> * &gt;&#1
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jul 24 2016 22:50:02 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 25 2016 17:14:44 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

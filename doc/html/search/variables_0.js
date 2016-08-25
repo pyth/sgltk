@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['bitangent',['bitangent',['../structsgltk_1_1_vertex.html#a5e3e0e7b462aa9ad95f6bc4274d80b79',1,'sgltk::Vertex']]],
-  ['bounding_5fbox',['bounding_box',['../classsgltk_1_1_mesh.html#a7fa95ed6869f885ee319ed8f49e56b90',1,'sgltk::Mesh']]]
+  ['ambient_5fcolor_5fname',['ambient_color_name',['../classsgltk_1_1_mesh.html#a2f0b671f31c2fe7251885e3ecd8461ac',1,'sgltk::Mesh']]],
+  ['ambient_5ftexture_5fname',['ambient_texture_name',['../classsgltk_1_1_mesh.html#adb07663fe17ffbc10b1b42d931a81491',1,'sgltk::Mesh']]]
 ];

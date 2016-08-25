@@ -108,74 +108,84 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:accb31acf73228de27d52a38ceb25b3ec"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#accb31acf73228de27d52a38ceb25b3ec">set_icon</a> (<a class="el" href="classsgltk_1_1_image.html">Image</a> *icon)</td></tr>
 <tr class="memdesc:accb31acf73228de27d52a38ceb25b3ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the window icon.  <a href="#accb31acf73228de27d52a38ceb25b3ec">More...</a><br /></td></tr>
 <tr class="separator:accb31acf73228de27d52a38ceb25b3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15806c42b0de4d74cae6650a0aa70fc9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a15806c42b0de4d74cae6650a0aa70fc9"></a>
-EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a15806c42b0de4d74cae6650a0aa70fc9">enable_screensaver</a> ()</td></tr>
-<tr class="memdesc:a15806c42b0de4d74cae6650a0aa70fc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the screensaver. <br /></td></tr>
-<tr class="separator:a15806c42b0de4d74cae6650a0aa70fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcb4ace6e7ed616ac66852b772170d26"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abcb4ace6e7ed616ac66852b772170d26"></a>
-EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#abcb4ace6e7ed616ac66852b772170d26">disable_screensaver</a> ()</td></tr>
-<tr class="memdesc:abcb4ace6e7ed616ac66852b772170d26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the screensaver. <br /></td></tr>
-<tr class="separator:abcb4ace6e7ed616ac66852b772170d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38d18b94e627d878c14469b0ade04af1"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a38d18b94e627d878c14469b0ade04af1">set_title</a> (std::string title)</td></tr>
+<tr class="memdesc:a38d18b94e627d878c14469b0ade04af1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set window title.  <a href="#a38d18b94e627d878c14469b0ade04af1">More...</a><br /></td></tr>
+<tr class="separator:a38d18b94e627d878c14469b0ade04af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe33cf09e3e7776d2ab421668690e1c9"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#abe33cf09e3e7776d2ab421668690e1c9">grab_mouse</a> (bool on)</td></tr>
 <tr class="memdesc:abe33cf09e3e7776d2ab421668690e1c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the window to grab the mouse When activate the mouse can not leave the window boundaries.  <a href="#abe33cf09e3e7776d2ab421668690e1c9">More...</a><br /></td></tr>
 <tr class="separator:abe33cf09e3e7776d2ab421668690e1c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f77c53f2175c74cba30028f5b4d63e9"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a0f77c53f2175c74cba30028f5b4d63e9">get_display_index</a> ()</td></tr>
+<tr class="memdesc:a0f77c53f2175c74cba30028f5b4d63e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the display that currently contains the window. This index corresponds to the indices in the sgltk::App::sys_info.desktop_display_modes and sgltk::app::sys_info.supported_display_modes lists.  <a href="#a0f77c53f2175c74cba30028f5b4d63e9">More...</a><br /></td></tr>
+<tr class="separator:a0f77c53f2175c74cba30028f5b4d63e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32a0c1fbdfa1302d47a703a0fe9a5397"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a32a0c1fbdfa1302d47a703a0fe9a5397">set_display_mode</a> (SDL_DisplayMode *mode)</td></tr>
+<tr class="memdesc:a32a0c1fbdfa1302d47a703a0fe9a5397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the window display mode when in fullscreen mode.  <a href="#a32a0c1fbdfa1302d47a703a0fe9a5397">More...</a><br /></td></tr>
+<tr class="separator:a32a0c1fbdfa1302d47a703a0fe9a5397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab480e0430af9ac7399994952443bb6ca"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#ab480e0430af9ac7399994952443bb6ca">fullscreen_mode</a> (FULLSCREEN_MODE mode)</td></tr>
+<tr class="memdesc:ab480e0430af9ac7399994952443bb6ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the window fullscreen mode.  <a href="#ab480e0430af9ac7399994952443bb6ca">More...</a><br /></td></tr>
+<tr class="separator:ab480e0430af9ac7399994952443bb6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1888856053f5299de71cad41ec9484f7"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a1888856053f5299de71cad41ec9484f7">set_relative_mode</a> (bool on)</td></tr>
 <tr class="memdesc:a1888856053f5299de71cad41ec9484f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the relative mouse motion mode In the relative mouse motion mode the cursor is invisible and stays in the middle of the screen. The x and y coordinates passed to the handle_mouse_motion function will be the relative horizontal and vertical distances traveled.  <a href="#a1888856053f5299de71cad41ec9484f7">More...</a><br /></td></tr>
 <tr class="separator:a1888856053f5299de71cad41ec9484f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b7d2dfcdd0c5fc4c613cf2ec3602593"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a7b7d2dfcdd0c5fc4c613cf2ec3602593">enable_vsync</a> (bool on)</td></tr>
-<tr class="memdesc:a7b7d2dfcdd0c5fc4c613cf2ec3602593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns VSync on or off.  <a href="#a7b7d2dfcdd0c5fc4c613cf2ec3602593">More...</a><br /></td></tr>
-<tr class="separator:a7b7d2dfcdd0c5fc4c613cf2ec3602593"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a5504a7fabe168d445989f210613e16"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2a5504a7fabe168d445989f210613e16"></a>
 EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16">poll_events</a> ()</td></tr>
 <tr class="memdesc:a2a5504a7fabe168d445989f210613e16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls all events and calls the handlers. Called by the run function. <br /></td></tr>
 <tr class="separator:a2a5504a7fabe168d445989f210613e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa90f49702b945f156290b24b516b4201"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#aa90f49702b945f156290b24b516b4201">handle_gamepad_added</a> (unsigned int gamepad_id)</td></tr>
-<tr class="memdesc:aa90f49702b945f156290b24b516b4201"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle the addition of new gamepads. This function should be overriden.  <a href="#aa90f49702b945f156290b24b516b4201">More...</a><br /></td></tr>
+<tr class="memdesc:aa90f49702b945f156290b24b516b4201"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle the addition of new gamepads. This function should be overridden.  <a href="#aa90f49702b945f156290b24b516b4201">More...</a><br /></td></tr>
 <tr class="separator:aa90f49702b945f156290b24b516b4201"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55eb2c5fd14460325af4a340b3e3cef7"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a55eb2c5fd14460325af4a340b3e3cef7">handle_gamepad_removed</a> (unsigned int gamepad_id)</td></tr>
-<tr class="memdesc:a55eb2c5fd14460325af4a340b3e3cef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle the removal of gamepads. This function should be overriden.  <a href="#a55eb2c5fd14460325af4a340b3e3cef7">More...</a><br /></td></tr>
+<tr class="memdesc:a55eb2c5fd14460325af4a340b3e3cef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle the removal of gamepads. This function should be overridden.  <a href="#a55eb2c5fd14460325af4a340b3e3cef7">More...</a><br /></td></tr>
 <tr class="separator:a55eb2c5fd14460325af4a340b3e3cef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e3cddc4ffbae8556846ae0a047022a7"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a7e3cddc4ffbae8556846ae0a047022a7">handle_gamepad_button</a> (unsigned int gamepad_id, int button, bool pressed)</td></tr>
-<tr class="memdesc:a7e3cddc4ffbae8556846ae0a047022a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle gamepad button presses. This function should be overriden.  <a href="#a7e3cddc4ffbae8556846ae0a047022a7">More...</a><br /></td></tr>
-<tr class="separator:a7e3cddc4ffbae8556846ae0a047022a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceac1d96761a3767f6dc32990c1311b0"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#aceac1d96761a3767f6dc32990c1311b0">handle_gamepad_button</a> (unsigned int gamepad_id, int button)</td></tr>
+<tr class="memdesc:aceac1d96761a3767f6dc32990c1311b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> every frame for every gamepad button currently being pressed. This function should be overridden.  <a href="#aceac1d96761a3767f6dc32990c1311b0">More...</a><br /></td></tr>
+<tr class="separator:aceac1d96761a3767f6dc32990c1311b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a181eb13cfeed56e88e55ad9ec1aa27c8"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a181eb13cfeed56e88e55ad9ec1aa27c8">handle_gamepad_button_press</a> (unsigned int gamepad_id, int button, bool pressed)</td></tr>
+<tr class="memdesc:a181eb13cfeed56e88e55ad9ec1aa27c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> once for every gamepad button pressed or released. This function should be overridden.  <a href="#a181eb13cfeed56e88e55ad9ec1aa27c8">More...</a><br /></td></tr>
+<tr class="separator:a181eb13cfeed56e88e55ad9ec1aa27c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91a1e294bfe2b10a5668342313a310da"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a91a1e294bfe2b10a5668342313a310da">handle_gamepad_axis</a> (unsigned int gamepad_id, unsigned int axis, int value)</td></tr>
-<tr class="memdesc:a91a1e294bfe2b10a5668342313a310da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle gamepad axis motion. This function should be overriden.  <a href="#a91a1e294bfe2b10a5668342313a310da">More...</a><br /></td></tr>
+<tr class="memdesc:a91a1e294bfe2b10a5668342313a310da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> for every frame for every axis. This function should be overridden.  <a href="#a91a1e294bfe2b10a5668342313a310da">More...</a><br /></td></tr>
 <tr class="separator:a91a1e294bfe2b10a5668342313a310da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02bd1b8928ec360bfed6d38de65a609b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a02bd1b8928ec360bfed6d38de65a609b"></a>
-virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a02bd1b8928ec360bfed6d38de65a609b">handle_keyboard</a> ()</td></tr>
-<tr class="memdesc:a02bd1b8928ec360bfed6d38de65a609b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle keyboard input. This function should be overriden. <br /></td></tr>
-<tr class="separator:a02bd1b8928ec360bfed6d38de65a609b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7a7d3286cc6591ed96feda714d891be"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#ac7a7d3286cc6591ed96feda714d891be">key_pressed</a> (const char *key)</td></tr>
-<tr class="memdesc:ac7a7d3286cc6591ed96feda714d891be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the key is currently pressed.  <a href="#ac7a7d3286cc6591ed96feda714d891be">More...</a><br /></td></tr>
-<tr class="separator:ac7a7d3286cc6591ed96feda714d891be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7de009188beee84fee886c2b19ca3a89"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a7de009188beee84fee886c2b19ca3a89">handle_gamepad_axis_change</a> (unsigned int gamepad_id, unsigned int axis, int value)</td></tr>
+<tr class="memdesc:a7de009188beee84fee886c2b19ca3a89"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> for every axis value change. This function should be overridden.  <a href="#a7de009188beee84fee886c2b19ca3a89">More...</a><br /></td></tr>
+<tr class="separator:a7de009188beee84fee886c2b19ca3a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affbfd7f0c0d5ca91beb40da70fed72a3"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#affbfd7f0c0d5ca91beb40da70fed72a3">handle_keyboard</a> (std::string key)</td></tr>
+<tr class="memdesc:affbfd7f0c0d5ca91beb40da70fed72a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> every frame for every key currently being pressed. This function should be overridden.  <a href="#affbfd7f0c0d5ca91beb40da70fed72a3">More...</a><br /></td></tr>
+<tr class="separator:affbfd7f0c0d5ca91beb40da70fed72a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a492a4d0462f387c8aecf9107166a9c08"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a492a4d0462f387c8aecf9107166a9c08">handle_key_press</a> (std::string key, bool pressed)</td></tr>
+<tr class="memdesc:a492a4d0462f387c8aecf9107166a9c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> once for every key pressed or released. This function should be overridden.  <a href="#a492a4d0462f387c8aecf9107166a9c08">More...</a><br /></td></tr>
+<tr class="separator:a492a4d0462f387c8aecf9107166a9c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1996146fe79681ad7e9df91d86ee4eb5"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a1996146fe79681ad7e9df91d86ee4eb5">handle_mouse_motion</a> (int x, int y)</td></tr>
-<tr class="memdesc:a1996146fe79681ad7e9df91d86ee4eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse motion. This function should be overriden.  <a href="#a1996146fe79681ad7e9df91d86ee4eb5">More...</a><br /></td></tr>
+<tr class="memdesc:a1996146fe79681ad7e9df91d86ee4eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse motion. This function should be overridden.  <a href="#a1996146fe79681ad7e9df91d86ee4eb5">More...</a><br /></td></tr>
 <tr class="separator:a1996146fe79681ad7e9df91d86ee4eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a326db8dffe42b95ca084ad64f2907bda"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a326db8dffe42b95ca084ad64f2907bda">handle_mouse_wheel</a> (int x, int y)</td></tr>
-<tr class="memdesc:a326db8dffe42b95ca084ad64f2907bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse wheel movements. This function should be overriden.  <a href="#a326db8dffe42b95ca084ad64f2907bda">More...</a><br /></td></tr>
+<tr class="memdesc:a326db8dffe42b95ca084ad64f2907bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse wheel movements. This function should be overridden.  <a href="#a326db8dffe42b95ca084ad64f2907bda">More...</a><br /></td></tr>
 <tr class="separator:a326db8dffe42b95ca084ad64f2907bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a3f7605ac66ed0dc810296defa15322"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a9a3f7605ac66ed0dc810296defa15322">handle_mouse_button</a> (int x, int y, MOUSE_BUTTON button, bool down, int clicks)</td></tr>
-<tr class="memdesc:a9a3f7605ac66ed0dc810296defa15322"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse button presses. This function should be overriden.  <a href="#a9a3f7605ac66ed0dc810296defa15322">More...</a><br /></td></tr>
-<tr class="separator:a9a3f7605ac66ed0dc810296defa15322"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bcad875079924ffba855d842ed59958"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a2bcad875079924ffba855d842ed59958">handle_mouse_button</a> (int x, int y, int button, bool down, int clicks)</td></tr>
+<tr class="memdesc:a2bcad875079924ffba855d842ed59958"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse button presses. This function should be overridden.  <a href="#a2bcad875079924ffba855d842ed59958">More...</a><br /></td></tr>
+<tr class="separator:a2bcad875079924ffba855d842ed59958"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af339c264f9940fa2e149fe408d8c4744"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af339c264f9940fa2e149fe408d8c4744"></a>
 virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#af339c264f9940fa2e149fe408d8c4744">handle_resize</a> ()</td></tr>
-<tr class="memdesc:af339c264f9940fa2e149fe408d8c4744"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by run when the window is resized. This function should be overriden. <br /></td></tr>
+<tr class="memdesc:af339c264f9940fa2e149fe408d8c4744"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by run when the window is resized. This function should be overridden. <br /></td></tr>
 <tr class="separator:af339c264f9940fa2e149fe408d8c4744"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fcdea490a19dcc238e6434f869003db"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6fcdea490a19dcc238e6434f869003db"></a>
 virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a6fcdea490a19dcc238e6434f869003db">handle_exit</a> ()</td></tr>
-<tr class="memdesc:a6fcdea490a19dcc238e6434f869003db"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by run when the window is being closed. This function should be overriden. <br /></td></tr>
+<tr class="memdesc:a6fcdea490a19dcc238e6434f869003db"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by run when the window is being closed. This function should be overridden. <br /></td></tr>
 <tr class="separator:a6fcdea490a19dcc238e6434f869003db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afadfafa5a0b9472554759004aafb327e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afadfafa5a0b9472554759004aafb327e"></a>
 virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#afadfafa5a0b9472554759004aafb327e">display</a> ()</td></tr>
-<tr class="memdesc:afadfafa5a0b9472554759004aafb327e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#ae137ec42ddc87d666d49661484410091" title="This is the mainloop. It does not limit the framerate. ">run()</a> to draw a frame. This function should be overriden. <br /></td></tr>
+<tr class="memdesc:afadfafa5a0b9472554759004aafb327e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called by <a class="el" href="classsgltk_1_1_window.html#ae137ec42ddc87d666d49661484410091" title="Starts the main loop with no frame rate limit. ">run()</a> to draw a frame. This function should be overridden. <br /></td></tr>
 <tr class="separator:afadfafa5a0b9472554759004aafb327e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae137ec42ddc87d666d49661484410091"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae137ec42ddc87d666d49661484410091"></a>
 EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#ae137ec42ddc87d666d49661484410091">run</a> ()</td></tr>
-<tr class="memdesc:ae137ec42ddc87d666d49661484410091"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the mainloop. It does not limit the framerate. <br /></td></tr>
+<tr class="memdesc:ae137ec42ddc87d666d49661484410091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the main loop with no frame rate limit. <br /></td></tr>
 <tr class="separator:ae137ec42ddc87d666d49661484410091"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada638e711a70bf4d4b68cf103bfe3648"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#ada638e711a70bf4d4b68cf103bfe3648">run</a> (int fps)</td></tr>
-<tr class="memdesc:ada638e711a70bf4d4b68cf103bfe3648"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the mainloop. It calls <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> and <a class="el" href="classsgltk_1_1_window.html#afadfafa5a0b9472554759004aafb327e" title="This function is called by run() to draw a frame. This function should be overriden. ">display()</a>  <a href="#ada638e711a70bf4d4b68cf103bfe3648">More...</a><br /></td></tr>
+<tr class="memdesc:ada638e711a70bf4d4b68cf103bfe3648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the main loop. This function calls <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> and <a class="el" href="classsgltk_1_1_window.html#afadfafa5a0b9472554759004aafb327e" title="This function is called by run() to draw a frame. This function should be overridden. ">display()</a>  <a href="#ada638e711a70bf4d4b68cf103bfe3648">More...</a><br /></td></tr>
 <tr class="separator:ada638e711a70bf4d4b68cf103bfe3648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42353e5fb0b5670e6175709706670450"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a42353e5fb0b5670e6175709706670450"></a>
+EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a42353e5fb0b5670e6175709706670450">stop</a> ()</td></tr>
+<tr class="memdesc:a42353e5fb0b5670e6175709706670450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the main loop. <br /></td></tr>
+<tr class="separator:a42353e5fb0b5670e6175709706670450"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -199,7 +209,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides windows with OpenGL context. </p>
 
-<p>Definition at line <a class="el" href="window_8h_source.html#l00027">27</a> of file <a class="el" href="window_8h_source.html">window.h</a>.</p>
+<p>Definition at line <a class="el" href="window_8h_source.html#l00033">33</a> of file <a class="el" href="window_8h_source.html">window.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac3aabc7c13fbe112d0d828dfae39a2a2"></a>
 <div class="memitem">
@@ -279,30 +289,50 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a7b7d2dfcdd0c5fc4c613cf2ec3602593"></a>
+<a class="anchor" id="ab480e0430af9ac7399994952443bb6ca"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Window::enable_vsync </td>
+          <td class="memname">bool Window::fullscreen_mode </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>on</em></td><td>)</td>
+          <td class="paramtype">FULLSCREEN_MODE&#160;</td>
+          <td class="paramname"><em>mode</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Turns VSync on or off. </p>
+<p>Changes the window fullscreen mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">on</td><td>True turns VSync on, false turns it off </td></tr>
+    <tr><td class="paramname">mode</td><td>The fullscreen mode to set </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns false if VSync is not supported, true otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success or false on failure </dd></dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00091">91</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00103">103</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0f77c53f2175c74cba30028f5b4d63e9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Window::get_display_index </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the index of the display that currently contains the window. This index corresponds to the indices in the sgltk::App::sys_info.desktop_display_modes and sgltk::app::sys_info.supported_display_modes lists. </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns the index of the display that currently contains the window or a negative number of failure. </dd></dl>
+
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00085">85</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -328,7 +358,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00082">82</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00081">81</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -354,7 +384,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle the addition of new gamepads. This function should be overriden. </p>
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle the addition of new gamepads. This function should be overridden. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
@@ -362,7 +392,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00177">177</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00227">227</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -404,7 +434,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle gamepad axis motion. This function should be overriden. </p>
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> for every frame for every axis. This function should be overridden. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
@@ -414,11 +444,63 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00186">186</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00239">239</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a7e3cddc4ffbae8556846ae0a047022a7"></a>
+<a class="anchor" id="a7de009188beee84fee886c2b19ca3a89"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Window::handle_gamepad_axis_change </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>gamepad_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> for every axis value change. This function should be overridden. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
+    <tr><td class="paramname">axis</td><td>The number of the axis that has a new value </td></tr>
+    <tr><td class="paramname">value</td><td>The new value of the axis </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00242">242</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aceac1d96761a3767f6dc32990c1311b0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -427,6 +509,51 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
       <table class="memname">
         <tr>
           <td class="memname">void Window::handle_gamepad_button </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>gamepad_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>button</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> every frame for every gamepad button currently being pressed. This function should be overridden. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
+    <tr><td class="paramname">button</td><td>The number of the button pressed or released </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00233">233</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a181eb13cfeed56e88e55ad9ec1aa27c8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Window::handle_gamepad_button_press </td>
           <td>(</td>
           <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>gamepad_id</em>, </td>
@@ -456,7 +583,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle gamepad button presses. This function should be overriden. </p>
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> once for every gamepad button pressed or released. This function should be overridden. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
@@ -466,7 +593,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00183">183</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00236">236</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -492,7 +619,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle the removal of gamepads. This function should be overriden. </p>
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle the removal of gamepads. This function should be overridden. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
@@ -500,11 +627,90 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00180">180</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00230">230</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a9a3f7605ac66ed0dc810296defa15322"></a>
+<a class="anchor" id="a492a4d0462f387c8aecf9107166a9c08"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Window::handle_key_press </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>pressed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> once for every key pressed or released. This function should be overridden. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The name of the key being pressed </td></tr>
+    <tr><td class="paramname">pressed</td><td>True if the key has been pressed, false otherwise </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00248">248</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="affbfd7f0c0d5ca91beb40da70fed72a3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Window::handle_keyboard </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> every frame for every key currently being pressed. This function should be overridden. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The name of the key being pressed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00245">245</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2bcad875079924ffba855d842ed59958"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -526,7 +732,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">MOUSE_BUTTON&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>button</em>, </td>
         </tr>
         <tr>
@@ -554,19 +760,19 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse button presses. This function should be overriden. </p>
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse button presses. This function should be overridden. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The x coordinate where the event occured </td></tr>
-    <tr><td class="paramname">y</td><td>The y coordinate where the event occured </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate where the event occurred </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate where the event occurred </td></tr>
     <tr><td class="paramname">button</td><td>The button that caused the event </td></tr>
     <tr><td class="paramname">down</td><td>True if a button was pressed, false if it was released </td></tr>
-    <tr><td class="paramname">clicks</td><td>The number of clicks (e.g. doubleclick) </td></tr>
+    <tr><td class="paramname">clicks</td><td>The number of clicks (e.g. double click) </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00205">205</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00257">257</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -602,16 +808,16 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse motion. This function should be overriden. </p>
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse motion. This function should be overridden. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>The x coordinate where the event occured or the relative mouse movement along the x axis (see set_relative_mode) </td></tr>
-    <tr><td class="paramname">y</td><td>The y coordinate where the event occured or the relative mouse movement along the y axis (see set_relative_mode) </td></tr>
+    <tr><td class="paramname">x</td><td>The x coordinate where the event occurred or the relative mouse movement along the x axis (see set_relative_mode) </td></tr>
+    <tr><td class="paramname">y</td><td>The y coordinate where the event occurred or the relative mouse movement along the y axis (see set_relative_mode) </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00199">199</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00251">251</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -647,7 +853,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table>
 </div><div class="memdoc">
 
-<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse wheel movements. This function should be overriden. </p>
+<p>This function is called by <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> to handle mouse wheel movements. This function should be overridden. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>The amount scrolled horizontally </td></tr>
@@ -656,34 +862,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00202">202</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac7a7d3286cc6591ed96feda714d891be"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Window::key_pressed </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks if the key is currently pressed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Retruns true if the key is pressed, false otherwise </dd></dl>
-
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00192">192</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00254">254</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -701,7 +880,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
       </table>
 </div><div class="memdoc">
 
-<p>This is the mainloop. It calls <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> and <a class="el" href="classsgltk_1_1_window.html#afadfafa5a0b9472554759004aafb327e" title="This function is called by run() to draw a frame. This function should be overriden. ">display()</a> </p>
+<p>Starts the main loop. This function calls <a class="el" href="classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16" title="Polls all events and calls the handlers. Called by the run function. ">poll_events()</a> and <a class="el" href="classsgltk_1_1_window.html#afadfafa5a0b9472554759004aafb327e" title="This function is called by run() to draw a frame. This function should be overridden. ">display()</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">fps</td><td>The frames per second limit. Any number below 1 means no limit </td></tr>
@@ -709,7 +888,34 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00227">227</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00279">279</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a32a0c1fbdfa1302d47a703a0fe9a5397"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Window::set_display_mode </td>
+          <td>(</td>
+          <td class="paramtype">SDL_DisplayMode *&#160;</td>
+          <td class="paramname"><em>mode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changes the window display mode when in fullscreen mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>The display mode to set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
+
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00094">94</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -735,7 +941,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00070">70</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00073">73</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -761,7 +967,33 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="window_8cpp_source.html#l00086">86</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00112">112</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a38d18b94e627d878c14469b0ade04af1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sgltk::Window::set_title </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>title</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set window title. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">title</td><td>The new window title </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="window_8cpp_source.html#l00077">77</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -772,7 +1004,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jul 24 2016 22:50:02 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 25 2016 17:14:44 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

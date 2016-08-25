@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['id',['id',['../classsgltk_1_1_gamepad.html#a88b40a231654e320a811c4c4be3da09c',1,'sgltk::Gamepad']]],
-  ['id_5fmap',['id_map',['../classsgltk_1_1_gamepad.html#aa99f73d9d6fcb15e37a7ef324406150c',1,'sgltk::Gamepad']]],
-  ['image',['image',['../classsgltk_1_1_image.html#a5e68bb4101c8ebe30b6c8f4675e4cbef',1,'sgltk::Image']]],
-  ['instance_5fid_5fmap',['instance_id_map',['../classsgltk_1_1_gamepad.html#a090b76ebe67612ee2ed35998385b89d4',1,'sgltk::Gamepad']]]
+  ['height',['height',['../classsgltk_1_1_camera.html#a0c40a8d4208118065a3276a934ea3762',1,'sgltk::Camera::height()'],['../classsgltk_1_1_image.html#af5d6fffdc4c154b4e1a2c82b03f1ae11',1,'sgltk::Image::height()'],['../classsgltk_1_1_window.html#a600d9cb0bbd052aa0a47c23f1ee25cec',1,'sgltk::Window::height()']]]
 ];

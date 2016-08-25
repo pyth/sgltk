@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['near_5fplane',['near_plane',['../classsgltk_1_1_camera.html#aa08fab8114767a6fa5c0b317b2746263',1,'sgltk::Camera']]],
-  ['normal',['normal',['../structsgltk_1_1_vertex.html#a54eaf21e19c331f38e3e1db9a6ffea4b',1,'sgltk::Vertex']]]
+  ['opacity_5ftexture_5fname',['opacity_texture_name',['../classsgltk_1_1_mesh.html#aa21f2484531c80b7a2815978672e916a',1,'sgltk::Mesh']]]
 ];

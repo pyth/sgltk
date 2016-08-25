@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classsgltk_1_1_app-members.html">List of all members</a>  </div>
@@ -115,6 +116,20 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><b>SYS_INFO</b></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System information. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad2c511ee3780a9d6df5fc766656502c0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad2c511ee3780a9d6df5fc766656502c0"></a>
+EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#ad2c511ee3780a9d6df5fc766656502c0">enable_screensaver</a> ()</td></tr>
+<tr class="memdesc:ad2c511ee3780a9d6df5fc766656502c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the screensaver. <br /></td></tr>
+<tr class="separator:ad2c511ee3780a9d6df5fc766656502c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6ad17a67fc969540bdd71b4c7db7396"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af6ad17a67fc969540bdd71b4c7db7396"></a>
+EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#af6ad17a67fc969540bdd71b4c7db7396">disable_screensaver</a> ()</td></tr>
+<tr class="memdesc:af6ad17a67fc969540bdd71b4c7db7396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the screensaver. <br /></td></tr>
+<tr class="separator:af6ad17a67fc969540bdd71b4c7db7396"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a34e9ef8809782d63ddc6d15595d574"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_app.html#a5a34e9ef8809782d63ddc6d15595d574">enable_vsync</a> (bool on)</td></tr>
+<tr class="memdesc:a5a34e9ef8809782d63ddc6d15595d574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns VSync on or off.  <a href="#a5a34e9ef8809782d63ddc6d15595d574">More...</a><br /></td></tr>
+<tr class="separator:a5a34e9ef8809782d63ddc6d15595d574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -157,8 +172,35 @@ static EXPORT std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handles library initialization and provides system information. </p>
 
-<p>Definition at line <a class="el" href="app_8h_source.html#l00068">68</a> of file <a class="el" href="app_8h_source.html">app.h</a>.</p>
+<p>Definition at line <a class="el" href="app_8h_source.html#l00069">69</a> of file <a class="el" href="app_8h_source.html">app.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a5a34e9ef8809782d63ddc6d15595d574"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool App::enable_vsync </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>on</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Turns VSync on or off. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">on</td><td>True turns VSync on, false turns it off </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns false if VSync is not supported, true otherwise </dd></dl>
+
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00105">105</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a49cd5d0a755aa8895f3c2996b66a9742"></a>
 <div class="memitem">
 <div class="memproto">
@@ -181,9 +223,9 @@ static EXPORT std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight
 </div><div class="memdoc">
 
 <p>Initializes all parts of SDL2 used by SGLTK. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="app_8cpp_source.html#l00060">60</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
+<p>Definition at line <a class="el" href="app_8cpp_source.html#l00063">63</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
 </div>
 </div>
@@ -209,7 +251,7 @@ static EXPORT std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight
 </div><div class="memdoc">
 
 <p>Initializes GLEW. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
 
 <p>Definition at line <a class="el" href="app_8cpp_source.html#l00009">9</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
@@ -237,7 +279,7 @@ static EXPORT std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight
 </div><div class="memdoc">
 
 <p>Initializes SDL2_img. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
 
 <p>Definition at line <a class="el" href="app_8cpp_source.html#l00018">18</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
@@ -265,7 +307,7 @@ static EXPORT std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight
 </div><div class="memdoc">
 
 <p>Initializes SDL2. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
 
 <p>Definition at line <a class="el" href="app_8cpp_source.html#l00032">32</a> of file <a class="el" href="app_8cpp_source.html">app.cpp</a>.</p>
 
@@ -278,7 +320,7 @@ static EXPORT std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jul 24 2016 22:50:02 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Aug 25 2016 17:14:44 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
