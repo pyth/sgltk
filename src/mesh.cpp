@@ -27,7 +27,7 @@ Mesh::Mesh() {
 	diffuse_texture_name =			"texture_diffuse";
 	specular_texture_name =			"texture_specular";
 	shininess_texture_name =		"texture_shininess";
-	emmisive_texture_name =			"texture_emmisive";
+	emissive_texture_name =			"texture_emissive";
 	normals_texture_name =			"texture_normals";
 	displacement_texture_name =		"texture_displacement";
 	opacity_texture_name =			"texture_opacity";
@@ -45,7 +45,7 @@ Mesh::~Mesh() {
 	textures_diffuse.clear();
 	textures_specular.clear();
 	textures_shininess.clear();
-	textures_emmisive.clear();
+	textures_emissive.clear();
 	textures_normals.clear();
 	textures_displacement.clear();
 	textures_opacity.clear();
@@ -189,11 +189,11 @@ void Mesh::set_shininess_texture_name(std::string name) {
 		shininess_texture_name = "texture_shininess";
 }
 
-void Mesh::set_emmisive_texture_name(std::string name) {
+void Mesh::set_emissive_texture_name(std::string name) {
 	if(name.length() > 0)
-		emmisive_texture_name = name;
+		emissive_texture_name = name;
 	else
-		emmisive_texture_name = "texture_emmisive";
+		emissive_texture_name = "texture_emissive";
 }
 
 void Mesh::set_normals_texture_name(std::string name) {
@@ -379,17 +379,17 @@ void Mesh::material_uniform() {
 		num_textures++;
 	}
 
-	for(unsigned int i = 0; i < textures_emmisive.size(); i++) {
+	for(unsigned int i = 0; i < textures_emissive.size(); i++) {
 		int texture_loc = glGetUniformLocation(shader->program,
-				emmisive_texture_name.c_str());
+				emissive_texture_name.c_str());
 		if(texture_loc < 0) {
-			std::string uniform_name = emmisive_texture_name +
+			std::string uniform_name = emissive_texture_name +
 				'[' + std::to_string(i) + ']';
 			texture_loc = glGetUniformLocation(shader->program,
 					uniform_name.c_str());
 		}
 		glUniform1i(texture_loc, num_textures);
-		textures_emmisive[i]->bind(num_textures);
+		textures_emissive[i]->bind(num_textures);
 		num_textures++;
 	}
 

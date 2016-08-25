@@ -133,31 +133,6 @@ namespace sgltk {
  * @brief Manages meshes
  */
 class Mesh {
-	Shader *shader;
-
-	std::string ambient_color_name;
-	std::string diffuse_color_name;
-	std::string specular_color_name;
-	std::string shininess_name;
-	std::string shininess_strength_name;
-
-	std::string ambient_texture_name;
-	std::string diffuse_texture_name;
-	std::string specular_texture_name;
-	std::string shininess_texture_name;
-	std::string emmisive_texture_name;
-	std::string normals_texture_name;
-	std::string displacement_texture_name;
-	std::string opacity_texture_name;
-	std::string lightmap_texture_name;
-
-	std::string model_matrix_name;
-	std::string view_matrix_name;
-	std::string projection_matrix_name;
-	std::string model_view_matrix_name;
-	std::string view_proj_matrix_name;
-	std::string model_view_projection_matrix_name;
-	std::string normal_matrix_name;
 
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
@@ -172,6 +147,97 @@ class Mesh {
 
 	void material_uniform();
 public:
+	/**
+	 * @brief The name of the ambient materiel component
+	 */
+	std::string ambient_color_name;
+	/**
+	 * @brief The name of the diffuse materiel component
+	 */
+	std::string diffuse_color_name;
+	/**
+	 * @brief The name of the specular materiel component
+	 */
+	std::string specular_color_name;
+	/**
+	 * @brief The name of the specular factor
+	 */
+	std::string shininess_name;
+	/**
+	 * @brief The name of the specular exponent
+	 */
+	std::string shininess_strength_name;
+
+	/**
+	 * @brief The name of the texture containing the ambient color component
+	 */
+	std::string ambient_texture_name;
+	/**
+	 * @brief The name of the texture containing the diffuse color component
+	 */
+	std::string diffuse_texture_name;
+	/**
+	 * @brief The name of the texture containing the specular factor
+	 */
+	std::string specular_texture_name;
+	/**
+	 * @brief The name of the texture containing the specular exponent
+	 */
+	std::string shininess_texture_name;
+	/**
+	 * @brief The name of the texture containing the light being emitted
+	 */
+	std::string emissive_texture_name;
+	/**
+	 * @brief The name of the texture containing normal vectors
+	 */
+	std::string normals_texture_name;
+	/**
+	 * @brief The name of the texture containing the displacement factor
+	 */
+	std::string displacement_texture_name;
+	/**
+	 * @brief The name of the texture containing the opacity strength
+	 */
+	std::string opacity_texture_name;
+	/**
+	 * @brief The name of the texture containing the diffuse light factor
+	 */
+	std::string lightmap_texture_name;
+
+	/**
+	 * @brief The name of the model matrix in the shader
+	 */
+	std::string model_matrix_name;
+	/**
+	 * @brief The name of the view matrix in the shader
+	 */
+	std::string view_matrix_name;
+	/**
+	 * @brief The name of the projection matrix in the shader
+	 */
+	std::string projection_matrix_name;
+	/**
+	 * @brief The name of the model-view matrix in the shader
+	 */
+	std::string model_view_matrix_name;
+	/**
+	 * @brief The name of the view-projection matrix in the shader
+	 */
+	std::string view_proj_matrix_name;
+	/**
+	 * @brief The name of the model-view-projection matrix in the shader
+	 */
+	std::string model_view_projection_matrix_name;
+	/**
+	 * @brief The name of the normal matrix in the shader
+	 */
+	std::string normal_matrix_name;
+
+	/**
+	 * @brief The shader being used to draw the mesh
+	 */
+	Shader *shader;
 	/**
 	 * @brief The bounding box
 	 */
@@ -217,9 +283,9 @@ public:
 	 */
 	std::vector<Texture *> textures_shininess;
 	/**
-	 * @brief The emmisive textures
+	 * @brief The emissive textures
 	 */
-	std::vector<Texture *> textures_emmisive;
+	std::vector<Texture *> textures_emissive;
 	/**
 	 * @brief The normals textures
 	 */
@@ -377,11 +443,11 @@ public:
 	 */
 	EXPORT void set_shininess_texture_name(std::string name);
 	/**
-	 * @brief Sets the name of the emmisive texture in the shader
-	 * @param name The name of the emmisive texture.
+	 * @brief Sets the name of the emissive texture in the shader
+	 * @param name The name of the emissive texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_emmisive_texture_name(std::string name);
+	EXPORT void set_emissive_texture_name(std::string name);
 	/**
 	 * @brief Sets the name of the normals texture in the shader
 	 * @param name The name of the normals texture.

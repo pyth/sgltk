@@ -149,12 +149,22 @@ class Scene {
 		 */
 		EXPORT void set_animation_speed(double speed);
 		/**
-		 * @brief Calculates new bone matrices based on the animation time
+		 * @brief Calculates a new bone pose based on the animation time
 		 * @param time The current animation time. If time is greater than
 		 * 	the duration of the animation 
 		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT bool animate(float time);
+		/**
+		 * @brief Attaches the buffers and sets the model and normal
+		 * 		matrix vertex attributes
+		 * @param model_matrix The model matrices to be used for
+		 * 		instanced drawing
+		 * @param usage A hint as to how the buffer will be accessed.
+		 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
+		 */
+		EXPORT void setup_instanced_matrix(std::vector<glm::mat4> *model_matrix,
+							GLenum usage = GL_STATIC_DRAW);
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
 		 */
@@ -165,7 +175,12 @@ class Scene {
 		 *	  (NULL to use the model_matrix member)
 		 */
 		EXPORT void draw(glm::mat4 *model_matrix);
-};
+		/**
+		 * @brief Draws all associated meshes multiple times
+		 * @param num_instances The number of instances to be drawn
+		 */
+		EXPORT void draw_instanced(unsigned int num_instances);
+	};
 
 }
 

@@ -46,6 +46,13 @@ bool Scene::load(std::string filename) {
 		}
 	}
 
+	if(!shader) {
+		std::string error = std::string("No shader specified before"
+			"loading a scene");
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
+
 	if (!scene)
 		App::error_string.push_back(std::string("Error importing ") + filename);
 
@@ -420,7 +427,7 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 		mesh_tmp->textures_shininess.push_back(texture);
 	}
 
-	//emmisive textures
+	//emissive textures
 	num_textures = mat->GetTextureCount(aiTextureType_EMISSIVE);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_EMISSIVE, i, &str);
@@ -429,7 +436,7 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_emmisive.push_back(texture);
+		mesh_tmp->textures_emissive.push_back(texture);
 	}
 
 	//normals textures
@@ -618,6 +625,50 @@ bool Scene::animate(float time) {
 	return true;
 }
 
+void Scene::setup_instanced_matrix(std::vector<glm::mat4> *model_matrix,
+								GLenum usage) {
+	if(!model_matrix) {
+		std::string error = std::string("Null pointer was given as"
+			"parameter to the \"setup_instanced_matrix\" function");
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
+	if(!shader) {
+		std::string error = std::string("No shader specified before a"
+			"call to the setup_instanced_matrix function");
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
+	for(Mesh *mesh : meshes) {
+		std::vector<glm::mat4> model_tmp(*model_matrix);
+		std::vector<glm::mat3> normal_tmp(model_matrix->size());
+		for(unsigned int j = 0; j < model_matrix->size(); j++) {
+			model_tmp[j] *= mesh->model_matrix;
+			normal_tmp[j] = glm::mat3(glm::transpose(glm::inverse(model_tmp[j])));
+		}
+		int model_buf = mesh->attach_vertex_buffer<glm::mat4>(&model_tmp, usage);
+		int normal_buf = mesh->attach_vertex_buffer<glm::mat3>(&normal_tmp, usage);
+		int model_loc = glGetAttribLocation(mesh->shader->program,
+							mesh->model_matrix_name.c_str());
+		int normal_loc = glGetAttribLocation(mesh->shader->program,
+							mesh->normal_matrix_name.c_str());
+		for(int j = 0; j < 4; j++) {
+			mesh->set_vertex_attribute(model_loc + j,
+							model_buf,
+							4, GL_FLOAT,
+							sizeof(glm::mat4),
+							(GLvoid *)(j * sizeof(glm::vec4)), 1);
+		}
+		for(int j = 0; j < 3; j++) {
+			mesh->set_vertex_attribute(normal_loc + j,
+							normal_buf,
+							3, GL_FLOAT,
+							sizeof(glm::mat3),
+							(GLvoid *)(j * sizeof(glm::vec3)), 1);
+		}
+	}
+}
+
 void Scene::draw() {
 	draw(NULL);
 }
@@ -630,6 +681,15 @@ void Scene::draw(glm::mat4 *model_matrix) {
 		}
 		else
 			meshes[i]->draw(GL_TRIANGLES);
+	}
+}
+
+void Scene::draw_instanced(unsigned int num_instances) {
+	if(num_instances == 0)
+		return;
+
+	for(Mesh *mesh : meshes) {
+		mesh->draw_instanced(GL_TRIANGLES, 0, num_instances);
 	}
 }
 
