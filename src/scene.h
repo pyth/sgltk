@@ -13,16 +13,16 @@
 
 namespace sgltk {
 
-typedef struct Bone {
-	aiMatrix4x4 transformation;
-	aiMatrix4x4 offset;
-} Bone;
-
 /**
  * @class Scene
  * @brief Manages imported scenes
  */
 class Scene {
+	typedef struct Bone {
+		aiMatrix4x4 transformation;
+		aiMatrix4x4 offset;
+	} Bone;
+
 	static std::vector<std::string> paths;
 	Assimp::Importer importer;
 	const aiScene *scene;

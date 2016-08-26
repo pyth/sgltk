@@ -6,7 +6,8 @@
 namespace sgltk {
 
 /**
- * @class Manages and handles gamepads
+ * @class Gamepad
+ * @brief Manages and handles gamepads
  * @note You should never have to create or delete objects of this class
  * 	directly
  */
