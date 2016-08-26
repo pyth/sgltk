@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['manages',['Manages',['../class_manages.html',1,'']]],
   ['mesh',['Mesh',['../classsgltk_1_1_mesh.html',1,'sgltk']]],
   ['model_5fmatrix',['model_matrix',['../classsgltk_1_1_mesh.html#ad18b136b3c932919acd252fec8567a28',1,'sgltk::Mesh']]],
   ['model_5fmatrix_5fname',['model_matrix_name',['../classsgltk_1_1_mesh.html#a6dbf9b38899e7bb5397718a70e15c159',1,'sgltk::Mesh']]],

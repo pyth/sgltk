@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['image',['Image',['../classsgltk_1_1_image.html',1,'sgltk']]]
+  ['mesh',['Mesh',['../classsgltk_1_1_mesh.html',1,'sgltk']]]
 ];

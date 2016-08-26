@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bone',['Bone',['../structsgltk_1_1_bone.html',1,'sgltk']]]
+  ['camera',['Camera',['../classsgltk_1_1_camera.html',1,'sgltk']]]
 ];
