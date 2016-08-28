@@ -98,7 +98,7 @@ add_custom_command(TARGET copy_headers PRE_BUILD
 		${PROJECT_BINARY_DIR}/include/sgltk)
 foreach(HEADER_FILE ${HEADERS})
 	add_custom_command(TARGET copy_headers PRE_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
 			${HEADER_FILE}
 			${PROJECT_BINARY_DIR}/include/sgltk/)
 endforeach()
