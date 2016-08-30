@@ -287,15 +287,15 @@ int Mesh::set_vertex_attribute(int attrib_location,
 	return 0;
 }
 
-void Mesh::attach_index_buffer(const std::vector<unsigned short> *indices) {
-	num_indices.push_back(indices->size());
+void Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
+	num_indices.push_back(indices.size());
 	
 	GLuint index;
 	glGenBuffers(1, &index);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		     indices->size() * sizeof(unsigned short),
-		     indices->data(), GL_STATIC_DRAW);
+		     indices.size() * sizeof(unsigned short),
+		     indices.data(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	ibo.push_back(index);
@@ -459,12 +459,12 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer) {
 	draw(mode, index_buffer, NULL);
 }
 
-void Mesh::draw(GLenum mode, glm::mat4 *model_matrix) {
+void Mesh::draw(GLenum mode, const glm::mat4 *model_matrix) {
 	draw(mode, 0, model_matrix);
 }
 
 void Mesh::draw(GLenum mode, unsigned int index_buffer,
-			glm::mat4 *model_matrix) {
+			const glm::mat4 *model_matrix) {
 
 	if(!shader) {
 		App::error_string.push_back("Error: No shader specified");

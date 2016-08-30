@@ -2,7 +2,7 @@
 
 using namespace sgltk;
 
-Window::Window(const char* title, int res_x, int res_y,
+Window::Window(const std::string& title, int res_x, int res_y,
 		int offset_x, int offset_y,
 		int gl_maj, int gl_min,
 		unsigned int flags) {
@@ -42,7 +42,7 @@ Window::Window(const char* title, int res_x, int res_y,
 
 	width = res_x;
 	height = res_y;
-	window = SDL_CreateWindow(title, offset_x, offset_y,
+	window = SDL_CreateWindow(title.c_str(), offset_x, offset_y,
 				  res_x, res_y,
 				  SDL_WINDOW_OPENGL |
 				  SDL_WINDOW_RESIZABLE |
@@ -70,11 +70,11 @@ Window::~Window() {
 	keys_pressed.clear();
 }
 
-void Window::set_icon(Image *icon) {
-	SDL_SetWindowIcon(this->window, icon->image);
+void Window::set_icon(const Image& icon) {
+	SDL_SetWindowIcon(window, icon.image);
 }
 
-void sgltk::Window::set_title(std::string title) {
+void sgltk::Window::set_title(const std::string& title) {
 	SDL_SetWindowTitle(window, title.c_str());
 }
 
@@ -91,8 +91,8 @@ int Window::get_display_index() {
 	return ret;
 }
 
-bool Window::set_display_mode(SDL_DisplayMode *mode) {
-	if(SDL_SetWindowDisplayMode(window, mode)) {
+bool Window::set_display_mode(const SDL_DisplayMode& mode) {
+	if(SDL_SetWindowDisplayMode(window, &mode)) {
 		App::error_string.push_back(std::string("Error on changing "
 			"window display mode: ") + SDL_GetError());
 		return false;

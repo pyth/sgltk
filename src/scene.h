@@ -3,6 +3,7 @@
 
 #include "app.h"
 #include "mesh.h"
+#include "camera.h"
 #include "shader.h"
 #include "image.h"
 #include "texture.h"
@@ -163,7 +164,7 @@ class Scene {
 		 * @param usage A hint as to how the buffer will be accessed.
 		 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 		 */
-		EXPORT void setup_instanced_matrix(std::vector<glm::mat4> *model_matrix,
+		EXPORT void setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
 							GLenum usage = GL_STATIC_DRAW);
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
@@ -174,7 +175,7 @@ class Scene {
 		 * @param model_matrix The model matrix to use
 		 *	  (NULL to use the model_matrix member)
 		 */
-		EXPORT void draw(glm::mat4 *model_matrix);
+		EXPORT void draw(const glm::mat4 *model_matrix);
 		/**
 		 * @brief Draws all associated meshes multiple times
 		 * @param num_instances The number of instances to be drawn

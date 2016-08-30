@@ -38,12 +38,12 @@ public:
 	/**
 	 * @param image The image to use as the texture
 	 */
-	EXPORT Texture(Image *image);
+	EXPORT Texture(const Image& image);
 	/**
 	 * @param target The target to bind the texture
 	 * @param image The image to use as the texture
 	 */
-	EXPORT Texture(GLenum target, Image *image);
+	EXPORT Texture(GLenum target, const Image& image);
 	EXPORT ~Texture();
 
 	/**
@@ -66,7 +66,7 @@ public:
 	 * @brief Load a new image
 	 * @param image The image to use as the texture
 	 */
-	EXPORT void load_texture(Image *image);
+	EXPORT void load_texture(const Image& image);
 	/**
 	 * @brief Sets a texture parameter
 	 * @param name The name of the texture parameter

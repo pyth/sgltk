@@ -312,8 +312,6 @@ public:
 	 * 	  back face culling
 	 */
 	bool twosided;
-	//std::vector<Texture> textures;
-	//std::vector<float> texture_blend;
 
 	EXPORT Mesh();
 	EXPORT ~Mesh();
@@ -493,7 +491,7 @@ public:
 	 * @return Returns the index that the buffer was attached to
 	 */
 	template <typename T = Vertex>
-	int attach_vertex_buffer(const std::vector<T> *vertexdata,
+	int attach_vertex_buffer(const std::vector<T>& vertexdata,
 				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief Modifies the data in the vertex buffer
@@ -503,7 +501,7 @@ public:
 	 */
 	template <typename T = Vertex>
 	bool replace_buffer_data(unsigned int buffer_index,
-				 void *data,
+				 const void *data,
 				 unsigned int number_elements);
 	/**
 	 * @brief Modifies the data in the vertex buffer
@@ -511,7 +509,7 @@ public:
 	 * @param data The data to be loaded into the buffer
 	 */
 	template <typename T = Vertex>
-	bool replace_buffer_data(unsigned int buffer_index, std::vector<T> *data);
+	bool replace_buffer_data(unsigned int buffer_index, const std::vector<T>& data);
 	/**
 	 * @brief This is a convenience function that combines attach_vertex_buffer and
 	 * 		set_vertex_attribute.
@@ -548,7 +546,7 @@ public:
 	int add_vertex_attribute(std::string attrib_name,
 					GLint number_elements,
 					GLenum type,
-					std::vector<T> *data,
+					const std::vector<T>& data,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convenience function that combines attach_vertex_buffer and
@@ -586,7 +584,7 @@ public:
 	int add_vertex_attribute(int attrib_location,
 					GLint number_elements,
 					GLenum type,
-					std::vector<T> *data,
+					const std::vector<T>& data,
 					GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief Sets pointers to vertex attributes
@@ -643,7 +641,7 @@ public:
 	 * @param indices Indices describing the topology of the mesh
 	 * You can attach multiple index arrays
 	 */
-	EXPORT void attach_index_buffer(const std::vector<unsigned short> *indices);
+	EXPORT void attach_index_buffer(const std::vector<unsigned short>& indices);
 
 	/**
 	 * @brief Computes the bounding box of the mesh
@@ -652,7 +650,7 @@ public:
 	 * 	structure
 	 */
 	template <typename T = Vertex>
-	void compute_bounding_box(const std::vector<T> *vertexdata, size_t pointer);
+	void compute_bounding_box(const std::vector<T>& vertexdata, size_t pointer);
 
 	/**
 	 * @brief Renders the mesh using the first index buffer
@@ -677,7 +675,7 @@ public:
 	 * @param model_matrix The model matrix to use
 	 *	  (NULL to use the model_matrix member)
 	 */
-	EXPORT void draw(GLenum mode, glm::mat4 *model_matrix);
+	EXPORT void draw(GLenum mode, const glm::mat4 *model_matrix);
 
 	/**
 	 * @brief Renders the mesh
@@ -688,7 +686,7 @@ public:
 	 *	  (NULL to use the model_matrix member)
 	 */
 	EXPORT void draw(GLenum mode, unsigned int index_buffer,
-		  glm::mat4 *model_matrix);
+					const glm::mat4 *model_matrix);
 
 	/**
 	 * @brief Renders the mesh multiple times
@@ -718,7 +716,7 @@ int Mesh::add_vertex_attribute(std::string attrib_name,
 	int buffer_index;
 	T *ptr = (T *)data;
 	std::vector<T> tmp(ptr, ptr + number_elements);
-	buffer_index = attach_vertex_buffer<T>(&tmp, usage);
+	buffer_index = attach_vertex_buffer<T>(tmp, usage);
 	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
 					type, 0, 0);
 }
@@ -727,7 +725,7 @@ template <typename T>
 int Mesh::add_vertex_attribute(std::string attrib_name,
 				GLint number_elements,
 				GLenum type,
-				std::vector<T> *data,
+				const std::vector<T>& data,
 				GLenum usage) {
 	int buffer_index = attach_vertex_buffer<T>(data, usage);
 	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
@@ -743,7 +741,7 @@ int Mesh::add_vertex_attribute(int attrib_location,
 	int buffer_index;
 	T *ptr = (T *)data;
 	std::vector<T> tmp(ptr, ptr + number_elements);
-	buffer_index = attach_vertex_buffer<T>(&tmp, usage);
+	buffer_index = attach_vertex_buffer<T>(tmp, usage);
 	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
 					type, 0, 0);
 }
@@ -752,7 +750,7 @@ template <typename T>
 int Mesh::add_vertex_attribute(int attrib_location,
 				GLint number_elements,
 				GLenum type,
-				std::vector<T> *data,
+				const std::vector<T>& data,
 				GLenum usage) {
 	int buffer_index = attach_vertex_buffer<T>(data, usage);
 	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
@@ -765,20 +763,20 @@ int Mesh::attach_vertex_buffer(const void *vertexdata,
 				       GLenum usage) {
 	T *ptr = (T *)vertexdata;
 	std::vector<T> tmp(ptr, ptr + number_elements);
-	return attach_vertex_buffer<T>(&tmp, usage);
+	return attach_vertex_buffer<T>(tmp, usage);
 }
 
 template <typename T>
-int Mesh::attach_vertex_buffer(const std::vector<T> *vertexdata,
+int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
 				       GLenum usage) {
 	GLuint buf;
 	glGenBuffers(1, &buf);
 	vbo.push_back(buf);
 
-	unsigned int buffer_size = vertexdata->size() * sizeof(T);
+	unsigned int buffer_size = vertexdata.size() * sizeof(T);
 
 	glBindBuffer(GL_ARRAY_BUFFER, buf);
-	glBufferData(GL_ARRAY_BUFFER, buffer_size, vertexdata->data(), usage);
+	glBufferData(GL_ARRAY_BUFFER, buffer_size, vertexdata.data(), usage);
 
 	vertex_buffer_size_map[vbo.size() - 1] = buffer_size;
 	vertex_buffer_usage_map[vbo.size() - 1] = usage;
@@ -787,15 +785,16 @@ int Mesh::attach_vertex_buffer(const std::vector<T> *vertexdata,
 
 template <typename T>
 bool Mesh::replace_buffer_data(unsigned int buffer_index,
-				void *data,
+				const void *data,
 				unsigned int number_elements) {
 	T *ptr = (T *)data;
 	std::vector<T> tmp(ptr, ptr + number_elements);
-	return replace_buffer_data<T>(buffer_index, &tmp);
+	return replace_buffer_data<T>(buffer_index, tmp);
 }
 
 template <typename T>
-bool Mesh::replace_buffer_data(unsigned int buffer_index, std::vector<T> *data) {
+bool Mesh::replace_buffer_data(unsigned int buffer_index,
+				const std::vector<T>& data) {
 	if(buffer_index >= vbo.size()) {
 		App::error_string.push_back("The value of the variable"
 				"buffer_index if greater than the number"
@@ -804,15 +803,15 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index, std::vector<T> *data) 
 	}
 
 	unsigned int current_size	= vertex_buffer_size_map[buffer_index];
-	unsigned int new_size		= data->size() * sizeof(T);
+	unsigned int new_size		= data.size() * sizeof(T);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
 	if(current_size == new_size) {
 		//replace the buffer data without reallocation
-		glBufferSubData(GL_ARRAY_BUFFER, 0, new_size, data->data());
+		glBufferSubData(GL_ARRAY_BUFFER, 0, new_size, data.data());
 	} else {
 		//replace the buffer data with reallocation
-		glBufferData(GL_ARRAY_BUFFER, new_size, data->data(),
+		glBufferData(GL_ARRAY_BUFFER, new_size, data.data(),
 			vertex_buffer_usage_map[buffer_index]);
 	}
 
@@ -820,12 +819,12 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index, std::vector<T> *data) 
 }
 
 template <typename T>
-void Mesh::compute_bounding_box(const std::vector<T> *vertexdata, size_t pointer) {
-	glm::vec3 *pos = (glm::vec3 *)(&(*vertexdata)[0] + pointer);
+void Mesh::compute_bounding_box(const std::vector<T>& vertexdata, size_t pointer) {
+	glm::vec3 *pos = (glm::vec3 *)(&(vertexdata)[0] + pointer);
 	bounding_box[0] = *pos;
 	bounding_box[1] = *pos;
-	for(size_t i = 1; i < vertexdata->size(); i++) {
-		pos = (glm::vec3 *)(&(*vertexdata)[i] + pointer);
+	for(size_t i = 1; i < vertexdata.size(); i++) {
+		pos = (glm::vec3 *)(&(vertexdata)[i] + pointer);
 		if(pos->x < bounding_box[0].x)
 			bounding_box[0].x = pos->x;
 		if(pos->y < bounding_box[0].y)

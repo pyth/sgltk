@@ -13,30 +13,26 @@ Texture::Texture(std::string path) {
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
 	Image img(path);
-	load_texture(&img);
+	load_texture(img);
 }
 
 Texture::Texture(GLenum target, std::string path) {
 	this->target = target;
 	glGenTextures(1, &texture);
 	Image img(path);
-	load_texture(&img);
+	load_texture(img);
 }
 
-Texture::Texture(Image *image) {
+Texture::Texture(const Image& image) {
 	target = GL_TEXTURE_2D;
 	glGenTextures(1, &texture);
-	if(image) {
-		load_texture(image);
-	}
+	load_texture(image);
 }
 
-Texture::Texture(GLenum target, Image *image) {
+Texture::Texture(GLenum target, const Image& image) {
 	this->target = target;
 	glGenTextures(1, &texture);
-	if(image) {
-		load_texture(image);
-	}
+	load_texture(image);
 }
 
 Texture::~Texture() {
@@ -73,13 +69,12 @@ void Texture::set_parameter(GLenum name, float parameter) {
 	glBindTexture(target, 0);
 }
 
-void Texture::load_texture(Image *image) {
-	if(!image)
-		return;
-	if(!image->image)
+void Texture::load_texture(const Image& image) {
+	if(!image.image)
 		return;
 
-	SDL_Surface *tmp = SDL_ConvertSurfaceFormat(image->image, SDL_PIXELFORMAT_RGBA8888, 0);
+	SDL_Surface *tmp = SDL_ConvertSurfaceFormat(image.image,
+					SDL_PIXELFORMAT_RGBA8888, 0);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(target, texture);
@@ -87,12 +82,21 @@ void Texture::load_texture(Image *image) {
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(target, 0, GL_RGBA, image->width, image->height, 0,
+	glTexImage2D(target, 0, GL_RGBA, image.width, image.height, 0,
 		     GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, tmp->pixels);
 	glGenerateMipmap(target);
 	glBindTexture(target, 0);
 	SDL_FreeSurface(tmp);
 }
+
+/*void load_cubemap(const std::vector<Image *>& images) {
+	SDL_Surface *tmp;
+	for(unsigned int i = 0; i < 5; i++) {
+		tmp = SDL_ConvertSurfaceFormat(image->image,
+					SDL_PIXELFORMAT_RGBA8888, 0);
+
+	}
+}*/
 
 bool Texture::store_texture(std::string name, Texture *texture) {
 	return textures.insert(std::make_pair(name, texture)).second;

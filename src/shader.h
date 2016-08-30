@@ -16,7 +16,7 @@ class Shader {
 
 	std::map<std::string, GLenum> shader_path_map;
 
-	std::map<const char *, GLenum> shader_string_map;
+	std::map<std::string, GLenum> shader_string_map;
 
 	static std::vector<std::string> paths;
 public:
@@ -43,15 +43,14 @@ public:
 	 * @param type		Shader type
 	 * @return		Returns true on success or false otherwise
 	 */
-	EXPORT bool attach_file(std::string filename, GLenum type);
+	EXPORT bool attach_file(const std::string& filename, GLenum type);
 	/**
 	 * @brief Compiles and attaches shader strings
 	 * @param shader_string	A string containing the shader
-	 * @param size		The length of the string including the null character
 	 * @param type		Shader type
 	 * @return		Returns true on success or false otherwise
 	 */
-	EXPORT bool attach_string(const char *shader_string, GLint size, GLenum type);
+	EXPORT bool attach_string(const std::string& shader_string, GLenum type);
 	/**
 	 * @brief Reads, compiles and links all associated shaders again.
 	 */

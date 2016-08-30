@@ -18,7 +18,7 @@ Shader::~Shader() {
 	glDeleteProgram(program);
 }
 
-bool Shader::attach_file(std::string filename, GLenum type) {
+bool Shader::attach_file(const std::string& filename, GLenum type) {
 	std::string path;
 	GLint compiled;
 	char infoLog[4096];
@@ -79,13 +79,15 @@ bool Shader::attach_file(std::string filename, GLenum type) {
 	return true;
 }
 
-bool Shader::attach_string(const char *shader_string, GLint size, GLenum type) {
+bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 	GLint compiled;
+	const char *string_ptr = shader_string.c_str();
+	int size = shader_string.length();
 	char infoLog[4096];
 	int infoLogLength;
 
 	GLuint tmp = glCreateShader(type);
-	glShaderSource(tmp, 1, &shader_string, &size);
+	glShaderSource(tmp, 1, &(string_ptr), &(size));
 	glCompileShader(tmp);
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
@@ -112,11 +114,11 @@ void Shader::recompile() {
 	unbind();
 	glDeleteProgram(program);
 	program = glCreateProgram();
-	for(std::map<std::string, GLenum>::iterator it = shader_path_map.begin(); it != shader_path_map.end(); it++) {
-		attach_file(it->first, it->second);
+	for(const std::pair<std::string, GLenum>& it : shader_path_map) {
+		attach_file(it.first, it.second);
 	}
-	for(std::map<const char *, GLenum>::iterator it = shader_string_map.begin(); it != shader_string_map.end(); it++) {
-		attach_string(it->first, strlen(it->first)+1, it->second);
+	for(const std::pair<std::string, GLenum>& it : shader_string_map) {
+		attach_string(it.first, it.second);
 	}
 	link();
 	modify = true;

@@ -66,7 +66,7 @@ public:
 	 * @param flags		Additional flags to be used by SDL_CreateWindow.
 				The default flag is SDL_WINDOW_OPENGL
 	 */
-	EXPORT Window(const char* title, int res_x, int res_y,
+	EXPORT Window(const std::string& title, int res_x, int res_y,
 			int offset_x, int offset_y,
 			int gl_maj, int gl_min,
 			unsigned int flags);
@@ -76,12 +76,12 @@ public:
 	 * @brief Sets the window icon
 	 * @param icon The icon to use
 	 */
-	EXPORT void set_icon(Image *icon);
+	EXPORT void set_icon(const Image& icon);
 	/**
 	 * @brief Set window title
 	 * @param title The new window title
 	 */
-	EXPORT void set_title(std::string title);
+	EXPORT void set_title(const std::string& title);
 	/**
 	 * @brief Sets the window to grab the mouse
 	 * When activate the mouse can not leave the window boundaries
@@ -102,7 +102,7 @@ public:
 	 * @param mode The display mode to set
 	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT bool set_display_mode(SDL_DisplayMode *mode);
+	EXPORT bool set_display_mode(const SDL_DisplayMode& mode);
 	/**
 	 * @brief Changes the window fullscreen mode
 	 * @param mode The fullscreen mode to set
@@ -119,12 +119,14 @@ public:
 	 */
 	EXPORT void set_relative_mode(bool on);
 	/**
-	 * @brief Polls all events and calls the handlers. Called by the run function
+	 * @brief Polls all events and calls the handlers.
+	 * 	  Called by the run function
 	 */
 	EXPORT void poll_events();
 	/**
 	 * @brief This function is called by poll_events() to handle
-	 *	  the addition of new gamepads. This function should be overridden
+	 *	  the addition of new gamepads. This function should be
+	 *	  overridden
 	 * @param gamepad_id The gamepad instance id
 	 */
 	EXPORT virtual void handle_gamepad_added(unsigned int gamepad_id);
@@ -135,39 +137,49 @@ public:
 	 */
 	EXPORT virtual void handle_gamepad_removed(unsigned int gamepad_id);
 	/**
-	 * @brief This function is called by poll_events() every frame for every gamepad
-	 * 	  button currently being pressed. This function should be overridden
+	 * @brief This function is called by poll_events() every frame for every
+	 * 	  gamepad button currently being pressed. This function should
+	 * 	  be overridden
 	 * @param gamepad_id The gamepad instance id
 	 * @param button The number of the button pressed or released
 	 */
-	EXPORT virtual void handle_gamepad_button(unsigned int gamepad_id, int button);
+	EXPORT virtual void handle_gamepad_button(unsigned int gamepad_id,
+								int button);
 	/**
-	 * @brief This function is called by poll_events() once for every gamepad button
-	 * 	  pressed or released. This function should be overridden
+	 * @brief This function is called by poll_events() once for every
+	 * 	  gamepad button pressed or released. This function should
+	 * 	  be overridden
 	 * @param gamepad_id The gamepad instance id
 	 * @param button The number of the button pressed or released
-	 * @param pressed Indicates whether the button was pressed (true) or released (false)
+	 * @param pressed Indicates whether the button was pressed (true) or
+	 * 		  released (false)
 	 */
-	EXPORT virtual void handle_gamepad_button_press(unsigned int gamepad_id, int button, bool pressed);
+	EXPORT virtual void handle_gamepad_button_press(unsigned int gamepad_id,
+							int button,
+							bool pressed);
 	/**
-	 * @brief This function is called by poll_events() for every frame for  every axis.
-	 * 	  This function should be overridden
+	 * @brief This function is called by poll_events() for every frame for
+	 * 	  every axis. This function should be overridden
 	 * @param gamepad_id The gamepad instance id
 	 * @param axis The number of the axis that has a new value
 	 * @param value The new value of the axis
 	 */
-	EXPORT virtual void handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value);
+	EXPORT virtual void handle_gamepad_axis(unsigned int gamepad_id,
+						unsigned int axis, int value);
 	/**
-	 * @brief This function is called by poll_events() for every axis value change.
-	 *	  This function should be overridden
+	 * @brief This function is called by poll_events() for every axis value
+	 * 	  change. This function should be overridden
 	 * @param gamepad_id The gamepad instance id
 	 * @param axis The number of the axis that has a new value
 	 * @param value The new value of the axis
 	 */
-	EXPORT virtual void handle_gamepad_axis_change(unsigned int gamepad_id, unsigned int axis, int value);
+	EXPORT virtual void handle_gamepad_axis_change(unsigned int gamepad_id,
+							unsigned int axis,
+							int value);
 	/**
-	 * @brief This function is called by poll_events() every frame for every key
-	 * 	currently being pressed. This function should be overridden
+	 * @brief This function is called by poll_events() every frame for every
+	 * 	  key currently being pressed. This function should be
+	 * 	  overridden
 	 * @param key The name of the key being pressed
 	 */
 	EXPORT virtual void handle_keyboard(std::string key);
@@ -181,10 +193,10 @@ public:
 	/**
 	 * @brief This function is called by poll_events() to handle
 	 *	  mouse motion. This function should be overridden
-	 * @param x The x coordinate where the event occurred or the relative mouse
-		    movement along the x axis (see set_relative_mode)
-	 * @param y The y coordinate where the event occurred or the relative  mouse
-		    movement along the y axis (see set_relative_mode)
+	 * @param x The x coordinate where the event occurred or the relative
+	 * 	    mouse movement along the x axis (see set_relative_mode)
+	 * @param y The y coordinate where the event occurred or the relative
+	 * 	    mouse movement along the y axis (see set_relative_mode)
 	 */
 	EXPORT virtual void handle_mouse_motion(int x, int y);
 	/**
@@ -211,8 +223,8 @@ public:
 	 */
 	EXPORT virtual void handle_resize();
 	/**
-	 * @brief This function is called by run when the window is being closed.
-	 * 	  This function should be overridden
+	 * @brief This function is called by run when the window is being
+	 * 	  closed. This function should be overridden
 	 */
 	EXPORT virtual void handle_exit();
 	/**
@@ -225,7 +237,8 @@ public:
 	 */
 	EXPORT void run();
 	/**
-	 * @brief Starts the main loop. This function calls poll_events() and display()
+	 * @brief Starts the main loop. This function calls poll_events() and
+	 * 	  display()
 	 * @param fps	The frames per second limit.
 	 *		Any number below 1 means no limit
 	 */

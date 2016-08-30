@@ -281,9 +281,9 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 	// Mesh
 	//************************************
 	Mesh *mesh_tmp = new Mesh();
-	int pos_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(&position);
-	int norm_buf = mesh_tmp->attach_vertex_buffer<glm::vec3>(&normal);
-	int tan_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(&tangent);
+	int pos_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(position);
+	int norm_buf = mesh_tmp->attach_vertex_buffer<glm::vec3>(normal);
+	int tan_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(tangent);
 
 	int id_buf = mesh_tmp->attach_vertex_buffer<int>(bone_ids.data(),
 					bone_ids.size());
@@ -300,8 +300,8 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 		col_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col[0].data(),
 					mesh->mNumVertices * num_col);
 	}
-	mesh_tmp->compute_bounding_box(&position, 0);
-	mesh_tmp->attach_index_buffer(&indices);
+	mesh_tmp->compute_bounding_box(position, 0);
+	mesh_tmp->attach_index_buffer(indices);
 	mesh_tmp->setup_shader(shader);
 	mesh_tmp->setup_camera(view_matrix, projection_matrix);
 
@@ -625,14 +625,8 @@ bool Scene::animate(float time) {
 	return true;
 }
 
-void Scene::setup_instanced_matrix(std::vector<glm::mat4> *model_matrix,
+void Scene::setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
 								GLenum usage) {
-	if(!model_matrix) {
-		std::string error = std::string("Null pointer was given as"
-			"parameter to the \"setup_instanced_matrix\" function");
-		App::error_string.push_back(error);
-		throw std::runtime_error(error);
-	}
 	if(!shader) {
 		std::string error = std::string("No shader specified before a"
 			"call to the setup_instanced_matrix function");
@@ -640,14 +634,12 @@ void Scene::setup_instanced_matrix(std::vector<glm::mat4> *model_matrix,
 		throw std::runtime_error(error);
 	}
 	for(Mesh *mesh : meshes) {
-		std::vector<glm::mat4> model_tmp(*model_matrix);
-		std::vector<glm::mat3> normal_tmp(model_matrix->size());
-		for(unsigned int j = 0; j < model_matrix->size(); j++) {
-			model_tmp[j] *= mesh->model_matrix;
-			normal_tmp[j] = glm::mat3(glm::transpose(glm::inverse(model_tmp[j])));
+		std::vector<glm::mat3> normal_matrix(model_matrix.size());
+		for(unsigned int j = 0; j < model_matrix.size(); j++) {
+			normal_matrix[j] = glm::mat3(glm::transpose(glm::inverse(model_matrix[j])));
 		}
-		int model_buf = mesh->attach_vertex_buffer<glm::mat4>(&model_tmp, usage);
-		int normal_buf = mesh->attach_vertex_buffer<glm::mat3>(&normal_tmp, usage);
+		int model_buf = mesh->attach_vertex_buffer<glm::mat4>(model_matrix, usage);
+		int normal_buf = mesh->attach_vertex_buffer<glm::mat3>(normal_matrix, usage);
 		int model_loc = glGetAttribLocation(mesh->shader->program,
 							mesh->model_matrix_name.c_str());
 		int normal_loc = glGetAttribLocation(mesh->shader->program,
@@ -673,7 +665,7 @@ void Scene::draw() {
 	draw(NULL);
 }
 
-void Scene::draw(glm::mat4 *model_matrix) {
+void Scene::draw(const glm::mat4 *model_matrix) {
 	for(unsigned int i = 0; i < meshes.size(); i++) {
 		if(model_matrix) {
 			glm::mat4 matrix_tmp = *model_matrix * meshes[i]->model_matrix;
