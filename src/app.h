@@ -110,6 +110,14 @@ namespace sgltk {
 			 */
 			std::vector<SDL_Rect> display_bounds;
 			/**
+			 * @brief The maximum number of vertices in a patch
+			 */
+			int max_patch_vertices;
+			/**
+			 * @brief The maximum supported tessellation level
+			 */
+			int max_tess_level;
+			/**
 			 * @brief The major number of the highest OpenGL version
 			 * 	that is supported by the system
 			 */

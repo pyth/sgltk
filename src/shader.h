@@ -32,7 +32,7 @@ public:
 	/**
 	 * @brief Shader name
 	 */
-	EXPORT GLuint program;
+	GLuint program;
 
 	EXPORT Shader();
 	EXPORT ~Shader();

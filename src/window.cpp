@@ -60,6 +60,10 @@ Window::Window(const std::string& title, int res_x, int res_y,
 		App::error_string.push_back(error);
 		throw std::runtime_error(error);
 	}
+
+	glGetIntegerv(GL_MAX_PATCH_VERTICES, &App::sys_info.max_patch_vertices);
+	glGetIntegerv(GL_MAX_TESS_GEN_LEVEL, &App::sys_info.max_tess_level);
+
 	App::init_glew();
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 }

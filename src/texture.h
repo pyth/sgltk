@@ -20,7 +20,7 @@ public:
 	/**
 	 * @brief The texture name
 	 */
-	EXPORT GLuint texture;
+	GLuint texture;
 
 	/**
 	 * @param target The target to bind the texture
