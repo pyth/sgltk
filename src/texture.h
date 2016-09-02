@@ -20,7 +20,7 @@ public:
 	/**
 	 * @brief The texture name
 	 */
-	GLuint texture;
+	EXPORT GLuint texture;
 
 	/**
 	 * @param target The target to bind the texture
@@ -47,6 +47,11 @@ public:
 	EXPORT ~Texture();
 
 	/**
+	 * @brief Sets the target to which the texture is bound
+	 * @param The target to which the texture is bound
+	 */
+	EXPORT void set_target(GLenum target);
+	/**
 	 * @brief Stores a texture object in an internal map using the
 	 * 	  name parameter as key (no duplicates)
 	 * @param name The key used to store the texture
@@ -63,10 +68,22 @@ public:
 	 */
 	EXPORT static Texture *find_texture(std::string name);
 	/**
-	 * @brief Load a new image
+	 * @brief Load a new image as texture
 	 * @param image The image to use as the texture
 	 */
 	EXPORT void load_texture(const Image& image);
+	/**
+	 * @brief Load a new cubemap
+	 * @param pos_x The image to use as the positive x texture
+	 * @param neg_x The image to use as the negative x texture
+	 * @param pos_y The image to use as the positive y texture
+	 * @param neg_y The image to use as the negative y texture
+	 * @param pos_z The image to use as the positive z texture
+	 * @param neg_z The image to use as the negative z texture
+	 */
+	EXPORT void load_cubemap(const Image& pos_x, const Image& neg_x,
+				 const Image& pos_y, const Image& neg_y,
+				 const Image& pos_z, const Image& neg_z);
 	/**
 	 * @brief Sets a texture parameter
 	 * @param name The name of the texture parameter
