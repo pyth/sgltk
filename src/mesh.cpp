@@ -232,7 +232,7 @@ int Mesh::set_vertex_attribute(std::string attrib_name,
 				const GLvoid *pointer,
 				unsigned int divisor) {
 
-	int loc = glGetAttribLocation(shader->program, attrib_name.c_str());
+	int loc = shader->get_attribute_location(attrib_name);
 	if(loc < 0) {
 		return -2;
 	}
@@ -302,149 +302,72 @@ void Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
 }
 
 void Mesh::material_uniform() {
-	int loc;
+	shader->set_uniform(ambient_color_name, color_ambient);
+	shader->set_uniform(diffuse_color_name, color_diffuse);
+	shader->set_uniform(specular_color_name, color_specular);
+	shader->set_uniform_float(shininess_name, shininess);
+	shader->set_uniform_float(shininess_strength_name, shininess_strength);
 
-	loc = glGetUniformLocation(shader->program, ambient_color_name.c_str());
-	glUniform4f(loc, color_ambient.x, color_ambient.y, color_ambient.z,
-		    color_ambient.w);
-
-	loc = glGetUniformLocation(shader->program, diffuse_color_name.c_str());
-	glUniform4f(loc, color_diffuse.x, color_diffuse.y, color_diffuse.z,
-		    color_diffuse.w);
-
-	loc = glGetUniformLocation(shader->program, specular_color_name.c_str());
-	glUniform4f(loc, color_specular.x, color_specular.y, color_specular.z,
-		    color_specular.w);
-
-	loc = glGetUniformLocation(shader->program, shininess_name.c_str());
-	glUniform1f(loc, shininess);
-
-	loc = glGetUniformLocation(shader->program, shininess_strength_name.c_str());
-	glUniform1f(loc, shininess_strength);
-
-	unsigned int num_textures = 0;
+	int num_textures = 0;
+	int texture_loc = shader->get_uniform_location(ambient_texture_name);
 	for(unsigned int i = 0; i < textures_ambient.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->program,
-				ambient_texture_name.c_str());
-		if(texture_loc < 0) {
-			std::string uniform_name = ambient_texture_name +
-				'[' + std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->program,
-					uniform_name.c_str());
-		}
-		glUniform1i(texture_loc, num_textures);
+		shader->set_uniform_int(texture_loc + i, num_textures);
 		textures_ambient[i]->bind(num_textures);
 		num_textures++;
 	}
 
+	texture_loc = shader->get_uniform_location(diffuse_texture_name);
 	for(unsigned int i = 0; i < textures_diffuse.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->program,
-				diffuse_texture_name.c_str());
-		if(texture_loc < 0) {
-			std::string uniform_name = diffuse_texture_name +
-				'[' + std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->program,
-					uniform_name.c_str());
-		}
-		glUniform1i(texture_loc, num_textures);
+		shader->set_uniform_int(texture_loc + i, num_textures);
 		textures_diffuse[i]->bind(num_textures);
 		num_textures++;
 	}
 
+	texture_loc = shader->get_uniform_location(specular_texture_name);
 	for(unsigned int i = 0; i < textures_specular.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->program,
-				specular_texture_name.c_str());
-		if(texture_loc < 0) {
-			std::string uniform_name = specular_texture_name +
-				'[' + std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->program,
-					uniform_name.c_str());
-		}
-		glUniform1i(texture_loc, num_textures);
+		shader->set_uniform_int(texture_loc + i, num_textures);
 		textures_specular[i]->bind(num_textures);
 		num_textures++;
 	}
 
+	texture_loc = shader->get_uniform_location(shininess_texture_name);
 	for(unsigned int i = 0; i < textures_shininess.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->program,
-				shininess_texture_name.c_str());
-		if(texture_loc < 0) {
-			std::string uniform_name = shininess_texture_name +
-				'[' + std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->program,
-					uniform_name.c_str());
-		}
-		glUniform1i(texture_loc, num_textures);
+		shader->set_uniform_int(texture_loc + i, num_textures);
 		textures_shininess[i]->bind(num_textures);
 		num_textures++;
 	}
 
+	texture_loc = shader->get_uniform_location(emissive_texture_name);
 	for(unsigned int i = 0; i < textures_emissive.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->program,
-				emissive_texture_name.c_str());
-		if(texture_loc < 0) {
-			std::string uniform_name = emissive_texture_name +
-				'[' + std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->program,
-					uniform_name.c_str());
-		}
-		glUniform1i(texture_loc, num_textures);
+		shader->set_uniform_int(texture_loc + i, num_textures);
 		textures_emissive[i]->bind(num_textures);
 		num_textures++;
 	}
 
+	texture_loc = shader->get_uniform_location(normals_texture_name);
 	for(unsigned int i = 0; i < textures_normals.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->program,
-				normals_texture_name.c_str());
-		if(texture_loc < 0) {
-			std::string uniform_name = normals_texture_name +
-				'[' + std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->program,
-					uniform_name.c_str());
-		}
-		glUniform1i(texture_loc, num_textures);
+		shader->set_uniform_int(texture_loc + i, num_textures);
 		textures_normals[i]->bind(num_textures);
 		num_textures++;
 	}
 
+	texture_loc = shader->get_uniform_location(displacement_texture_name);
 	for(unsigned int i = 0; i < textures_displacement.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->program,
-				displacement_texture_name.c_str());
-		if(texture_loc < 0) {
-			std::string uniform_name = displacement_texture_name +
-				'[' + std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->program,
-					uniform_name.c_str());
-		}
-		glUniform1i(texture_loc, num_textures);
+		shader->set_uniform_int(texture_loc + i, num_textures);
 		textures_displacement[i]->bind(num_textures);
 		num_textures++;
 	}
 
+	texture_loc = shader->get_uniform_location(opacity_texture_name);
 	for(unsigned int i = 0; i < textures_opacity.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->program,
-				opacity_texture_name.c_str());
-		if(texture_loc < 0) {
-			std::string uniform_name = opacity_texture_name +
-				'[' + std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->program,
-					uniform_name.c_str());
-		}
-		glUniform1i(texture_loc, num_textures);
+		shader->set_uniform_int(texture_loc + i, num_textures);
 		textures_opacity[i]->bind(num_textures);
 		num_textures++;
 	}
 
+	texture_loc = shader->get_uniform_location(lightmap_texture_name);
 	for(unsigned int i = 0; i < textures_lightmap.size(); i++) {
-		int texture_loc = glGetUniformLocation(shader->program,
-				lightmap_texture_name.c_str());
-		if(texture_loc < 0) {
-			std::string uniform_name = lightmap_texture_name +
-				'[' + std::to_string(i) + ']';
-			texture_loc = glGetUniformLocation(shader->program,
-					uniform_name.c_str());
-		}
-		glUniform1i(texture_loc, num_textures);
+		shader->set_uniform_int(texture_loc + i, num_textures);
 		textures_lightmap[i]->bind(num_textures);
 		num_textures++;
 	}
@@ -471,7 +394,6 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 		return;
 	}
 
-	int loc;
 	glm::mat4 M;
 	glm::mat4 MV;
 	glm::mat4 MVP;
@@ -488,33 +410,13 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 	VP = (*projection_matrix) * (*view_matrix);
 
 	shader->bind();
-	loc = glGetUniformLocation(shader->program,
-				       model_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(M));
-
-	loc = glGetUniformLocation(shader->program,
-				       view_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*view_matrix));
-
-	loc = glGetUniformLocation(shader->program,
-				   projection_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*projection_matrix));
-
-	loc = glGetUniformLocation(shader->program,
-				       model_view_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MV));
-
-	loc = glGetUniformLocation(shader->program,
-				       view_proj_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(VP));
-
-	loc = glGetUniformLocation(shader->program,
-				   normal_matrix_name.c_str());
-	glUniformMatrix3fv(loc, 1, false, glm::value_ptr(NM));
-
-	loc = glGetUniformLocation(shader->program,
-				   model_view_projection_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(MVP));
+	shader->set_uniform(model_matrix_name, false, M);
+	shader->set_uniform(view_matrix_name, false, *view_matrix);
+	shader->set_uniform(projection_matrix_name, false, *projection_matrix);
+	shader->set_uniform(model_view_matrix_name, false, MV);
+	shader->set_uniform(view_proj_matrix_name, false, VP);
+	shader->set_uniform(normal_matrix_name, false, NM);
+	shader->set_uniform(model_view_projection_matrix_name, false, MVP);
 
 	material_uniform();
 
@@ -539,25 +441,12 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 		return;
 	}
 
+	glm::mat4 VP = (*projection_matrix) * (*view_matrix);
+
 	shader->bind();
-
-	int loc;
-	glm::mat4 VP;
-
-	VP = (*projection_matrix) * (*view_matrix);
-
-	loc = glGetUniformLocation(shader->program,
-			view_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*view_matrix));
-
-	loc = glGetUniformLocation(shader->program,
-			projection_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false, glm::value_ptr(*projection_matrix));
-
-	loc = glGetUniformLocation(shader->program,
-			view_proj_matrix_name.c_str());
-	glUniformMatrix4fv(loc, 1, false,
-		glm::value_ptr(VP));
+	shader->set_uniform(view_matrix_name, false, *view_matrix);
+	shader->set_uniform(projection_matrix_name, false, *projection_matrix);
+	shader->set_uniform(view_proj_matrix_name, false, VP);
 
 	material_uniform();
 

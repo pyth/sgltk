@@ -614,10 +614,9 @@ bool Scene::animate(float time) {
 		trafos[i] = ai_to_glm_mat4(&bones[i].transformation);
 	}
 	shader->bind();
-	GLint loc = glGetUniformLocation(shader->program, bone_array_name.c_str());
+	int loc = shader->get_uniform_location(bone_array_name);
 	if(loc >= 0) {
-		glUniformMatrix4fv(loc, bones.size(), GL_FALSE,
-				glm::value_ptr(trafos[0]));
+		shader->set_uniform(loc, false, trafos);
 	} else {
 		return false;
 	}
@@ -640,10 +639,8 @@ void Scene::setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
 		}
 		int model_buf = mesh->attach_vertex_buffer<glm::mat4>(model_matrix, usage);
 		int normal_buf = mesh->attach_vertex_buffer<glm::mat3>(normal_matrix, usage);
-		int model_loc = glGetAttribLocation(mesh->shader->program,
-							mesh->model_matrix_name.c_str());
-		int normal_loc = glGetAttribLocation(mesh->shader->program,
-							mesh->normal_matrix_name.c_str());
+		int model_loc = mesh->shader->get_attribute_location(mesh->model_matrix_name);
+		int normal_loc = mesh->shader->get_attribute_location(mesh->normal_matrix_name);
 		for(int j = 0; j < 4; j++) {
 			mesh->set_vertex_attribute(model_loc + j,
 							model_buf,
