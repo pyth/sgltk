@@ -117,16 +117,6 @@ namespace sgltk {
 			 * @brief The maximum supported tessellation level
 			 */
 			int max_tess_level;
-			/**
-			 * @brief The major number of the highest OpenGL version
-			 * 	that is supported by the system
-			 */
-			int gl_version_major;
-			/**
-			 * @brief The minor number of the highest OpenGL version
-			 * 	that is supported by the system
-			 */
-			int gl_version_minor;
 		} sys_info;
 
 		/**
