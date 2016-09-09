@@ -299,7 +299,6 @@ void Window::run(int fps) {
 		delta_time = frame_timer.get_time();
 		if(fps > 0) {
 			if(delta_time < frame_time) {
-				//SDL_Delay(frame_time - delta_time);
 				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(frame_time - delta_time));
 			}
 		}

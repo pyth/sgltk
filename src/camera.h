@@ -42,7 +42,7 @@ public:
 	/**
 	 * @brief The field of view
 	 */
-	float fov;
+	float fovy;
 	/**
 	 * @brief Viewport width
 	 */
@@ -98,20 +98,20 @@ public:
 	 * @param pos The camera position
 	 * @param dir The view direction
 	 * @param up The up vector
-	 * @param fov The field of view
+	 * @param fovy The field of view
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane
 	 * @param far_plane The far plane
 	 */
 	EXPORT Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
-	       float fov, float width, float height,
+	       float fovy, float width, float height,
 	       float near_plane, float far_plane);
 	/**
 	 * @param pos The camera position
 	 * @param dir The view direction
 	 * @param up The up vector
-	 * @param fov The field of view
+	 * @param fovy The field of view
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane
@@ -119,7 +119,7 @@ public:
 	 * @param type The camera type
 	 */
 	EXPORT Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
-	       float fov, float width, float height,
+	       float fovy, float width, float height,
 	       float near_plane, float far_plane,
 	       sgltk::CAMERA_TYPE type);
 	EXPORT ~Camera();
@@ -137,29 +137,29 @@ public:
 	EXPORT void update_projection_matrix(float width, float height);
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param fov The field of view
+	 * @param fovy The field of view
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 */
-	EXPORT void update_projection_matrix(float fov, float width, float height);
+	EXPORT void update_projection_matrix(float fovy, float width, float height);
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param fov The field of view
+	 * @param fovy The field of view
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane
 	 */
-	EXPORT void update_projection_matrix(float fov, float width, float height,
+	EXPORT void update_projection_matrix(float fovy, float width, float height,
 				      float near_plane);
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param fov The field of view
+	 * @param fovy The field of view
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane
 	 * @param far_plane The far plane
 	 */
-	EXPORT void update_projection_matrix(float fov, float width, float height,
+	EXPORT void update_projection_matrix(float fovy, float width, float height,
 				      float near_plane, float far_plane);
 
 	/**
@@ -204,6 +204,25 @@ public:
 	 * @param angle The angle to rotate the camera
 	 */
 	EXPORT void pitch(float angle);
+	/**
+	 * @brief Calculates the distances of a point to all planes of the
+	 * 	  camera's frustum. Positive values indicate that the point
+	 * 	  and the frustum are on the opposite sides of the plane.
+	 * @param position The position of the point to calculate the distance to
+	 * @param far The distance to the far plane of the frustum. Can be NULL.
+	 * @param near The distance to the near plane of the frustum. Can be NULL.
+	 * @param left The distance to the left plane of the frustum. Can be NULL.
+	 * @param right The distance to the right plane of the frustum. Can be NULL.
+	 * @param top The distance to the top plane of the frustum. Can be NULL.
+	 * @param bottom The distance to the bottom plane of the frustum. Can be NULL.
+	 */
+	EXPORT void calculate_frustum_distance(glm::vec3 position,
+					       float *far,
+					       float *near,
+					       float *left,
+					       float *right,
+					       float *top,
+					       float *bottom);
 };
 }
 
