@@ -163,19 +163,19 @@ namespace sgltk {
 		/**
 		* @brief Enables the screensaver
 		*/
-		EXPORT void enable_screensaver();
+		EXPORT static void enable_screensaver();
 
 		/**
 		* @brief Disables the screensaver
 		*/
-		EXPORT void disable_screensaver();
+		EXPORT static void disable_screensaver();
 
 		/**
 		* @brief Turns VSync on or off
 		* @param on	True turns VSync on, false turns it off
 		* @return	Returns false if VSync is not supported, true otherwise
 		*/
-		EXPORT bool enable_vsync(bool on);
+		EXPORT static bool enable_vsync(bool on);
 
 		/**
 		 * @brief Gathers system information and populates the sys_info attribute
