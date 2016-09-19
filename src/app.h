@@ -8,7 +8,7 @@
  */
 #define check_gl_error(message) do{\
 	sgltk::App::_check_error(message, __FILE__, __LINE__);\
-}while(0)
+} while(0)
 
 #ifdef _WIN32
 	#ifdef MAKE_LIB
@@ -36,11 +36,9 @@
 #include <string>
 #include <chrono>
 #include <thread>
-#include <limits>
 #include <iostream>
 #include <map>
 #include <vector>
-#include <algorithm>
 #include <exception>
 
 #define GLM_FORCE_RADIANS
