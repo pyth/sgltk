@@ -11,17 +11,35 @@ namespace sgltk {
  * @brief Manages textures
  */
 class Texture {
-	GLenum target;
 	/**
 	 * @brief Contains stored textures
 	 */
 	static std::map<std::string, Texture *> textures;
 public:
 	/**
+	 * @brief The texture target
+	 */
+	GLenum target;
+	/**
 	 * @brief The texture name
 	 */
 	GLuint texture;
-
+	/**
+	 * @brief The width of the texture
+	 */
+	unsigned int width;
+	/**
+	 * @brief The height of the texture
+	 */
+	unsigned int height;
+	/**
+	 * @param target The target to bind the texture
+	 * @param res_x The texture x resolution
+	 * @param res_y The texture y resolution
+	 */
+	EXPORT Texture(GLenum target,
+		       unsigned int res_x,
+		       unsigned int res_y);
 	/**
 	 * @param target The target to bind the texture
 	 */
@@ -29,12 +47,12 @@ public:
 	/**
 	 * @param path The path to the image file
 	 */
-	EXPORT Texture(std::string path);
+	EXPORT Texture(const std::string& path);
 	/**
 	 * @param target The target to bind the texture
 	 * @param path The path to the image file
 	 */
-	EXPORT Texture(GLenum target, std::string path);
+	EXPORT Texture(GLenum target, const std::string& path);
 	/**
 	 * @param image The image to use as the texture
 	 */
@@ -72,6 +90,11 @@ public:
 	 * @param image The image to use as the texture
 	 */
 	EXPORT void load_texture(const Image& image);
+	/**
+	 * @param target The target to bind the texture
+	 * @param path The path to the image file
+	 */
+	EXPORT void load_texture(const std::string& path);
 	/**
 	 * @brief Load a new cubemap
 	 * @param pos_x The image to use as the positive x texture
