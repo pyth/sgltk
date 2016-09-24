@@ -5,7 +5,13 @@ using namespace sgltk;
 Mesh::Mesh() {
 	model_matrix = glm::mat4(1.0);
 	shader = nullptr;
+	num_uv = 0;
+	num_col = 0;
+	num_vertices = 0;
 	glGenVertexArrays(1, &vao);
+
+	view_matrix = NULL;
+	projection_matrix = NULL;
 
 	bounding_box = { glm::vec3(0, 0, 0), glm::vec3(0, 0, 0) };
 
@@ -232,6 +238,10 @@ int Mesh::set_vertex_attribute(std::string attrib_name,
 				const GLvoid *pointer,
 				unsigned int divisor) {
 
+	if(!shader) {
+		return -1;
+	}
+
 	int loc = shader->get_attribute_location(attrib_name);
 	if(loc < 0) {
 		return -2;
@@ -248,10 +258,6 @@ int Mesh::set_vertex_attribute(int attrib_location,
 				GLsizei stride,
 				const GLvoid *pointer,
 				unsigned int divisor) {
-
-	if(!shader) {
-		return -1;
-	}
 
 	if(attrib_location < 0) {
 		return -2;
@@ -393,6 +399,7 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 		App::error_string.push_back("Error: No shader specified");
 		return;
 	}
+	shader->bind();
 
 	glm::mat4 M;
 	glm::mat4 MV;
@@ -403,20 +410,27 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 		M = *model_matrix;
 	else
 		M = this->model_matrix;
-
-	NM = glm::mat3(glm::transpose(glm::inverse(M)));
-	MV = (*view_matrix) * M;
-	MVP = (*projection_matrix) * MV;
-	VP = (*projection_matrix) * (*view_matrix);
-
-	shader->bind();
 	shader->set_uniform(model_matrix_name, false, M);
-	shader->set_uniform(view_matrix_name, false, *view_matrix);
-	shader->set_uniform(projection_matrix_name, false, *projection_matrix);
-	shader->set_uniform(model_view_matrix_name, false, MV);
-	shader->set_uniform(view_proj_matrix_name, false, VP);
+
+	NM = glm::transpose(glm::inverse(glm::mat3(M)));
 	shader->set_uniform(normal_matrix_name, false, NM);
-	shader->set_uniform(model_view_projection_matrix_name, false, MVP);
+
+	if(view_matrix) {
+		MV = (*view_matrix) * M;
+		shader->set_uniform(view_matrix_name, false, *view_matrix);
+		shader->set_uniform(model_view_matrix_name, false, MV);
+	}
+	if(projection_matrix) {
+		MVP = (*projection_matrix) * MV;
+		shader->set_uniform(projection_matrix_name, false,
+						*projection_matrix);
+	}
+	if(view_matrix && projection_matrix) {
+		VP = (*projection_matrix) * (*view_matrix);
+		shader->set_uniform(view_proj_matrix_name, false, VP);
+		shader->set_uniform(model_view_projection_matrix_name,
+								false, MVP);
+	}
 
 	material_uniform();
 

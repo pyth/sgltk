@@ -133,7 +133,6 @@ namespace sgltk {
  * @brief Manages meshes
  */
 class Mesh {
-
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
 
@@ -147,6 +146,18 @@ class Mesh {
 
 	void material_uniform();
 public:
+	/**
+	 * @brief Number of texture coordinates
+	 */
+	unsigned int num_uv;
+	/**
+	 * @brief Number of vertex colors
+	 */
+	unsigned int num_col;
+	/**
+	 * @brief Number of vertices
+	 */
+	unsigned int num_vertices;
 	/**
 	 * @brief The name of the ambient materiel component
 	 */
