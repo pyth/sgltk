@@ -2,6 +2,8 @@ set(LIB_SOURCE
 	app.cpp
 	window.cpp
 	gamepad.cpp
+	framebuffer.cpp
+	renderbuffer.cpp
 	camera.cpp
 	image.cpp
 	texture.cpp
@@ -15,6 +17,8 @@ set(LIB_HEADERS
 	app.h
 	window.h
 	gamepad.h
+	framebuffer.h
+	renderbuffer.h
 	camera.h
 	image.h
 	texture.h
