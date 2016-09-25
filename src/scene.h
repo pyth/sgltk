@@ -48,16 +48,17 @@ class Scene {
 
 	std::map<std::string, unsigned int> mesh_map;
 
+	void set_vertex_attribute(Mesh *mesh);
 	void traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
 	void traverse_animation_nodes(float time, aiNode *node, aiMatrix4x4 parent_transformation);
 
-	Mesh *create_mesh(aiMesh *mesh);
+	Mesh *create_mesh(unsigned int index);
 	void compute_bounding_box();
 
 	static aiVector3D interpolate_scaling(float time, aiNodeAnim *node);
 	static aiVector3D interpolate_translation(float time, aiNodeAnim *node);
 	static aiQuaternion interpolate_rotation(float time, aiNodeAnim *node);
-	static glm::mat4 ai_to_glm_mat4(aiMatrix4x4 *in);
+	static glm::mat4 ai_to_glm_mat4(const aiMatrix4x4& in);
 
 	public:
 		glm::mat4 model_matrix;

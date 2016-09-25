@@ -27,6 +27,7 @@ Scene::~Scene() {
 	bounding_box.clear();
 	bones.clear();
 	bone_map.clear();
+	importer.FreeScene();
 }
 
 bool Scene::load(std::string filename) {
@@ -156,6 +157,39 @@ void sgltk::Scene::set_bone_array_name(std::string name) {
 
 void Scene::setup_shader(Shader *shader) {
 	this->shader = shader;
+	for(Mesh *mesh : meshes) {
+		set_vertex_attribute(mesh);
+	}
+}
+
+void Scene::set_vertex_attribute(Mesh *mesh) {
+	unsigned int buf = 0;
+	mesh->set_vertex_attribute(position_name, buf++, 4, GL_FLOAT,
+				0, 0);
+	mesh->set_vertex_attribute(normal_name, buf++, 3, GL_FLOAT,
+				0, 0);
+	mesh->set_vertex_attribute(tangent_name, buf++, 4, GL_FLOAT,
+				0, 0);
+	mesh->set_vertex_attribute(bone_ids_name, buf++, BONES_PER_VERTEX,
+				GL_INT, 0, 0);
+	mesh->set_vertex_attribute(bone_weights_name, buf++,
+				BONES_PER_VERTEX, GL_FLOAT, 0, 0);
+
+	if(mesh->num_uv) {
+		for(unsigned int i = 0; i < mesh->num_uv; i++) {
+			mesh->set_vertex_attribute(
+				texture_coordinates_name + std::to_string(i),
+				buf++, 3, GL_FLOAT, 0,
+				(void *)(long)(i * mesh->num_vertices));
+		}
+	}
+	if(mesh->num_col) {
+		for(unsigned int i = 0; i < mesh->num_col; i++) {
+			mesh->set_vertex_attribute(
+				color_name + std::to_string(i), buf++, 4, GL_FLOAT, 0,
+				(void *)(long)(i * mesh->num_vertices));
+		}
+	}
 }
 
 void Scene::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) {
@@ -164,8 +198,8 @@ void Scene::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 		trafo = *parent_trafo * trafo;
 
 	for(unsigned int i = 0; i < start_node->mNumMeshes; i++) {
-		Mesh *mesh_tmp = create_mesh(scene->mMeshes[i]);
-		mesh_tmp->model_matrix = ai_to_glm_mat4(&trafo);
+		Mesh *mesh_tmp = create_mesh(start_node->mMeshes[i]);
+		mesh_tmp->model_matrix = ai_to_glm_mat4(trafo);
 		mesh_map[scene->mMeshes[i]->mName.C_Str()] = meshes.size();
 		meshes.push_back(mesh_tmp);
 	}
@@ -175,7 +209,8 @@ void Scene::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 	}
 }
 
-Mesh *Scene::create_mesh(aiMesh *mesh) {
+Mesh *Scene::create_mesh(unsigned int index) {
+	aiMesh *mesh = scene->mMeshes[index];
 	unsigned int num_uv = mesh->GetNumUVChannels();
 	unsigned int num_col = mesh->GetNumColorChannels();
 	std::vector<glm::vec4> position(mesh->mNumVertices);
@@ -281,23 +316,23 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 	// Mesh
 	//************************************
 	Mesh *mesh_tmp = new Mesh();
-	int pos_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(position);
-	int norm_buf = mesh_tmp->attach_vertex_buffer<glm::vec3>(normal);
-	int tan_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(tangent);
+	mesh_tmp->num_uv = num_uv;
+	mesh_tmp->num_col = num_col;
+	mesh_tmp->attach_vertex_buffer<glm::vec4>(position);
+	mesh_tmp->attach_vertex_buffer<glm::vec3>(normal);
+	mesh_tmp->attach_vertex_buffer<glm::vec4>(tangent);
 
-	int id_buf = mesh_tmp->attach_vertex_buffer<int>(bone_ids.data(),
+	mesh_tmp->attach_vertex_buffer<int>(bone_ids.data(),
 					bone_ids.size());
-	int weight_buf = mesh_tmp->attach_vertex_buffer<float>(bone_weights.data(),
+	mesh_tmp->attach_vertex_buffer<float>(bone_weights.data(),
 					bone_weights.size());
 
-	int tc_buf = -1;
-	int col_buf = -1;
 	if(num_uv) {
-		tc_buf = mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord[0].data(),
+		mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord[0].data(),
 					mesh->mNumVertices * num_uv);
 	}
 	if(num_col) {
-		col_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col[0].data(),
+		mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col[0].data(),
 					mesh->mNumVertices * num_col);
 	}
 	mesh_tmp->compute_bounding_box(position, 0);
@@ -308,7 +343,7 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 	//************************************
 	// Set attribute pointers
 	//************************************
-	mesh_tmp->set_vertex_attribute(position_name, pos_buf, 4, GL_FLOAT,
+	/*mesh_tmp->set_vertex_attribute(position_name, pos_buf, 4, GL_FLOAT,
 				0, 0);
 	mesh_tmp->set_vertex_attribute(normal_name, norm_buf, 3, GL_FLOAT,
 				0, 0);
@@ -333,7 +368,9 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 				color_name + std::to_string(i), col_buf, 4, GL_FLOAT, 0,
 				(void *)(long)(i * mesh->mNumVertices));
 		}
-	}
+	}*/
+	if(shader)
+		set_vertex_attribute(mesh_tmp);
 
 	//************************************
 	// Materials
@@ -611,7 +648,7 @@ bool Scene::animate(float time) {
 					scene->mAnimations[0]->mDuration);
 	traverse_animation_nodes((float)animation_time, scene->mRootNode, mat);
 	for(unsigned int i = 0; i < bones.size(); i++) {
-		trafos[i] = ai_to_glm_mat4(&bones[i].transformation);
+		trafos[i] = ai_to_glm_mat4(bones[i].transformation);
 	}
 	shader->bind();
 	int loc = shader->get_uniform_location(bone_array_name);
@@ -690,28 +727,28 @@ void Scene::add_path(std::string path) {
 		Scene::paths.push_back(path);
 }
 
-glm::mat4 Scene::ai_to_glm_mat4(aiMatrix4x4 *in) {
+glm::mat4 Scene::ai_to_glm_mat4(const aiMatrix4x4& in) {
 	glm::mat4 ret;
 
-	ret[0][0] = in->a1;
-	ret[0][1] = in->b1;
-	ret[0][2] = in->c1;
-	ret[0][3] = in->d1;
+	ret[0][0] = in.a1;
+	ret[0][1] = in.b1;
+	ret[0][2] = in.c1;
+	ret[0][3] = in.d1;
 
-	ret[1][0] = in->a2;
-	ret[1][1] = in->b2;
-	ret[1][2] = in->c2;
-	ret[1][3] = in->d2;
+	ret[1][0] = in.a2;
+	ret[1][1] = in.b2;
+	ret[1][2] = in.c2;
+	ret[1][3] = in.d2;
 
-	ret[2][0] = in->a3;
-	ret[2][1] = in->b3;
-	ret[2][2] = in->c3;
-	ret[2][3] = in->d3;
+	ret[2][0] = in.a3;
+	ret[2][1] = in.b3;
+	ret[2][2] = in.c3;
+	ret[2][3] = in.d3;
 
-	ret[3][0] = in->a4;
-	ret[3][1] = in->b4;
-	ret[3][2] = in->c4;
-	ret[3][3] = in->d4;
+	ret[3][0] = in.a4;
+	ret[3][1] = in.b4;
+	ret[3][2] = in.c4;
+	ret[3][3] = in.d4;
 
 	return ret;
 }
