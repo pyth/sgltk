@@ -36,7 +36,7 @@ void Framebuffer::attach_texture(GLenum attachment,
 			       attachment,
 			       texture.target,
 			       texture.texture, 0);
-	GLenum status = glCheckFramebufferStatus(target);
+	/*GLenum status = glCheckFramebufferStatus(target);
 	switch(status) {
 		case GL_FRAMEBUFFER_COMPLETE:
 			std::cout<<"framebuffer complete\n";
@@ -65,7 +65,7 @@ void Framebuffer::attach_texture(GLenum attachment,
 		case GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS:
 			std::cout<<"framebuffer incomplete layer targets\n";
 			break;
-	}
+	}*/
 	if(width == 0 && height == 0) {
 		width = texture.width;
 		height = texture.height;
