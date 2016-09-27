@@ -7,15 +7,9 @@ std::map<std::string, Texture *> Texture::textures;
 Texture::Texture(GLenum target,
 		 unsigned int res_x,
 		 unsigned int res_y) {
-	this->target = target;
-	width = res_x;
-	height = res_y;
 	glGenTextures(1, &texture);
-	glBindTexture(target, texture);
-	glTexImage2D(target, 0, GL_RGB, res_x, res_y, 0,
-		     GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	this->target = target;
+	create_empty(res_x, res_y);
 }
 
 Texture::Texture(GLenum target) {
@@ -95,6 +89,18 @@ void Texture::set_parameter(GLenum name, float parameter) {
 	glBindTexture(target, texture);
 	glTexParameterf(target, name, parameter);
 	glBindTexture(target, 0);
+}
+
+void Texture::create_empty(unsigned int res_x, unsigned int res_y) {
+	bind();
+	width = res_x;
+	height = res_y;
+	glTexImage2D(target, 0, GL_RGBA, res_x, res_y, 0,
+		     GL_RGBA, GL_UNSIGNED_INT, NULL);
+	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
 void Texture::load_texture(const std::string& path) {

@@ -86,6 +86,12 @@ public:
 	 */
 	EXPORT static Texture *find_texture(std::string name);
 	/**
+	 * @brief Creates an empty texture
+	 * @param res_x The texture x resolution
+	 * @param res_y The texture y resolution
+	 */
+	EXPORT void create_empty(unsigned int res_x, unsigned int res_y);
+	/**
 	 * @brief Load a new image as texture
 	 * @param image The image to use as the texture
 	 */
