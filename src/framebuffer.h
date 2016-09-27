@@ -16,17 +16,25 @@ class Framebuffer {
 	bool depth_attachment;
 	bool stencil_attachment;
 public:
+	/**
+	 * @param target The target of the future binding operations
+	 */
 	EXPORT Framebuffer(GLuint target = GL_FRAMEBUFFER);
 	EXPORT ~Framebuffer();
 	/**
 	 * @brief Checks the completeness status of the framebuffer
-	 * @return Returns true if the framebuffer is complete, false otherwise
+	 * @return Returns the status of the framebuffer
 	 */
-	EXPORT bool check_buffer_status();
+	EXPORT GLenum get_buffer_status();
 	/**
-	 * @brief Sets the framebuffer as render target
+	 * @brief Binds the framebuffer to the target set in the constructor
 	 */
 	EXPORT void bind();
+	/**
+	 * @brief Binds the framebuffer to a framebuffer target
+	 * @parma target The target of the binding operation
+	 */
+	EXPORT void bind(GLuint target);
 	/**
 	 * @brief Restores the original framebuffer as render target
 	 */
