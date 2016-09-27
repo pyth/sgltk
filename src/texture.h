@@ -36,10 +36,14 @@ public:
 	 * @param target The target to bind the texture
 	 * @param res_x The texture x resolution
 	 * @param res_y The texture y resolution
+	 * @param internal_format The internal format of the texture
+	 * @param format The format of the textre
 	 */
 	EXPORT Texture(GLenum target,
 		       unsigned int res_x,
-		       unsigned int res_y);
+		       unsigned int res_y,
+		       GLenum internal_format,
+		       GLenum format);
 	/**
 	 * @param target The target to bind the texture
 	 */
@@ -89,8 +93,13 @@ public:
 	 * @brief Creates an empty texture
 	 * @param res_x The texture x resolution
 	 * @param res_y The texture y resolution
+	 * @param internal_format The internal format of the texture
+	 * @param format The format of the textre
 	 */
-	EXPORT void create_empty(unsigned int res_x, unsigned int res_y);
+	EXPORT void create_empty(unsigned int res_x,
+				 unsigned int res_y,
+				 GLenum internal_format,
+				 GLenum format);
 	/**
 	 * @brief Load a new image as texture
 	 * @param image The image to use as the texture

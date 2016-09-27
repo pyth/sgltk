@@ -6,10 +6,13 @@ std::map<std::string, Texture *> Texture::textures;
 
 Texture::Texture(GLenum target,
 		 unsigned int res_x,
-		 unsigned int res_y) {
+		 unsigned int res_y,
+		 GLenum internal_format,
+		 GLenum format) {
+
 	glGenTextures(1, &texture);
 	this->target = target;
-	create_empty(res_x, res_y);
+	create_empty(res_x, res_y, internal_format, format);
 }
 
 Texture::Texture(GLenum target) {
@@ -91,12 +94,12 @@ void Texture::set_parameter(GLenum name, float parameter) {
 	glBindTexture(target, 0);
 }
 
-void Texture::create_empty(unsigned int res_x, unsigned int res_y) {
+void Texture::create_empty(unsigned int res_x, unsigned int res_y, GLenum internal_format, GLenum format) {
 	bind();
 	width = res_x;
 	height = res_y;
-	glTexImage2D(target, 0, GL_RGBA, res_x, res_y, 0,
-		     GL_RGBA, GL_UNSIGNED_INT, NULL);
+	glTexImage2D(target, 0, internal_format, res_x, res_y, 0,
+		     format, GL_FLOAT, NULL);
 	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
