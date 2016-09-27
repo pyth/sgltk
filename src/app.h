@@ -70,8 +70,6 @@ namespace sgltk {
 		App();
 		~App();
 
-		static void _check_error(std::string message, std::string file, unsigned int line);
-
 		public:
 
 		/**
@@ -179,6 +177,12 @@ namespace sgltk {
 		 * @brief Gathers system information and populates the sys_info attribute
 		 */
 		EXPORT static void get_sys_info();
+		/**
+		 * @brief Outputs OpenGL error messages
+		 * @note Dont't call this function directly
+		 */
+		EXPORT static void _check_error(std::string message, std::string file, unsigned int line);
+
 	};
 };
 
