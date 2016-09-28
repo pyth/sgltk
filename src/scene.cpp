@@ -97,6 +97,9 @@ void Scene::setup_camera(glm::mat4 *view_matrix,
 			 glm::mat4 *projection_matrix) {
 	this->view_matrix = view_matrix;
 	this->projection_matrix = projection_matrix;
+	for(Mesh *mesh : meshes) {
+		mesh->setup_camera(view_matrix, projection_matrix);
+	}
 }
 
 void Scene::set_position_name(std::string name) {
