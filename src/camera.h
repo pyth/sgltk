@@ -78,35 +78,15 @@ public:
 
 	EXPORT Camera();
 	/**
-	 * @param type The camera type
-	 */
-	EXPORT Camera(sgltk::CAMERA_TYPE type);
-	/**
-	 * @param pos The camera position
-	 * @param dir The view direction
-	 * @param up The up vector
-	 */
-	EXPORT Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up);
-	/**
 	 * @param pos The camera position
 	 * @param dir The view direction
 	 * @param up The up vector
 	 * @param type The camera type
 	 */
-	EXPORT Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, sgltk::CAMERA_TYPE type);
-	/**
-	 * @param pos The camera position
-	 * @param dir The view direction
-	 * @param up The up vector
-	 * @param fovy The field of view
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
-	 * @param near_plane The near plane
-	 * @param far_plane The far plane
-	 */
-	EXPORT Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
-	       float fovy, float width, float height,
-	       float near_plane, float far_plane);
+	EXPORT Camera(glm::vec3 pos,
+		      glm::vec3 dir,
+		      glm::vec3 up,
+		      sgltk::CAMERA_TYPE type = sgltk::PERSPECTIVE);
 	/**
 	 * @param pos The camera position
 	 * @param dir The view direction
@@ -118,10 +98,15 @@ public:
 	 * @param far_plane The far plane
 	 * @param type The camera type
 	 */
-	EXPORT Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
-	       float fovy, float width, float height,
-	       float near_plane, float far_plane,
-	       sgltk::CAMERA_TYPE type);
+	EXPORT Camera(glm::vec3 pos,
+		      glm::vec3 dir,
+		      glm::vec3 up,
+		      float fovy,
+		      float width,
+		      float height,
+		      float near_plane,
+		      float far_plane,
+		      sgltk::CAMERA_TYPE type = sgltk::PERSPECTIVE);
 	EXPORT ~Camera();
 
 	/**

@@ -17,36 +17,6 @@ Camera::Camera() {
 	update_projection_matrix(fovy, 640, 480, near_plane, far_plane);
 }
 
-Camera::Camera(sgltk::CAMERA_TYPE type) {
-	this->type = type;
-
-	pos = glm::vec4(0, 0, 1, 1);
-	dir = glm::normalize(glm::vec4(0, 0, -1, 1));
-	up = glm::normalize(glm::vec4(0, 1, 0, 1));
-	right = glm::normalize(glm::vec4(glm::cross(glm::vec3(dir), glm::vec3(up)), 1));
-	fovy = 70.0f;
-	near_plane = 1.0f;
-	far_plane = 800.0f;
-
-	update_view_matrix();
-	update_projection_matrix(fovy, 640, 480, near_plane, far_plane);
-}
-
-Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up) {
-	type = sgltk::PERSPECTIVE;
-
-	this->pos = glm::vec4(pos, 1);
-	this->dir = glm::normalize(glm::vec4(dir, 1));
-	this->up = glm::normalize(glm::vec4(up, 1));
-	right = glm::normalize(glm::vec4(glm::cross(dir, up), 1));
-	fovy = 70.0f;
-	near_plane = 1.0f;
-	far_plane = 800.0f;
-
-	update_view_matrix();
-	update_projection_matrix(fovy, 640, 480, near_plane, far_plane);
-}
-
 Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
 	       sgltk::CAMERA_TYPE type) {
 	this->type = type;
@@ -63,24 +33,14 @@ Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
 	update_projection_matrix(fovy, 640, 480, near_plane, far_plane);
 }
 
-Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fovy,
-	       float width, float height, float near_plane, float far_plane) {
-	type = sgltk::PERSPECTIVE;
+Camera::Camera(glm::vec3 pos,
+	       glm::vec3 dir,
+	       glm::vec3 up,
+	       float fovy,
+	       float width, float height,
+	       float near_plane, float far_plane,
+	       sgltk::CAMERA_TYPE type) {
 
-	this->pos = glm::vec4(pos, 1);
-	this->dir = glm::normalize(glm::vec4(dir, 1));
-	this->up = glm::normalize(glm::vec4(up, 1));
-	right = glm::normalize(glm::vec4(glm::cross(dir, up), 1));
-	this->fovy = fovy;
-	this->near_plane = near_plane;
-	this->far_plane = far_plane;
-
-	update_view_matrix();
-	update_projection_matrix(fovy, width, height, near_plane, far_plane);
-}
-
-Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fovy,
-	       float width, float height, float near_plane, float far_plane, sgltk::CAMERA_TYPE type) {
 	this->type = type;
 
 	this->pos = glm::vec4(pos, 1);
