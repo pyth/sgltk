@@ -7,8 +7,6 @@ std::vector<std::string> Scene::paths = {"./"};
 Scene::Scene() {
 	scene = NULL;
 	shader = NULL;
-	view_matrix = NULL;
-	projection_matrix = NULL;
 
 	position_name = "pos_in";
 	normal_name = "norm_in";
@@ -93,13 +91,25 @@ void Scene::compute_bounding_box() {
 	}
 }
 
-void Scene::setup_camera(glm::mat4 *view_matrix,
+bool Scene::setup_camera(glm::mat4 *view_matrix,
 			 glm::mat4 *projection_matrix) {
-	this->view_matrix = view_matrix;
-	this->projection_matrix = projection_matrix;
+	bool ret;
 	for(Mesh *mesh : meshes) {
-		mesh->setup_camera(view_matrix, projection_matrix);
+		ret = mesh->setup_camera(view_matrix, projection_matrix);
+		if(!ret)
+			return false;
 	}
+	return true;
+}
+
+bool Scene::setup_camera(Camera *camera, CAMERA_TYPE type) {
+	bool ret;
+	for(Mesh *mesh : meshes) {
+		ret = mesh->setup_camera(camera);
+		if(!ret)
+			return false;
+	}
+	return true;
 }
 
 void Scene::set_position_name(std::string name) {
@@ -161,6 +171,7 @@ void sgltk::Scene::set_bone_array_name(std::string name) {
 void Scene::setup_shader(Shader *shader) {
 	this->shader = shader;
 	for(Mesh *mesh : meshes) {
+		mesh->setup_shader(shader);
 		set_vertex_attribute(mesh);
 	}
 }
@@ -340,38 +351,6 @@ Mesh *Scene::create_mesh(unsigned int index) {
 	}
 	mesh_tmp->compute_bounding_box(position, 0);
 	mesh_tmp->attach_index_buffer(indices);
-	mesh_tmp->setup_shader(shader);
-	mesh_tmp->setup_camera(view_matrix, projection_matrix);
-
-	//************************************
-	// Set attribute pointers
-	//************************************
-	/*mesh_tmp->set_vertex_attribute(position_name, pos_buf, 4, GL_FLOAT,
-				0, 0);
-	mesh_tmp->set_vertex_attribute(normal_name, norm_buf, 3, GL_FLOAT,
-				0, 0);
-	mesh_tmp->set_vertex_attribute(tangent_name, tan_buf, 4, GL_FLOAT,
-				0, 0);
-	mesh_tmp->set_vertex_attribute(bone_ids_name, id_buf, BONES_PER_VERTEX,
-				GL_INT, 0, 0);
-	mesh_tmp->set_vertex_attribute(bone_weights_name, weight_buf,
-				BONES_PER_VERTEX, GL_FLOAT, 0, 0);
-
-	if(num_uv) {
-		for(unsigned int i = 0; i < num_uv; i++) {
-			mesh_tmp->set_vertex_attribute(
-				texture_coordinates_name + std::to_string(i),
-				tc_buf, 3, GL_FLOAT, 0,
-				(void *)(long)(i * mesh->mNumVertices));
-		}
-	}
-	if(num_col) {
-		for(unsigned int i = 0; i < num_col; i++) {
-			mesh_tmp->set_vertex_attribute(
-				color_name + std::to_string(i), col_buf, 4, GL_FLOAT, 0,
-				(void *)(long)(i * mesh->mNumVertices));
-		}
-	}*/
 	if(shader)
 		set_vertex_attribute(mesh_tmp);
 

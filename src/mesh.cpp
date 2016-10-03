@@ -70,10 +70,39 @@ void Mesh::setup_shader(Shader *shader) {
 	this->shader = shader;
 }
 
-void Mesh::setup_camera(glm::mat4 *view_matrix,
+bool Mesh::setup_camera(glm::mat4 *view_matrix,
 				glm::mat4 *projection_matrix) {
+	if(!view_matrix || !projection_matrix)
+		return false;
+
 	this->view_matrix = view_matrix;
 	this->projection_matrix = projection_matrix;
+	return true;
+}
+
+bool Mesh::setup_camera(Camera *camera, CAMERA_TYPE type) {
+	this->view_matrix = &camera->view_matrix;
+	if(camera->type == ORTHOGRAPHIC) {
+		this->projection_matrix = &camera->projection_matrix_ortho;
+	} else if(camera->type == PERSPECTIVE) {
+		this->projection_matrix = &camera->projection_matrix_persp;
+	} else if(camera->type == INF_PERSPECTIVE) {
+		this->projection_matrix = &camera->projection_matrix_persp_inf;
+	} else if(camera->type & type){
+		//camera has more than one type
+		if(type == ORTHOGRAPHIC) {
+			this->projection_matrix = &camera->projection_matrix_ortho;
+		}
+		if(type == PERSPECTIVE) {
+			this->projection_matrix = &camera->projection_matrix_persp;
+		}
+		if(type == INF_PERSPECTIVE) {
+			this->projection_matrix = &camera->projection_matrix_persp_inf;
+		}
+	} else {
+		return false;
+	}
+	return true;
 }
 
 void Mesh::set_model_matrix_name(std::string name) {

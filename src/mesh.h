@@ -3,6 +3,7 @@
 
 #include "app.h"
 #include "shader.h"
+#include "camera.h"
 #include "texture.h"
 
 namespace sgltk {
@@ -337,9 +338,18 @@ public:
 	 * 	  by the mesh
 	 * @param view_matrix The view matrix
 	 * @param projection_matrix The projection matrix
+	 * @return Returns true if both pointers are not NULL pointers, flase otherwise
 	 */
-	EXPORT void setup_camera(glm::mat4 *view_matrix,
-			  glm::mat4 *projection_matrix);
+	EXPORT bool setup_camera(glm::mat4 *view_matrix,
+				 glm::mat4 *projection_matrix);
+	/**
+	 * @brief Sets up the view and projection matrices that will be used
+	 * 	  by the mesh
+	 * @param camera The camera to use
+	 * @param type The projection type to be used if the camera has more than one type
+	 * @return Returns true on success, false otherwise
+	 */
+	EXPORT bool setup_camera(Camera *camera, sgltk::CAMERA_TYPE = sgltk::PERSPECTIVE);
 	/**
 	 * @brief Sets the name of the model matrix in the shader
 	 * @param name The name of the model matrix.

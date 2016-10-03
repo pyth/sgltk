@@ -37,9 +37,6 @@ class Scene {
 	std::string bone_ids_name;
 	std::string bone_weights_name;
 	std::string bone_array_name;
-	
-	glm::mat4 *view_matrix;
-	glm::mat4 *projection_matrix;
 
 	double ticks_per_second;
 	std::vector<Bone> bones;
@@ -94,9 +91,18 @@ class Scene {
 		 *	  used by the meshes in the scene
 		 * @param view_matrix The view matrix
 		 * @param projection_matrix The projection matrix
+		 * @return Returns true if both pointers are not NULL pointers, flase otherwise
 		 */
-		EXPORT void setup_camera(glm::mat4 *view_matrix,
-				  glm::mat4 *projection_matrix);
+		EXPORT bool setup_camera(glm::mat4 *view_matrix,
+					 glm::mat4 *projection_matrix);
+		/**
+		 * @brief Sets up the view and projection matrices that will be
+		 *	  used by the meshes in the scene
+		 * @param camera The camera to use
+		 * @param type The type of projection to use if the camera has more than one type
+		 * @return Returns true on success, false otherwise
+		 */
+		EXPORT bool setup_camera(Camera *camera, sgltk::CAMERA_TYPE type = sgltk::PERSPECTIVE);
 		/**
 		 * @brief Sets the position vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets
