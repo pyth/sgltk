@@ -29,6 +29,9 @@ class Scene {
 	const aiScene *scene;
 	Shader *shader;
 
+	glm::mat4 *view_matrix;
+	glm::mat4 *projection_matrix;
+
 	std::string position_name;
 	std::string normal_name;
 	std::string tangent_name;

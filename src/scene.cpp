@@ -8,6 +8,9 @@ Scene::Scene() {
 	scene = NULL;
 	shader = NULL;
 
+	view_matrix = NULL;
+	projection_matrix = NULL;
+
 	position_name = "pos_in";
 	normal_name = "norm_in";
 	tangent_name = "tang_in";
@@ -99,6 +102,8 @@ bool Scene::setup_camera(glm::mat4 *view_matrix,
 		if(!ret)
 			return false;
 	}
+	this->view_matrix = view_matrix;
+	this->projection_matrix = projection_matrix;
 	return true;
 }
 
@@ -109,6 +114,15 @@ bool Scene::setup_camera(Camera *camera, CAMERA_TYPE type) {
 		if(!ret)
 			return false;
 	}
+	view_matrix = view_matrix;
+	if(type == PERSPECTIVE)
+		projection_matrix = &camera->projection_matrix_persp;
+	else if(type == INF_PERSPECTIVE)
+		projection_matrix = &camera->projection_matrix_persp_inf;
+	else if(type == ORTHOGRAPHIC)
+		projection_matrix = &camera->projection_matrix_ortho;
+	else
+		return false;
 	return true;
 }
 
@@ -351,8 +365,12 @@ Mesh *Scene::create_mesh(unsigned int index) {
 	}
 	mesh_tmp->compute_bounding_box(position, 0);
 	mesh_tmp->attach_index_buffer(indices);
-	if(shader)
+	if(shader) {
+		mesh_tmp->setup_shader(shader);
 		set_vertex_attribute(mesh_tmp);
+	}
+	if(view_matrix && projection_matrix)
+		mesh_tmp->setup_camera(view_matrix, projection_matrix);
 
 	//************************************
 	// Materials
