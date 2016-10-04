@@ -8,11 +8,12 @@ Texture::Texture(GLenum target,
 		 unsigned int res_x,
 		 unsigned int res_y,
 		 GLenum internal_format,
+		 GLenum type,
 		 GLenum format) {
 
 	glGenTextures(1, &texture);
 	this->target = target;
-	create_empty(res_x, res_y, internal_format, format);
+	create_empty(res_x, res_y, internal_format, type, format);
 }
 
 Texture::Texture(GLenum target) {
@@ -94,16 +95,22 @@ void Texture::set_parameter(GLenum name, float parameter) {
 	glBindTexture(target, 0);
 }
 
-void Texture::create_empty(unsigned int res_x, unsigned int res_y, GLenum internal_format, GLenum format) {
+void Texture::create_empty(unsigned int res_x,
+			   unsigned int res_y,
+			   GLenum internal_format,
+			   GLenum type,
+			   GLenum format) {
 	bind();
 	width = res_x;
 	height = res_y;
+	bind();
 	glTexImage2D(target, 0, internal_format, res_x, res_y, 0,
-		     format, GL_FLOAT, NULL);
+		     format, type, NULL);
 	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	unbind();
 }
 
 void Texture::load_texture(const std::string& path) {
