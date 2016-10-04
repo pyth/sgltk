@@ -109,7 +109,8 @@ void Camera::update_projection_matrix(float fovy, float width, float height,
 					      near_plane);
 	}
 	if(type & sgltk::ORTHOGRAPHIC) {
-		projection_matrix_ortho = glm::ortho(0.0f, width, 0.0f, height,
+		projection_matrix_ortho = glm::ortho(-width / 2, width / 2,
+						     -height / 2, height / 2,
 						     near_plane, far_plane);
 	}
 }
