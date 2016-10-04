@@ -9,17 +9,17 @@ namespace sgltk {
 
 class Framebuffer {
 	GLuint buffer;
-	GLint target;
+	GLenum target;
 	unsigned int width;
 	unsigned int height;
-	bool color_attachment;
-	bool depth_attachment;
-	bool stencil_attachment;
+	std::vector<GLenum> draw_buffers;
+
+	static int max_color_attachments;
 public:
 	/**
 	 * @param target The target of the future binding operations
 	 */
-	EXPORT Framebuffer(GLuint target = GL_FRAMEBUFFER);
+	EXPORT Framebuffer(GLenum target = GL_FRAMEBUFFER);
 	EXPORT ~Framebuffer();
 	/**
 	 * @brief Checks the completeness status of the framebuffer
@@ -34,7 +34,7 @@ public:
 	 * @brief Binds the framebuffer to a framebuffer target
 	 * @parma target The target of the binding operation
 	 */
-	EXPORT void bind(GLuint target);
+	EXPORT void bind(GLenum target);
 	/**
 	 * @brief Restores the original framebuffer as render target
 	 */
@@ -54,6 +54,10 @@ public:
 	 */
 	EXPORT void attach_renderbuffer(GLenum attachment,
 					Renderbuffer& buffer);
+	/**
+	 * @brief Sets the draw buffers to be drawn into
+	 */
+	EXPORT void finalize();
 };
 
 }

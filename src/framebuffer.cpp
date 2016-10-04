@@ -2,11 +2,16 @@
 
 using namespace sgltk;
 
-Framebuffer::Framebuffer(GLuint target) {
+int Framebuffer::max_color_attachments = 0;
+
+Framebuffer::Framebuffer(GLenum target) {
 	this->target = target;
 	width = 0;
 	height = 0;
 	glGenFramebuffers(1, &buffer);
+	if(max_color_attachments == 0)
+		glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS,
+			      &Framebuffer::max_color_attachments);
 }
 
 Framebuffer::~Framebuffer() {
@@ -24,8 +29,13 @@ void Framebuffer::bind() {
 	glBindFramebuffer(target, buffer);
 }
 
-void Framebuffer::bind(GLuint target) {
+void Framebuffer::bind(GLenum target) {
 	glBindFramebuffer(target, buffer);
+	if(draw_buffers.size() == 0) {
+		glDrawBuffer(GL_NONE);
+	} else {
+		glDrawBuffers(draw_buffers.size(), draw_buffers.data());
+	}
 }
 
 void Framebuffer::unbind() {
@@ -40,11 +50,16 @@ void Framebuffer::attach_texture(GLenum attachment,
 			       attachment,
 			       texture.target,
 			       texture.texture, 0);
+	unbind();
 	if(width == 0 && height == 0) {
 		width = texture.width;
 		height = texture.height;
 	}
-	unbind();
+	GLenum attachment_max = GL_COLOR_ATTACHMENT0 + max_color_attachments - 1;
+	if(attachment >= GL_COLOR_ATTACHMENT0 &&
+			attachment <= attachment_max) {
+		draw_buffers.push_back(attachment);
+	}
 }
 
 void Framebuffer::attach_renderbuffer(GLenum attachment,
@@ -55,9 +70,24 @@ void Framebuffer::attach_renderbuffer(GLenum attachment,
 				  attachment,
 				  GL_RENDERBUFFER,
 				  buffer.buffer);
+	unbind();
 	if(width == 0 && height == 0) {
 		width = buffer.width;
 		height = buffer.height;
+	}
+	GLenum attachment_max = GL_COLOR_ATTACHMENT0 + max_color_attachments - 1;
+	if(attachment >= GL_COLOR_ATTACHMENT0 &&
+			attachment <= attachment_max) {
+		draw_buffers.push_back(attachment);
+	}
+}
+
+void Framebuffer::finalize() {
+	bind();
+	if(draw_buffers.size() == 0) {
+		glDrawBuffer(GL_NONE);
+	} else {
+		glDrawBuffers(draw_buffers.size(), draw_buffers.data());
 	}
 	unbind();
 }
