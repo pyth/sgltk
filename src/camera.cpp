@@ -155,13 +155,46 @@ void Camera::pitch(float angle) {
 	up = glm::normalize(rot * up);
 }
 
-void Camera::calculate_frustum_distance(glm::vec3 position,
-					float *far,
-					float *near,
-					float *left,
-					float *right,
-					float *top,
-					float *bottom) {
+bool Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
+				      glm::vec3 *near_bottom_right,
+				      glm::vec3 *near_top_right,
+				      glm::vec3 *near_top_left,
+				      glm::vec3 *far_bottom_left,
+				      glm::vec3 *far_bottom_right,
+				      glm::vec3 *far_top_right,
+				      glm::vec3 *far_top_left) {
+
+	if(type != PERSPECTIVE && type != INF_PERSPECTIVE && type != ORTHOGRAPHIC)
+		return false;
+
+	return calculate_frustum_points(near_bottom_left,
+					near_bottom_right,
+					near_top_right,
+					near_top_left,
+					far_bottom_left,
+					far_bottom_right,
+					far_top_right,
+					far_top_left,
+					type);
+}
+
+bool Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
+				      glm::vec3 *near_bottom_right,
+				      glm::vec3 *near_top_right,
+				      glm::vec3 *near_top_left,
+				      glm::vec3 *far_bottom_left,
+				      glm::vec3 *far_bottom_right,
+				      glm::vec3 *far_top_right,
+				      glm::vec3 *far_top_left,
+				      CAMERA_TYPE type) {
+
+	if(!(type & this->type)) {
+		return false;
+	}
+
+	float far_x;
+	float far_y;
+
 	glm::vec3 cam_pos = glm::vec3(pos);
 	glm::vec3 cam_dir = glm::vec3(glm::normalize(dir));
 	glm::vec3 cam_right = glm::vec3(this->right);
@@ -170,30 +203,107 @@ void Camera::calculate_frustum_distance(glm::vec3 position,
 	glm::vec3 far_center = cam_pos + far_plane * cam_dir;
 	glm::vec3 near_center = cam_pos + near_plane * cam_dir;
 
-	float far_y = 0.5f * glm::tan(glm::radians(fovy)) * far_plane;
-	float far_x = far_y * 0.5f * width / height;
+	if(type == ORTHOGRAPHIC) {
+		far_x = width / 2;
+		far_y = height / 2;
+	} else {
+		far_y = 0.5f * glm::tan(glm::radians(fovy)) * far_plane;
+		far_x = far_y * 0.5f * width / height;
+	}
 
-	glm::vec3 near_top_left = near_center
-				  - 0.5f * width * cam_right
-				  + 0.5f * height * cam_up;
-	glm::vec3 near_top_right = near_center
-				  + 0.5f * width * cam_right
-				  + 0.5f * height * cam_up;
-	glm::vec3 near_bottom_left = near_center
-				  - 0.5f * width * cam_right
-				  - 0.5f * height * cam_up;
-	glm::vec3 near_bottom_right = near_center
-				  + 0.5f * width * cam_right
-				  - 0.5f * height * cam_up;
-	glm::vec3 far_top_left = far_center
-				 - far_x * cam_right
-				 + far_y * cam_up;
-	glm::vec3 far_top_right = far_center
-				 + far_x * cam_right
-				 + far_y * cam_up;
-	glm::vec3 far_bottom_left = far_center
-				    - far_x * cam_right
-				    - far_y * cam_up;
+	if(near_bottom_left)
+		*near_bottom_left = near_center
+					- 0.5f * width * cam_right
+					- 0.5f * height * cam_up;
+	if(near_bottom_right)
+		*near_bottom_right = near_center
+					+ 0.5f * width * cam_right
+					- 0.5f * height * cam_up;
+	if(near_top_right)
+		*near_top_right = near_center
+					+ 0.5f * width * cam_right
+					+ 0.5f * height * cam_up;
+	if(near_top_left)
+		*near_top_left = near_center
+					- 0.5f * width * cam_right
+					+ 0.5f * height * cam_up;
+	if(far_bottom_left)
+		*far_bottom_left = far_center
+					- far_x * cam_right
+					- far_y * cam_up;
+	if(far_bottom_right)
+		*far_bottom_right = far_center
+					+ far_x * cam_right
+					- far_y * cam_up;
+	if(far_top_right)
+		*far_top_right = far_center
+					+ far_x * cam_right
+					+ far_y * cam_up;
+	if(far_top_left)
+		*far_top_left = far_center
+					- far_x * cam_right
+					+ far_y * cam_up;
+	return true;
+}
+
+bool Camera::calculate_frustum_distance(glm::vec3 position,
+					float *far,
+					float *near,
+					float *left,
+					float *right,
+					float *top,
+					float *bottom) {
+
+	if(type != PERSPECTIVE && type != INF_PERSPECTIVE && type != ORTHOGRAPHIC)
+		return false;
+
+	return calculate_frustum_distance(position,
+					  far,
+					  near,
+					  left,
+					  right,
+					  top,
+					  bottom,
+					  type);
+}
+
+bool Camera::calculate_frustum_distance(glm::vec3 position,
+					float *far,
+					float *near,
+					float *left,
+					float *right,
+					float *top,
+					float *bottom,
+					CAMERA_TYPE type) {
+	if(!(type & this->type)) {
+		return false;
+	}
+
+	glm::vec3 near_bottom_left;
+	glm::vec3 near_bottom_right;
+	glm::vec3 near_top_right;
+	glm::vec3 near_top_left;
+	glm::vec3 far_bottom_left;
+	glm::vec3 far_bottom_right;
+	glm::vec3 far_top_right;
+	glm::vec3 far_top_left;
+
+	glm::vec3 cam_pos = glm::vec3(pos);
+	glm::vec3 cam_dir = glm::vec3(glm::normalize(dir));
+
+	glm::vec3 far_center = cam_pos + far_plane * cam_dir;
+	glm::vec3 near_center = cam_pos + near_plane * cam_dir;
+
+	calculate_frustum_points(&near_bottom_left,
+				 &near_bottom_right,
+				 &near_top_right,
+				 &near_top_left,
+				 &far_bottom_left,
+				 &far_bottom_right,
+				 &far_top_right,
+				 &far_top_left,
+				 type);
+
 	glm::vec3 left_normal = glm::cross(far_top_left - near_top_left,
 					   near_bottom_left - near_top_left);
 	glm::vec3 right_normal = glm::cross(near_bottom_right - near_top_right,
@@ -221,4 +331,5 @@ void Camera::calculate_frustum_distance(glm::vec3 position,
 	if(bottom) {
 		*bottom = glm::dot(position - near_bottom_left, bottom_normal);
 	}
+	return true;
 }
