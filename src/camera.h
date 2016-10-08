@@ -62,19 +62,19 @@ public:
 	/**
 	 * @brief The camera position
 	 */
-	glm::vec4 pos;
+	glm::vec3 pos;
 	/**
 	 * @brief The direction the camera is pointing
 	 */
-	glm::vec4 dir;
+	glm::vec3 dir;
 	/**
 	 * @brief The up vector of the camera
 	 */
-	glm::vec4 up;
+	glm::vec3 up;
 	/**
 	 * @brief The right vector of the camera
 	 */
-	glm::vec4 right;
+	glm::vec3 right;
 
 	EXPORT Camera();
 	/**

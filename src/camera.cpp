@@ -5,10 +5,10 @@ using namespace sgltk;
 Camera::Camera() {
 	type = sgltk::PERSPECTIVE;
 
-	pos = glm::vec4(0, 0, 1, 1);
-	dir = glm::normalize(glm::vec4(0, 0, -1, 1));
-	up = glm::normalize(glm::vec4(0, 1, 0, 1));
-	right = glm::normalize(glm::vec4(glm::cross(glm::vec3(dir), glm::vec3(up)), 1));
+	pos = glm::vec3(0, 0, 0);
+	dir = glm::vec3(0, 0, -1);
+	up = glm::vec3(0, 1, 0);
+	right = glm::normalize(glm::cross(glm::vec3(dir), glm::vec3(up)));
 	fovy = 70.0f;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
@@ -17,14 +17,17 @@ Camera::Camera() {
 	update_projection_matrix(fovy, 640, 480, near_plane, far_plane);
 }
 
-Camera::Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up,
+Camera::Camera(glm::vec3 pos,
+	       glm::vec3 dir,
+	       glm::vec3 up,
 	       sgltk::CAMERA_TYPE type) {
+
 	this->type = type;
 
-	this->pos = glm::vec4(pos, 1);
-	this->dir = glm::normalize(glm::vec4(dir, 1));
-	this->up = glm::normalize(glm::vec4(up, 1));
-	right = glm::normalize(glm::vec4(glm::cross(dir, up), 1));
+	this->pos = pos;
+	this->dir = glm::normalize(dir);
+	this->up = glm::normalize(up);
+	right = glm::normalize(glm::cross(dir, up));
 	fovy = 70.0f;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
@@ -43,10 +46,10 @@ Camera::Camera(glm::vec3 pos,
 
 	this->type = type;
 
-	this->pos = glm::vec4(pos, 1);
-	this->dir = glm::normalize(glm::vec4(dir, 1));
-	this->up = glm::normalize(glm::vec4(up, 1));
-	right = glm::normalize(glm::vec4(glm::cross(dir, up), 1));
+	this->pos = pos;
+	this->dir = glm::normalize(dir);
+	this->up = glm::normalize(up);
+	right = glm::normalize(glm::cross(dir, up));
 	this->fovy = fovy;
 	this->near_plane = near_plane;
 	this->far_plane = far_plane;
@@ -59,9 +62,7 @@ Camera::~Camera() {
 }
 
 void Camera::update_view_matrix() {
-	view_matrix = glm::lookAt(glm::vec3(pos),
-				  glm::vec3(pos + dir),
-				  glm::vec3(up));
+	view_matrix = glm::lookAt(pos, pos + dir, up);
 }
 
 void Camera::update_projection_matrix(float width, float height) {
@@ -75,7 +76,6 @@ void Camera::update_projection_matrix(float fovy, float width, float height) {
 	this->fovy = fovy;
 	this->width = width;
 	this->height = height;
-
 
 	update_projection_matrix(fovy, width, height, near_plane, far_plane);
 }
@@ -134,23 +134,23 @@ void Camera::move_by(float x, float y, float z) {
 }
 
 void Camera::move_by(glm::vec3 vector) {
-	pos += glm::vec4(vector, 1);
+	pos += vector;
 }
 
 void Camera::yaw(float angle) {
-	glm::mat4 rot = glm::rotate(angle, glm::vec3(up));
+	glm::mat3 rot = glm::mat3(glm::rotate(angle, up));
 	dir = glm::normalize(rot * dir);
 	right = glm::normalize(rot * right);
 }
 
 void Camera::roll(float angle) {
-	glm::mat4 rot = glm::rotate(angle, glm::vec3(dir));
+	glm::mat3 rot = glm::mat3(glm::rotate(angle, dir));
 	up = glm::normalize(rot * up);
 	right = glm::normalize(rot * right);
 }
 
 void Camera::pitch(float angle) {
-	glm::mat4 rot = glm::rotate(angle, glm::vec3(right));
+	glm::mat3 rot = glm::mat3(glm::rotate(angle, right));
 	dir = glm::normalize(rot * dir);
 	up = glm::normalize(rot * up);
 }
@@ -195,13 +195,12 @@ bool Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
 	float far_x;
 	float far_y;
 
-	glm::vec3 cam_pos = glm::vec3(pos);
-	glm::vec3 cam_dir = glm::vec3(glm::normalize(dir));
-	glm::vec3 cam_right = glm::vec3(this->right);
-	glm::vec3 cam_up = glm::vec3(up);
+	glm::vec3 cam_dir = glm::normalize(dir);
+	glm::vec3 cam_right = glm::normalize(right);
+	glm::vec3 cam_up = glm::normalize(up);
 
-	glm::vec3 far_center = cam_pos + far_plane * cam_dir;
-	glm::vec3 near_center = cam_pos + near_plane * cam_dir;
+	glm::vec3 far_center = pos + far_plane * cam_dir;
+	glm::vec3 near_center = pos + near_plane * cam_dir;
 
 	if(type == ORTHOGRAPHIC) {
 		far_x = width / 2;
@@ -288,11 +287,10 @@ bool Camera::calculate_frustum_distance(glm::vec3 position,
 	glm::vec3 far_top_right;
 	glm::vec3 far_top_left;
 
-	glm::vec3 cam_pos = glm::vec3(pos);
-	glm::vec3 cam_dir = glm::vec3(glm::normalize(dir));
+	glm::vec3 cam_dir = glm::normalize(dir);
 
-	glm::vec3 far_center = cam_pos + far_plane * cam_dir;
-	glm::vec3 near_center = cam_pos + near_plane * cam_dir;
+	glm::vec3 far_center = pos + far_plane * cam_dir;
+	glm::vec3 near_center = pos + near_plane * cam_dir;
 
 	calculate_frustum_points(&near_bottom_left,
 				 &near_bottom_right,
