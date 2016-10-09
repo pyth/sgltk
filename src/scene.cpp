@@ -228,7 +228,7 @@ void Scene::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 	for(unsigned int i = 0; i < start_node->mNumMeshes; i++) {
 		Mesh *mesh_tmp = create_mesh(start_node->mMeshes[i]);
 		mesh_tmp->model_matrix = ai_to_glm_mat4(trafo);
-		mesh_map[scene->mMeshes[i]->mName.C_Str()] = meshes.size();
+		mesh_map[scene->mMeshes[start_node->mMeshes[i]]->mName.C_Str()] = meshes.size();
 		meshes.push_back(mesh_tmp);
 	}
 
