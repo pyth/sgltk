@@ -407,6 +407,12 @@ void Mesh::material_uniform() {
 		num_textures++;
 	}
 
+	for(unsigned int i = 0; i < textures_misc.size(); i++) {
+		texture_loc = shader->get_uniform_location(textures_misc[i].first);
+		shader->set_uniform_int(texture_loc, num_textures);
+		textures_misc[i].second->bind(num_textures);
+		num_textures++;
+	}
 }
 
 void Mesh::draw(GLenum mode) {

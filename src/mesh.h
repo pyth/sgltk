@@ -314,6 +314,10 @@ public:
 	 * @brief The lightmap textures
 	 */
 	std::vector<Texture *> textures_lightmap;
+	/**
+	 * @brief Miscellaneous textures
+	 */
+	std::vector<std::pair<std::string, Texture *> > textures_misc;
 
 	/**
 	 * @brief Indicates that the mesh should be drawn as a wireframe

@@ -160,6 +160,12 @@ class Scene {
 		 */
 		EXPORT void set_animation_speed(double speed);
 		/**
+		 * @brief Attaches a texture to every mesh of the scene
+		 * @param name The name of the texture in the shader
+		 * @param texture The texture to be bound when rendering the model
+		 */
+		EXPORT void attach_texture(const std::string& name, Texture *texture);
+		/**
 		 * @brief Calculates a new bone pose based on the animation time
 		 * @param time The current animation time. If time is greater than
 		 * 	the duration of the animation 

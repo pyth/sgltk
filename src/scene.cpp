@@ -645,6 +645,12 @@ aiQuaternion Scene::interpolate_rotation(float time, aiNodeAnim *node) {
 	return rot.Normalize();
 }
 
+void Scene::attach_texture(const std::string& name, Texture *texture) {
+	for(Mesh *mesh : meshes) {
+		mesh->textures_misc.push_back(std::make_pair(name, texture));
+	}
+}
+
 bool Scene::animate(float time) {
 	if(!scene->HasAnimations())
 		return false;
