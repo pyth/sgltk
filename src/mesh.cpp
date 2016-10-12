@@ -105,7 +105,7 @@ bool Mesh::setup_camera(Camera *camera, CAMERA_TYPE type) {
 	return true;
 }
 
-void Mesh::set_model_matrix_name(std::string name) {
+void Mesh::set_model_matrix_name(const std::string& name) {
 
 	if(name.length() > 0)
 		model_matrix_name = name;
@@ -113,7 +113,7 @@ void Mesh::set_model_matrix_name(std::string name) {
 		model_matrix_name = "model_matrix";
 }
 
-void Mesh::set_view_matrix_name(std::string name) {
+void Mesh::set_view_matrix_name(const std::string& name) {
 
 	if(name.length() > 0)
 		view_matrix_name = name;
@@ -121,7 +121,7 @@ void Mesh::set_view_matrix_name(std::string name) {
 		view_matrix_name = "view_matrix";
 }
 
-void Mesh::set_projection_matrix_name(std::string name) {
+void Mesh::set_projection_matrix_name(const std::string& name) {
 
 	if(name.length() > 0)
 		projection_matrix_name = name;
@@ -129,7 +129,7 @@ void Mesh::set_projection_matrix_name(std::string name) {
 		projection_matrix_name = "proj_matrix";
 }
 
-void Mesh::set_model_view_matrix_name(std::string name) {
+void Mesh::set_model_view_matrix_name(const std::string& name) {
 
 	if(name.length() > 0)
 		model_view_matrix_name = name;
@@ -137,7 +137,7 @@ void Mesh::set_model_view_matrix_name(std::string name) {
 		model_view_matrix_name = "model_view_matrix";
 }
 
-void Mesh::set_view_proj_matrix_name(std::string name) {
+void Mesh::set_view_proj_matrix_name(const std::string& name) {
 
 	if(name.length() > 0)
 		view_proj_matrix_name = name;
@@ -145,7 +145,7 @@ void Mesh::set_view_proj_matrix_name(std::string name) {
 		view_proj_matrix_name = "view_proj_matrix";
 }
 
-void Mesh::set_model_view_proj_name(std::string name) {
+void Mesh::set_model_view_proj_name(const std::string& name) {
 
 	if(name.length() > 0)
 		model_view_projection_matrix_name = name;
@@ -153,7 +153,7 @@ void Mesh::set_model_view_proj_name(std::string name) {
 		model_view_projection_matrix_name = "model_view_proj_matrix";
 }
 
-void Mesh::set_normal_matrix_name(std::string name) {
+void Mesh::set_normal_matrix_name(const std::string& name) {
 
 	if(name.length() > 0)
 		normal_matrix_name = name;
@@ -161,98 +161,98 @@ void Mesh::set_normal_matrix_name(std::string name) {
 		normal_matrix_name = "normal_matrix";
 }
 
-void Mesh::set_ambient_color_name(std::string name) {
+void Mesh::set_ambient_color_name(const std::string& name) {
 	if(name.length() > 0)
 		ambient_color_name = name;
 	else
 		ambient_color_name = "color_ambient";
 }
 
-void Mesh::set_diffuse_color_name(std::string name) {
+void Mesh::set_diffuse_color_name(const std::string& name) {
 	if(name.length() > 0)
 		diffuse_color_name = name;
 	else
 		diffuse_color_name = "color_diffuse";
 }
 
-void Mesh::set_specular_color_name(std::string name) {
+void Mesh::set_specular_color_name(const std::string& name) {
 	if(name.length() > 0)
 		specular_color_name = name;
 	else
 		specular_color_name = "color_specular";
 }
 
-void Mesh::set_shininess_name(std::string name) {
+void Mesh::set_shininess_name(const std::string& name) {
 	if(name.length() > 0)
 		shininess_name = name;
 	else
 		shininess_name = "shininess_name";
 }
 
-void Mesh::set_shininess_strength_name(std::string name) {
+void Mesh::set_shininess_strength_name(const std::string& name) {
 	if(name.length() > 0)
 		shininess_strength_name = name;
 	else
 		shininess_strength_name = "shininess_strength";
 }
 
-void Mesh::set_ambient_texture_name(std::string name) {
+void Mesh::set_ambient_texture_name(const std::string& name) {
 	if(name.length() > 0)
 		ambient_texture_name = name;
 	else
 		ambient_texture_name = "texture_ambient";
 }
 
-void Mesh::set_diffuse_texture_name(std::string name) {
+void Mesh::set_diffuse_texture_name(const std::string& name) {
 	if(name.length() > 0)
 		diffuse_texture_name = name;
 	else
 		diffuse_texture_name = "texture_diffuse";
 }
 
-void Mesh::set_specular_texture_name(std::string name) {
+void Mesh::set_specular_texture_name(const std::string& name) {
 	if(name.length() > 0)
 		specular_texture_name = name;
 	else
 		specular_texture_name = "texture_specular";
 }
 
-void Mesh::set_shininess_texture_name(std::string name) {
+void Mesh::set_shininess_texture_name(const std::string& name) {
 	if(name.length() > 0)
 		shininess_texture_name = name;
 	else
 		shininess_texture_name = "texture_shininess";
 }
 
-void Mesh::set_emissive_texture_name(std::string name) {
+void Mesh::set_emissive_texture_name(const std::string& name) {
 	if(name.length() > 0)
 		emissive_texture_name = name;
 	else
 		emissive_texture_name = "texture_emissive";
 }
 
-void Mesh::set_normals_texture_name(std::string name) {
+void Mesh::set_normals_texture_name(const std::string& name) {
 	if(name.length() > 0)
 		normals_texture_name = name;
 	else
 		normals_texture_name = "texture_normals";
 }
 
-void Mesh::set_displacement_texture_name(std::string name) {
+void Mesh::set_displacement_texture_name(const std::string& name) {
 	if(name.length() > 0)
 		displacement_texture_name = name;
 	else
 		displacement_texture_name = "texture_displacement";
 }
 
-void Mesh::set_opacity_texture_name(std::string name) {
+void Mesh::set_opacity_texture_name(const std::string& name) {
 	if(name.length() > 0)
 		opacity_texture_name = name;
 	else
 		opacity_texture_name = "texture_opacity";
 }
 
-void Mesh::set_lightmap_texture_name(std::string name) {
+void Mesh::set_lightmap_texture_name(const std::string& name) {
 	if(name.length() > 0)
 		lightmap_texture_name = name;
 	else

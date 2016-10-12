@@ -356,35 +356,35 @@ public:
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "model_matrix"
 	 */
-	EXPORT void set_model_matrix_name(std::string name);
+	EXPORT void set_model_matrix_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the view matrix in the shader
 	 * @param name The name of the view matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "view_matrix"
 	 */
-	EXPORT void set_view_matrix_name(std::string name);
+	EXPORT void set_view_matrix_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the projection matrix in the shader
 	 * @param name The name of the projection matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "proj_matrix"
 	 */
-	EXPORT void set_projection_matrix_name(std::string name);
+	EXPORT void set_projection_matrix_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the model-view matrix in the shader
 	 * @param name The name of the model-view matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "model_view_matrix"
 	 */
-	EXPORT void set_model_view_matrix_name(std::string name);
+	EXPORT void set_model_view_matrix_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the view-projection matrix in the shader
 	 * @param name The name of the view-projection matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "view_proj_matrix"
 	 */
-	EXPORT void set_view_proj_matrix_name(std::string name);
+	EXPORT void set_view_proj_matrix_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the model-view-projection matrix
 	 * 	in the shader
@@ -392,35 +392,35 @@ public:
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "model_view_proj_matrix"
 	 */
-	EXPORT void set_model_view_proj_name(std::string name);
+	EXPORT void set_model_view_proj_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the normal matrix in the shader
 	 * @param name The name of the normal matrix.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "normal_matrix"
 	 */
-	EXPORT void set_normal_matrix_name(std::string normal_matrix_name);
+	EXPORT void set_normal_matrix_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the ambient color in the shader
 	 * @param name The name of the ambient color component.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "color_ambient"
 	 */
-	EXPORT void set_ambient_color_name(std::string name);
+	EXPORT void set_ambient_color_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the diffuse color in the shader
 	 * @param name The name of the diffuse color component.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "color_diffuse"
 	 */
-	EXPORT void set_diffuse_color_name(std::string name);
+	EXPORT void set_diffuse_color_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the specular color in the shader
 	 * @param name The name of the specular color component.
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "color_specular"
 	 */
-	EXPORT void set_specular_color_name(std::string name);
+	EXPORT void set_specular_color_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the shininess of the material
 	 * 	in the shader
@@ -428,7 +428,7 @@ public:
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "shininess"
 	 */
-	EXPORT void set_shininess_name(std::string name);
+	EXPORT void set_shininess_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the shininess strength of the material
 	 * 	in the shader
@@ -436,61 +436,61 @@ public:
 	 * 	The name is reset if string is empty.
 	 * @note Default value is "shininess_strength"
 	 */
-	EXPORT void set_shininess_strength_name(std::string name);
+	EXPORT void set_shininess_strength_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the ambient texture in the shader
 	 * @param name The name of the ambient texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_ambient_texture_name(std::string name);
+	EXPORT void set_ambient_texture_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the diffuse texture in the shader
 	 * @param name The name of the diffuse texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_diffuse_texture_name(std::string name);
+	EXPORT void set_diffuse_texture_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the specular texture in the shader
 	 * @param name The name of the specular texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_specular_texture_name(std::string name);
+	EXPORT void set_specular_texture_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the shininess texture in the shader
 	 * @param name The name of the shininess texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_shininess_texture_name(std::string name);
+	EXPORT void set_shininess_texture_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the emissive texture in the shader
 	 * @param name The name of the emissive texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_emissive_texture_name(std::string name);
+	EXPORT void set_emissive_texture_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the normals texture in the shader
 	 * @param name The name of the normals texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_normals_texture_name(std::string name);
+	EXPORT void set_normals_texture_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the displacement texture in the shader
 	 * @param name The name of the displacement texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_displacement_texture_name(std::string name);
+	EXPORT void set_displacement_texture_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the opacity texture in the shader
 	 * @param name The name of the opacity texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_opacity_texture_name(std::string name);
+	EXPORT void set_opacity_texture_name(const std::string& name);
 	/**
 	 * @brief Sets the name of the lightmap texture in the shader
 	 * @param name The name of the lightmap texture.
 	 * 	The name is reset if string is empty.
 	 */
-	EXPORT void set_lightmap_texture_name(std::string name);
+	EXPORT void set_lightmap_texture_name(const std::string& name);
 
 	/**
 	 * @brief Loads vertices into memory

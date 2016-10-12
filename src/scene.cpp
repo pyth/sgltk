@@ -31,7 +31,7 @@ Scene::~Scene() {
 	importer.FreeScene();
 }
 
-bool Scene::load(std::string filename) {
+bool Scene::load(const std::string& filename) {
 	unsigned int flags = aiProcess_GenSmoothNormals |
 			     aiProcess_Triangulate |
 			     aiProcess_CalcTangentSpace |
@@ -126,56 +126,56 @@ bool Scene::setup_camera(Camera *camera, CAMERA_TYPE type) {
 	return true;
 }
 
-void Scene::set_position_name(std::string name) {
+void Scene::set_position_name(const std::string& name) {
 	if(name.length() == 0)
 		position_name = "pos_in";
 
 	position_name = name;
 }
 
-void Scene::set_normal_name(std::string name) {
+void Scene::set_normal_name(const std::string& name) {
 	if(name.length() == 0)
 		normal_name = "norm_in";
 
 	normal_name = name;
 }
 
-void Scene::set_tangent_name(std::string name) {
+void Scene::set_tangent_name(const std::string& name) {
 	if(name.length() == 0)
 		tangent_name = "tang_in";
 
 	tangent_name = name;
 }
 
-void Scene::set_color_name(std::string name) {
+void Scene::set_color_name(const std::string& name) {
 	if(name.length() == 0)
 		color_name = "col_in";
 
 	color_name = name;
 }
 
-void Scene::set_texture_coordinates_name(std::string name) {
+void Scene::set_texture_coordinates_name(const std::string& name) {
 	if(name.length() == 0)
 		texture_coordinates_name = "tex_coord_in";
 
 	texture_coordinates_name = name;
 }
 
-void Scene::set_bone_ids_name(std::string name) {
+void Scene::set_bone_ids_name(const std::string& name) {
 	if(name.length() == 0)
 		bone_ids_name = "bone_ids_in";
 
 	bone_ids_name = name;
 }
 
-void Scene::set_bone_weights_name(std::string name) {
+void Scene::set_bone_weights_name(const std::string& name) {
 	if(name.length() == 0)
 		bone_weights_name = "bone_weights_in";
 
 	bone_weights_name = name;
 }
 
-void sgltk::Scene::set_bone_array_name(std::string name) {
+void sgltk::Scene::set_bone_array_name(const std::string& name) {
 	if(name.length() == 0)
 		bone_array_name = "bone_array";
 
@@ -418,6 +418,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 
 	//ambient textures
 	num_textures = mat->GetTextureCount(aiTextureType_AMBIENT);
+	mesh_tmp->textures_ambient.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_AMBIENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -425,11 +426,12 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_ambient.push_back(texture);
+		mesh_tmp->textures_ambient[i] = texture;
 	}
 
 	//diffuse textures
 	num_textures = mat->GetTextureCount(aiTextureType_DIFFUSE);
+	mesh_tmp->textures_diffuse.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_DIFFUSE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -437,11 +439,12 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_diffuse.push_back(texture);
+		mesh_tmp->textures_diffuse[i] = texture;
 	}
 
 	//specular textures
 	num_textures = mat->GetTextureCount(aiTextureType_SPECULAR);
+	mesh_tmp->textures_specular.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_SPECULAR, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -449,11 +452,12 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_specular.push_back(texture);
+		mesh_tmp->textures_specular[i] = texture;
 	}
 
 	//shininess textures
 	num_textures = mat->GetTextureCount(aiTextureType_SHININESS);
+	mesh_tmp->textures_shininess.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_SHININESS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -461,11 +465,12 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_shininess.push_back(texture);
+		mesh_tmp->textures_shininess[i] = texture;
 	}
 
 	//emissive textures
 	num_textures = mat->GetTextureCount(aiTextureType_EMISSIVE);
+	mesh_tmp->textures_emissive.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_EMISSIVE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -473,11 +478,12 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_emissive.push_back(texture);
+		mesh_tmp->textures_emissive[i] = texture;
 	}
 
 	//normals textures
 	num_textures = mat->GetTextureCount(aiTextureType_NORMALS);
+	mesh_tmp->textures_normals.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_NORMALS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -485,11 +491,12 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_normals.push_back(texture);
+		mesh_tmp->textures_normals[i] = texture;
 	}
 
 	//displacement textures
 	num_textures = mat->GetTextureCount(aiTextureType_DISPLACEMENT);
+	mesh_tmp->textures_displacement.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_DISPLACEMENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -497,11 +504,12 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_displacement.push_back(texture);
+		mesh_tmp->textures_displacement[i] = texture;
 	}
 
 	//opacity textures
 	num_textures = mat->GetTextureCount(aiTextureType_OPACITY);
+	mesh_tmp->textures_opacity.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_OPACITY, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -509,11 +517,12 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_opacity.push_back(texture);
+		mesh_tmp->textures_opacity[i] = texture;
 	}
 
 	//lightmap textures
 	num_textures = mat->GetTextureCount(aiTextureType_LIGHTMAP);
+	mesh_tmp->textures_lightmap.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_LIGHTMAP, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -521,7 +530,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_lightmap.push_back(texture);
+		mesh_tmp->textures_lightmap[i] = texture;
 	}
 
 	return mesh_tmp;

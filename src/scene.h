@@ -83,7 +83,7 @@ class Scene {
 		 *	 add_path function will be searched in addition to the
 		 *	 current working directory.
 		 */
-		EXPORT bool load(std::string filename);
+		EXPORT bool load(const std::string& filename);
 		/**
 		 * @brief Specifies the shader to use to render the mesh
 		 * @param shader The shader to be used to render the mesh
@@ -111,49 +111,49 @@ class Scene {
 		 * @param name The new vertex attribute name. An empty string resets
 		 *		the name to the default value "pos_in"
 		 */
-		EXPORT void set_position_name(std::string name);
+		EXPORT void set_position_name(const std::string& name);
 		/**
 		 * @brief Sets the normal vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets
 		 *		the name to the default value "norm_in"
 		 */
-		EXPORT void set_normal_name(std::string name);
+		EXPORT void set_normal_name(const std::string& name);
 		/**
 		 * @brief Sets the tangent vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets
 		 *		the name to the default value "tang_in"
 		 */
-		EXPORT void set_tangent_name(std::string name);
+		EXPORT void set_tangent_name(const std::string& name);
 		/**
 		 * @brief Sets the color vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets
 		 *		the name to the default value "col_in"
 		 */
-		EXPORT void set_color_name(std::string name);
+		EXPORT void set_color_name(const std::string& name);
 		/**
 		 * @brief Sets the texture coordinates vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets
 		 *		the name to the default value "tex_coord_in"
 		 */
-		EXPORT void set_texture_coordinates_name(std::string name);
+		EXPORT void set_texture_coordinates_name(const std::string& name);
 		/**
 		 * @brief Sets the bone ids vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets
 		 *		the name to the default value "bone_ids_in"
 		 */
-		EXPORT void set_bone_ids_name(std::string name);
+		EXPORT void set_bone_ids_name(const std::string& name);
 		/**
 		 * @brief Sets the bone weights vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets
 		 *		the name to the default value "bone_weights_in"
 		 */
-		EXPORT void set_bone_weights_name(std::string name);
+		EXPORT void set_bone_weights_name(const std::string& name);
 		/**
 		* @brief Sets the bone array uniform name in the shader
 		* @param name The new uniform name. An empty string resets
 		*		the name to the default value "bone_array"
 		*/
-		EXPORT void set_bone_array_name(std::string name);
+		EXPORT void set_bone_array_name(const std::string& name);
 		/**
 		 * @brief Sets the animation speed.
 		 * @param speed The speed multiplier
