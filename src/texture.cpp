@@ -100,7 +100,6 @@ void Texture::create_empty(unsigned int res_x,
 			   GLenum internal_format,
 			   GLenum type,
 			   GLenum format) {
-	bind();
 	width = res_x;
 	height = res_y;
 	bind();

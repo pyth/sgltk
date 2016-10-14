@@ -166,6 +166,22 @@ class Scene {
 		 */
 		EXPORT void attach_texture(const std::string& name, Texture *texture);
 		/**
+		 * @brief Sets a texture parameter for all textures in the scene except
+		 * 	  those attached using attach_texture or contained in the
+		 * 	  textures_misc vector of a mesh.
+		 * @param name The name of the texture parameter
+		 * @param parameter The parameter value
+		 */
+		EXPORT void set_texture_parameter(GLenum name, int parameter);
+		/**
+		 * @brief Sets a texture parameter for all textures in the scene except
+		 * 	  those attached using attach_texture or contained in the
+		 * 	  textures_misc vector of a mesh.
+		 * @param name The name of the texture parameter
+		 * @param parameter The parameter value
+		 */
+		EXPORT void set_texture_parameter(GLenum name, float parameter);
+		/**
 		 * @brief Calculates a new bone pose based on the animation time
 		 * @param time The current animation time. If time is greater than
 		 * 	the duration of the animation 

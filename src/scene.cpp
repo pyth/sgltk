@@ -651,6 +651,70 @@ void Scene::attach_texture(const std::string& name, Texture *texture) {
 	}
 }
 
+void Scene::set_texture_parameter(GLenum name, int parameter) {
+	for(Mesh *mesh : meshes) {
+		for(Texture *texture : mesh->textures_ambient) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_diffuse) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_specular) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_shininess) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_emissive) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_normals) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_displacement) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_opacity) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_lightmap) {
+			texture->set_parameter(name, parameter);
+		}
+	}
+}
+
+void Scene::set_texture_parameter(GLenum name, float parameter) {
+	for(Mesh *mesh : meshes) {
+		for(Texture *texture : mesh->textures_ambient) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_diffuse) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_specular) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_shininess) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_emissive) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_normals) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_displacement) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_opacity) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_lightmap) {
+			texture->set_parameter(name, parameter);
+		}
+	}
+}
+
 bool Scene::animate(float time) {
 	if(!scene->HasAnimations())
 		return false;
