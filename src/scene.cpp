@@ -110,7 +110,7 @@ bool Scene::setup_camera(glm::mat4 *view_matrix,
 bool Scene::setup_camera(Camera *camera, CAMERA_TYPE type) {
 	bool ret;
 	for(Mesh *mesh : meshes) {
-		ret = mesh->setup_camera(camera);
+		ret = mesh->setup_camera(camera, type);
 		if(!ret)
 			return false;
 	}
