@@ -40,7 +40,7 @@ public:
 	 */
 	glm::mat4 projection_matrix_ortho;
 	/**
-	 * @brief The field of view
+	 * @brief The field of view in radians
 	 */
 	float fovy;
 	/**
@@ -91,7 +91,7 @@ public:
 	 * @param pos The camera position
 	 * @param dir The view direction
 	 * @param up The up vector
-	 * @param fovy The field of view
+	 * @param fovy The field of view in radians
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane
@@ -122,14 +122,14 @@ public:
 	EXPORT void update_projection_matrix(float width, float height);
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param fovy The field of view
+	 * @param fovy The field of view in radians
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 */
 	EXPORT void update_projection_matrix(float fovy, float width, float height);
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param fovy The field of view
+	 * @param fovy The field of view in radians
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane
@@ -138,7 +138,7 @@ public:
 				      float near_plane);
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param fovy The field of view
+	 * @param fovy The field of view in radians
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane

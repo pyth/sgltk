@@ -9,7 +9,7 @@ Camera::Camera() {
 	dir = glm::vec3(0, 0, -1);
 	up = glm::vec3(0, 1, 0);
 	right = glm::normalize(glm::cross(glm::vec3(dir), glm::vec3(up)));
-	fovy = 70.0f;
+	fovy = M_PI;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
 
@@ -28,7 +28,7 @@ Camera::Camera(glm::vec3 pos,
 	this->dir = glm::normalize(dir);
 	this->up = glm::normalize(up);
 	right = glm::normalize(glm::cross(dir, up));
-	fovy = 70.0f;
+	fovy = M_PI;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
 
@@ -206,7 +206,7 @@ bool Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
 		far_x = width / 2;
 		far_y = height / 2;
 	} else {
-		far_y = 0.5f * glm::tan(glm::radians(fovy)) * far_plane;
+		far_y = 0.5f * glm::tan(fovy) * far_plane;
 		far_x = far_y * 0.5f * width / height;
 	}
 
