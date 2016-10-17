@@ -3,6 +3,7 @@
 
 #include "app.h"
 #include "mesh.h"
+#include "camera.h"
 #include "shader.h"
 #include "image.h"
 #include "texture.h"
@@ -13,20 +14,23 @@
 
 namespace sgltk {
 
-typedef struct Bone {
-	aiMatrix4x4 transformation;
-	aiMatrix4x4 offset;
-} Bone;
-
 /**
  * @class Scene
  * @brief Manages imported scenes
  */
 class Scene {
+	typedef struct Bone {
+		aiMatrix4x4 transformation;
+		aiMatrix4x4 offset;
+	} Bone;
+
 	static std::vector<std::string> paths;
 	Assimp::Importer importer;
 	const aiScene *scene;
 	Shader *shader;
+
+	glm::mat4 *view_matrix;
+	glm::mat4 *projection_matrix;
 
 	std::string position_name;
 	std::string normal_name;
@@ -36,9 +40,6 @@ class Scene {
 	std::string bone_ids_name;
 	std::string bone_weights_name;
 	std::string bone_array_name;
-	
-	glm::mat4 *view_matrix;
-	glm::mat4 *projection_matrix;
 
 	double ticks_per_second;
 	std::vector<Bone> bones;
@@ -47,21 +48,17 @@ class Scene {
 
 	std::map<std::string, unsigned int> mesh_map;
 
-	void animate_mesh(float time, aiAnimation *animation);
+	void set_vertex_attribute(Mesh *mesh);
 	void traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
 	void traverse_animation_nodes(float time, aiNode *node, aiMatrix4x4 parent_transformation);
 
-	Mesh *create_mesh(aiMesh *mesh);
+	Mesh *create_mesh(unsigned int index);
 	void compute_bounding_box();
-
-	static glm::vec2 interpolate_vector(glm::vec2 start, glm::vec2 end, float factor);
-	static glm::vec3 interpolate_vector(glm::vec3 start, glm::vec3 end, float factor);
-	static glm::vec4 interpolate_vector(glm::vec4 start, glm::vec4 end, float factor);
 
 	static aiVector3D interpolate_scaling(float time, aiNodeAnim *node);
 	static aiVector3D interpolate_translation(float time, aiNodeAnim *node);
 	static aiQuaternion interpolate_rotation(float time, aiNodeAnim *node);
-	static glm::mat4 ai_to_glm_mat4(aiMatrix4x4 *in);
+	static glm::mat4 ai_to_glm_mat4(const aiMatrix4x4& in);
 
 	public:
 		glm::mat4 model_matrix;
@@ -86,7 +83,7 @@ class Scene {
 		 *	 add_path function will be searched in addition to the
 		 *	 current working directory.
 		 */
-		EXPORT bool load(std::string filename);
+		EXPORT bool load(const std::string& filename);
 		/**
 		 * @brief Specifies the shader to use to render the mesh
 		 * @param shader The shader to be used to render the mesh
@@ -97,47 +94,110 @@ class Scene {
 		 *	  used by the meshes in the scene
 		 * @param view_matrix The view matrix
 		 * @param projection_matrix The projection matrix
+		 * @return Returns true if both pointers are not NULL pointers, flase otherwise
 		 */
-		EXPORT void setup_camera(glm::mat4 *view_matrix,
-				  glm::mat4 *projection_matrix);
+		EXPORT bool setup_camera(glm::mat4 *view_matrix,
+					 glm::mat4 *projection_matrix);
 		/**
-		 * @brief Sets the names of the vertex attribute variables
-		 *		in the shader. Pass a NULL for a name to keep
-		 *		it's value!
-		 * @param position_name The name of the position vector variable
-		 * @param normal_name The name of the normal vector variable
-		 * @param tangent_name The name of the tangent vector variable
-		 * @param color_name The name of the color vector variable
-		 * @param texture_coordinates_name The name of the texture coordinates
-		 *			variable
-		 * @param bone_ids_name The name of the bone id array
-		 * @param bone_weights_name The name of the bone weight array
-		 * @note A number starting at 0 will be appended to the
-		 *	 color_name and texture_coordinates_name strings you
-		 *	 provede. So if you set color_name to "color" the
-		 *	 corresponding shader input variables would have
-		 *	 to be "color0" for the first color channer,
-		 *	 "color1" for the second etc.
+		 * @brief Sets up the view and projection matrices that will be
+		 *	  used by the meshes in the scene
+		 * @param camera The camera to use
+		 * @param type The type of projection to use if the camera has more than one type
+		 * @return Returns true on success, false otherwise
 		 */
-		EXPORT void set_attribute_names(const char *position_name,
-					 const char *normal_name,
-					 const char *tangent_name,
-					 const char *color_name,
-					 const char *texture_coordinates_name,
-					 const char *bone_ids_name,
-					 const char *bone_weights_name);
+		EXPORT bool setup_camera(Camera *camera, sgltk::CAMERA_TYPE type = sgltk::PERSPECTIVE);
+		/**
+		 * @brief Sets the position vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "pos_in"
+		 */
+		EXPORT void set_position_name(const std::string& name);
+		/**
+		 * @brief Sets the normal vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "norm_in"
+		 */
+		EXPORT void set_normal_name(const std::string& name);
+		/**
+		 * @brief Sets the tangent vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "tang_in"
+		 */
+		EXPORT void set_tangent_name(const std::string& name);
+		/**
+		 * @brief Sets the color vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "col_in"
+		 */
+		EXPORT void set_color_name(const std::string& name);
+		/**
+		 * @brief Sets the texture coordinates vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "tex_coord_in"
+		 */
+		EXPORT void set_texture_coordinates_name(const std::string& name);
+		/**
+		 * @brief Sets the bone ids vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "bone_ids_in"
+		 */
+		EXPORT void set_bone_ids_name(const std::string& name);
+		/**
+		 * @brief Sets the bone weights vertex attribute name in the shader
+		 * @param name The new vertex attribute name. An empty string resets
+		 *		the name to the default value "bone_weights_in"
+		 */
+		EXPORT void set_bone_weights_name(const std::string& name);
+		/**
+		* @brief Sets the bone array uniform name in the shader
+		* @param name The new uniform name. An empty string resets
+		*		the name to the default value "bone_array"
+		*/
+		EXPORT void set_bone_array_name(const std::string& name);
 		/**
 		 * @brief Sets the animation speed.
 		 * @param speed The speed multiplier
 		 */
 		EXPORT void set_animation_speed(double speed);
 		/**
-		 * @brief Calculates new bone matrices based on the animation time
+		 * @brief Attaches a texture to every mesh of the scene
+		 * @param name The name of the texture in the shader
+		 * @param texture The texture to be bound when rendering the model
+		 */
+		EXPORT void attach_texture(const std::string& name, Texture *texture);
+		/**
+		 * @brief Sets a texture parameter for all textures in the scene except
+		 * 	  those attached using attach_texture or contained in the
+		 * 	  textures_misc vector of a mesh.
+		 * @param name The name of the texture parameter
+		 * @param parameter The parameter value
+		 */
+		EXPORT void set_texture_parameter(GLenum name, int parameter);
+		/**
+		 * @brief Sets a texture parameter for all textures in the scene except
+		 * 	  those attached using attach_texture or contained in the
+		 * 	  textures_misc vector of a mesh.
+		 * @param name The name of the texture parameter
+		 * @param parameter The parameter value
+		 */
+		EXPORT void set_texture_parameter(GLenum name, float parameter);
+		/**
+		 * @brief Calculates a new bone pose based on the animation time
 		 * @param time The current animation time. If time is greater than
 		 * 	the duration of the animation 
 		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT bool animate(float time);
+		/**
+		 * @brief Attaches the buffers and sets the model and normal
+		 * 		matrix vertex attributes
+		 * @param model_matrix The model matrices to be used for
+		 * 		instanced drawing
+		 * @param usage A hint as to how the buffer will be accessed.
+		 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
+		 */
+		EXPORT void setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
+							GLenum usage = GL_STATIC_DRAW);
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
 		 */
@@ -147,8 +207,13 @@ class Scene {
 		 * @param model_matrix The model matrix to use
 		 *	  (NULL to use the model_matrix member)
 		 */
-		EXPORT void draw(glm::mat4 *model_matrix);
-};
+		EXPORT void draw(const glm::mat4 *model_matrix);
+		/**
+		 * @brief Draws all associated meshes multiple times
+		 * @param num_instances The number of instances to be drawn
+		 */
+		EXPORT void draw_instanced(unsigned int num_instances);
+	};
 
 }
 

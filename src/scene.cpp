@@ -7,6 +7,7 @@ std::vector<std::string> Scene::paths = {"./"};
 Scene::Scene() {
 	scene = NULL;
 	shader = NULL;
+
 	view_matrix = NULL;
 	projection_matrix = NULL;
 
@@ -19,8 +20,7 @@ Scene::Scene() {
 	bone_weights_name = "bone_weights_in";
 	bone_array_name = "bone_array";
 
-	bounding_box.push_back(glm::vec3(0, 0, 0));
-	bounding_box.push_back(glm::vec3(0, 0, 0));
+	bounding_box = {glm::vec3(0, 0, 0), glm::vec3(0, 0, 0)};
 }
 
 Scene::~Scene() {
@@ -28,9 +28,10 @@ Scene::~Scene() {
 	bounding_box.clear();
 	bones.clear();
 	bone_map.clear();
+	importer.FreeScene();
 }
 
-bool Scene::load(std::string filename) {
+bool Scene::load(const std::string& filename) {
 	unsigned int flags = aiProcess_GenSmoothNormals |
 			     aiProcess_Triangulate |
 			     aiProcess_CalcTangentSpace |
@@ -45,6 +46,13 @@ bool Scene::load(std::string filename) {
 			if(scene)
 				break;
 		}
+	}
+
+	if(!shader) {
+		std::string error = std::string("No shader specified before"
+			"loading a scene");
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
 	}
 
 	if (!scene)
@@ -86,14 +94,130 @@ void Scene::compute_bounding_box() {
 	}
 }
 
-void Scene::setup_camera(glm::mat4 *view_matrix,
+bool Scene::setup_camera(glm::mat4 *view_matrix,
 			 glm::mat4 *projection_matrix) {
+	bool ret;
+	for(Mesh *mesh : meshes) {
+		ret = mesh->setup_camera(view_matrix, projection_matrix);
+		if(!ret)
+			return false;
+	}
 	this->view_matrix = view_matrix;
 	this->projection_matrix = projection_matrix;
+	return true;
+}
+
+bool Scene::setup_camera(Camera *camera, CAMERA_TYPE type) {
+	bool ret;
+	for(Mesh *mesh : meshes) {
+		ret = mesh->setup_camera(camera, type);
+		if(!ret)
+			return false;
+	}
+	view_matrix = view_matrix;
+	if(type == PERSPECTIVE)
+		projection_matrix = &camera->projection_matrix_persp;
+	else if(type == INF_PERSPECTIVE)
+		projection_matrix = &camera->projection_matrix_persp_inf;
+	else if(type == ORTHOGRAPHIC)
+		projection_matrix = &camera->projection_matrix_ortho;
+	else
+		return false;
+	return true;
+}
+
+void Scene::set_position_name(const std::string& name) {
+	if(name.length() == 0)
+		position_name = "pos_in";
+
+	position_name = name;
+}
+
+void Scene::set_normal_name(const std::string& name) {
+	if(name.length() == 0)
+		normal_name = "norm_in";
+
+	normal_name = name;
+}
+
+void Scene::set_tangent_name(const std::string& name) {
+	if(name.length() == 0)
+		tangent_name = "tang_in";
+
+	tangent_name = name;
+}
+
+void Scene::set_color_name(const std::string& name) {
+	if(name.length() == 0)
+		color_name = "col_in";
+
+	color_name = name;
+}
+
+void Scene::set_texture_coordinates_name(const std::string& name) {
+	if(name.length() == 0)
+		texture_coordinates_name = "tex_coord_in";
+
+	texture_coordinates_name = name;
+}
+
+void Scene::set_bone_ids_name(const std::string& name) {
+	if(name.length() == 0)
+		bone_ids_name = "bone_ids_in";
+
+	bone_ids_name = name;
+}
+
+void Scene::set_bone_weights_name(const std::string& name) {
+	if(name.length() == 0)
+		bone_weights_name = "bone_weights_in";
+
+	bone_weights_name = name;
+}
+
+void sgltk::Scene::set_bone_array_name(const std::string& name) {
+	if(name.length() == 0)
+		bone_array_name = "bone_array";
+
+	bone_array_name = name;
 }
 
 void Scene::setup_shader(Shader *shader) {
 	this->shader = shader;
+	for(Mesh *mesh : meshes) {
+		mesh->setup_shader(shader);
+		set_vertex_attribute(mesh);
+	}
+}
+
+void Scene::set_vertex_attribute(Mesh *mesh) {
+	unsigned int buf = 0;
+	mesh->set_vertex_attribute(position_name, buf++, 4, GL_FLOAT,
+				0, 0);
+	mesh->set_vertex_attribute(normal_name, buf++, 3, GL_FLOAT,
+				0, 0);
+	mesh->set_vertex_attribute(tangent_name, buf++, 4, GL_FLOAT,
+				0, 0);
+	mesh->set_vertex_attribute(bone_ids_name, buf++, BONES_PER_VERTEX,
+				GL_INT, 0, 0);
+	mesh->set_vertex_attribute(bone_weights_name, buf++,
+				BONES_PER_VERTEX, GL_FLOAT, 0, 0);
+
+	if(mesh->num_uv) {
+		for(unsigned int i = 0; i < mesh->num_uv; i++) {
+			mesh->set_vertex_attribute(
+				texture_coordinates_name + std::to_string(i),
+				buf++, 3, GL_FLOAT, 0,
+				(void *)(long)(i * mesh->num_vertices));
+		}
+	}
+	if(mesh->num_col) {
+		for(unsigned int i = 0; i < mesh->num_col; i++) {
+			mesh->set_vertex_attribute(
+				color_name + std::to_string(i), buf++, 4, GL_FLOAT, 0,
+				(void *)(long)(i * mesh->num_vertices));
+		}
+	}
 }
 
 void Scene::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) {
@@ -102,9 +226,9 @@ void Scene::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 		trafo = *parent_trafo * trafo;
 
 	for(unsigned int i = 0; i < start_node->mNumMeshes; i++) {
-		Mesh *mesh_tmp = create_mesh(scene->mMeshes[i]);
-		mesh_tmp->model_matrix = ai_to_glm_mat4(&trafo);
-		mesh_map[scene->mMeshes[i]->mName.C_Str()] = meshes.size();
+		Mesh *mesh_tmp = create_mesh(start_node->mMeshes[i]);
+		mesh_tmp->model_matrix = ai_to_glm_mat4(trafo);
+		mesh_map[scene->mMeshes[start_node->mMeshes[i]]->mName.C_Str()] = meshes.size();
 		meshes.push_back(mesh_tmp);
 	}
 
@@ -113,7 +237,8 @@ void Scene::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 	}
 }
 
-Mesh *Scene::create_mesh(aiMesh *mesh) {
+Mesh *Scene::create_mesh(unsigned int index) {
+	aiMesh *mesh = scene->mMeshes[index];
 	unsigned int num_uv = mesh->GetNumUVChannels();
 	unsigned int num_col = mesh->GetNumColorChannels();
 	std::vector<glm::vec4> position(mesh->mNumVertices);
@@ -219,59 +344,33 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 	// Mesh
 	//************************************
 	Mesh *mesh_tmp = new Mesh();
-	int pos_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(&position);
-	int norm_buf = mesh_tmp->attach_vertex_buffer<glm::vec3>(&normal);
-	int tan_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>(&tangent);
+	mesh_tmp->num_uv = num_uv;
+	mesh_tmp->num_col = num_col;
+	mesh_tmp->attach_vertex_buffer<glm::vec4>(position);
+	mesh_tmp->attach_vertex_buffer<glm::vec3>(normal);
+	mesh_tmp->attach_vertex_buffer<glm::vec4>(tangent);
 
-	int id_buf = mesh_tmp->attach_vertex_buffer<int>(bone_ids.data(),
+	mesh_tmp->attach_vertex_buffer<int>(bone_ids.data(),
 					bone_ids.size());
-	int weight_buf = mesh_tmp->attach_vertex_buffer<float>(bone_weights.data(),
+	mesh_tmp->attach_vertex_buffer<float>(bone_weights.data(),
 					bone_weights.size());
 
-	int tc_buf = -1;
-	int col_buf = -1;
 	if(num_uv) {
-		tc_buf = mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord[0].data(),
+		mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord[0].data(),
 					mesh->mNumVertices * num_uv);
 	}
 	if(num_col) {
-		col_buf = mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col[0].data(),
+		mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col[0].data(),
 					mesh->mNumVertices * num_col);
 	}
-	mesh_tmp->compute_bounding_box(&position, 0);
-	mesh_tmp->attach_index_buffer(&indices);
-	mesh_tmp->setup_shader(shader);
-	mesh_tmp->setup_camera(view_matrix, projection_matrix);
-
-	//************************************
-	// Set attribute pointers
-	//************************************
-	mesh_tmp->set_vertex_attribute(position_name, pos_buf, 4, GL_FLOAT,
-				0, 0);
-	mesh_tmp->set_vertex_attribute(normal_name, norm_buf, 3, GL_FLOAT,
-				0, 0);
-	mesh_tmp->set_vertex_attribute(tangent_name, tan_buf, 4, GL_FLOAT,
-				0, 0);
-	mesh_tmp->set_vertex_attribute(bone_ids_name, id_buf, BONES_PER_VERTEX,
-				GL_INT, 0, 0);
-	mesh_tmp->set_vertex_attribute(bone_weights_name, weight_buf,
-				BONES_PER_VERTEX, GL_FLOAT, 0, 0);
-
-	if(num_uv) {
-		for(unsigned int i = 0; i < num_uv; i++) {
-			mesh_tmp->set_vertex_attribute(
-				texture_coordinates_name + std::to_string(i),
-				tc_buf, 3, GL_FLOAT, 0,
-				(void *)(long)(i * mesh->mNumVertices));
-		}
+	mesh_tmp->compute_bounding_box(position, 0);
+	mesh_tmp->attach_index_buffer(indices);
+	if(shader) {
+		mesh_tmp->setup_shader(shader);
+		set_vertex_attribute(mesh_tmp);
 	}
-	if(num_col) {
-		for(unsigned int i = 0; i < num_col; i++) {
-			mesh_tmp->set_vertex_attribute(
-				color_name + std::to_string(i), col_buf, 4, GL_FLOAT, 0,
-				(void *)(long)(i * mesh->mNumVertices));
-		}
-	}
+	if(view_matrix && projection_matrix)
+		mesh_tmp->setup_camera(view_matrix, projection_matrix);
 
 	//************************************
 	// Materials
@@ -319,6 +418,7 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 
 	//ambient textures
 	num_textures = mat->GetTextureCount(aiTextureType_AMBIENT);
+	mesh_tmp->textures_ambient.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_AMBIENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -326,11 +426,12 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_ambient.push_back(texture);
+		mesh_tmp->textures_ambient[i] = texture;
 	}
 
 	//diffuse textures
 	num_textures = mat->GetTextureCount(aiTextureType_DIFFUSE);
+	mesh_tmp->textures_diffuse.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_DIFFUSE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -338,11 +439,12 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_diffuse.push_back(texture);
+		mesh_tmp->textures_diffuse[i] = texture;
 	}
 
 	//specular textures
 	num_textures = mat->GetTextureCount(aiTextureType_SPECULAR);
+	mesh_tmp->textures_specular.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_SPECULAR, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -350,11 +452,12 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_specular.push_back(texture);
+		mesh_tmp->textures_specular[i] = texture;
 	}
 
 	//shininess textures
 	num_textures = mat->GetTextureCount(aiTextureType_SHININESS);
+	mesh_tmp->textures_shininess.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_SHININESS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -362,11 +465,12 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_shininess.push_back(texture);
+		mesh_tmp->textures_shininess[i] = texture;
 	}
 
-	//emmisive textures
+	//emissive textures
 	num_textures = mat->GetTextureCount(aiTextureType_EMISSIVE);
+	mesh_tmp->textures_emissive.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_EMISSIVE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -374,11 +478,12 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_emmisive.push_back(texture);
+		mesh_tmp->textures_emissive[i] = texture;
 	}
 
 	//normals textures
 	num_textures = mat->GetTextureCount(aiTextureType_NORMALS);
+	mesh_tmp->textures_normals.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_NORMALS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -386,11 +491,12 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_normals.push_back(texture);
+		mesh_tmp->textures_normals[i] = texture;
 	}
 
 	//displacement textures
 	num_textures = mat->GetTextureCount(aiTextureType_DISPLACEMENT);
+	mesh_tmp->textures_displacement.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_DISPLACEMENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -398,11 +504,12 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_displacement.push_back(texture);
+		mesh_tmp->textures_displacement[i] = texture;
 	}
 
 	//opacity textures
 	num_textures = mat->GetTextureCount(aiTextureType_OPACITY);
+	mesh_tmp->textures_opacity.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_OPACITY, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -410,11 +517,12 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_opacity.push_back(texture);
+		mesh_tmp->textures_opacity[i] = texture;
 	}
 
 	//lightmap textures
 	num_textures = mat->GetTextureCount(aiTextureType_LIGHTMAP);
+	mesh_tmp->textures_lightmap.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_LIGHTMAP, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -422,7 +530,7 @@ Mesh *Scene::create_mesh(aiMesh *mesh) {
 			texture = new Texture(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_lightmap.push_back(texture);
+		mesh_tmp->textures_lightmap[i] = texture;
 	}
 
 	return mesh_tmp;
@@ -537,6 +645,76 @@ aiQuaternion Scene::interpolate_rotation(float time, aiNodeAnim *node) {
 	return rot.Normalize();
 }
 
+void Scene::attach_texture(const std::string& name, Texture *texture) {
+	for(Mesh *mesh : meshes) {
+		mesh->textures_misc.push_back(std::make_pair(name, texture));
+	}
+}
+
+void Scene::set_texture_parameter(GLenum name, int parameter) {
+	for(Mesh *mesh : meshes) {
+		for(Texture *texture : mesh->textures_ambient) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_diffuse) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_specular) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_shininess) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_emissive) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_normals) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_displacement) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_opacity) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_lightmap) {
+			texture->set_parameter(name, parameter);
+		}
+	}
+}
+
+void Scene::set_texture_parameter(GLenum name, float parameter) {
+	for(Mesh *mesh : meshes) {
+		for(Texture *texture : mesh->textures_ambient) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_diffuse) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_specular) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_shininess) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_emissive) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_normals) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_displacement) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_opacity) {
+			texture->set_parameter(name, parameter);
+		}
+		for(Texture *texture : mesh->textures_lightmap) {
+			texture->set_parameter(name, parameter);
+		}
+	}
+}
+
 bool Scene::animate(float time) {
 	if(!scene->HasAnimations())
 		return false;
@@ -549,13 +727,12 @@ bool Scene::animate(float time) {
 					scene->mAnimations[0]->mDuration);
 	traverse_animation_nodes((float)animation_time, scene->mRootNode, mat);
 	for(unsigned int i = 0; i < bones.size(); i++) {
-		trafos[i] = ai_to_glm_mat4(&bones[i].transformation);
+		trafos[i] = ai_to_glm_mat4(bones[i].transformation);
 	}
 	shader->bind();
-	GLint loc = glGetUniformLocation(shader->program, bone_array_name.c_str());
+	int loc = shader->get_uniform_location(bone_array_name);
 	if(loc >= 0) {
-		glUniformMatrix4fv(loc, bones.size(), GL_FALSE,
-				glm::value_ptr(trafos[0]));
+		shader->set_uniform(loc, false, trafos);
 	} else {
 		return false;
 	}
@@ -563,11 +740,45 @@ bool Scene::animate(float time) {
 	return true;
 }
 
+void Scene::setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
+								GLenum usage) {
+	if(!shader) {
+		std::string error = std::string("No shader specified before a"
+			"call to the setup_instanced_matrix function");
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
+	for(Mesh *mesh : meshes) {
+		std::vector<glm::mat3> normal_matrix(model_matrix.size());
+		for(unsigned int j = 0; j < model_matrix.size(); j++) {
+			normal_matrix[j] = glm::mat3(glm::transpose(glm::inverse(model_matrix[j])));
+		}
+		int model_buf = mesh->attach_vertex_buffer<glm::mat4>(model_matrix, usage);
+		int normal_buf = mesh->attach_vertex_buffer<glm::mat3>(normal_matrix, usage);
+		int model_loc = mesh->shader->get_attribute_location(mesh->model_matrix_name);
+		int normal_loc = mesh->shader->get_attribute_location(mesh->normal_matrix_name);
+		for(int j = 0; j < 4; j++) {
+			mesh->set_vertex_attribute(model_loc + j,
+							model_buf,
+							4, GL_FLOAT,
+							sizeof(glm::mat4),
+							(GLvoid *)(j * sizeof(glm::vec4)), 1);
+		}
+		for(int j = 0; j < 3; j++) {
+			mesh->set_vertex_attribute(normal_loc + j,
+							normal_buf,
+							3, GL_FLOAT,
+							sizeof(glm::mat3),
+							(GLvoid *)(j * sizeof(glm::vec3)), 1);
+		}
+	}
+}
+
 void Scene::draw() {
 	draw(NULL);
 }
 
-void Scene::draw(glm::mat4 *model_matrix) {
+void Scene::draw(const glm::mat4 *model_matrix) {
 	for(unsigned int i = 0; i < meshes.size(); i++) {
 		if(model_matrix) {
 			glm::mat4 matrix_tmp = *model_matrix * meshes[i]->model_matrix;
@@ -575,6 +786,15 @@ void Scene::draw(glm::mat4 *model_matrix) {
 		}
 		else
 			meshes[i]->draw(GL_TRIANGLES);
+	}
+}
+
+void Scene::draw_instanced(unsigned int num_instances) {
+	if(num_instances == 0)
+		return;
+
+	for(Mesh *mesh : meshes) {
+		mesh->draw_instanced(GL_TRIANGLES, 0, num_instances);
 	}
 }
 
@@ -586,28 +806,28 @@ void Scene::add_path(std::string path) {
 		Scene::paths.push_back(path);
 }
 
-glm::mat4 Scene::ai_to_glm_mat4(aiMatrix4x4 *in) {
+glm::mat4 Scene::ai_to_glm_mat4(const aiMatrix4x4& in) {
 	glm::mat4 ret;
 
-	ret[0][0] = in->a1;
-	ret[0][1] = in->b1;
-	ret[0][2] = in->c1;
-	ret[0][3] = in->d1;
+	ret[0][0] = in.a1;
+	ret[0][1] = in.b1;
+	ret[0][2] = in.c1;
+	ret[0][3] = in.d1;
 
-	ret[1][0] = in->a2;
-	ret[1][1] = in->b2;
-	ret[1][2] = in->c2;
-	ret[1][3] = in->d2;
+	ret[1][0] = in.a2;
+	ret[1][1] = in.b2;
+	ret[1][2] = in.c2;
+	ret[1][3] = in.d2;
 
-	ret[2][0] = in->a3;
-	ret[2][1] = in->b3;
-	ret[2][2] = in->c3;
-	ret[2][3] = in->d3;
+	ret[2][0] = in.a3;
+	ret[2][1] = in.b3;
+	ret[2][2] = in.c3;
+	ret[2][3] = in.d3;
 
-	ret[3][0] = in->a4;
-	ret[3][1] = in->b4;
-	ret[3][2] = in->c4;
-	ret[3][3] = in->d4;
+	ret[3][0] = in.a4;
+	ret[3][1] = in.b4;
+	ret[3][2] = in.c4;
+	ret[3][3] = in.d4;
 
 	return ret;
 }

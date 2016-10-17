@@ -15,7 +15,12 @@ Image::Image(std::string filename) {
 	image = NULL;
 	width = 0;
 	height = 0;
-	load(filename);
+	if(!load(filename)) {
+		std::string error = std::string("Error loading image: ") +
+			SDL_GetError();
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
 }
 
 Image::~Image() {
@@ -86,8 +91,31 @@ bool Image::load(std::string filename) {
 }
 
 #ifdef HAVE_SDL_TTF_H
-bool Image::create_text(std::string text, TTF_Font *font, int size,
-			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+TTF_Font *Image::open_font_file(std::string font_file, unsigned int size) {
+	TTF_Font *font;
+	if((font_file.length() > 1 && font_file[0] == '/') ||
+			(font_file.length() > 2 && font_file[1] == ':')) {
+		//absolute path
+		font = TTF_OpenFont(font_file.c_str(), size);
+	} else {
+		//relative path
+		for(unsigned int i = 0; i < paths.size(); i++) {
+			font = TTF_OpenFont((paths[i] + font_file).c_str(), size);
+			if(font)
+				break;
+		}
+	}
+	return font;
+}
+
+void Image::close_font_file(TTF_Font *font_file) {
+	TTF_CloseFont(font_file);
+}
+
+bool Image::create_text(std::string text, TTF_Font *font, Uint8 r, Uint8 g,
+								Uint8 b, Uint8 a) {
+	if (!font)
+		return false;
 	if(image) {
 		SDL_FreeSurface(image);
 		image = NULL;
@@ -103,60 +131,52 @@ bool Image::create_text(std::string text, TTF_Font *font, int size,
 	return true;
 }
 
-bool Image::create_text(std::string text, std::string font_file, int size,
+bool Image::create_text(std::string text, std::string font_file, unsigned int size,
 			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
-	TTF_Font *font;
-	if((font_file.length() > 1 && font_file[0] == '/') ||
-			(font_file.length() > 2 && font_file[1] == ':')) {
-		//absolute path
-		font = TTF_OpenFont(font_file.c_str(), size);
-	} else {
-		//relative path
-		for(unsigned int i = 0; i < paths.size(); i++) {
-			font = TTF_OpenFont((paths[i] + font_file).c_str(), size);
-			if(font)
-				break;
-		}
-	}
+	TTF_Font *font = open_font_file(font_file, size);
 	if(!font) {
 		App::error_string.push_back(std::string("TTF_OpenFont for ")
 				+ font_file + std::string(" failed."));
 		return false;
 	}
 
-	bool ret = create_text(text, font, size, r, g, b, a);
-	TTF_CloseFont(font);
-
+	bool ret = create_text(text, font, r, g, b, a);
+	close_font_file(font);
 	return ret;
 }
 #endif //HAVE_SDL_TTF_H
 
-bool Image::copy_from(const Image *src, int x, int y) {
+bool Image::copy_from(const Image& src, int x, int y) {
 	SDL_Rect rect;
 	rect.x = x;
 	rect.y = y;
-	return copy_from(src, &rect, NULL);
+	return copy_from(src, rect);
 }
 
-bool Image::copy_from(const Image *src, SDL_Rect *dst_rect) {
-	return copy_from(src, dst_rect, NULL);
-}
-
-bool Image::copy_from(const Image *src, SDL_Rect *dst_rect,
-		      SDL_Rect *src_rect) {
-	if(!src || !src->image) {
-		return false;
-	}
-
+bool Image::copy_from(const Image& src, SDL_Rect& dst_rect) {
 	if(!image) {
-		image = SDL_ConvertSurface(src->image, src->image->format,
-					   src->image->flags);
-		if(image) {
+		image = SDL_ConvertSurface(src.image, src.image->format,
+					   src.image->flags);
+		if(!image) {
 			return false;
 		}
 	}
-	if(SDL_BlitSurface(src->image, src_rect, image, dst_rect) < 0) {
-		SDL_FreeSurface(image);
+	if(SDL_BlitSurface(src.image, NULL, image, &dst_rect) < 0) {
+		return false;
+	}
+	return true;
+}
+
+bool Image::copy_from(const Image& src, SDL_Rect& dst_rect,
+					const SDL_Rect& src_rect) {
+	if(!image) {
+		image = SDL_ConvertSurface(src.image, src.image->format,
+					   src.image->flags);
+		if(!image) {
+			return false;
+		}
+	}
+	if(SDL_BlitSurface(src.image, &src_rect, image, &dst_rect) < 0) {
 		return false;
 	}
 	return true;

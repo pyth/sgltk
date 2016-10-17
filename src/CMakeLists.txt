@@ -2,6 +2,8 @@ set(LIB_SOURCE
 	app.cpp
 	window.cpp
 	gamepad.cpp
+	framebuffer.cpp
+	renderbuffer.cpp
 	camera.cpp
 	image.cpp
 	texture.cpp
@@ -15,6 +17,8 @@ set(LIB_HEADERS
 	app.h
 	window.h
 	gamepad.h
+	framebuffer.h
+	renderbuffer.h
 	camera.h
 	image.h
 	texture.h
@@ -31,28 +35,28 @@ else()
 	set(LIBS_REQUIRED GL GLEW ${LIBS_REQUIRED})
 endif()
 
-find_file(TMP GL/glew.h)
-if(TMP)
+find_file(GLEW_PATH NAMES GL/glew.h)
+if(GLEW_PATH)
 	set(HAVE_GLEW_H 1)
 endif()
-find_file(TMP SDL2/SDL.h)
-if(TMP)
+find_file(SDL2_PATH NAMES SDL2/SDL.h)
+if(SDL2_PATH)
 	set(HAVE_SDL_H 1)
 endif()
-find_file(TMP SDL2/SDL_ttf.h)
-if(TMP)
+find_file(SDL_TTF_PATH NAMES SDL2/SDL_ttf.h)
+if(SDL_TTF_PATH)
 	set(HAVE_SDL_TTF_H 1)
 endif()
-find_file(TMP SDL2/SDL_image.h)
-if(TMP)
+find_file(SDL_IMAGE_PATH NAMES SDL2/SDL_image.h)
+if(SDL_IMAGE_PATH)
 	set(HAVE_SDL_IMAGE_H 1)
 endif()
-find_file(TMP glm/glm.hpp)
-if(TMP)
+find_file(GLM_PATH NAMES glm/glm.hpp)
+if(GLM_PATH)
 	set(HAVE_GLM_H 1)
 endif()
-find_file(TMP assimp/Importer.hpp)
-if(TMP)
+find_file(ASSIMP_PATH NAMES assimp/Importer.hpp)
+if(ASSIMP_PATH)
 	set(HAVE_ASSIMP_H 1)
 endif()
 
@@ -98,7 +102,7 @@ add_custom_command(TARGET copy_headers PRE_BUILD
 		${PROJECT_BINARY_DIR}/include/sgltk)
 foreach(HEADER_FILE ${HEADERS})
 	add_custom_command(TARGET copy_headers PRE_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
 			${HEADER_FILE}
 			${PROJECT_BINARY_DIR}/include/sgltk/)
 endforeach()

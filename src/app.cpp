@@ -30,7 +30,10 @@ void App::quit_img() {
 }
 
 bool App::init_sdl() {
-	if(SDL_Init(SDL_INIT_EVERYTHING)) {
+	if(SDL_Init(SDL_INIT_VIDEO |
+			SDL_INIT_JOYSTICK |
+			SDL_INIT_HAPTIC |
+			SDL_INIT_GAMECONTROLLER)) {
 		App::error_string.push_back(std::string("SDL_Init Error: ") +
 							SDL_GetError());
 		return false;
@@ -87,8 +90,30 @@ void App::quit() {
 	App::quit_sdl();
 }
 
-sgltk::App::~App()
-{
+sgltk::App::~App() {
+	error_string.clear();
+}
+
+void App::enable_screensaver() {
+	SDL_EnableScreenSaver();
+}
+
+void App::disable_screensaver() {
+	SDL_DisableScreenSaver();
+}
+
+bool App::enable_vsync(bool on) {
+	int ret;
+	if (on) {
+		ret = SDL_GL_SetSwapInterval(-1);
+		if (!ret) {
+			ret = SDL_GL_SetSwapInterval(1);
+		}
+	}
+	else {
+		ret = SDL_GL_SetSwapInterval(0);
+	}
+	return (ret == 1);
 }
 
 void App::_check_error(std::string message, std::string file, unsigned int line) {
@@ -146,30 +171,4 @@ void App::get_sys_info() {
 	sys_info.display_bounds.resize(sys_info.num_displays);
 	for(int i = 0; i < sys_info.num_displays; i++)
 		SDL_GetDisplayBounds(i, &sys_info.display_bounds[i]);
-
-	sys_info.gl_version_major = 1;
-	sys_info.gl_version_minor = 0;
-	if(GL_VERSION_4_0) {
-		sys_info.gl_version_major = 4;
-		sys_info.gl_version_minor = 0;
-		if(GL_VERSION_4_5)
-			sys_info.gl_version_minor = 5;
-		else if(GL_VERSION_4_4)
-			sys_info.gl_version_minor = 4;
-		else if(GL_VERSION_4_3)
-			sys_info.gl_version_minor = 3;
-		else if(GL_VERSION_4_2)
-			sys_info.gl_version_minor = 2;
-		else if(GL_VERSION_4_1)
-			sys_info.gl_version_minor = 1;
-	} else if(GL_VERSION_3_0) {
-		sys_info.gl_version_major = 3;
-		sys_info.gl_version_minor = 0;
-		if(GL_VERSION_3_3)
-			sys_info.gl_version_minor = 3;
-		else if(GL_VERSION_3_2)
-			sys_info.gl_version_minor = 2;
-		else if(GL_VERSION_3_1)
-			sys_info.gl_version_minor = 1;
-	}
 }

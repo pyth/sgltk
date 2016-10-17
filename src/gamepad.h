@@ -6,27 +6,31 @@
 namespace sgltk {
 
 /**
- * @class Manages and handles gamepads
+ * @class Gamepad
+ * @brief Manages and handles gamepads
+ * @note You should never have to create or delete objects of this class
+ * 	directly
  */
 class Gamepad {
+	friend class Window;
+
+	unsigned int id;
+	unsigned int num_axes;
+	unsigned int num_buttons;
 	SDL_GameController *gamepad;
+	SDL_Joystick *joystick;
 	SDL_Haptic *haptic;
 	unsigned int instance_id;
+	std::vector<int> buttons_pressed;
+
+	static std::map<unsigned int, Gamepad *> instance_id_map;
 	static unsigned int id_max;
 
 	public:
 	/**
-	 * @brief The gamepad id
-	 */
-	int id;
-	/**
 	 * @brief Maps a gamepad id to a gamepad object
 	 */
 	EXPORT static std::map<unsigned int, Gamepad *> id_map;
-	/**
-	 * @brief Maps the instance ids as provided by SDL2 events to a gamepad objects
-	 */
-	EXPORT static std::map<unsigned int, Gamepad *> instance_id_map;
 
 	/**
 	 * @param device_id The device id as provided by the SDL_CONTROLLERDEVICEADDED event

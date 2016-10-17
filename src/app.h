@@ -8,7 +8,7 @@
  */
 #define check_gl_error(message) do{\
 	sgltk::App::_check_error(message, __FILE__, __LINE__);\
-}while(0)
+} while(0)
 
 #ifdef _WIN32
 	#ifdef MAKE_LIB
@@ -36,11 +36,10 @@
 #include <string>
 #include <chrono>
 #include <thread>
-#include <limits>
 #include <iostream>
 #include <map>
 #include <vector>
-#include <algorithm>
+#include <exception>
 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
@@ -70,8 +69,6 @@ namespace sgltk {
 
 		App();
 		~App();
-
-		static void _check_error(std::string message, std::string file, unsigned int line);
 
 		public:
 
@@ -109,15 +106,13 @@ namespace sgltk {
 			 */
 			std::vector<SDL_Rect> display_bounds;
 			/**
-			 * @brief The major number of the highest OpenGL version
-			 * 	that is supported by the system
+			 * @brief The maximum number of vertices in a patch
 			 */
-			int gl_version_major;
+			int max_patch_vertices;
 			/**
-			 * @brief The minor number of the highest OpenGL version
-			 * 	that is supported by the system
+			 * @brief The maximum supported tessellation level
 			 */
-			int gl_version_minor;
+			int max_tess_level;
 		} sys_info;
 
 		/**
@@ -127,20 +122,20 @@ namespace sgltk {
 
 		/**
 		 * @brief Initializes GLEW
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init_glew();
 
 		/**
 		 * @brief Initializes SDL2_img
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init_img();
 		EXPORT static void quit_img();
 
 		/**
 		 * @brief Initializes SDL2
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init_sdl();
 		EXPORT static void quit_sdl();
@@ -148,7 +143,7 @@ namespace sgltk {
 #ifdef HAVE_SDL_TTF_H
 		/**
 		 * @brief Initializes SDL2_ttf
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init_ttf();
 		EXPORT static void quit_ttf();
@@ -156,15 +151,38 @@ namespace sgltk {
 
 		/**
 		 * @brief Initializes all parts of SDL2 used by SGLTK
-		 * @return Returns true on success, flase otherwise
+		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT static bool init();
 		EXPORT static void quit();
 
 		/**
+		* @brief Enables the screensaver
+		*/
+		EXPORT static void enable_screensaver();
+
+		/**
+		* @brief Disables the screensaver
+		*/
+		EXPORT static void disable_screensaver();
+
+		/**
+		* @brief Turns VSync on or off
+		* @param on	True turns VSync on, false turns it off
+		* @return	Returns false if VSync is not supported, true otherwise
+		*/
+		EXPORT static bool enable_vsync(bool on);
+
+		/**
 		 * @brief Gathers system information and populates the sys_info attribute
 		 */
 		EXPORT static void get_sys_info();
+		/**
+		 * @brief Outputs OpenGL error messages
+		 * @note Dont't call this function directly
+		 */
+		EXPORT static void _check_error(std::string message, std::string file, unsigned int line);
+
 	};
 };
 

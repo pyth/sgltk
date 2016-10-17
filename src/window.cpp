@@ -2,7 +2,7 @@
 
 using namespace sgltk;
 
-Window::Window(const char* title, int res_x, int res_y,
+Window::Window(const std::string& title, int res_x, int res_y,
 		int offset_x, int offset_y,
 		int gl_maj, int gl_min,
 		unsigned int flags) {
@@ -42,22 +42,28 @@ Window::Window(const char* title, int res_x, int res_y,
 
 	width = res_x;
 	height = res_y;
-	window = SDL_CreateWindow(title, offset_x, offset_y,
+	window = SDL_CreateWindow(title.c_str(), offset_x, offset_y,
 				  res_x, res_y,
 				  SDL_WINDOW_OPENGL |
 				  SDL_WINDOW_RESIZABLE |
 				  flags);
 	if(!window) {
-		App::error_string.push_back(std::string("SDL_CreateWindow Error: ") +
-					SDL_GetError());
-		return;
+		std::string error = std::string("Error opening window: ") + SDL_GetError();
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
 	}
 	context = SDL_GL_CreateContext(window);
 	if(!context) {
-		App::error_string.push_back(std::string("SDL_GL_CreateContext"
-					" Error: ") + SDL_GetError());
-		return;
+		SDL_DestroyWindow(window);
+		std::string error = std::string("Error creating OpenGL context: ") +
+			SDL_GetError();
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
 	}
+
+	glGetIntegerv(GL_MAX_PATCH_VERTICES, &App::sys_info.max_patch_vertices);
+	glGetIntegerv(GL_MAX_TESS_GEN_LEVEL, &App::sys_info.max_tess_level);
+
 	App::init_glew();
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 }
@@ -65,22 +71,46 @@ Window::Window(const char* title, int res_x, int res_y,
 Window::~Window() {
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
+	keys_pressed.clear();
 }
 
-void Window::set_icon(Image *icon) {
-	SDL_SetWindowIcon(this->window, icon->image);
+void Window::set_icon(const Image& icon) {
+	SDL_SetWindowIcon(window, icon.image);
 }
 
-void Window::enable_screensaver() {
-	SDL_EnableScreenSaver();
-}
-
-void Window::disable_screensaver() {
-	SDL_DisableScreenSaver();
+void sgltk::Window::set_title(const std::string& title) {
+	SDL_SetWindowTitle(window, title.c_str());
 }
 
 void Window::grab_mouse(bool on) {
 	SDL_SetWindowGrab(window, (SDL_bool)on);
+}
+
+int Window::get_display_index() {
+	int ret = SDL_GetWindowDisplayIndex(window);
+	if(ret < 0) {
+		App::error_string.push_back(std::string("Error on acquiring the "
+			"display index: ") + SDL_GetError());
+	}
+	return ret;
+}
+
+bool Window::set_display_mode(const SDL_DisplayMode& mode) {
+	if(SDL_SetWindowDisplayMode(window, &mode)) {
+		App::error_string.push_back(std::string("Error on changing "
+			"window display mode: ") + SDL_GetError());
+		return false;
+	}
+	return true;
+}
+
+bool Window::fullscreen_mode(FULLSCREEN_MODE mode) {
+	if(SDL_SetWindowFullscreen(window, mode) < 0) {
+		App::error_string.push_back(std::string("Error on changing "
+		"window fullscreen state: ") + SDL_GetError());
+		return false;
+	}
+	return true;
 }
 
 void Window::set_relative_mode(bool on) {
@@ -88,22 +118,11 @@ void Window::set_relative_mode(bool on) {
 	SDL_SetRelativeMouseMode((SDL_bool)on);
 }
 
-bool Window::enable_vsync(bool on) {
-	int ret;
-	if(on) {
-		ret = SDL_GL_SetSwapInterval(-1);
-		if(!ret) {
-			ret = SDL_GL_SetSwapInterval(1);
-		}
-	} else {
-		ret = SDL_GL_SetSwapInterval(0);
-	}
-	return (ret == 1);
-}
-
 void Window::poll_events() {
+	int value;
 	SDL_Event event;
 	Gamepad *gamepad;
+	std::vector<int>::iterator button;
 
 	while(SDL_PollEvent(&event)) {
 		switch(event.type) {
@@ -123,7 +142,16 @@ void Window::poll_events() {
 			}
 			break;
 		case SDL_KEYDOWN:
+			if(event.key.repeat == 0) {
+				keys_pressed.push_back(SDL_GetKeyName(event.key.keysym.sym));
+				handle_key_press(SDL_GetKeyName(event.key.keysym.sym), true);
+			}
+			break;
 		case SDL_KEYUP:
+			keys_pressed.erase(std::find(keys_pressed.begin(),
+				keys_pressed.end(),
+				SDL_GetKeyName(event.key.keysym.sym)));
+			handle_key_press(SDL_GetKeyName(event.key.keysym.sym), false);
 			break;
 		case SDL_MOUSEWHEEL:
 			handle_mouse_wheel(event.wheel.x, event.wheel.y);
@@ -131,12 +159,12 @@ void Window::poll_events() {
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
 			if(mouse_relative)
-				handle_mouse_button(0, 0, (MOUSE_BUTTON)event.button.button,
+				handle_mouse_button(0, 0, event.button.button,
 						    (event.button.state == SDL_PRESSED),
 						    event.button.clicks);
 			else
 				handle_mouse_button(event.button.x, event.button.y,
-						    (MOUSE_BUTTON)event.button.button,
+						    event.button.button,
 						    (event.button.state == SDL_PRESSED),
 						    event.button.clicks);
 			break;
@@ -158,20 +186,46 @@ void Window::poll_events() {
 			delete sgltk::Gamepad::id_map[gamepad->id];
 			break;
 		case SDL_CONTROLLERBUTTONDOWN:
+			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
+			gamepad->buttons_pressed.push_back(event.cbutton.button);
+			handle_gamepad_button_press(gamepad->id,
+				event.cbutton.button,
+				(event.cbutton.state == SDL_PRESSED));
+			break;
 		case SDL_CONTROLLERBUTTONUP:
 			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
-			handle_gamepad_button(gamepad->id,
+			button = std::find(gamepad->buttons_pressed.begin(),
+					gamepad->buttons_pressed.end(),
+					event.cbutton.button);
+			gamepad->buttons_pressed.erase(button);
+			handle_gamepad_button_press(gamepad->id,
 				event.cbutton.button,
 				(event.cbutton.state == SDL_PRESSED));
 			break;
 		case SDL_CONTROLLERAXISMOTION:
 			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
-			handle_gamepad_axis(gamepad->id,
+			handle_gamepad_axis_change(gamepad->id,
 				event.caxis.axis,
 				event.caxis.value);
+			break;
 		}
 	}
-	handle_keyboard();
+
+	for(auto key : keys_pressed) {
+		handle_keyboard(key);
+	}
+
+	for(auto device : sgltk::Gamepad::instance_id_map) {
+		if(!device.second)
+			continue;
+		for(unsigned int axis = 0; axis < device.second->num_axes; axis++) {
+			value = SDL_GameControllerGetAxis(device.second->gamepad, (SDL_GameControllerAxis)axis);
+			handle_gamepad_axis(device.second->id, axis, value);
+		}
+		for(unsigned int button = 0; button < device.second->buttons_pressed.size(); button++) {
+			handle_gamepad_button(device.second->id, device.second->buttons_pressed[button]);
+		}
+	}
 }
 
 void Window::handle_gamepad_added(unsigned int gamepad_id) {
@@ -180,20 +234,22 @@ void Window::handle_gamepad_added(unsigned int gamepad_id) {
 void Window::handle_gamepad_removed(unsigned int gamepad_id) {
 }
 
-void Window::handle_gamepad_button(unsigned int gamepad_id, int button, bool pressed) {
+void Window::handle_gamepad_button(unsigned int gamepad_id, int button) {
+}
+
+void Window::handle_gamepad_button_press(unsigned int gamepad_id, int button, bool pressed) {
 }
 
 void Window::handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value) {
 }
 
-void Window::handle_keyboard() {
+void Window::handle_gamepad_axis_change(unsigned int gamepad_id, unsigned int axis, int value) {
 }
 
-bool Window::key_pressed(const char *key) {
-	if(keys[SDL_GetScancodeFromName(key)]) {
-		return true;
-	}
-	return false;
+void Window::handle_keyboard(std::string key) {
+}
+
+void Window::handle_key_press(std::string key, bool pressed) {
 }
 
 void Window::handle_mouse_motion(int x, int y) {
@@ -203,7 +259,7 @@ void Window::handle_mouse_wheel(int x, int y) {
 }
 
 void Window::handle_mouse_button(int x, int y,
-			      MOUSE_BUTTON button,
+			      int button,
 			      bool down,
 			      int clicks) {
 }
@@ -212,7 +268,7 @@ void Window::handle_resize() {
 }
 
 void Window::handle_exit() {
-	exit(0);
+	stop();
 }
 
 void Window::display() {
@@ -231,7 +287,7 @@ void Window::run(int fps) {
 		frame_time = 1e-30;
 	else
 		frame_time = 1000.0 / fps;
-	bool running = true;
+	running = true;
 
 	while(running) {
 		frame_timer.start();
@@ -243,11 +299,14 @@ void Window::run(int fps) {
 		delta_time = frame_timer.get_time();
 		if(fps > 0) {
 			if(delta_time < frame_time) {
-				//SDL_Delay(frame_time - delta_time);
 				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(frame_time - delta_time));
 			}
 		}
 		delta_time = frame_timer.get_time();
 		SDL_GL_SwapWindow(window);
 	}
+}
+
+void Window::stop() {
+	running = false;
 }
