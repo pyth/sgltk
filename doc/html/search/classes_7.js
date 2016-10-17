@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['texture',['Texture',['../classsgltk_1_1_texture.html',1,'sgltk']]],
-  ['timer',['Timer',['../classsgltk_1_1_timer.html',1,'sgltk']]]
+  ['renderbuffer',['Renderbuffer',['../classsgltk_1_1_renderbuffer.html',1,'sgltk']]]
 ];

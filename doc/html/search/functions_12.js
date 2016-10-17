@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['yaw',['yaw',['../classsgltk_1_1_camera.html#ab4eab94754431725c572d528a07a35cc',1,'sgltk::Camera']]]
+  ['window',['Window',['../classsgltk_1_1_window.html#abf44b547360e4a6be7e6c795c706c0f0',1,'sgltk::Window']]]
 ];

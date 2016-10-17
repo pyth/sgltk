@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['find_5ftexture',['find_texture',['../classsgltk_1_1_texture.html#aff23bee6a9282f06d9d74cd66e686306',1,'sgltk::Texture']]],
-  ['fullscreen_5fmode',['fullscreen_mode',['../classsgltk_1_1_window.html#ab480e0430af9ac7399994952443bb6ca',1,'sgltk::Window']]]
+  ['enable_5fscreensaver',['enable_screensaver',['../classsgltk_1_1_app.html#ad2c511ee3780a9d6df5fc766656502c0',1,'sgltk::App']]],
+  ['enable_5fvsync',['enable_vsync',['../classsgltk_1_1_app.html#a5a34e9ef8809782d63ddc6d15595d574',1,'sgltk::App']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gamepad',['Gamepad',['../classsgltk_1_1_gamepad.html',1,'sgltk']]]
+  ['framebuffer',['Framebuffer',['../classsgltk_1_1_framebuffer.html',1,'sgltk']]]
 ];

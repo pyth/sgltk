@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['mesh',['Mesh',['../classsgltk_1_1_mesh.html',1,'sgltk']]],
-  ['model_5fmatrix',['model_matrix',['../classsgltk_1_1_mesh.html#ad18b136b3c932919acd252fec8567a28',1,'sgltk::Mesh']]],
-  ['model_5fmatrix_5fname',['model_matrix_name',['../classsgltk_1_1_mesh.html#a6dbf9b38899e7bb5397718a70e15c159',1,'sgltk::Mesh']]],
-  ['model_5fview_5fmatrix_5fname',['model_view_matrix_name',['../classsgltk_1_1_mesh.html#aa478d710ef0c1af8551c16ba460118b9',1,'sgltk::Mesh']]],
-  ['model_5fview_5fprojection_5fmatrix_5fname',['model_view_projection_matrix_name',['../classsgltk_1_1_mesh.html#a18be98fcc4ee47988d940280432f5b63',1,'sgltk::Mesh']]],
-  ['move_5fby',['move_by',['../classsgltk_1_1_camera.html#a70c11be1780726c76ecd36b1114419a2',1,'sgltk::Camera::move_by(float x, float y, float z)'],['../classsgltk_1_1_camera.html#a6081514bdd53403c629b6e618efd389b',1,'sgltk::Camera::move_by(glm::vec3 vector)']]],
-  ['move_5fforward',['move_forward',['../classsgltk_1_1_camera.html#a07fc2e27c0fc6ab8b870ac6e717ae2aa',1,'sgltk::Camera']]],
-  ['move_5fright',['move_right',['../classsgltk_1_1_camera.html#a9985be6ae95fcf83e6211acaa0f84894',1,'sgltk::Camera']]],
-  ['move_5fup',['move_up',['../classsgltk_1_1_camera.html#acab319dbcc7b55200541b7217a6ec9dc',1,'sgltk::Camera']]]
+  ['lightmap_5ftexture_5fname',['lightmap_texture_name',['../classsgltk_1_1_mesh.html#acfb51bf36a7d1741d6cb3772d7491755',1,'sgltk::Mesh']]],
+  ['link',['link',['../classsgltk_1_1_shader.html#a35e35ddc1d24cae176cc310bd3b7b96f',1,'sgltk::Shader']]],
+  ['load',['load',['../classsgltk_1_1_image.html#a8de8740182d59d739216453d1cd1a92c',1,'sgltk::Image::load()'],['../classsgltk_1_1_scene.html#a31d9b85cb6ceabac4e525884ec0a4b55',1,'sgltk::Scene::load()']]],
+  ['load_5fcubemap',['load_cubemap',['../classsgltk_1_1_texture.html#ab95cc5ec60a09166f5de613a2f2be18f',1,'sgltk::Texture']]],
+  ['load_5ftexture',['load_texture',['../classsgltk_1_1_texture.html#ad1040bc2f0afcb008535e2a4d4e3e106',1,'sgltk::Texture::load_texture(const Image &amp;image)'],['../classsgltk_1_1_texture.html#a4f367c90ee03260d7c3cccb3d805e3ff',1,'sgltk::Texture::load_texture(const std::string &amp;path)']]]
 ];

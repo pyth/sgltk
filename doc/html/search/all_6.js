@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['gamepad',['Gamepad',['../classsgltk_1_1_gamepad.html',1,'sgltk']]],
-  ['gamepad',['Gamepad',['../classsgltk_1_1_gamepad.html#a639435264ae70a0577ff1c5bb14dadd8',1,'sgltk::Gamepad']]],
-  ['get_5fdisplay_5findex',['get_display_index',['../classsgltk_1_1_window.html#a0f77c53f2175c74cba30028f5b4d63e9',1,'sgltk::Window']]],
-  ['get_5fsys_5finfo',['get_sys_info',['../classsgltk_1_1_app.html#a074f0b9aac784adb75b9c121760af910',1,'sgltk::App']]],
-  ['get_5ftime',['get_time',['../classsgltk_1_1_timer.html#a71f709ed25564085ca99a184b3b09df8',1,'sgltk::Timer']]],
-  ['grab_5fmouse',['grab_mouse',['../classsgltk_1_1_window.html#abe33cf09e3e7776d2ab421668690e1c9',1,'sgltk::Window']]]
+  ['far_5fplane',['far_plane',['../classsgltk_1_1_camera.html#a00b77bb69202531b79170699540b0cfc',1,'sgltk::Camera']]],
+  ['finalize',['finalize',['../classsgltk_1_1_framebuffer.html#a0abd495b0be4438327b39d273dfea3f5',1,'sgltk::Framebuffer']]],
+  ['find_5ftexture',['find_texture',['../classsgltk_1_1_texture.html#aff23bee6a9282f06d9d74cd66e686306',1,'sgltk::Texture']]],
+  ['fovy',['fovy',['../classsgltk_1_1_camera.html#aa106e094d228c2884e73cbfcee01ffd7',1,'sgltk::Camera']]],
+  ['framebuffer',['Framebuffer',['../classsgltk_1_1_framebuffer.html',1,'sgltk']]],
+  ['framebuffer',['Framebuffer',['../classsgltk_1_1_framebuffer.html#a7d845f75be6ef4bd978e165fb7f4ac70',1,'sgltk::Framebuffer']]],
+  ['fullscreen_5fmode',['fullscreen_mode',['../classsgltk_1_1_window.html#ab480e0430af9ac7399994952443bb6ca',1,'sgltk::Window']]]
 ];
