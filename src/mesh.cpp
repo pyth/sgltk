@@ -259,7 +259,7 @@ void Mesh::set_lightmap_texture_name(const std::string& name) {
 		lightmap_texture_name = "texture_lightmap";
 }
 
-int Mesh::set_vertex_attribute(std::string attrib_name,
+int Mesh::set_vertex_attribute(const std::string& attrib_name,
 				unsigned int buffer_index,
 				GLint number_elements,
 				GLenum type,
@@ -320,20 +320,6 @@ int Mesh::set_vertex_attribute(int attrib_location,
 	glVertexAttribDivisor(attrib_location, divisor);
 	glBindVertexArray(0);
 	return 0;
-}
-
-void Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
-	num_indices.push_back(indices.size());
-	
-	GLuint index;
-	glGenBuffers(1, &index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		     indices.size() * sizeof(unsigned short),
-		     indices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	ibo.push_back(index);
 }
 
 void Mesh::material_uniform() {

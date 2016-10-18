@@ -505,9 +505,9 @@ public:
 	 * @return Returns the index that the buffer was attached to
 	 */
 	template <typename T = Vertex>
-	int attach_vertex_buffer(const void *vertexdata,
-				 unsigned int number_elements,
-				 GLenum usage = GL_STATIC_DRAW);
+	unsigned int attach_vertex_buffer(const void *vertexdata,
+					  unsigned int number_elements,
+					  GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief Loads vertices into memory
 	 * @param vertexdata The vertices to be loaded into memory
@@ -516,8 +516,8 @@ public:
 	 * @return Returns the index that the buffer was attached to
 	 */
 	template <typename T = Vertex>
-	int attach_vertex_buffer(const std::vector<T>& vertexdata,
-				 GLenum usage = GL_STATIC_DRAW);
+	unsigned int attach_vertex_buffer(const std::vector<T>& vertexdata,
+					  GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief Modifies the data in the vertex buffer
 	 * @param buffer_index The index of the buffer to be modified
@@ -607,10 +607,10 @@ public:
 	 */
 	template <typename T = glm::vec3>
 	int add_vertex_attribute(int attrib_location,
-					GLint number_elements,
-					GLenum type,
-					const std::vector<T>& data,
-					GLenum usage = GL_STATIC_DRAW);
+				 GLint number_elements,
+				 GLenum type,
+				 const std::vector<T>& data,
+				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief Sets pointers to vertex attributes
 	 * @param attrib_name		The attribute name in the shader
@@ -629,13 +629,13 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	EXPORT int set_vertex_attribute(std::string attrib_name,
-				 unsigned int buffer_index,
-				 GLint number_elements,
-				 GLenum type,
-				 GLsizei stride,
-				 const GLvoid *pointer,
-				 unsigned int divisor = 0);
+	EXPORT int set_vertex_attribute(const std::string& attrib_name,
+				        unsigned int buffer_index,
+				        GLint number_elements,
+				        GLenum type,
+				        GLsizei stride,
+				        const GLvoid *pointer,
+				        unsigned int divisor = 0);
 	/**
 	 * @brief Sets pointers to vertex attributes
 	 * @param attrib_location	The attribute location in the shader
@@ -655,18 +655,19 @@ public:
 	 * 		could not be found
 	 */
 	EXPORT int set_vertex_attribute(int attrib_location,
-				 unsigned int buffer_index,
-				 GLint number_elements,
-				 GLenum type,
-				 GLsizei stride,
-				 const GLvoid *pointer,
-				 unsigned int divisor = 0);
+				        unsigned int buffer_index,
+				        GLint number_elements,
+				        GLenum type,
+				        GLsizei stride,
+				        const GLvoid *pointer,
+				        unsigned int divisor = 0);
 	/**
 	 * @brief Attaches an index array to the mesh
 	 * @param indices Indices describing the topology of the mesh
 	 * You can attach multiple index arrays
 	 */
-	EXPORT void attach_index_buffer(const std::vector<unsigned short>& indices);
+	template <typename T = unsigned short>
+	unsigned int attach_index_buffer(const std::vector<T>& indices);
 
 	/**
 	 * @brief Computes the bounding box of the mesh
@@ -734,66 +735,70 @@ public:
 
 template <typename T>
 int Mesh::add_vertex_attribute(std::string attrib_name,
-				GLint number_elements,
-				GLenum type,
-				const void *data,
-				GLenum usage) {
-	int buffer_index;
+			       GLint number_elements,
+			       GLenum type,
+			       const void *data,
+			       GLenum usage) {
+
 	T *ptr = (T *)data;
 	std::vector<T> tmp(ptr, ptr + number_elements);
-	buffer_index = attach_vertex_buffer<T>(tmp, usage);
+	unsigned int buffer_index = attach_vertex_buffer<T>(tmp, usage);
 	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
 					type, 0, 0);
 }
 
 template <typename T>
 int Mesh::add_vertex_attribute(std::string attrib_name,
-				GLint number_elements,
-				GLenum type,
-				const std::vector<T>& data,
-				GLenum usage) {
-	int buffer_index = attach_vertex_buffer<T>(data, usage);
+			       GLint number_elements,
+			       GLenum type,
+			       const std::vector<T>& data,
+			       GLenum usage) {
+
+	unsigned int buffer_index = attach_vertex_buffer<T>(data, usage);
 	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
 					type, 0, 0);
 }
 
 template <typename T>
 int Mesh::add_vertex_attribute(int attrib_location,
-				GLint number_elements,
-				GLenum type,
-				const void *data,
-				GLenum usage) {
-	int buffer_index;
+			       GLint number_elements,
+			       GLenum type,
+			       const void *data,
+			       GLenum usage) {
+
 	T *ptr = (T *)data;
 	std::vector<T> tmp(ptr, ptr + number_elements);
-	buffer_index = attach_vertex_buffer<T>(tmp, usage);
+	unsigned int buffer_index = attach_vertex_buffer<T>(tmp, usage);
 	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
 					type, 0, 0);
 }
 
 template <typename T>
 int Mesh::add_vertex_attribute(int attrib_location,
-				GLint number_elements,
-				GLenum type,
-				const std::vector<T>& data,
-				GLenum usage) {
-	int buffer_index = attach_vertex_buffer<T>(data, usage);
+			       GLint number_elements,
+			       GLenum type,
+			       const std::vector<T>& data,
+			       GLenum usage) {
+
+	unsigned int buffer_index = attach_vertex_buffer<T>(data, usage);
 	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
 					type, 0, 0);
 }
 
 template <typename T>
-int Mesh::attach_vertex_buffer(const void *vertexdata,
-				       unsigned int number_elements,
-				       GLenum usage) {
+unsigned int Mesh::attach_vertex_buffer(const void *vertexdata,
+					unsigned int number_elements,
+					GLenum usage) {
+
 	T *ptr = (T *)vertexdata;
 	std::vector<T> tmp(ptr, ptr + number_elements);
 	return attach_vertex_buffer<T>(tmp, usage);
 }
 
 template <typename T>
-int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
-				       GLenum usage) {
+unsigned int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
+					GLenum usage) {
+
 	GLuint buf;
 	glGenBuffers(1, &buf);
 	vbo.push_back(buf);
@@ -806,6 +811,22 @@ int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
 	vertex_buffer_size_map[vbo.size() - 1] = buffer_size;
 	vertex_buffer_usage_map[vbo.size() - 1] = usage;
 	return vbo.size() - 1;
+}
+
+template <typename T>
+unsigned int Mesh::attach_index_buffer(const std::vector<T>& indices) {
+	num_indices.push_back(indices.size());
+
+	GLuint index;
+	glGenBuffers(1, &index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+		     indices.size() * sizeof(T),
+		     indices.data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	ibo.push_back(index);
+	return ibo.size() - 1;
 }
 
 template <typename T>
