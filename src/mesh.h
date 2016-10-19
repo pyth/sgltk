@@ -519,7 +519,7 @@ public:
 	unsigned int attach_vertex_buffer(const std::vector<T>& vertexdata,
 					  GLenum usage = GL_STATIC_DRAW);
 	/**
-	 * @brief Modifies the data in the vertex buffer
+	 * @brief Overwrites all data in a vertex buffer
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param data The data to be loaded into the buffer
 	 * @param number_elements Number of elements
@@ -529,12 +529,35 @@ public:
 				 const void *data,
 				 unsigned int number_elements);
 	/**
-	 * @brief Modifies the data in the vertex buffer
+	 * @brief Overwrites all data in a vertex buffer
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param data The data to be loaded into the buffer
 	 */
 	template <typename T = Vertex>
-	bool replace_buffer_data(unsigned int buffer_index, const std::vector<T>& data);
+	bool replace_buffer_data(unsigned int buffer_index,
+				 const std::vector<T>& data);
+	/**
+	 * @brief Modifies the data in a vertex buffer
+	 * @param buffer_index The index of the buffer to be modified
+	 * @param offset The byte offset into the buffer
+	 * @param data The data to be loaded into the buffer
+	 * @param number_elements Number of elements
+	 */
+	template <typename T = Vertex>
+	bool replace_partial_data(unsigned int buffer_index,
+				  unsigned int offset,
+				  const void *data,
+				  unsigned int number_elements);
+	/**
+	 * @brief Modifies the data in a vertex buffer
+	 * @param buffer_index The index of the buffer to be modified
+	 * @param offset The byte offset into the buffer
+	 * @param data The data to be loaded into the buffer
+	 */
+	template <typename T = Vertex>
+	bool replace_partial_data(unsigned int buffer_index,
+				  unsigned int offset,
+				  const std::vector<T>& data);
 	/**
 	 * @brief This is a convenience function that combines attach_vertex_buffer and
 	 * 		set_vertex_attribute.
@@ -550,10 +573,10 @@ public:
 	 */
 	template <typename T = glm::vec3>
 	int add_vertex_attribute(std::string attrib_name,
-					GLint number_elements,
-					GLenum type,
-					const void *data,
-					GLenum usage = GL_STATIC_DRAW);
+				 GLint number_elements,
+				 GLenum type,
+				 const void *data,
+				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convenience function that combines attach_vertex_buffer and
 	 * 		set_vertex_attribute.
@@ -569,10 +592,10 @@ public:
 	 */
 	template <typename T = glm::vec3>
 	int add_vertex_attribute(std::string attrib_name,
-					GLint number_elements,
-					GLenum type,
-					const std::vector<T>& data,
-					GLenum usage = GL_STATIC_DRAW);
+				 GLint number_elements,
+				 GLenum type,
+				 const std::vector<T>& data,
+				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convenience function that combines attach_vertex_buffer and
 	 * 		set_vertex_attribute.
@@ -588,10 +611,10 @@ public:
 	 */
 	template <typename T = glm::vec3>
 	int add_vertex_attribute(int attrib_location,
-					GLint number_elements,
-					GLenum type,
-					const void *data,
-					GLenum usage = GL_STATIC_DRAW);
+				 GLint number_elements,
+				 GLenum type,
+				 const void *data,
+				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convenience function that combines attach_vertex_buffer and
 	 * 		set_vertex_attribute.
@@ -831,8 +854,9 @@ unsigned int Mesh::attach_index_buffer(const std::vector<T>& indices) {
 
 template <typename T>
 bool Mesh::replace_buffer_data(unsigned int buffer_index,
-				const void *data,
-				unsigned int number_elements) {
+			       const void *data,
+			       unsigned int number_elements) {
+
 	T *ptr = (T *)data;
 	std::vector<T> tmp(ptr, ptr + number_elements);
 	return replace_buffer_data<T>(buffer_index, tmp);
@@ -840,7 +864,8 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index,
 
 template <typename T>
 bool Mesh::replace_buffer_data(unsigned int buffer_index,
-				const std::vector<T>& data) {
+			       const std::vector<T>& data) {
+
 	if(buffer_index >= vbo.size()) {
 		App::error_string.push_back("The value of the variable"
 				"buffer_index if greater than the number"
@@ -859,8 +884,43 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index,
 		//replace the buffer data with reallocation
 		glBufferData(GL_ARRAY_BUFFER, new_size, data.data(),
 			vertex_buffer_usage_map[buffer_index]);
+		vertex_buffer_size_map[buffer_index] = new_size;
 	}
 
+	return true;
+}
+
+template <typename T>
+bool Mesh::replace_partial_data(unsigned int buffer_index,
+				unsigned int offset,
+				const void *data,
+				unsigned int number_elements) {
+
+	T *ptr = (T *)data;
+	std::vector<T> tmp(ptr, ptr + number_elements);
+	return replace_partial_data<T>(buffer_index, offset, tmp);
+}
+
+template <typename T>
+bool Mesh::replace_partial_data(unsigned int buffer_index,
+				unsigned int offset,
+				const std::vector<T>& data) {
+
+	if(buffer_index >= vbo.size()) {
+		App::error_string.push_back("The value of the variable"
+				"buffer_index if greater than the number"
+				"of vertex buffers.");
+		return false;
+	}
+
+	unsigned int current_size	= vertex_buffer_size_map[buffer_index];
+	unsigned int size		= data.size() * sizeof(T);
+
+	if(offset + size > current_size) {
+		return false;
+	}
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
+	glBufferSubData(GL_ARRAY_BUFFER, offset, size, data.data());
 	return true;
 }
 
