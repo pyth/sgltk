@@ -250,7 +250,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			std::vector<glm::vec3>(mesh->mNumVertices));
 	std::vector<std::vector<glm::vec4> > col(num_col,
 			std::vector<glm::vec4>(mesh->mNumVertices));
-	std::vector<unsigned short> indices;
+	std::vector<unsigned int> indices;
 
 	//************************************
 	// Vertices

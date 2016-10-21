@@ -140,10 +140,12 @@ class Mesh {
 	GLuint vao;
 	std::vector<GLuint> vbo;
 	std::vector<GLuint> ibo;
-	std::vector<int> num_indices;
 
-	std::map<unsigned int, unsigned int> vertex_buffer_size_map;
-	std::map<unsigned int, GLenum> vertex_buffer_usage_map;
+	GLenum index_type;
+	std::vector<unsigned int> num_indices;
+
+	std::vector<unsigned int> vertex_buffer_size;
+	std::vector<GLenum> vertex_buffer_usage;
 
 	void material_uniform();
 public:
@@ -687,10 +689,30 @@ public:
 	/**
 	 * @brief Attaches an index array to the mesh
 	 * @param indices Indices describing the topology of the mesh
-	 * You can attach multiple index arrays
+	 * @return Returns the index of the index-buffer or -1 on failure.
+	 * 	   This function will fail if the index type does not match that
+	 * 	   of an already attached buffer
+	 * @note You can attach multiple index arrays
 	 */
-	template <typename T = unsigned short>
-	unsigned int attach_index_buffer(const std::vector<T>& indices);
+	EXPORT int attach_index_buffer(const std::vector<unsigned char>& indices);
+	/**
+	 * @brief Attaches an index array to the mesh
+	 * @param indices Indices describing the topology of the mesh
+	 * @return Returns the index of the index-buffer or -1 on failure.
+	 * 	   This function will fail if the index type does not match that
+	 * 	   of an already attached buffer
+	 * @note You can attach multiple index arrays
+	 */
+	EXPORT int attach_index_buffer(const std::vector<unsigned short>& indices);
+	/**
+	 * @brief Attaches an index array to the mesh
+	 * @param indices Indices describing the topology of the mesh
+	 * @return Returns the index of the index-buffer or -1 on failure.
+	 * 	   This function will fail if the index type does not match that
+	 * 	   of an already attached buffer
+	 * @note You can attach multiple index arrays
+	 */
+	EXPORT int attach_index_buffer(const std::vector<unsigned int>& indices);
 
 	/**
 	 * @brief Computes the bounding box of the mesh
@@ -831,25 +853,9 @@ unsigned int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
 	glBindBuffer(GL_ARRAY_BUFFER, buf);
 	glBufferData(GL_ARRAY_BUFFER, buffer_size, vertexdata.data(), usage);
 
-	vertex_buffer_size_map[vbo.size() - 1] = buffer_size;
-	vertex_buffer_usage_map[vbo.size() - 1] = usage;
+	vertex_buffer_size.push_back(buffer_size);
+	vertex_buffer_usage.push_back(usage);
 	return vbo.size() - 1;
-}
-
-template <typename T>
-unsigned int Mesh::attach_index_buffer(const std::vector<T>& indices) {
-	num_indices.push_back(indices.size());
-
-	GLuint index;
-	glGenBuffers(1, &index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		     indices.size() * sizeof(T),
-		     indices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	ibo.push_back(index);
-	return ibo.size() - 1;
 }
 
 template <typename T>
@@ -873,7 +879,7 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index,
 		return false;
 	}
 
-	unsigned int current_size	= vertex_buffer_size_map[buffer_index];
+	unsigned int current_size	= vertex_buffer_size[buffer_index];
 	unsigned int new_size		= data.size() * sizeof(T);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
@@ -883,8 +889,8 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index,
 	} else {
 		//replace the buffer data with reallocation
 		glBufferData(GL_ARRAY_BUFFER, new_size, data.data(),
-			vertex_buffer_usage_map[buffer_index]);
-		vertex_buffer_size_map[buffer_index] = new_size;
+			vertex_buffer_usage[buffer_index]);
+		vertex_buffer_size[buffer_index] = new_size;
 	}
 
 	return true;
@@ -913,7 +919,7 @@ bool Mesh::replace_partial_data(unsigned int buffer_index,
 		return false;
 	}
 
-	unsigned int current_size	= vertex_buffer_size_map[buffer_index];
+	unsigned int current_size	= vertex_buffer_size[buffer_index];
 	unsigned int size		= data.size() * sizeof(T);
 
 	if(offset + size > current_size) {
