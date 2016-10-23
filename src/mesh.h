@@ -144,9 +144,6 @@ class Mesh {
 	GLenum index_type;
 	std::vector<unsigned int> num_indices;
 
-	std::vector<unsigned int> vertex_buffer_size;
-	std::vector<GLenum> vertex_buffer_usage;
-
 	void material_uniform();
 public:
 	/**
@@ -853,8 +850,6 @@ unsigned int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
 	glBindBuffer(GL_ARRAY_BUFFER, buf);
 	glBufferData(GL_ARRAY_BUFFER, buffer_size, vertexdata.data(), usage);
 
-	vertex_buffer_size.push_back(buffer_size);
-	vertex_buffer_usage.push_back(usage);
 	return vbo.size() - 1;
 }
 
@@ -879,18 +874,20 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index,
 		return false;
 	}
 
-	unsigned int current_size	= vertex_buffer_size[buffer_index];
-	unsigned int new_size		= data.size() * sizeof(T);
-
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
+
+	int usage;
+	int current_size;
+	int new_size = data.size() * sizeof(T);
+	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_USAGE, &usage);
+	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &current_size);
+
 	if(current_size == new_size) {
 		//replace the buffer data without reallocation
 		glBufferSubData(GL_ARRAY_BUFFER, 0, new_size, data.data());
 	} else {
 		//replace the buffer data with reallocation
-		glBufferData(GL_ARRAY_BUFFER, new_size, data.data(),
-			vertex_buffer_usage[buffer_index]);
-		vertex_buffer_size[buffer_index] = new_size;
+		glBufferData(GL_ARRAY_BUFFER, new_size, data.data(), usage);
 	}
 
 	return true;
@@ -919,8 +916,9 @@ bool Mesh::replace_partial_data(unsigned int buffer_index,
 		return false;
 	}
 
-	unsigned int current_size	= vertex_buffer_size[buffer_index];
-	unsigned int size		= data.size() * sizeof(T);
+	int current_size;
+	int size = data.size() * sizeof(T);
+	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &current_size);
 
 	if(offset + size > current_size) {
 		return false;
