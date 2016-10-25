@@ -45,7 +45,7 @@ bool Particles::add_particle(glm::vec3 position,
 				glm::vec3 velocity,
 				float lifetime) {
 
-	float time = timer.get_time();
+	float time = (float)timer.get_time();
 	for(unsigned int i = 0; i < number; i++) {
 		if(this->lifetime[i][0] + this->lifetime[i][1] < time) {
 			this->position[i] = position;
@@ -71,6 +71,6 @@ void Particles::draw() {
 		App::error_string.push_back("No shader set.");
 	}
 	mesh.shader->bind();
-	mesh.shader->set_uniform_float("time", timer.get_time());
+	mesh.shader->set_uniform_float("time", (float)timer.get_time());
 	mesh.draw(GL_POINTS);
 }

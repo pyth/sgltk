@@ -26,26 +26,26 @@ class Particles {
 	std::vector<glm::vec2> lifetime;
 	std::vector<unsigned int> indices;
 public:
-	Particles();
-	~Particles();
+	EXPORT Particles();
+	EXPORT ~Particles();
 
 	/**
 	 * @brief Sets the number of the particles in the system
 	 * @param number The new number of particles
 	 */
-	void resize(unsigned int number);
+	EXPORT void resize(unsigned int number);
 	/**
 	 * @brief Specifies the shader to use to render the particles
 	 * @param shader The shader to be used to render the particles
 	 */
-	void setup_shader(sgltk::Shader *shader);
+	EXPORT void setup_shader(sgltk::Shader *shader);
 	/**
 	 * @brief Sets up the view and projection matrices that will be
 	 *	  used to render the particles
 	 * @param camera The camera to be used to draw the particles
 	 * @param type The type of the camera
 	 */
-	void setup_camera(sgltk::Camera *camera,
+	EXPORT void setup_camera(sgltk::Camera *camera,
 			  sgltk::CAMERA_TYPE type = sgltk::PERSPECTIVE);
 	/**
 	 * @brief Sets up the view and projection matrices that will be
@@ -53,12 +53,12 @@ public:
 	 * @param view_matrix The view matrix
 	 * @param projection_matrix The projection matrix
 	 */
-	void setup_camera(glm::mat4 *view_matrix,
+	EXPORT void setup_camera(glm::mat4 *view_matrix,
 			  glm::mat4 *projection_matrix);
 	/**
 	 * @brief Attaches a texture to the particles
 	 */
-	void attach_texture(const std::string& name,
+	EXPORT void attach_texture(const std::string& name,
 			    sgltk::Texture *texture);
 	/**
 	 * @brief Adds a new particle to the system if the particle buffer has an empty space
@@ -68,17 +68,17 @@ public:
 	 * @return Returns true if the particle was successfully added to the buffer, 
 	 * 	false otherwise
 	 */
-	bool add_particle(glm::vec3 position,
+	EXPORT bool add_particle(glm::vec3 position,
 			  glm::vec3 velocity,
 			  float lifetime);
 	/**
 	 * @brief Updates the particle buffers
 	 */
-	void update();
+	EXPORT void update();
 	/**
 	 * @brief Draws the particles
 	 */
-	void draw();
+	EXPORT void draw();
 };
 
 }

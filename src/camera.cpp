@@ -9,7 +9,7 @@ Camera::Camera() {
 	dir = glm::vec3(0, 0, -1);
 	up = glm::vec3(0, 1, 0);
 	right = glm::normalize(glm::cross(glm::vec3(dir), glm::vec3(up)));
-	fovy = M_PI;
+	fovy = (float)M_PI;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
 
@@ -28,7 +28,7 @@ Camera::Camera(glm::vec3 pos,
 	this->dir = glm::normalize(dir);
 	this->up = glm::normalize(up);
 	right = glm::normalize(glm::cross(dir, up));
-	fovy = M_PI;
+	fovy = (float)M_PI;
 	near_plane = 1.0f;
 	far_plane = 800.0f;
 
