@@ -67,28 +67,12 @@ bool Mesh::setup_camera(glm::mat4 *view_matrix,
 	return true;
 }
 
-bool Mesh::setup_camera(Camera *camera, CAMERA_TYPE type) {
-	this->view_matrix = &camera->view_matrix;
-	if(camera->type == ORTHOGRAPHIC) {
-		this->projection_matrix = &camera->projection_matrix_ortho;
-	} else if(camera->type == PERSPECTIVE) {
-		this->projection_matrix = &camera->projection_matrix_persp;
-	} else if(camera->type == INF_PERSPECTIVE) {
-		this->projection_matrix = &camera->projection_matrix_persp_inf;
-	} else if(camera->type & type){
-		//camera has more than one type
-		if(type == ORTHOGRAPHIC) {
-			this->projection_matrix = &camera->projection_matrix_ortho;
-		}
-		if(type == PERSPECTIVE) {
-			this->projection_matrix = &camera->projection_matrix_persp;
-		}
-		if(type == INF_PERSPECTIVE) {
-			this->projection_matrix = &camera->projection_matrix_persp_inf;
-		}
-	} else {
+bool Mesh::setup_camera(Camera *camera) {
+	if(!camera)
 		return false;
-	}
+
+	this->view_matrix = &camera->view_matrix;
+	this->projection_matrix = &camera->projection_matrix;
 	return true;
 }
 

@@ -350,10 +350,9 @@ public:
 	 * @brief Sets up the view and projection matrices that will be used
 	 * 	  by the mesh
 	 * @param camera The camera to use
-	 * @param type The projection type to be used if the camera has more than one type
 	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT bool setup_camera(Camera *camera, sgltk::CAMERA_TYPE = sgltk::PERSPECTIVE);
+	EXPORT bool setup_camera(Camera *camera);
 	/**
 	 * @brief Sets the name of the model matrix in the shader
 	 * @param name The name of the model matrix.

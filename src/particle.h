@@ -43,10 +43,8 @@ public:
 	 * @brief Sets up the view and projection matrices that will be
 	 *	  used to render the particles
 	 * @param camera The camera to be used to draw the particles
-	 * @param type The type of the camera
 	 */
-	EXPORT void setup_camera(sgltk::Camera *camera,
-			  sgltk::CAMERA_TYPE type = sgltk::PERSPECTIVE);
+	EXPORT void setup_camera(sgltk::Camera *camera);
 	/**
 	 * @brief Sets up the view and projection matrices that will be
 	 *	  used to render the particles

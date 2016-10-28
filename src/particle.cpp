@@ -31,8 +31,8 @@ void Particles::setup_shader(Shader *shader) {
 	mesh.setup_shader(shader);
 }
 
-void Particles::setup_camera(Camera *camera, CAMERA_TYPE type) {
-	mesh.setup_camera(camera, type);
+void Particles::setup_camera(Camera *camera) {
+	mesh.setup_camera(camera);
 }
 
 void Particles::setup_camera(glm::mat4 *view_matrix,
