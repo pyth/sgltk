@@ -28,11 +28,11 @@ public:
 	 */
 	float height;
 	/**
-	 * The vertical field of view angle of the camera
+	 * @brief The vertical field of view angle of the camera
 	 */
 	float fovy;
 	/**
-	 * The far plane of the camera frustum
+	 * @brief The far plane of the camera frustum
 	 */
 	float far_plane;
 	/**
