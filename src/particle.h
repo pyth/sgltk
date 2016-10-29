@@ -52,12 +52,12 @@ public:
 	 * @param projection_matrix The projection matrix
 	 */
 	EXPORT void setup_camera(glm::mat4 *view_matrix,
-			  glm::mat4 *projection_matrix);
+				 glm::mat4 *projection_matrix);
 	/**
 	 * @brief Attaches a texture to the particles
 	 */
 	EXPORT void attach_texture(const std::string& name,
-			    sgltk::Texture *texture);
+				   sgltk::Texture *texture);
 	/**
 	 * @brief Adds a new particle to the system if the particle buffer has an empty space
 	 * @param position The position of the new particle
@@ -67,8 +67,8 @@ public:
 	 * 	false otherwise
 	 */
 	EXPORT bool add_particle(glm::vec3 position,
-			  glm::vec3 velocity,
-			  float lifetime);
+				 glm::vec3 velocity,
+				 float lifetime);
 	/**
 	 * @brief Updates the particle buffers
 	 */

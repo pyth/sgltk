@@ -41,6 +41,12 @@ void Particles::setup_camera(glm::mat4 *view_matrix,
 	mesh.setup_camera(view_matrix, projection_matrix);
 }
 
+void Particles::attach_texture(const std::string& name,
+				sgltk::Texture *texture) {
+
+	mesh.textures_misc.push_back(std::make_pair(name, texture));
+}
+
 bool Particles::add_particle(glm::vec3 position,
 				glm::vec3 velocity,
 				float lifetime) {
