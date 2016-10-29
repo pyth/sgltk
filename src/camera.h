@@ -28,6 +28,14 @@ public:
 	 */
 	float height;
 	/**
+	 * The vertical field of view angle of the camera
+	 */
+	float fovy;
+	/**
+	 * The far plane of the camera frustum
+	 */
+	float far_plane;
+	/**
 	 * @brief The near plane of the camera frustum
 	 */
 	float near_plane;
@@ -120,15 +128,6 @@ public:
  */
 class P_Camera : public Camera {
 	public:
-	/**
-	 * The vertical field of view angle of the camera
-	 */
-	float fovy;
-	/**
-	 * The far plane of the camera frustum
-	 */
-	float far_plane;
-
 	EXPORT P_Camera();
 	/**
 	 * @param pos The camera position
@@ -237,11 +236,6 @@ class P_Camera : public Camera {
  */
 class O_Camera : public Camera {
 	public:
-	/**
-	 * The far plane of the camera frustum
-	 */
-	float far_plane;
-
 	EXPORT O_Camera();
 	/**
 	 * @param pos The camera position
@@ -339,11 +333,6 @@ class O_Camera : public Camera {
  */
 class IP_Camera : public Camera {
 	public:
-	/**
-	 * The vertical field of view angle of the camera
-	 */
-	float fovy;
-
 	EXPORT IP_Camera();
 	/**
 	 * @param pos The camera position

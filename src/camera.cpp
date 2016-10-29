@@ -10,7 +10,11 @@ Camera::Camera(glm::vec3 pos,
 	this->dir = glm::normalize(dir);
 	this->up = glm::normalize(up);
 	right = glm::normalize(glm::cross(dir, up));
+	width = 640.f;
+	height = 480.f;
+	fovy = (float)M_PI;
 	near_plane = 1.0f;
+	far_plane = 800.f;
 
 	update_view_matrix();
 }
@@ -66,12 +70,6 @@ P_Camera::P_Camera() : Camera(glm::vec3(0, 0, 0),
 			      glm::vec3(0, 0, -1),
 			      glm::vec3(0, 1, 0)){
 
-
-	fovy = (float)M_PI;
-	width = 640.f;
-	height = 480.f;
-	near_plane = 0.1f;
-	far_plane = 800.f;
 	update_projection_matrix(fovy, width, height, near_plane, far_plane);
 }
 
@@ -80,11 +78,6 @@ P_Camera::P_Camera(glm::vec3 pos,
 		   glm::vec3 up) :
 		   Camera(pos, dir, up) {
 
-	fovy = (float)M_PI;
-	width = 640.f;
-	height = 480.f;
-	near_plane = 0.1f;
-	far_plane = 800.f;
 	update_projection_matrix(fovy, width, height, near_plane, far_plane);
 };
 
@@ -262,11 +255,6 @@ O_Camera::O_Camera() : Camera(glm::vec3(0, 0, 0),
 			      glm::vec3(0, 0, -1),
 			      glm::vec3(0, 1, 0)){
 
-
-	width = 640.f;
-	height = 480.f;
-	near_plane = 0.1f;
-	far_plane = 800.f;
 	update_projection_matrix(width, height, near_plane, far_plane);
 }
 
@@ -275,10 +263,6 @@ O_Camera::O_Camera(glm::vec3 pos,
 		   glm::vec3 up) :
 		   Camera(pos, dir, up) {
 
-	width = 640.f;
-	height = 480.f;
-	near_plane = 0.1f;
-	far_plane = 800.f;
 	update_projection_matrix(width, height, near_plane, far_plane);
 };
 
@@ -442,11 +426,6 @@ IP_Camera::IP_Camera() : Camera(glm::vec3(0, 0, 0),
 				glm::vec3(0, 0, -1),
 				glm::vec3(0, 1, 0)){
 
-
-	fovy = (float)M_PI;
-	width = 640.f;
-	height = 480.f;
-	near_plane = 0.1f;
 	update_projection_matrix(fovy, width, height, near_plane);
 }
 
@@ -455,10 +434,6 @@ IP_Camera::IP_Camera(glm::vec3 pos,
 		     glm::vec3 up) :
 		     Camera(pos, dir, up) {
 
-	fovy = (float)M_PI;
-	width = 640.f;
-	height = 480.f;
-	near_plane = 0.1f;
 	update_projection_matrix(fovy, width, height, near_plane);
 };
 
