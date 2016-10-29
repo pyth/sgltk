@@ -2,15 +2,15 @@
 
 using namespace sgltk;
 
-Renderbuffer::Renderbuffer(unsigned int res_x,
-			   unsigned int res_y,
+Renderbuffer::Renderbuffer(unsigned int width,
+			   unsigned int height,
 			   GLenum format) {
 	this->format = format;
-	width = res_x;
-	height = res_y;
+	this->width = width;
+	this->height = height;
 	glGenRenderbuffers(1, &buffer);
 	bind();
-	glRenderbufferStorage(GL_RENDERBUFFER, format, res_x, res_y);
+	glRenderbufferStorage(GL_RENDERBUFFER, format, width, height);
 	unbind();
 }
 

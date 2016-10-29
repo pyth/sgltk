@@ -7,6 +7,10 @@
 
 namespace sgltk {
 
+/**
+ * @class Framebuffer
+ * @brief Manages framebuffers
+ */
 class Framebuffer {
 	GLuint buffer;
 	GLenum target;
