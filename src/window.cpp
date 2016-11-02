@@ -246,10 +246,10 @@ void Window::handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int
 void Window::handle_gamepad_axis_change(unsigned int gamepad_id, unsigned int axis, int value) {
 }
 
-void Window::handle_keyboard(std::string key) {
+void Window::handle_keyboard(const std::string& key) {
 }
 
-void Window::handle_key_press(std::string key, bool pressed) {
+void Window::handle_key_press(const std::string& key, bool pressed) {
 }
 
 void Window::handle_mouse_motion(int x, int y) {
