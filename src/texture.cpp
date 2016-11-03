@@ -13,7 +13,7 @@ Texture::Texture(GLenum target,
 
 	glGenTextures(1, &texture);
 	this->target = target;
-	create_empty(res_x, res_y, internal_format, type, format);
+	create_empty_2D(res_x, res_y, internal_format, type, format);
 }
 
 Texture::Texture(GLenum target) {
@@ -95,11 +95,12 @@ void Texture::set_parameter(GLenum name, float parameter) {
 	glBindTexture(target, 0);
 }
 
-void Texture::create_empty(unsigned int res_x,
-			   unsigned int res_y,
-			   GLenum internal_format,
-			   GLenum type,
-			   GLenum format) {
+void Texture::create_empty_2D(unsigned int res_x,
+			      unsigned int res_y,
+			      GLenum internal_format,
+			      GLenum type,
+			      GLenum format) {
+
 	width = res_x;
 	height = res_y;
 	bind();
@@ -109,6 +110,27 @@ void Texture::create_empty(unsigned int res_x,
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	unbind();
+}
+
+void Texture::create_empty_cubemap(unsigned int res_x,
+				   unsigned int res_y,
+				   GLenum internal_format,
+				   GLenum type, GLenum format) {
+
+	target = GL_TEXTURE_CUBE_MAP;
+	bind();
+
+	for(unsigned int i = 0; i < 6; i++) {
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0,
+			     internal_format, res_x, res_y, 0, format,
+			     type, NULL);
+	}
+	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(target, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	unbind();
 }
 
@@ -146,31 +168,27 @@ void Texture::load_cubemap(const Image& pos_x, const Image& neg_x,
 			   const Image& pos_z, const Image& neg_z) {
 
 	SDL_Surface *tmp;
-	std::map<GLenum, const Image *> side_map;
-	side_map[GL_TEXTURE_CUBE_MAP_POSITIVE_X] = &pos_x;
-	side_map[GL_TEXTURE_CUBE_MAP_NEGATIVE_X] = &neg_x;
-	side_map[GL_TEXTURE_CUBE_MAP_POSITIVE_Y] = &pos_y;
-	side_map[GL_TEXTURE_CUBE_MAP_NEGATIVE_Y] = &neg_y;
-	side_map[GL_TEXTURE_CUBE_MAP_POSITIVE_Z] = &pos_z;
-	side_map[GL_TEXTURE_CUBE_MAP_NEGATIVE_Z] = &neg_z;
+	target = GL_TEXTURE_CUBE_MAP;
+	std::vector<const Image *> sides =
+		{&pos_x, &neg_x, &pos_y, &neg_y, &pos_z, &neg_z};
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(target, texture);
 
-	for(const std::pair<GLenum, const Image *>& side : side_map) {
-		tmp = SDL_ConvertSurfaceFormat(side.second->image,
+	for(unsigned int i = 0; i < 6; i++) {
+		tmp = SDL_ConvertSurfaceFormat(sides[i]->image,
 					SDL_PIXELFORMAT_RGBA8888, 0);
 
-		glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(target, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-		glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexImage2D(side.first, 0, GL_RGBA, side.second->width,
-			     side.second->height, 0, GL_RGBA,
-			     GL_UNSIGNED_INT_8_8_8_8, tmp->pixels);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA,
+			     sides[i]->width, sides[i]->height,
+			     0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, tmp->pixels);
 		SDL_FreeSurface(tmp);
 	}
+	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(target, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glBindTexture(target, 0);
 }
 

@@ -92,18 +92,31 @@ public:
 	 */
 	EXPORT static Texture *find_texture(std::string name);
 	/**
-	 * @brief Creates an empty texture
+	 * @brief Creates an empty 2D texture
 	 * @param res_x The texture x resolution
 	 * @param res_y The texture y resolution
 	 * @param internal_format The internal format of the texture
 	 * @param type The type of pixel data
 	 * @param format The format of the textre
 	 */
-	EXPORT void create_empty(unsigned int res_x,
-				 unsigned int res_y,
-				 GLenum internal_format,
-				 GLenum type,
-				 GLenum format);
+	EXPORT void create_empty_2D(unsigned int res_x,
+				    unsigned int res_y,
+				    GLenum internal_format,
+				    GLenum type,
+				    GLenum format);
+	/**
+	 * @brief Creates an empty cubemap
+	 * @param res_x The texture x resolution
+	 * @param res_y The texture y resolution
+	 * @param internal_format The internal format of the texture
+	 * @param type The type of pixel data
+	 * @param format The format of the textre
+	 */
+	EXPORT void create_empty_cubemap(unsigned int res_x,
+					 unsigned int res_y,
+					 GLenum internal_format,
+					 GLenum type,
+					 GLenum format);
 	/**
 	 * @brief Load a new image as texture
 	 * @param image The image to use as the texture
