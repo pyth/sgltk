@@ -10,6 +10,7 @@ Camera::Camera(glm::vec3 pos,
 	this->dir = glm::normalize(dir);
 	this->up = glm::normalize(up);
 	right = glm::normalize(glm::cross(dir, up));
+	this->up = glm::normalize(glm::cross(right, dir));
 	width = 640.f;
 	height = 480.f;
 	fovy = (float)M_PI;
