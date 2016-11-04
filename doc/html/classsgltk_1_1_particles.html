@@ -71,30 +71,225 @@ $(function() {
 <div class="title">sgltk::Particles Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The implementation of a particle system using the mesh class.  
+ <a href="classsgltk_1_1_particles.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="particle_8h_source.html">particle.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6e797413691f571e33cf2967eeaa41c1"><td class="memItemLeft" align="right" valign="top"><a id="a6e797413691f571e33cf2967eeaa41c1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Particles</b> (int number, glm::vec3 origin, glm::vec3 velocity)</td></tr>
-<tr class="separator:a6e797413691f571e33cf2967eeaa41c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad07bbc0d502a93ddddb459a2d179c527"><td class="memItemLeft" align="right" valign="top"><a id="ad07bbc0d502a93ddddb459a2d179c527"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Particles</b> (int number, glm::vec3 origin, glm::vec3 velocity, glm::vec3 origin_offset, glm::vec3 velocity_offset)</td></tr>
-<tr class="separator:ad07bbc0d502a93ddddb459a2d179c527"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b268feec4112aa7d2171f44d8cacb4d"><td class="memItemLeft" align="right" valign="top"><a id="a0b268feec4112aa7d2171f44d8cacb4d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>render</b> ()</td></tr>
-<tr class="separator:a0b268feec4112aa7d2171f44d8cacb4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad115671c093df0a1d7328356ee8ce46c"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_particles.html#ad115671c093df0a1d7328356ee8ce46c">resize</a> (unsigned int number)</td></tr>
+<tr class="memdesc:ad115671c093df0a1d7328356ee8ce46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the number of the particles in the system.  <a href="#ad115671c093df0a1d7328356ee8ce46c">More...</a><br /></td></tr>
+<tr class="separator:ad115671c093df0a1d7328356ee8ce46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f859bdd86034b620e4af8117a4ed7aa"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_particles.html#a2f859bdd86034b620e4af8117a4ed7aa">setup_shader</a> (<a class="el" href="classsgltk_1_1_shader.html">sgltk::Shader</a> *shader)</td></tr>
+<tr class="memdesc:a2f859bdd86034b620e4af8117a4ed7aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the shader to use to render the particles.  <a href="#a2f859bdd86034b620e4af8117a4ed7aa">More...</a><br /></td></tr>
+<tr class="separator:a2f859bdd86034b620e4af8117a4ed7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cc729d80e3fbaed75af3d3a08b811ed"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_particles.html#a0cc729d80e3fbaed75af3d3a08b811ed">setup_camera</a> (<a class="el" href="classsgltk_1_1_camera.html">sgltk::Camera</a> *camera)</td></tr>
+<tr class="memdesc:a0cc729d80e3fbaed75af3d3a08b811ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the view and projection matrices that will be used to render the particles.  <a href="#a0cc729d80e3fbaed75af3d3a08b811ed">More...</a><br /></td></tr>
+<tr class="separator:a0cc729d80e3fbaed75af3d3a08b811ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addcce4d82c0fc8b5eaf2392c1cd1654a"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_particles.html#addcce4d82c0fc8b5eaf2392c1cd1654a">setup_camera</a> (glm::mat4 *view_matrix, glm::mat4 *projection_matrix)</td></tr>
+<tr class="memdesc:addcce4d82c0fc8b5eaf2392c1cd1654a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the view and projection matrices that will be used to render the particles.  <a href="#addcce4d82c0fc8b5eaf2392c1cd1654a">More...</a><br /></td></tr>
+<tr class="separator:addcce4d82c0fc8b5eaf2392c1cd1654a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a124f0d46e94718e9a73ee6bcc6981364"><td class="memItemLeft" align="right" valign="top"><a id="a124f0d46e94718e9a73ee6bcc6981364"></a>
+EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_particles.html#a124f0d46e94718e9a73ee6bcc6981364">attach_texture</a> (const std::string &amp;name, <a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a> *texture)</td></tr>
+<tr class="memdesc:a124f0d46e94718e9a73ee6bcc6981364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches a texture to the particles. <br /></td></tr>
+<tr class="separator:a124f0d46e94718e9a73ee6bcc6981364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6524f029d2de8934f6fe551fc0f67d65"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_particles.html#a6524f029d2de8934f6fe551fc0f67d65">add_particle</a> (glm::vec3 position, glm::vec3 velocity, float lifetime)</td></tr>
+<tr class="memdesc:a6524f029d2de8934f6fe551fc0f67d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new particle to the system if the particle buffer has an empty space.  <a href="#a6524f029d2de8934f6fe551fc0f67d65">More...</a><br /></td></tr>
+<tr class="separator:a6524f029d2de8934f6fe551fc0f67d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cb81f4b3ffdc5b007ab613f42393ff1"><td class="memItemLeft" align="right" valign="top"><a id="a6cb81f4b3ffdc5b007ab613f42393ff1"></a>
+EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_particles.html#a6cb81f4b3ffdc5b007ab613f42393ff1">update</a> ()</td></tr>
+<tr class="memdesc:a6cb81f4b3ffdc5b007ab613f42393ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the particle buffers. <br /></td></tr>
+<tr class="separator:a6cb81f4b3ffdc5b007ab613f42393ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f1bf34e96b6c8c6ef529b1270738206"><td class="memItemLeft" align="right" valign="top"><a id="a1f1bf34e96b6c8c6ef529b1270738206"></a>
+EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_particles.html#a1f1bf34e96b6c8c6ef529b1270738206">draw</a> ()</td></tr>
+<tr class="memdesc:a1f1bf34e96b6c8c6ef529b1270738206"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the particles. <br /></td></tr>
+<tr class="separator:a1f1bf34e96b6c8c6ef529b1270738206"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="particle_8h_source.html#l00008">8</a> of file <a class="el" href="particle_8h_source.html">particle.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<div class="textblock"><p>The implementation of a particle system using the mesh class. </p>
+
+<p>Definition at line <a class="el" href="particle_8h_source.html#l00016">16</a> of file <a class="el" href="particle_8h_source.html">particle.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6524f029d2de8934f6fe551fc0f67d65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6524f029d2de8934f6fe551fc0f67d65">&sect;&nbsp;</a></span>add_particle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Particles::add_particle </td>
+          <td>(</td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>velocity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>lifetime</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a new particle to the system if the particle buffer has an empty space. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The position of the new particle </td></tr>
+    <tr><td class="paramname">velocity</td><td>The velocity vector of the new particle </td></tr>
+    <tr><td class="paramname">lifetime</td><td>The lifetime of the particle in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true if the particle was successfully added to the buffer, false otherwise </dd></dl>
+
+<p>Definition at line <a class="el" href="particle_8cpp_source.html#l00050">50</a> of file <a class="el" href="particle_8cpp_source.html">particle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad115671c093df0a1d7328356ee8ce46c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad115671c093df0a1d7328356ee8ce46c">&sect;&nbsp;</a></span>resize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Particles::resize </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>number</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the number of the particles in the system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>The new number of particles </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="particle_8cpp_source.html#l00012">12</a> of file <a class="el" href="particle_8cpp_source.html">particle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0cc729d80e3fbaed75af3d3a08b811ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cc729d80e3fbaed75af3d3a08b811ed">&sect;&nbsp;</a></span>setup_camera() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Particles::setup_camera </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsgltk_1_1_camera.html">sgltk::Camera</a> *&#160;</td>
+          <td class="paramname"><em>camera</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up the view and projection matrices that will be used to render the particles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">camera</td><td>The camera to be used to draw the particles </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="particle_8cpp_source.html#l00034">34</a> of file <a class="el" href="particle_8cpp_source.html">particle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="addcce4d82c0fc8b5eaf2392c1cd1654a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addcce4d82c0fc8b5eaf2392c1cd1654a">&sect;&nbsp;</a></span>setup_camera() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Particles::setup_camera </td>
+          <td>(</td>
+          <td class="paramtype">glm::mat4 *&#160;</td>
+          <td class="paramname"><em>view_matrix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::mat4 *&#160;</td>
+          <td class="paramname"><em>projection_matrix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up the view and projection matrices that will be used to render the particles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">view_matrix</td><td>The view matrix </td></tr>
+    <tr><td class="paramname">projection_matrix</td><td>The projection matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="particle_8cpp_source.html#l00038">38</a> of file <a class="el" href="particle_8cpp_source.html">particle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2f859bdd86034b620e4af8117a4ed7aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f859bdd86034b620e4af8117a4ed7aa">&sect;&nbsp;</a></span>setup_shader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Particles::setup_shader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsgltk_1_1_shader.html">sgltk::Shader</a> *&#160;</td>
+          <td class="paramname"><em>shader</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Specifies the shader to use to render the particles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shader</td><td>The shader to be used to render the particles </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="particle_8cpp_source.html#l00030">30</a> of file <a class="el" href="particle_8cpp_source.html">particle.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/pyth/proj/sgltk_examples/sgltk/src/<a class="el" href="particle_8h_source.html">particle.h</a></li>
 <li>/home/pyth/proj/sgltk_examples/sgltk/src/<a class="el" href="particle_8cpp_source.html">particle.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 17 2016 14:54:01 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Nov 4 2016 23:47:20 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>

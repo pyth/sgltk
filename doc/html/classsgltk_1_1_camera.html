@@ -69,37 +69,36 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classsgltk_1_1_camera-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">sgltk::Camera Class Reference</div>  </div>
+<div class="title">sgltk::Camera Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Manages cameras A new camera uses perspective projection matrix if nothing else is specified.  
+<p>Manages cameras.  
  <a href="classsgltk_1_1_camera.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="camera_8h_source.html">camera.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for sgltk::Camera:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsgltk_1_1_camera__inherit__graph.png" border="0" usemap="#sgltk_1_1_camera_inherit__map" alt="Inheritance graph"/></div>
+<map name="sgltk_1_1_camera_inherit__map" id="sgltk_1_1_camera_inherit__map">
+<area shape="rect" id="node2" href="classsgltk_1_1_i_p___camera.html" title="Manages infinite perspective cameras. " alt="" coords="5,80,128,107"/>
+<area shape="rect" id="node3" href="classsgltk_1_1_o___camera.html" title="Manages orthographic cameras. " alt="" coords="152,80,272,107"/>
+<area shape="rect" id="node4" href="classsgltk_1_1_p___camera.html" title="Manages perspective cameras. " alt="" coords="297,80,415,107"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa1b33ff1d2b07b583057ec2364e46b7e"><td class="memItemLeft" align="right" valign="top">EXPORT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#aa1b33ff1d2b07b583057ec2364e46b7e">Camera</a> (glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a084bee6592ad8530826677cf48ca6f50">pos</a>, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a156fc5e9f1d6f1d0085720c6627df45f">dir</a>, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a5874dd9ab21e2d32cb488f4ba9daf8d7">up</a>, sgltk::CAMERA_TYPE <a class="el" href="classsgltk_1_1_camera.html#a34fd2cd776c64c78e83b54cb7b6404bb">type</a>=sgltk::PERSPECTIVE)</td></tr>
-<tr class="separator:aa1b33ff1d2b07b583057ec2364e46b7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a181fed172e2479add9ef221200df797f"><td class="memItemLeft" align="right" valign="top">EXPORT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a181fed172e2479add9ef221200df797f">Camera</a> (glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a084bee6592ad8530826677cf48ca6f50">pos</a>, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a156fc5e9f1d6f1d0085720c6627df45f">dir</a>, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a5874dd9ab21e2d32cb488f4ba9daf8d7">up</a>, float <a class="el" href="classsgltk_1_1_camera.html#aa106e094d228c2884e73cbfcee01ffd7">fovy</a>, float <a class="el" href="classsgltk_1_1_camera.html#a219880a12bcf7e8cb3fc9cee5000652e">width</a>, float <a class="el" href="classsgltk_1_1_camera.html#a0c40a8d4208118065a3276a934ea3762">height</a>, float <a class="el" href="classsgltk_1_1_camera.html#aa08fab8114767a6fa5c0b317b2746263">near_plane</a>, float <a class="el" href="classsgltk_1_1_camera.html#a00b77bb69202531b79170699540b0cfc">far_plane</a>, sgltk::CAMERA_TYPE <a class="el" href="classsgltk_1_1_camera.html#a34fd2cd776c64c78e83b54cb7b6404bb">type</a>=sgltk::PERSPECTIVE)</td></tr>
-<tr class="separator:a181fed172e2479add9ef221200df797f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a104615d38a37718844cce9910747b378"><td class="memItemLeft" align="right" valign="top">EXPORT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a104615d38a37718844cce9910747b378">Camera</a> (glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a084bee6592ad8530826677cf48ca6f50">pos</a>, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a156fc5e9f1d6f1d0085720c6627df45f">dir</a>, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a5874dd9ab21e2d32cb488f4ba9daf8d7">up</a>)</td></tr>
+<tr class="separator:a104615d38a37718844cce9910747b378"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8314e7d472a74170c6e5c249da1ef2a"><td class="memItemLeft" align="right" valign="top"><a id="aa8314e7d472a74170c6e5c249da1ef2a"></a>
 EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#aa8314e7d472a74170c6e5c249da1ef2a">update_view_matrix</a> ()</td></tr>
 <tr class="memdesc:aa8314e7d472a74170c6e5c249da1ef2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the view matrix. <br /></td></tr>
 <tr class="separator:aa8314e7d472a74170c6e5c249da1ef2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5190038110cdb4b32fae6889103e19cd"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a5190038110cdb4b32fae6889103e19cd">update_projection_matrix</a> (float <a class="el" href="classsgltk_1_1_camera.html#a219880a12bcf7e8cb3fc9cee5000652e">width</a>, float <a class="el" href="classsgltk_1_1_camera.html#a0c40a8d4208118065a3276a934ea3762">height</a>)</td></tr>
-<tr class="memdesc:a5190038110cdb4b32fae6889103e19cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix.  <a href="#a5190038110cdb4b32fae6889103e19cd">More...</a><br /></td></tr>
-<tr class="separator:a5190038110cdb4b32fae6889103e19cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2af3a2c2d98c22ff51cc1bf29d48724f"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a2af3a2c2d98c22ff51cc1bf29d48724f">update_projection_matrix</a> (float <a class="el" href="classsgltk_1_1_camera.html#aa106e094d228c2884e73cbfcee01ffd7">fovy</a>, float <a class="el" href="classsgltk_1_1_camera.html#a219880a12bcf7e8cb3fc9cee5000652e">width</a>, float <a class="el" href="classsgltk_1_1_camera.html#a0c40a8d4208118065a3276a934ea3762">height</a>)</td></tr>
-<tr class="memdesc:a2af3a2c2d98c22ff51cc1bf29d48724f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix.  <a href="#a2af3a2c2d98c22ff51cc1bf29d48724f">More...</a><br /></td></tr>
-<tr class="separator:a2af3a2c2d98c22ff51cc1bf29d48724f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58a548dad30c390c476e6f323fdca6a2"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a58a548dad30c390c476e6f323fdca6a2">update_projection_matrix</a> (float <a class="el" href="classsgltk_1_1_camera.html#aa106e094d228c2884e73cbfcee01ffd7">fovy</a>, float <a class="el" href="classsgltk_1_1_camera.html#a219880a12bcf7e8cb3fc9cee5000652e">width</a>, float <a class="el" href="classsgltk_1_1_camera.html#a0c40a8d4208118065a3276a934ea3762">height</a>, float <a class="el" href="classsgltk_1_1_camera.html#aa08fab8114767a6fa5c0b317b2746263">near_plane</a>)</td></tr>
-<tr class="memdesc:a58a548dad30c390c476e6f323fdca6a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix.  <a href="#a58a548dad30c390c476e6f323fdca6a2">More...</a><br /></td></tr>
-<tr class="separator:a58a548dad30c390c476e6f323fdca6a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57b7f5153464e9aa17343fc8658ddfa1"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a57b7f5153464e9aa17343fc8658ddfa1">update_projection_matrix</a> (float <a class="el" href="classsgltk_1_1_camera.html#aa106e094d228c2884e73cbfcee01ffd7">fovy</a>, float <a class="el" href="classsgltk_1_1_camera.html#a219880a12bcf7e8cb3fc9cee5000652e">width</a>, float <a class="el" href="classsgltk_1_1_camera.html#a0c40a8d4208118065a3276a934ea3762">height</a>, float <a class="el" href="classsgltk_1_1_camera.html#aa08fab8114767a6fa5c0b317b2746263">near_plane</a>, float <a class="el" href="classsgltk_1_1_camera.html#a00b77bb69202531b79170699540b0cfc">far_plane</a>)</td></tr>
-<tr class="memdesc:a57b7f5153464e9aa17343fc8658ddfa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix.  <a href="#a57b7f5153464e9aa17343fc8658ddfa1">More...</a><br /></td></tr>
-<tr class="separator:a57b7f5153464e9aa17343fc8658ddfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92efd1b913bdac79710160c6923d8b71"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a92efd1b913bdac79710160c6923d8b71">update_projection_matrix</a> (float <a class="el" href="classsgltk_1_1_camera.html#a219880a12bcf7e8cb3fc9cee5000652e">width</a>, float <a class="el" href="classsgltk_1_1_camera.html#a0c40a8d4208118065a3276a934ea3762">height</a>)=0</td></tr>
+<tr class="memdesc:a92efd1b913bdac79710160c6923d8b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix.  <a href="#a92efd1b913bdac79710160c6923d8b71">More...</a><br /></td></tr>
+<tr class="separator:a92efd1b913bdac79710160c6923d8b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acab319dbcc7b55200541b7217a6ec9dc"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#acab319dbcc7b55200541b7217a6ec9dc">move_up</a> (float delta)</td></tr>
 <tr class="memdesc:acab319dbcc7b55200541b7217a6ec9dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the camera along the up vector.  <a href="#acab319dbcc7b55200541b7217a6ec9dc">More...</a><br /></td></tr>
 <tr class="separator:acab319dbcc7b55200541b7217a6ec9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,45 +123,17 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a49e00b90b94853e4485a6bdf063796de"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a49e00b90b94853e4485a6bdf063796de">pitch</a> (float angle)</td></tr>
 <tr class="memdesc:a49e00b90b94853e4485a6bdf063796de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotate the camera using the right vector as the axis.  <a href="#a49e00b90b94853e4485a6bdf063796de">More...</a><br /></td></tr>
 <tr class="separator:a49e00b90b94853e4485a6bdf063796de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a931e034aefcb67429e75eb806848565f"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a931e034aefcb67429e75eb806848565f">calculate_frustum_points</a> (glm::vec3 *near_bottom_left, glm::vec3 *near_bottom_right, glm::vec3 *near_top_right, glm::vec3 *near_top_left, glm::vec3 *far_bottom_left, glm::vec3 *far_bottom_right, glm::vec3 *far_top_right, glm::vec3 *far_top_left)</td></tr>
-<tr class="memdesc:a931e034aefcb67429e75eb806848565f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the corner points of the camera's frustum.  <a href="#a931e034aefcb67429e75eb806848565f">More...</a><br /></td></tr>
-<tr class="separator:a931e034aefcb67429e75eb806848565f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71671af9dcc1f75940af01c6d0fc2a56"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a71671af9dcc1f75940af01c6d0fc2a56">calculate_frustum_points</a> (glm::vec3 *near_bottom_left, glm::vec3 *near_bottom_right, glm::vec3 *near_top_right, glm::vec3 *near_top_left, glm::vec3 *far_bottom_left, glm::vec3 *far_bottom_right, glm::vec3 *far_top_right, glm::vec3 *far_top_left, sgltk::CAMERA_TYPE <a class="el" href="classsgltk_1_1_camera.html#a34fd2cd776c64c78e83b54cb7b6404bb">type</a>)</td></tr>
-<tr class="memdesc:a71671af9dcc1f75940af01c6d0fc2a56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the corner points of the camera's frustum.  <a href="#a71671af9dcc1f75940af01c6d0fc2a56">More...</a><br /></td></tr>
-<tr class="separator:a71671af9dcc1f75940af01c6d0fc2a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ecafbdb088bf5ce466fe7979916e1a6"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a2ecafbdb088bf5ce466fe7979916e1a6">calculate_frustum_distance</a> (glm::vec3 position, float *far, float *near, float *left, float *<a class="el" href="classsgltk_1_1_camera.html#a16559c771e5a73746fca937a796df906">right</a>, float *top, float *bottom)</td></tr>
-<tr class="memdesc:a2ecafbdb088bf5ce466fe7979916e1a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the distances of a point to all planes of the camera's frustum. Positive values indicate that the point and the frustum are on the opposite sides of the plane.  <a href="#a2ecafbdb088bf5ce466fe7979916e1a6">More...</a><br /></td></tr>
-<tr class="separator:a2ecafbdb088bf5ce466fe7979916e1a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdfc2decd0b1aba43b3bf3595815e09a"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#acdfc2decd0b1aba43b3bf3595815e09a">calculate_frustum_distance</a> (glm::vec3 position, float *far, float *near, float *left, float *<a class="el" href="classsgltk_1_1_camera.html#a16559c771e5a73746fca937a796df906">right</a>, float *top, float *bottom, sgltk::CAMERA_TYPE <a class="el" href="classsgltk_1_1_camera.html#a34fd2cd776c64c78e83b54cb7b6404bb">type</a>)</td></tr>
-<tr class="memdesc:acdfc2decd0b1aba43b3bf3595815e09a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the distances of a point to all planes of the camera's frustum. Positive values indicate that the point and the frustum are on the opposite sides of the plane.  <a href="#acdfc2decd0b1aba43b3bf3595815e09a">More...</a><br /></td></tr>
-<tr class="separator:acdfc2decd0b1aba43b3bf3595815e09a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a34fd2cd776c64c78e83b54cb7b6404bb"><td class="memItemLeft" align="right" valign="top"><a id="a34fd2cd776c64c78e83b54cb7b6404bb"></a>
-sgltk::CAMERA_TYPE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a34fd2cd776c64c78e83b54cb7b6404bb">type</a></td></tr>
-<tr class="memdesc:a34fd2cd776c64c78e83b54cb7b6404bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The camera type The type of the projection matrix used by the camera. It can be a bitwise or combination of the types. <br /></td></tr>
-<tr class="separator:a34fd2cd776c64c78e83b54cb7b6404bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a88122e745abb8db0c3c8eb79ceb57e"><td class="memItemLeft" align="right" valign="top"><a id="a2a88122e745abb8db0c3c8eb79ceb57e"></a>
 glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a2a88122e745abb8db0c3c8eb79ceb57e">view_matrix</a></td></tr>
 <tr class="memdesc:a2a88122e745abb8db0c3c8eb79ceb57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The view matrix. <br /></td></tr>
 <tr class="separator:a2a88122e745abb8db0c3c8eb79ceb57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1010f4f32e42d5841133aab1ed44e697"><td class="memItemLeft" align="right" valign="top"><a id="a1010f4f32e42d5841133aab1ed44e697"></a>
-glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a1010f4f32e42d5841133aab1ed44e697">projection_matrix_persp</a></td></tr>
-<tr class="memdesc:a1010f4f32e42d5841133aab1ed44e697"><td class="mdescLeft">&#160;</td><td class="mdescRight">The perspective projection matrix. <br /></td></tr>
-<tr class="separator:a1010f4f32e42d5841133aab1ed44e697"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfaa4de975cc304a2b5f27640d4de7ed"><td class="memItemLeft" align="right" valign="top"><a id="adfaa4de975cc304a2b5f27640d4de7ed"></a>
-glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#adfaa4de975cc304a2b5f27640d4de7ed">projection_matrix_persp_inf</a></td></tr>
-<tr class="memdesc:adfaa4de975cc304a2b5f27640d4de7ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">The infinite projection matrix. <br /></td></tr>
-<tr class="separator:adfaa4de975cc304a2b5f27640d4de7ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab05074ad20413f32a3fd6637e67229bd"><td class="memItemLeft" align="right" valign="top"><a id="ab05074ad20413f32a3fd6637e67229bd"></a>
-glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#ab05074ad20413f32a3fd6637e67229bd">projection_matrix_ortho</a></td></tr>
-<tr class="memdesc:ab05074ad20413f32a3fd6637e67229bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The orthographic projection matrix. <br /></td></tr>
-<tr class="separator:ab05074ad20413f32a3fd6637e67229bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa106e094d228c2884e73cbfcee01ffd7"><td class="memItemLeft" align="right" valign="top"><a id="aa106e094d228c2884e73cbfcee01ffd7"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#aa106e094d228c2884e73cbfcee01ffd7">fovy</a></td></tr>
-<tr class="memdesc:aa106e094d228c2884e73cbfcee01ffd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The field of view in radians. <br /></td></tr>
-<tr class="separator:aa106e094d228c2884e73cbfcee01ffd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9ead3c6d936bd7ce6294eecdb8d00c8"><td class="memItemLeft" align="right" valign="top"><a id="ab9ead3c6d936bd7ce6294eecdb8d00c8"></a>
+glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#ab9ead3c6d936bd7ce6294eecdb8d00c8">projection_matrix</a></td></tr>
+<tr class="memdesc:ab9ead3c6d936bd7ce6294eecdb8d00c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The perspective projection matrix. <br /></td></tr>
+<tr class="separator:ab9ead3c6d936bd7ce6294eecdb8d00c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a219880a12bcf7e8cb3fc9cee5000652e"><td class="memItemLeft" align="right" valign="top"><a id="a219880a12bcf7e8cb3fc9cee5000652e"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a219880a12bcf7e8cb3fc9cee5000652e">width</a></td></tr>
 <tr class="memdesc:a219880a12bcf7e8cb3fc9cee5000652e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Viewport width. <br /></td></tr>
@@ -171,14 +142,18 @@ float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cla
 float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a0c40a8d4208118065a3276a934ea3762">height</a></td></tr>
 <tr class="memdesc:a0c40a8d4208118065a3276a934ea3762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Viewport height. <br /></td></tr>
 <tr class="separator:a0c40a8d4208118065a3276a934ea3762"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa08fab8114767a6fa5c0b317b2746263"><td class="memItemLeft" align="right" valign="top"><a id="aa08fab8114767a6fa5c0b317b2746263"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#aa08fab8114767a6fa5c0b317b2746263">near_plane</a></td></tr>
-<tr class="memdesc:aa08fab8114767a6fa5c0b317b2746263"><td class="mdescLeft">&#160;</td><td class="mdescRight">The near plane. <br /></td></tr>
-<tr class="separator:aa08fab8114767a6fa5c0b317b2746263"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa106e094d228c2884e73cbfcee01ffd7"><td class="memItemLeft" align="right" valign="top"><a id="aa106e094d228c2884e73cbfcee01ffd7"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#aa106e094d228c2884e73cbfcee01ffd7">fovy</a></td></tr>
+<tr class="memdesc:aa106e094d228c2884e73cbfcee01ffd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The vertical field of view angle of the camera. <br /></td></tr>
+<tr class="separator:aa106e094d228c2884e73cbfcee01ffd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00b77bb69202531b79170699540b0cfc"><td class="memItemLeft" align="right" valign="top"><a id="a00b77bb69202531b79170699540b0cfc"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a00b77bb69202531b79170699540b0cfc">far_plane</a></td></tr>
-<tr class="memdesc:a00b77bb69202531b79170699540b0cfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The far plane. <br /></td></tr>
+<tr class="memdesc:a00b77bb69202531b79170699540b0cfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The far plane of the camera frustum. <br /></td></tr>
 <tr class="separator:a00b77bb69202531b79170699540b0cfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa08fab8114767a6fa5c0b317b2746263"><td class="memItemLeft" align="right" valign="top"><a id="aa08fab8114767a6fa5c0b317b2746263"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#aa08fab8114767a6fa5c0b317b2746263">near_plane</a></td></tr>
+<tr class="memdesc:aa08fab8114767a6fa5c0b317b2746263"><td class="mdescLeft">&#160;</td><td class="mdescRight">The near plane of the camera frustum. <br /></td></tr>
+<tr class="separator:aa08fab8114767a6fa5c0b317b2746263"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a084bee6592ad8530826677cf48ca6f50"><td class="memItemLeft" align="right" valign="top"><a id="a084bee6592ad8530826677cf48ca6f50"></a>
 glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a084bee6592ad8530826677cf48ca6f50">pos</a></td></tr>
 <tr class="memdesc:a084bee6592ad8530826677cf48ca6f50"><td class="mdescLeft">&#160;</td><td class="mdescRight">The camera position. <br /></td></tr>
@@ -197,12 +172,12 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <tr class="separator:a16559c771e5a73746fca937a796df906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Manages cameras A new camera uses perspective projection matrix if nothing else is specified. </p>
+<div class="textblock"><p>Manages cameras. </p>
 
-<p>Definition at line <a class="el" href="camera_8h_source.html#l00018">18</a> of file <a class="el" href="camera_8h_source.html">camera.h</a>.</p>
+<p>Definition at line <a class="el" href="camera_8h_source.html#l00012">12</a> of file <a class="el" href="camera_8h_source.html">camera.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa1b33ff1d2b07b583057ec2364e46b7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1b33ff1d2b07b583057ec2364e46b7e">&sect;&nbsp;</a></span>Camera() <span class="overload">[1/2]</span></h2>
+<a id="a104615d38a37718844cce9910747b378"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a104615d38a37718844cce9910747b378">&sect;&nbsp;</a></span>Camera()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,13 +198,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>up</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sgltk::CAMERA_TYPE&#160;</td>
-          <td class="paramname"><em>type</em> = <code>sgltk::PERSPECTIVE</code>&#160;</td>
+          <td class="paramname"><em>up</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -243,426 +212,15 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
     <tr><td class="paramname">pos</td><td>The camera position </td></tr>
     <tr><td class="paramname">dir</td><td>The view direction </td></tr>
     <tr><td class="paramname">up</td><td>The up vector </td></tr>
-    <tr><td class="paramname">type</td><td>The camera type </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00020">20</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a181fed172e2479add9ef221200df797f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a181fed172e2479add9ef221200df797f">&sect;&nbsp;</a></span>Camera() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Camera::Camera </td>
-          <td>(</td>
-          <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>dir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>up</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fovy</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>near_plane</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>far_plane</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sgltk::CAMERA_TYPE&#160;</td>
-          <td class="paramname"><em>type</em> = <code>sgltk::PERSPECTIVE</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The camera position </td></tr>
-    <tr><td class="paramname">dir</td><td>The view direction </td></tr>
-    <tr><td class="paramname">up</td><td>The up vector </td></tr>
-    <tr><td class="paramname">fovy</td><td>The field of view in radians </td></tr>
-    <tr><td class="paramname">width</td><td>The width of the viewport </td></tr>
-    <tr><td class="paramname">height</td><td>The height of the viewport </td></tr>
-    <tr><td class="paramname">near_plane</td><td>The near plane </td></tr>
-    <tr><td class="paramname">far_plane</td><td>The far plane </td></tr>
-    <tr><td class="paramname">type</td><td>The camera type </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00039">39</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00005">5</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2ecafbdb088bf5ce466fe7979916e1a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ecafbdb088bf5ce466fe7979916e1a6">&sect;&nbsp;</a></span>calculate_frustum_distance() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Camera::calculate_frustum_distance </td>
-          <td>(</td>
-          <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>far</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>near</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>top</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>bottom</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculates the distances of a point to all planes of the camera's frustum. Positive values indicate that the point and the frustum are on the opposite sides of the plane. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>The position of the point to calculate the distance to </td></tr>
-    <tr><td class="paramname">far</td><td>The distance to the far plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near</td><td>The distance to the near plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">left</td><td>The distance to the left plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">right</td><td>The distance to the right plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">top</td><td>The distance to the top plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">bottom</td><td>The distance to the bottom plane of the frustum. Can be NULL. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise. </dd></dl>
-
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00248">248</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
-
-</div>
-</div>
-<a id="acdfc2decd0b1aba43b3bf3595815e09a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdfc2decd0b1aba43b3bf3595815e09a">&sect;&nbsp;</a></span>calculate_frustum_distance() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">EXPORT bool sgltk::Camera::calculate_frustum_distance </td>
-          <td>(</td>
-          <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>far</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>near</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>top</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>bottom</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sgltk::CAMERA_TYPE&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculates the distances of a point to all planes of the camera's frustum. Positive values indicate that the point and the frustum are on the opposite sides of the plane. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>The position of the point to calculate the distance to </td></tr>
-    <tr><td class="paramname">far</td><td>The distance to the far plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near</td><td>The distance to the near plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">left</td><td>The distance to the left plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">right</td><td>The distance to the right plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">top</td><td>The distance to the top plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">bottom</td><td>The distance to the bottom plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">type</td><td>The type of the projection matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise. </dd></dl>
-
-</div>
-</div>
-<a id="a931e034aefcb67429e75eb806848565f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a931e034aefcb67429e75eb806848565f">&sect;&nbsp;</a></span>calculate_frustum_points() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Camera::calculate_frustum_points </td>
-          <td>(</td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_bottom_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_bottom_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_top_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_top_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_bottom_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_bottom_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_top_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_top_left</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculates the corner points of the camera's frustum. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">near_bottom_left</td><td>The world coordinates of the near-bottom-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near_bottom_right</td><td>The world coordinates of the near-bottom-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near_top_right</td><td>The world coordinates of the near-top-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near_top_left</td><td>The world coordinates of the near-top-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_bottom_left</td><td>The world coordinates of the far-bottom-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_bottom_right</td><td>The world coordinates of the far-bottom-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_top_right</td><td>The world coordinates of the far-bottom-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_top_left</td><td>The world coordinates of the far-bottom-left point of the frustum. Can be NULL. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise. </dd></dl>
-
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00158">158</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a71671af9dcc1f75940af01c6d0fc2a56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71671af9dcc1f75940af01c6d0fc2a56">&sect;&nbsp;</a></span>calculate_frustum_points() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">EXPORT bool sgltk::Camera::calculate_frustum_points </td>
-          <td>(</td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_bottom_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_bottom_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_top_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_top_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_bottom_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_bottom_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_top_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_top_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sgltk::CAMERA_TYPE&#160;</td>
-          <td class="paramname"><em>type</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculates the corner points of the camera's frustum. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">near_bottom_left</td><td>The world coordinates of the near-bottom-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near_bottom_right</td><td>The world coordinates of the near-bottom-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near_top_right</td><td>The world coordinates of the near-top-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near_top_left</td><td>The world coordinates of the near-top-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_bottom_left</td><td>The world coordinates of the far-bottom-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_bottom_right</td><td>The world coordinates of the far-bottom-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_top_right</td><td>The world coordinates of the far-bottom-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_top_left</td><td>The world coordinates of the far-bottom-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">type</td><td>The type of the projection matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise. </dd></dl>
-
-</div>
-</div>
 <a id="a08d16bfc422c4635a892cb8e37996d0a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a08d16bfc422c4635a892cb8e37996d0a">&sect;&nbsp;</a></span>move_by() <span class="overload">[1/2]</span></h2>
 
@@ -705,7 +263,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00130">130</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00042">42</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -733,7 +291,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00136">136</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00048">48</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -761,7 +319,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00126">126</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00038">38</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -789,7 +347,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00122">122</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00034">34</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -817,7 +375,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00118">118</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00030">30</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -845,7 +403,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00152">152</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00064">64</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -873,18 +431,21 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00146">146</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00058">58</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a5190038110cdb4b32fae6889103e19cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5190038110cdb4b32fae6889103e19cd">&sect;&nbsp;</a></span>update_projection_matrix() <span class="overload">[1/4]</span></h2>
+<a id="a92efd1b913bdac79710160c6923d8b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92efd1b913bdac79710160c6923d8b71">&sect;&nbsp;</a></span>update_projection_matrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Camera::update_projection_matrix </td>
+          <td class="memname">virtual EXPORT void sgltk::Camera::update_projection_matrix </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>width</em>, </td>
@@ -901,6 +462,11 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Recalculates the projection matrix. </p>
@@ -912,166 +478,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00068">68</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2af3a2c2d98c22ff51cc1bf29d48724f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2af3a2c2d98c22ff51cc1bf29d48724f">&sect;&nbsp;</a></span>update_projection_matrix() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Camera::update_projection_matrix </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fovy</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Recalculates the projection matrix. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fovy</td><td>The field of view in radians </td></tr>
-    <tr><td class="paramname">width</td><td>The width of the viewport </td></tr>
-    <tr><td class="paramname">height</td><td>The height of the viewport </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00075">75</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a58a548dad30c390c476e6f323fdca6a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58a548dad30c390c476e6f323fdca6a2">&sect;&nbsp;</a></span>update_projection_matrix() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Camera::update_projection_matrix </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fovy</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>near_plane</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Recalculates the projection matrix. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fovy</td><td>The field of view in radians </td></tr>
-    <tr><td class="paramname">width</td><td>The width of the viewport </td></tr>
-    <tr><td class="paramname">height</td><td>The height of the viewport </td></tr>
-    <tr><td class="paramname">near_plane</td><td>The near plane </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00083">83</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a57b7f5153464e9aa17343fc8658ddfa1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57b7f5153464e9aa17343fc8658ddfa1">&sect;&nbsp;</a></span>update_projection_matrix() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Camera::update_projection_matrix </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fovy</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>near_plane</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>far_plane</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Recalculates the projection matrix. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fovy</td><td>The field of view in radians </td></tr>
-    <tr><td class="paramname">width</td><td>The width of the viewport </td></tr>
-    <tr><td class="paramname">height</td><td>The height of the viewport </td></tr>
-    <tr><td class="paramname">near_plane</td><td>The near plane </td></tr>
-    <tr><td class="paramname">far_plane</td><td>The far plane </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00093">93</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Implemented in <a class="el" href="classsgltk_1_1_i_p___camera.html#a258e2ddf93aebcd606b8b16d9628d40b">sgltk::IP_Camera</a>, <a class="el" href="classsgltk_1_1_o___camera.html#a17ba1f78a13dfdfa8fb6ce33b74aab97">sgltk::O_Camera</a>, and <a class="el" href="classsgltk_1_1_p___camera.html#a39e0c47f248df156b9288fe13a996660">sgltk::P_Camera</a>.</p>
 
 </div>
 </div>
@@ -1099,7 +506,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00140">140</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
+<p>Definition at line <a class="el" href="camera_8cpp_source.html#l00052">52</a> of file <a class="el" href="camera_8cpp_source.html">camera.cpp</a>.</p>
 
 </div>
 </div>
@@ -1110,7 +517,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 17 2016 14:54:01 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Nov 4 2016 23:47:20 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>

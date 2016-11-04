@@ -102,10 +102,9 @@ class Scene {
 		 * @brief Sets up the view and projection matrices that will be
 		 *	  used by the meshes in the scene
 		 * @param camera The camera to use
-		 * @param type The type of projection to use if the camera has more than one type
 		 * @return Returns true on success, false otherwise
 		 */
-		EXPORT bool setup_camera(Camera *camera, sgltk::CAMERA_TYPE type = sgltk::PERSPECTIVE);
+		EXPORT bool setup_camera(Camera *camera);
 		/**
 		 * @brief Sets the position vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets

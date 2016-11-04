@@ -182,14 +182,14 @@ public:
 	 * 	  overridden
 	 * @param key The name of the key being pressed
 	 */
-	EXPORT virtual void handle_keyboard(std::string key);
+	EXPORT virtual void handle_keyboard(const std::string& key);
 	/**
 	 * @brief This function is called by poll_events() once for every key
 	 * 	pressed or released. This function should be overridden
 	 * @param key The name of the key being pressed
 	 * @param pressed True if the key has been pressed, false otherwise
 	 */
-	EXPORT virtual void handle_key_press(std::string key, bool pressed);
+	EXPORT virtual void handle_key_press(const std::string& key, bool pressed);
 	/**
 	 * @brief This function is called by poll_events() to handle
 	 *	  mouse motion. This function should be overridden

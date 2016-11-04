@@ -107,22 +107,15 @@ bool Scene::setup_camera(glm::mat4 *view_matrix,
 	return true;
 }
 
-bool Scene::setup_camera(Camera *camera, CAMERA_TYPE type) {
+bool Scene::setup_camera(Camera *camera) {
 	bool ret;
 	for(Mesh *mesh : meshes) {
-		ret = mesh->setup_camera(camera, type);
+		ret = mesh->setup_camera(camera);
 		if(!ret)
 			return false;
 	}
-	view_matrix = view_matrix;
-	if(type == PERSPECTIVE)
-		projection_matrix = &camera->projection_matrix_persp;
-	else if(type == INF_PERSPECTIVE)
-		projection_matrix = &camera->projection_matrix_persp_inf;
-	else if(type == ORTHOGRAPHIC)
-		projection_matrix = &camera->projection_matrix_ortho;
-	else
-		return false;
+	view_matrix = &camera->view_matrix;
+	projection_matrix = &camera->projection_matrix;
 	return true;
 }
 
@@ -250,7 +243,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 			std::vector<glm::vec3>(mesh->mNumVertices));
 	std::vector<std::vector<glm::vec4> > col(num_col,
 			std::vector<glm::vec4>(mesh->mNumVertices));
-	std::vector<unsigned short> indices;
+	std::vector<unsigned int> indices;
 
 	//************************************
 	// Vertices

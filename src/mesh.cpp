@@ -8,6 +8,7 @@ Mesh::Mesh() {
 	num_uv = 0;
 	num_col = 0;
 	num_vertices = 0;
+	index_type = 0;
 	glGenVertexArrays(1, &vao);
 
 	view_matrix = NULL;
@@ -47,23 +48,9 @@ Mesh::Mesh() {
 }
 
 Mesh::~Mesh() {
-	textures_ambient.clear();
-	textures_diffuse.clear();
-	textures_specular.clear();
-	textures_shininess.clear();
-	textures_emissive.clear();
-	textures_normals.clear();
-	textures_displacement.clear();
-	textures_opacity.clear();
-	textures_lightmap.clear();
 	glDeleteBuffers(vbo.size(), vbo.data());
 	glDeleteBuffers(ibo.size(), ibo.data());
 	glDeleteVertexArrays(1, &vao);
-	vbo.clear();
-	ibo.clear();
-	num_indices.clear();
-	vertex_buffer_size_map.clear();
-	vertex_buffer_usage_map.clear();
 }
 
 void Mesh::setup_shader(Shader *shader) {
@@ -80,28 +67,12 @@ bool Mesh::setup_camera(glm::mat4 *view_matrix,
 	return true;
 }
 
-bool Mesh::setup_camera(Camera *camera, CAMERA_TYPE type) {
-	this->view_matrix = &camera->view_matrix;
-	if(camera->type == ORTHOGRAPHIC) {
-		this->projection_matrix = &camera->projection_matrix_ortho;
-	} else if(camera->type == PERSPECTIVE) {
-		this->projection_matrix = &camera->projection_matrix_persp;
-	} else if(camera->type == INF_PERSPECTIVE) {
-		this->projection_matrix = &camera->projection_matrix_persp_inf;
-	} else if(camera->type & type){
-		//camera has more than one type
-		if(type == ORTHOGRAPHIC) {
-			this->projection_matrix = &camera->projection_matrix_ortho;
-		}
-		if(type == PERSPECTIVE) {
-			this->projection_matrix = &camera->projection_matrix_persp;
-		}
-		if(type == INF_PERSPECTIVE) {
-			this->projection_matrix = &camera->projection_matrix_persp_inf;
-		}
-	} else {
+bool Mesh::setup_camera(Camera *camera) {
+	if(!camera)
 		return false;
-	}
+
+	this->view_matrix = &camera->view_matrix;
+	this->projection_matrix = &camera->projection_matrix;
 	return true;
 }
 
@@ -259,7 +230,7 @@ void Mesh::set_lightmap_texture_name(const std::string& name) {
 		lightmap_texture_name = "texture_lightmap";
 }
 
-int Mesh::set_vertex_attribute(std::string attrib_name,
+int Mesh::set_vertex_attribute(const std::string& attrib_name,
 				unsigned int buffer_index,
 				GLint number_elements,
 				GLenum type,
@@ -322,9 +293,32 @@ int Mesh::set_vertex_attribute(int attrib_location,
 	return 0;
 }
 
-void Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
+int Mesh::attach_index_buffer(const std::vector<unsigned char>& indices) {
+	if(index_type && index_type != GL_UNSIGNED_BYTE)
+		return -1;
+
+	index_type = GL_UNSIGNED_BYTE;
 	num_indices.push_back(indices.size());
-	
+
+	GLuint index;
+	glGenBuffers(1, &index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+		     indices.size() * sizeof(unsigned char),
+		     indices.data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	ibo.push_back(index);
+	return ibo.size() - 1;
+}
+
+int Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
+	if(index_type && index_type != GL_UNSIGNED_SHORT)
+		return -1;
+
+	index_type = GL_UNSIGNED_SHORT;
+	num_indices.push_back(indices.size());
+
 	GLuint index;
 	glGenBuffers(1, &index);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
@@ -334,6 +328,26 @@ void Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	ibo.push_back(index);
+	return ibo.size() - 1;
+}
+
+int Mesh::attach_index_buffer(const std::vector<unsigned int>& indices) {
+	if(index_type && index_type != GL_UNSIGNED_INT)
+		return -1;
+
+	index_type = GL_UNSIGNED_INT;
+	num_indices.push_back(indices.size());
+
+	GLuint index;
+	glGenBuffers(1, &index);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+		     indices.size() * sizeof(unsigned int),
+		     indices.data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	ibo.push_back(index);
+	return ibo.size() - 1;
 }
 
 void Mesh::material_uniform() {
@@ -472,7 +486,7 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
 	glDrawElements(mode, num_indices[index_buffer],
-		       GL_UNSIGNED_SHORT, (void*)0);
+		       index_type, (void*)0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	shader->unbind();
@@ -502,7 +516,7 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
 	glDrawElementsInstanced(mode, num_indices[index_buffer],
-		       GL_UNSIGNED_SHORT, (void*)0, num_instances);
+		       index_type, (void*)0, num_instances);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	shader->unbind();

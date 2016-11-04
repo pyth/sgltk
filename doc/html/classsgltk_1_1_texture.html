@@ -96,9 +96,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a30e1ad14e7985c7e54bf97dcee7b6bb9"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_texture.html#a30e1ad14e7985c7e54bf97dcee7b6bb9">set_target</a> (GLenum <a class="el" href="classsgltk_1_1_texture.html#aac599e0c4df9a763c002fc630ca450b7">target</a>)</td></tr>
 <tr class="memdesc:a30e1ad14e7985c7e54bf97dcee7b6bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the target to which the texture is bound.  <a href="#a30e1ad14e7985c7e54bf97dcee7b6bb9">More...</a><br /></td></tr>
 <tr class="separator:a30e1ad14e7985c7e54bf97dcee7b6bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4adafc62ed4855fd908e21f9e137ea4d"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_texture.html#a4adafc62ed4855fd908e21f9e137ea4d">create_empty</a> (unsigned int res_x, unsigned int res_y, GLenum internal_format, GLenum type, GLenum format)</td></tr>
-<tr class="memdesc:a4adafc62ed4855fd908e21f9e137ea4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty texture.  <a href="#a4adafc62ed4855fd908e21f9e137ea4d">More...</a><br /></td></tr>
-<tr class="separator:a4adafc62ed4855fd908e21f9e137ea4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaea0187abcab4050584d348993526ad8"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_texture.html#aaea0187abcab4050584d348993526ad8">create_empty_2D</a> (unsigned int res_x, unsigned int res_y, GLenum internal_format, GLenum type, GLenum format)</td></tr>
+<tr class="memdesc:aaea0187abcab4050584d348993526ad8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty 2D texture.  <a href="#aaea0187abcab4050584d348993526ad8">More...</a><br /></td></tr>
+<tr class="separator:aaea0187abcab4050584d348993526ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac31efca00d011d4b009a21180bd4c51b"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_texture.html#ac31efca00d011d4b009a21180bd4c51b">create_empty_cubemap</a> (unsigned int res_x, unsigned int res_y, GLenum internal_format, GLenum type, GLenum format)</td></tr>
+<tr class="memdesc:ac31efca00d011d4b009a21180bd4c51b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty cubemap.  <a href="#ac31efca00d011d4b009a21180bd4c51b">More...</a><br /></td></tr>
+<tr class="separator:ac31efca00d011d4b009a21180bd4c51b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1040bc2f0afcb008535e2a4d4e3e106"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_texture.html#ad1040bc2f0afcb008535e2a4d4e3e106">load_texture</a> (const <a class="el" href="classsgltk_1_1_image.html">Image</a> &amp;image)</td></tr>
 <tr class="memdesc:ad1040bc2f0afcb008535e2a4d4e3e106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load a new image as texture.  <a href="#ad1040bc2f0afcb008535e2a4d4e3e106">More...</a><br /></td></tr>
 <tr class="separator:ad1040bc2f0afcb008535e2a4d4e3e106"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -407,14 +410,14 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 
 </div>
 </div>
-<a id="a4adafc62ed4855fd908e21f9e137ea4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4adafc62ed4855fd908e21f9e137ea4d">&sect;&nbsp;</a></span>create_empty()</h2>
+<a id="aaea0187abcab4050584d348993526ad8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaea0187abcab4050584d348993526ad8">&sect;&nbsp;</a></span>create_empty_2D()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Texture::create_empty </td>
+          <td class="memname">void Texture::create_empty_2D </td>
           <td>(</td>
           <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>res_x</em>, </td>
@@ -451,7 +454,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
       </table>
 </div><div class="memdoc">
 
-<p>Creates an empty texture. </p>
+<p>Creates an empty 2D texture. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">res_x</td><td>The texture x resolution </td></tr>
@@ -464,6 +467,66 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </dl>
 
 <p>Definition at line <a class="el" href="texture_8cpp_source.html#l00098">98</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac31efca00d011d4b009a21180bd4c51b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac31efca00d011d4b009a21180bd4c51b">&sect;&nbsp;</a></span>create_empty_cubemap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Texture::create_empty_cubemap </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>res_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>res_y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>internal_format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>format</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty cubemap. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res_x</td><td>The texture x resolution </td></tr>
+    <tr><td class="paramname">res_y</td><td>The texture y resolution </td></tr>
+    <tr><td class="paramname">internal_format</td><td>The internal format of the texture </td></tr>
+    <tr><td class="paramname">type</td><td>The type of pixel data </td></tr>
+    <tr><td class="paramname">format</td><td>The format of the textre </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00116">116</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -500,7 +563,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns a pointer to the found texture object or NULL if no texture with such name could be found. </dd></dl>
 
-<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00181">181</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00199">199</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -567,7 +630,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00144">144</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00166">166</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -595,7 +658,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00124">124</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00146">146</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -622,7 +685,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00115">115</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00137">137</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -776,7 +839,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true if the insertion was successful, false otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00177">177</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
+<p>Definition at line <a class="el" href="texture_8cpp_source.html#l00195">195</a> of file <a class="el" href="texture_8cpp_source.html">texture.cpp</a>.</p>
 
 </div>
 </div>
@@ -815,7 +878,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 17 2016 14:54:01 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Nov 4 2016 23:47:20 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>

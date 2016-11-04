@@ -94,9 +94,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac3b46812910942da243e4e8023d60c48"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ac3b46812910942da243e4e8023d60c48">setup_camera</a> (glm::mat4 *view_matrix, glm::mat4 *projection_matrix)</td></tr>
 <tr class="memdesc:ac3b46812910942da243e4e8023d60c48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the view and projection matrices that will be used by the mesh.  <a href="#ac3b46812910942da243e4e8023d60c48">More...</a><br /></td></tr>
 <tr class="separator:ac3b46812910942da243e4e8023d60c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8004e6db0eaa09f2a5203dabbc3722bd"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a8004e6db0eaa09f2a5203dabbc3722bd">setup_camera</a> (<a class="el" href="classsgltk_1_1_camera.html">Camera</a> *camera, sgltk::CAMERA_TYPE=sgltk::PERSPECTIVE)</td></tr>
-<tr class="memdesc:a8004e6db0eaa09f2a5203dabbc3722bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the view and projection matrices that will be used by the mesh.  <a href="#a8004e6db0eaa09f2a5203dabbc3722bd">More...</a><br /></td></tr>
-<tr class="separator:a8004e6db0eaa09f2a5203dabbc3722bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cd4ccf7f5fc9bd399834dda8b86e16c"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a5cd4ccf7f5fc9bd399834dda8b86e16c">setup_camera</a> (<a class="el" href="classsgltk_1_1_camera.html">Camera</a> *camera)</td></tr>
+<tr class="memdesc:a5cd4ccf7f5fc9bd399834dda8b86e16c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the view and projection matrices that will be used by the mesh.  <a href="#a5cd4ccf7f5fc9bd399834dda8b86e16c">More...</a><br /></td></tr>
+<tr class="separator:a5cd4ccf7f5fc9bd399834dda8b86e16c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7893957bf2c9127fc1555e7c4bbf6ac9"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a7893957bf2c9127fc1555e7c4bbf6ac9">set_model_matrix_name</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:a7893957bf2c9127fc1555e7c4bbf6ac9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the name of the model matrix in the shader.  <a href="#a7893957bf2c9127fc1555e7c4bbf6ac9">More...</a><br /></td></tr>
 <tr class="separator:a7893957bf2c9127fc1555e7c4bbf6ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,22 +160,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a597a7457981b2b91c6e20854267a89ba"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a597a7457981b2b91c6e20854267a89ba">set_lightmap_texture_name</a> (const std::string &amp;name)</td></tr>
 <tr class="memdesc:a597a7457981b2b91c6e20854267a89ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the name of the lightmap texture in the shader.  <a href="#a597a7457981b2b91c6e20854267a89ba">More...</a><br /></td></tr>
 <tr class="separator:a597a7457981b2b91c6e20854267a89ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6eb8bfc8c951c9eb50f5a29c7cbb7f63"><td class="memTemplParams" colspan="2">template&lt;typename T  = Vertex&gt; </td></tr>
-<tr class="memitem:a6eb8bfc8c951c9eb50f5a29c7cbb7f63"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a6eb8bfc8c951c9eb50f5a29c7cbb7f63">attach_vertex_buffer</a> (const void *vertexdata, unsigned int number_elements, GLenum usage=GL_STATIC_DRAW)</td></tr>
-<tr class="memdesc:a6eb8bfc8c951c9eb50f5a29c7cbb7f63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads vertices into memory.  <a href="#a6eb8bfc8c951c9eb50f5a29c7cbb7f63">More...</a><br /></td></tr>
-<tr class="separator:a6eb8bfc8c951c9eb50f5a29c7cbb7f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad32614c6ff3b987eac67e721069a1c6e"><td class="memTemplParams" colspan="2">template&lt;typename T  = Vertex&gt; </td></tr>
-<tr class="memitem:ad32614c6ff3b987eac67e721069a1c6e"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ad32614c6ff3b987eac67e721069a1c6e">attach_vertex_buffer</a> (const std::vector&lt; T &gt; &amp;vertexdata, GLenum usage=GL_STATIC_DRAW)</td></tr>
-<tr class="memdesc:ad32614c6ff3b987eac67e721069a1c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads vertices into memory.  <a href="#ad32614c6ff3b987eac67e721069a1c6e">More...</a><br /></td></tr>
-<tr class="separator:ad32614c6ff3b987eac67e721069a1c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0b899be8e33ed6813a30f25f712544d"><td class="memTemplParams" colspan="2">template&lt;typename T  = Vertex&gt; </td></tr>
+<tr class="memitem:ae0b899be8e33ed6813a30f25f712544d"><td class="memTemplItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ae0b899be8e33ed6813a30f25f712544d">attach_vertex_buffer</a> (const void *vertexdata, unsigned int number_elements, GLenum usage=GL_STATIC_DRAW)</td></tr>
+<tr class="memdesc:ae0b899be8e33ed6813a30f25f712544d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads vertices into memory.  <a href="#ae0b899be8e33ed6813a30f25f712544d">More...</a><br /></td></tr>
+<tr class="separator:ae0b899be8e33ed6813a30f25f712544d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f8fa5637cb50274bf784f59d46ba0b0"><td class="memTemplParams" colspan="2">template&lt;typename T  = Vertex&gt; </td></tr>
+<tr class="memitem:a9f8fa5637cb50274bf784f59d46ba0b0"><td class="memTemplItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a9f8fa5637cb50274bf784f59d46ba0b0">attach_vertex_buffer</a> (const std::vector&lt; T &gt; &amp;vertexdata, GLenum usage=GL_STATIC_DRAW)</td></tr>
+<tr class="memdesc:a9f8fa5637cb50274bf784f59d46ba0b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads vertices into memory.  <a href="#a9f8fa5637cb50274bf784f59d46ba0b0">More...</a><br /></td></tr>
+<tr class="separator:a9f8fa5637cb50274bf784f59d46ba0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4af1d65d0c101334803f90d78cd2592b"><td class="memTemplParams" colspan="2">template&lt;typename T  = Vertex&gt; </td></tr>
 <tr class="memitem:a4af1d65d0c101334803f90d78cd2592b"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a4af1d65d0c101334803f90d78cd2592b">replace_buffer_data</a> (unsigned int buffer_index, const void *data, unsigned int number_elements)</td></tr>
-<tr class="memdesc:a4af1d65d0c101334803f90d78cd2592b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies the data in the vertex buffer.  <a href="#a4af1d65d0c101334803f90d78cd2592b">More...</a><br /></td></tr>
+<tr class="memdesc:a4af1d65d0c101334803f90d78cd2592b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites all data in a vertex buffer.  <a href="#a4af1d65d0c101334803f90d78cd2592b">More...</a><br /></td></tr>
 <tr class="separator:a4af1d65d0c101334803f90d78cd2592b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d58cbee463be18f858b5ffe2daf0ee4"><td class="memTemplParams" colspan="2">template&lt;typename T  = Vertex&gt; </td></tr>
 <tr class="memitem:a4d58cbee463be18f858b5ffe2daf0ee4"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a4d58cbee463be18f858b5ffe2daf0ee4">replace_buffer_data</a> (unsigned int buffer_index, const std::vector&lt; T &gt; &amp;data)</td></tr>
-<tr class="memdesc:a4d58cbee463be18f858b5ffe2daf0ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies the data in the vertex buffer.  <a href="#a4d58cbee463be18f858b5ffe2daf0ee4">More...</a><br /></td></tr>
+<tr class="memdesc:a4d58cbee463be18f858b5ffe2daf0ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overwrites all data in a vertex buffer.  <a href="#a4d58cbee463be18f858b5ffe2daf0ee4">More...</a><br /></td></tr>
 <tr class="separator:a4d58cbee463be18f858b5ffe2daf0ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd18219a4b952b6bfd7a79791d38a570"><td class="memTemplParams" colspan="2">template&lt;typename T  = Vertex&gt; </td></tr>
+<tr class="memitem:afd18219a4b952b6bfd7a79791d38a570"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#afd18219a4b952b6bfd7a79791d38a570">replace_partial_data</a> (unsigned int buffer_index, unsigned int offset, const void *data, unsigned int number_elements)</td></tr>
+<tr class="memdesc:afd18219a4b952b6bfd7a79791d38a570"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies the data in a vertex buffer.  <a href="#afd18219a4b952b6bfd7a79791d38a570">More...</a><br /></td></tr>
+<tr class="separator:afd18219a4b952b6bfd7a79791d38a570"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d5d483e9082f0c9b6320a3ecef7ea30"><td class="memTemplParams" colspan="2">template&lt;typename T  = Vertex&gt; </td></tr>
+<tr class="memitem:a1d5d483e9082f0c9b6320a3ecef7ea30"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a1d5d483e9082f0c9b6320a3ecef7ea30">replace_partial_data</a> (unsigned int buffer_index, unsigned int offset, const std::vector&lt; T &gt; &amp;data)</td></tr>
+<tr class="memdesc:a1d5d483e9082f0c9b6320a3ecef7ea30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies the data in a vertex buffer.  <a href="#a1d5d483e9082f0c9b6320a3ecef7ea30">More...</a><br /></td></tr>
+<tr class="separator:a1d5d483e9082f0c9b6320a3ecef7ea30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7879d6c47bf758a7d8e96056709b99c"><td class="memTemplParams" colspan="2">template&lt;typename T  = glm::vec3&gt; </td></tr>
 <tr class="memitem:ae7879d6c47bf758a7d8e96056709b99c"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ae7879d6c47bf758a7d8e96056709b99c">add_vertex_attribute</a> (std::string attrib_name, GLint number_elements, GLenum type, const void *data, GLenum usage=GL_STATIC_DRAW)</td></tr>
 <tr class="memdesc:ae7879d6c47bf758a7d8e96056709b99c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a convenience function that combines attach_vertex_buffer and set_vertex_attribute.  <a href="#ae7879d6c47bf758a7d8e96056709b99c">More...</a><br /></td></tr>
@@ -192,15 +200,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a28ae55efb2d35ed17b6438daf7248420"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a28ae55efb2d35ed17b6438daf7248420">add_vertex_attribute</a> (int attrib_location, GLint number_elements, GLenum type, const std::vector&lt; T &gt; &amp;data, GLenum usage=GL_STATIC_DRAW)</td></tr>
 <tr class="memdesc:a28ae55efb2d35ed17b6438daf7248420"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a convenience function that combines attach_vertex_buffer and set_vertex_attribute.  <a href="#a28ae55efb2d35ed17b6438daf7248420">More...</a><br /></td></tr>
 <tr class="separator:a28ae55efb2d35ed17b6438daf7248420"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a8bb76594cc55b6748c54325c72b787"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a5a8bb76594cc55b6748c54325c72b787">set_vertex_attribute</a> (std::string attrib_name, unsigned int buffer_index, GLint number_elements, GLenum type, GLsizei stride, const GLvoid *pointer, unsigned int divisor=0)</td></tr>
-<tr class="memdesc:a5a8bb76594cc55b6748c54325c72b787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets pointers to vertex attributes.  <a href="#a5a8bb76594cc55b6748c54325c72b787">More...</a><br /></td></tr>
-<tr class="separator:a5a8bb76594cc55b6748c54325c72b787"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad352fb69c76d77b69de3ec4ed9b1f8a6"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ad352fb69c76d77b69de3ec4ed9b1f8a6">set_vertex_attribute</a> (const std::string &amp;attrib_name, unsigned int buffer_index, GLint number_elements, GLenum type, GLsizei stride, const GLvoid *pointer, unsigned int divisor=0)</td></tr>
+<tr class="memdesc:ad352fb69c76d77b69de3ec4ed9b1f8a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets pointers to vertex attributes.  <a href="#ad352fb69c76d77b69de3ec4ed9b1f8a6">More...</a><br /></td></tr>
+<tr class="separator:ad352fb69c76d77b69de3ec4ed9b1f8a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae153d8cbec1b47fbaeb2ef5bcc751b53"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ae153d8cbec1b47fbaeb2ef5bcc751b53">set_vertex_attribute</a> (int attrib_location, unsigned int buffer_index, GLint number_elements, GLenum type, GLsizei stride, const GLvoid *pointer, unsigned int divisor=0)</td></tr>
 <tr class="memdesc:ae153d8cbec1b47fbaeb2ef5bcc751b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets pointers to vertex attributes.  <a href="#ae153d8cbec1b47fbaeb2ef5bcc751b53">More...</a><br /></td></tr>
 <tr class="separator:ae153d8cbec1b47fbaeb2ef5bcc751b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86accb77a9480b9e5b2345d354aa37e3"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a86accb77a9480b9e5b2345d354aa37e3">attach_index_buffer</a> (const std::vector&lt; unsigned short &gt; &amp;indices)</td></tr>
-<tr class="memdesc:a86accb77a9480b9e5b2345d354aa37e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#a86accb77a9480b9e5b2345d354aa37e3">More...</a><br /></td></tr>
-<tr class="separator:a86accb77a9480b9e5b2345d354aa37e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad38d1f8762c75017ec5a25113ca3b96"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#aad38d1f8762c75017ec5a25113ca3b96">attach_index_buffer</a> (const std::vector&lt; unsigned char &gt; &amp;indices)</td></tr>
+<tr class="memdesc:aad38d1f8762c75017ec5a25113ca3b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#aad38d1f8762c75017ec5a25113ca3b96">More...</a><br /></td></tr>
+<tr class="separator:aad38d1f8762c75017ec5a25113ca3b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c83b9b1ddc3467131416c691af607a3"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a2c83b9b1ddc3467131416c691af607a3">attach_index_buffer</a> (const std::vector&lt; unsigned short &gt; &amp;indices)</td></tr>
+<tr class="memdesc:a2c83b9b1ddc3467131416c691af607a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#a2c83b9b1ddc3467131416c691af607a3">More...</a><br /></td></tr>
+<tr class="separator:a2c83b9b1ddc3467131416c691af607a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae93874f9cd4cfa22c474c81fcfe42ecd"><td class="memItemLeft" align="right" valign="top">EXPORT int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ae93874f9cd4cfa22c474c81fcfe42ecd">attach_index_buffer</a> (const std::vector&lt; unsigned int &gt; &amp;indices)</td></tr>
+<tr class="memdesc:ae93874f9cd4cfa22c474c81fcfe42ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#ae93874f9cd4cfa22c474c81fcfe42ecd">More...</a><br /></td></tr>
+<tr class="separator:ae93874f9cd4cfa22c474c81fcfe42ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e3ac6538304f3e066644a1c6980cbc2"><td class="memTemplParams" colspan="2">template&lt;typename T  = Vertex&gt; </td></tr>
 <tr class="memitem:a8e3ac6538304f3e066644a1c6980cbc2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a8e3ac6538304f3e066644a1c6980cbc2">compute_bounding_box</a> (const std::vector&lt; T &gt; &amp;vertexdata, size_t pointer)</td></tr>
 <tr class="memdesc:a8e3ac6538304f3e066644a1c6980cbc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the bounding box of the mesh.  <a href="#a8e3ac6538304f3e066644a1c6980cbc2">More...</a><br /></td></tr>
@@ -467,7 +481,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00736">736</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00779">779</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -530,7 +544,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00750">750</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00793">793</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -593,7 +607,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00761">761</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00805">805</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -656,18 +670,48 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00775">775</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00819">819</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
-<a id="a86accb77a9480b9e5b2345d354aa37e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86accb77a9480b9e5b2345d354aa37e3">&sect;&nbsp;</a></span>attach_index_buffer()</h2>
+<a id="aad38d1f8762c75017ec5a25113ca3b96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad38d1f8762c75017ec5a25113ca3b96">&sect;&nbsp;</a></span>attach_index_buffer() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Mesh::attach_index_buffer </td>
+          <td class="memname">int Mesh::attach_index_buffer </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; unsigned char &gt; &amp;&#160;</td>
+          <td class="paramname"><em>indices</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attaches an index array to the mesh. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indices</td><td>Indices describing the topology of the mesh </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the index of the index-buffer or -1 on failure. This function will fail if the index type does not match that of an already attached buffer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You can attach multiple index arrays </dd></dl>
+
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00296">296</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2c83b9b1ddc3467131416c691af607a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c83b9b1ddc3467131416c691af607a3">&sect;&nbsp;</a></span>attach_index_buffer() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Mesh::attach_index_buffer </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; unsigned short &gt; &amp;&#160;</td>
           <td class="paramname"><em>indices</em></td><td>)</td>
@@ -679,17 +723,49 @@ template&lt;typename T &gt; </div>
 <p>Attaches an index array to the mesh. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">indices</td><td>Indices describing the topology of the mesh You can attach multiple index arrays </td></tr>
+    <tr><td class="paramname">indices</td><td>Indices describing the topology of the mesh </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the index of the index-buffer or -1 on failure. This function will fail if the index type does not match that of an already attached buffer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You can attach multiple index arrays </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00325">325</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00315">315</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a6eb8bfc8c951c9eb50f5a29c7cbb7f63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6eb8bfc8c951c9eb50f5a29c7cbb7f63">&sect;&nbsp;</a></span>attach_vertex_buffer() <span class="overload">[1/2]</span></h2>
+<a id="ae93874f9cd4cfa22c474c81fcfe42ecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae93874f9cd4cfa22c474c81fcfe42ecd">&sect;&nbsp;</a></span>attach_index_buffer() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Mesh::attach_index_buffer </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; unsigned int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>indices</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attaches an index array to the mesh. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indices</td><td>Indices describing the topology of the mesh </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the index of the index-buffer or -1 on failure. This function will fail if the index type does not match that of an already attached buffer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You can attach multiple index arrays </dd></dl>
+
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00334">334</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae0b899be8e33ed6813a30f25f712544d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0b899be8e33ed6813a30f25f712544d">&sect;&nbsp;</a></span>attach_vertex_buffer() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -697,7 +773,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int sgltk::Mesh::attach_vertex_buffer </td>
+          <td class="memname">unsigned int sgltk::Mesh::attach_vertex_buffer </td>
           <td>(</td>
           <td class="paramtype">const void *&#160;</td>
           <td class="paramname"><em>vertexdata</em>, </td>
@@ -733,12 +809,12 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns the index that the buffer was attached to </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00786">786</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00831">831</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
-<a id="ad32614c6ff3b987eac67e721069a1c6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad32614c6ff3b987eac67e721069a1c6e">&sect;&nbsp;</a></span>attach_vertex_buffer() <span class="overload">[2/2]</span></h2>
+<a id="a9f8fa5637cb50274bf784f59d46ba0b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f8fa5637cb50274bf784f59d46ba0b0">&sect;&nbsp;</a></span>attach_vertex_buffer() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -746,7 +822,7 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int sgltk::Mesh::attach_vertex_buffer </td>
+          <td class="memname">unsigned int sgltk::Mesh::attach_vertex_buffer </td>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>vertexdata</em>, </td>
@@ -775,7 +851,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns the index that the buffer was attached to </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00795">795</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00841">841</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -816,7 +892,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00847">847</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00932">932</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -844,7 +920,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00418">418</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00432">432</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -883,7 +959,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00422">422</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00436">436</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -922,7 +998,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00426">426</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00440">440</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -968,7 +1044,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00430">430</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00444">444</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1007,7 +1083,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00481">481</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00495">495</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1053,7 +1129,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00485">485</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00499">499</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1091,7 +1167,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Modifies the data in the vertex buffer. </p>
+<p>Overwrites all data in a vertex buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer_index</td><td>The index of the buffer to be modified </td></tr>
@@ -1101,7 +1177,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00812">812</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00858">858</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1133,7 +1209,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Modifies the data in the vertex buffer. </p>
+<p>Overwrites all data in a vertex buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer_index</td><td>The index of the buffer to be modified </td></tr>
@@ -1142,7 +1218,110 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00821">821</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00868">868</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+
+</div>
+</div>
+<a id="afd18219a4b952b6bfd7a79791d38a570"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd18219a4b952b6bfd7a79791d38a570">&sect;&nbsp;</a></span>replace_partial_data() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool sgltk::Mesh::replace_partial_data </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>buffer_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>number_elements</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modifies the data in a vertex buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer_index</td><td>The index of the buffer to be modified </td></tr>
+    <tr><td class="paramname">offset</td><td>The byte offset into the buffer </td></tr>
+    <tr><td class="paramname">data</td><td>The data to be loaded into the buffer </td></tr>
+    <tr><td class="paramname">number_elements</td><td>Number of elements </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00898">898</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+
+</div>
+</div>
+<a id="a1d5d483e9082f0c9b6320a3ecef7ea30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d5d483e9082f0c9b6320a3ecef7ea30">&sect;&nbsp;</a></span>replace_partial_data() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool sgltk::Mesh::replace_partial_data </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>buffer_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Modifies the data in a vertex buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer_index</td><td>The index of the buffer to be modified </td></tr>
+    <tr><td class="paramname">offset</td><td>The byte offset into the buffer </td></tr>
+    <tr><td class="paramname">data</td><td>The data to be loaded into the buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00909">909</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1171,7 +1350,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "color_ambient" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00164">164</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00135">135</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1199,7 +1378,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00199">199</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00170">170</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1228,7 +1407,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "color_diffuse" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00171">171</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00142">142</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1256,7 +1435,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00206">206</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00177">177</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1284,7 +1463,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00241">241</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00212">212</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1312,7 +1491,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00227">227</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00198">198</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1340,7 +1519,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00255">255</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00226">226</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1369,7 +1548,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "model_matrix" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00108">108</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00079">79</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1398,7 +1577,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "model_view_matrix" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00132">132</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00103">103</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1427,7 +1606,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "model_view_proj_matrix" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00148">148</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00119">119</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1456,7 +1635,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "normal_matrix" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00156">156</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00127">127</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1484,7 +1663,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00234">234</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00205">205</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1512,7 +1691,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00248">248</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00219">219</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1541,7 +1720,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "proj_matrix" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00124">124</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00095">95</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1570,7 +1749,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "shininess" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00185">185</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00156">156</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1599,7 +1778,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "shininess_strength" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00192">192</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00163">163</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1627,7 +1806,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00220">220</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00191">191</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1656,7 +1835,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "color_specular" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00178">178</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00149">149</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1684,12 +1863,12 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00213">213</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00184">184</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a5a8bb76594cc55b6748c54325c72b787"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a8bb76594cc55b6748c54325c72b787">&sect;&nbsp;</a></span>set_vertex_attribute() <span class="overload">[1/2]</span></h2>
+<a id="ad352fb69c76d77b69de3ec4ed9b1f8a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad352fb69c76d77b69de3ec4ed9b1f8a6">&sect;&nbsp;</a></span>set_vertex_attribute() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1697,7 +1876,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">int Mesh::set_vertex_attribute </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>attrib_name</em>, </td>
         </tr>
         <tr>
@@ -1759,7 +1938,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00262">262</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00233">233</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1834,7 +2013,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00283">283</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00254">254</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1863,7 +2042,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "view_matrix" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00116">116</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00087">87</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1892,7 +2071,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Default value is "view_proj_matrix" </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00140">140</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00111">111</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1932,32 +2111,22 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true if both pointers are not NULL pointers, flase otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00073">73</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00060">60</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8004e6db0eaa09f2a5203dabbc3722bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8004e6db0eaa09f2a5203dabbc3722bd">&sect;&nbsp;</a></span>setup_camera() <span class="overload">[2/2]</span></h2>
+<a id="a5cd4ccf7f5fc9bd399834dda8b86e16c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cd4ccf7f5fc9bd399834dda8b86e16c">&sect;&nbsp;</a></span>setup_camera() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">EXPORT bool sgltk::Mesh::setup_camera </td>
+          <td class="memname">bool Mesh::setup_camera </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classsgltk_1_1_camera.html">Camera</a> *&#160;</td>
-          <td class="paramname"><em>camera</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>camera</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">sgltk::CAMERA_TYPE&#160;</td>
-          <td class="paramname"> = <code>sgltk::PERSPECTIVE</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1966,11 +2135,12 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">camera</td><td>The camera to use </td></tr>
-    <tr><td class="paramname">type</td><td>The projection type to be used if the camera has more than one type </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
+
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00070">70</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1998,7 +2168,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00069">69</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8cpp_source.html#l00056">56</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -2009,7 +2179,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 17 2016 14:54:01 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Nov 4 2016 23:47:20 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.12
 </small></address>

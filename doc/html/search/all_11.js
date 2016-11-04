@@ -16,6 +16,5 @@ var searchData=
   ['textures_5fshininess',['textures_shininess',['../classsgltk_1_1_mesh.html#ad963e0c94b2dee3d34d88f6641db7210',1,'sgltk::Mesh']]],
   ['textures_5fspecular',['textures_specular',['../classsgltk_1_1_mesh.html#ab8d85189f3aebbf26ad4db5ea8931ff9',1,'sgltk::Mesh']]],
   ['timer',['Timer',['../classsgltk_1_1_timer.html',1,'sgltk']]],
-  ['twosided',['twosided',['../classsgltk_1_1_mesh.html#a2a8118822e6f3f7211d13b9c8cd57cc0',1,'sgltk::Mesh']]],
-  ['type',['type',['../classsgltk_1_1_camera.html#a34fd2cd776c64c78e83b54cb7b6404bb',1,'sgltk::Camera']]]
+  ['twosided',['twosided',['../classsgltk_1_1_mesh.html#a2a8118822e6f3f7211d13b9c8cd57cc0',1,'sgltk::Mesh']]]
 ];
