@@ -29,6 +29,9 @@ class Scene {
 	const aiScene *scene;
 	Shader *shader;
 
+	int model_matrix_buf;
+	int normal_matrix_buf;
+
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
 
@@ -197,6 +200,12 @@ class Scene {
 		 */
 		EXPORT void setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
 							GLenum usage = GL_STATIC_DRAW);
+		/**
+		 * @brief Sets the model and normal matrix vertex attributes
+		 * This function is meant to be used to update the attribute locations
+		 * after a shader swap.
+		 */
+		EXPORT void set_instanced_matrix_attributes(void);
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
 		 */

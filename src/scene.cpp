@@ -20,6 +20,9 @@ Scene::Scene() {
 	bone_weights_name = "bone_weights_in";
 	bone_array_name = "bone_array";
 
+	model_matrix_buf = -1;
+	normal_matrix_buf = -1;
+
 	bounding_box = {glm::vec3(0, 0, 0), glm::vec3(0, 0, 0)};
 }
 
@@ -746,23 +749,58 @@ void Scene::setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
 		for(unsigned int j = 0; j < model_matrix.size(); j++) {
 			normal_matrix[j] = glm::mat3(glm::transpose(glm::inverse(model_matrix[j])));
 		}
-		int model_buf = mesh->attach_vertex_buffer<glm::mat4>(model_matrix, usage);
-		int normal_buf = mesh->attach_vertex_buffer<glm::mat3>(normal_matrix, usage);
+		model_matrix_buf = mesh->attach_vertex_buffer<glm::mat4>(model_matrix, usage);
+		normal_matrix_buf = mesh->attach_vertex_buffer<glm::mat3>(normal_matrix, usage);
 		int model_loc = mesh->shader->get_attribute_location(mesh->model_matrix_name);
 		int normal_loc = mesh->shader->get_attribute_location(mesh->normal_matrix_name);
-		for(int j = 0; j < 4; j++) {
-			mesh->set_vertex_attribute(model_loc + j,
-							model_buf,
-							4, GL_FLOAT,
-							sizeof(glm::mat4),
-							(GLvoid *)(j * sizeof(glm::vec4)), 1);
+		if(model_loc >= 0) {
+			for(int j = 0; j < 4; j++) {
+				mesh->set_vertex_attribute(model_loc + j,
+								model_matrix_buf,
+								4, GL_FLOAT,
+								sizeof(glm::mat4),
+								(GLvoid *)(j * sizeof(glm::vec4)), 1);
+			}
 		}
-		for(int j = 0; j < 3; j++) {
-			mesh->set_vertex_attribute(normal_loc + j,
-							normal_buf,
-							3, GL_FLOAT,
-							sizeof(glm::mat3),
-							(GLvoid *)(j * sizeof(glm::vec3)), 1);
+		if(normal_loc >= 0) {
+			for(int j = 0; j < 3; j++) {
+				mesh->set_vertex_attribute(normal_loc + j,
+								normal_matrix_buf,
+								3, GL_FLOAT,
+								sizeof(glm::mat3),
+								(GLvoid *)(j * sizeof(glm::vec3)), 1);
+			}
+		}
+	}
+}
+
+void Scene::set_instanced_matrix_attributes() {
+	if(!shader) {
+		std::string error = std::string("No shader specified before a"
+			"call to the setup_instanced_matrix function");
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
+	for(Mesh *mesh : meshes) {
+		int model_loc = mesh->shader->get_attribute_location(mesh->model_matrix_name);
+		int normal_loc = mesh->shader->get_attribute_location(mesh->normal_matrix_name);
+		if(model_loc >= 0) {
+			for(int j = 0; j < 4; j++) {
+				mesh->set_vertex_attribute(model_loc + j,
+								model_matrix_buf,
+								4, GL_FLOAT,
+								sizeof(glm::mat4),
+								(GLvoid *)(j * sizeof(glm::vec4)), 1);
+			}
+		}
+		if(normal_loc >= 0) {
+			for(int j = 0; j < 3; j++) {
+				mesh->set_vertex_attribute(normal_loc + j,
+								normal_matrix_buf,
+								3, GL_FLOAT,
+								sizeof(glm::mat3),
+								(GLvoid *)(j * sizeof(glm::vec3)), 1);
+			}
 		}
 	}
 }
