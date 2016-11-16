@@ -118,6 +118,8 @@ void Texture::create_empty_cubemap(unsigned int res_x,
 				   GLenum internal_format,
 				   GLenum type, GLenum format) {
 
+	width = res_x;
+	height = res_y;
 	target = GL_TEXTURE_CUBE_MAP;
 	bind();
 
