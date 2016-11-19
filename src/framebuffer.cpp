@@ -46,10 +46,9 @@ void Framebuffer::attach_texture(GLenum attachment,
 				 Texture& texture) {
 
 	bind();
-	glFramebufferTexture2D(target,
-			       attachment,
-			       texture.target,
-			       texture.texture, 0);
+	glFramebufferTexture(target,
+			     attachment,
+			     texture.texture, 0);
 	unbind();
 	if(width == 0 && height == 0) {
 		width = texture.width;

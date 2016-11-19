@@ -103,6 +103,7 @@ void Texture::create_empty_2D(unsigned int res_x,
 
 	width = res_x;
 	height = res_y;
+	target = GL_TEXTURE_2D;
 	bind();
 	glTexImage2D(target, 0, internal_format, res_x, res_y, 0,
 		     format, type, NULL);
@@ -131,8 +132,8 @@ void Texture::create_empty_cubemap(unsigned int res_x,
 	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(target, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	unbind();
 }
 
