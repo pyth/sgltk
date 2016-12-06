@@ -23,11 +23,11 @@ public:
 	/**
 	 * @brief The width of the image surface
 	 */
-	int width;
+	unsigned int width;
 	/**
 	 * @brief The width of the image surface
 	 */
-	int height;
+	unsigned int height;
 
 	/**
 	 * @brief The image surface
@@ -45,14 +45,33 @@ public:
 	 * @brief Creates an empty image
 	 * @param width The width of the image
 	 * @param height The height of the image
+	 * @return Returns true on success, false otherwise
 	 */
 	EXPORT bool create_empty(int width, int height);
 
 	/**
 	 * @brief Loads a new image file
 	 * @param filename Path to the image file to load
+	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT bool load(std::string filename);
+	EXPORT bool load(const std::string& filename);
+
+	/**
+	 * @brief Loads image from a data buffer
+	 * @param width The width of the image
+	 * @param height The height of the image
+	 * @param bytes_per_pixel The number of bytes that represent a pixel
+	 * @param data A pointer to the buffer data
+	 * @return Returns true on success, false otherwise
+	 */
+	EXPORT bool load(int width, int height, int bytes_per_pixel, void *data);
+
+	/**
+	 * @brief Saves the image as a file
+	 * @param filename The path to save the image to
+	 * @return Returns true on success, false otherwise
+	 */
+	EXPORT bool save(const std::string& filename);
 
 #ifdef HAVE_SDL_TTF_H
 	/**
@@ -121,6 +140,16 @@ public:
 	 */
 	EXPORT bool copy_from(const Image& src, SDL_Rect& dst_rect,
 						const SDL_Rect& src_rect);
+
+	/**
+	 * @brief Flips the image along its x-axis
+	 */
+	EXPORT void vertical_flip();
+
+	/**
+	 * @brief Flips the image along its y-axis
+	 */
+	EXPORT void horizontal_flip();
 
 	/**
 	 * @brief Sets a color to be transparent

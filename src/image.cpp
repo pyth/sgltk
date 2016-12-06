@@ -52,12 +52,16 @@ bool Image::create_empty(int width, int height) {
 	image = SDL_CreateRGBSurface(0, width, height, 32,
 				     rmask, gmask, bmask, amask);
 	if(!image) {
+		App::error_string.push_back(std::string("Unable to create an"
+			"empty image: ") + SDL_GetError());
+		width = 0;
+		height = 0;
 		return false;
 	}
 	return true;
 }
 
-bool Image::load(std::string filename) {
+bool Image::load(const std::string& filename) {
 	width = 0;
 	height = 0;
 
@@ -87,6 +91,50 @@ bool Image::load(std::string filename) {
 	width = image->w;
 	height = image->h;
 
+	return true;
+}
+
+bool Image::load(int width, int height, int bytes_per_pixel, void *data) {
+	if(image)
+		SDL_FreeSurface(image);
+
+	Uint32 rmask, gmask, bmask, amask;
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
+
+	this->width = width;
+	this->height = height;
+
+	image = SDL_CreateRGBSurfaceFrom(data, width, height,
+			8 * bytes_per_pixel, bytes_per_pixel * width,
+			rmask, gmask, bmask, amask);
+
+	if(!image) {
+		App::error_string.push_back(std::string("Unable to load the"
+			"image from buffer: ") + SDL_GetError());
+		width = 0;
+		height = 0;
+		return false;
+	}
+	return true;
+}
+
+bool Image::save(const std::string& filename) {
+	int ret = SDL_SaveBMP(image, filename.c_str());
+	if(ret < 0) {
+		App::error_string.push_back(std::string("Unable to save the"
+			"image to ") + filename + std::string(": ") + SDL_GetError());
+		return false;
+	}
 	return true;
 }
 
@@ -158,10 +206,14 @@ bool Image::copy_from(const Image& src, SDL_Rect& dst_rect) {
 		image = SDL_ConvertSurface(src.image, src.image->format,
 					   src.image->flags);
 		if(!image) {
+			App::error_string.push_back(std::string("SDL_ConvertSurface"
+				" failed: ") + SDL_GetError());
 			return false;
 		}
 	}
 	if(SDL_BlitSurface(src.image, NULL, image, &dst_rect) < 0) {
+		App::error_string.push_back(std::string("SDL_BlitSurface"
+			" failed: ") + SDL_GetError());
 		return false;
 	}
 	return true;
@@ -173,10 +225,14 @@ bool Image::copy_from(const Image& src, SDL_Rect& dst_rect,
 		image = SDL_ConvertSurface(src.image, src.image->format,
 					   src.image->flags);
 		if(!image) {
+			App::error_string.push_back(std::string("SDL_ConvertSurface"
+				" failed: ") + SDL_GetError());
 			return false;
 		}
 	}
 	if(SDL_BlitSurface(src.image, &src_rect, image, &dst_rect) < 0) {
+		App::error_string.push_back(std::string("SDL_BlitSurface"
+			" failed: ") + SDL_GetError());
 		return false;
 	}
 	return true;
@@ -185,6 +241,48 @@ bool Image::copy_from(const Image& src, SDL_Rect& dst_rect,
 /*bool Image::copy_scaled() {
 	SDL_BlitScaled(src,srcrect, dst, dstrect);
 }*/
+
+void Image::vertical_flip() {
+	if(!image)
+		return;
+
+	unsigned int bpp = image->format->BytesPerPixel;
+
+	unsigned char *buf = new unsigned char[width * height * bpp];
+	
+	for(unsigned int y = 0; y < height; y++) {
+		for(unsigned int x = 0; x < width; x++) {
+			for(unsigned int c = 0; c < bpp; c++) {
+				buf[(y * width + x) * bpp + c] = 
+					((unsigned char *)image->pixels)[((height - y - 1) * width + x) * bpp + c];
+			}
+		}
+	}
+
+	memcpy(image->pixels, buf, width * height * bpp);
+	delete buf;
+}
+
+void Image::horizontal_flip() {
+	if(!image)
+		return;
+
+	unsigned int bpp = image->format->BytesPerPixel;
+
+	unsigned char *buf = new unsigned char[width * height * bpp];
+	
+	for(unsigned int y = 0; y < height; y++) {
+		for(unsigned int x = 0; x < width; x++) {
+			for(unsigned int c = 0; c < bpp; c++) {
+				buf[(y * width + x) * bpp + c] = 
+					((unsigned char *)image->pixels)[(y * width + (width - x - 1)) * bpp + c];
+			}
+		}
+	}
+
+	memcpy(image->pixels, buf, width * height * bpp);
+	delete buf;
+}
 
 void Image::set_color_key(int r, int g, int b) {
 	SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, r, g, b));
