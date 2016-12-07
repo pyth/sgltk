@@ -65,10 +65,6 @@ void Texture::set_target(GLenum target) {
 	this->target = target;
 }
 
-void Texture::bind() {
-	bind(0);
-}
-
 void Texture::bind(unsigned int texture_unit) {
 	glActiveTexture(GL_TEXTURE0 + texture_unit);
 	glBindTexture(target, texture);

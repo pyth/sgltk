@@ -805,10 +805,6 @@ void Scene::set_instanced_matrix_attributes() {
 	}
 }
 
-void Scene::draw() {
-	draw(NULL);
-}
-
 void Scene::draw(const glm::mat4 *model_matrix) {
 	for(unsigned int i = 0; i < meshes.size(); i++) {
 		if(model_matrix) {

@@ -433,16 +433,13 @@ void Mesh::draw(GLenum mode) {
 	draw(mode, 0, NULL);
 }
 
-void Mesh::draw(GLenum mode, unsigned int index_buffer) {
-	draw(mode, index_buffer, NULL);
-}
-
 void Mesh::draw(GLenum mode, const glm::mat4 *model_matrix) {
 	draw(mode, 0, model_matrix);
 }
 
-void Mesh::draw(GLenum mode, unsigned int index_buffer,
-			const glm::mat4 *model_matrix) {
+void Mesh::draw(GLenum mode,
+		unsigned int index_buffer,
+		const glm::mat4 *model_matrix = NULL) {
 
 	if(!shader) {
 		App::error_string.push_back("Error: No shader specified");

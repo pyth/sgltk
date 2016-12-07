@@ -276,11 +276,7 @@ void Window::display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Window::run() {
-	run(0);
-}
-
-void Window::run(int fps) {
+void Window::run(unsigned int fps) {
 	double frame_time;
 	Timer frame_timer;
 	if(fps < 1)

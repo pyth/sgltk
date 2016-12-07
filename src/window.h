@@ -233,16 +233,12 @@ public:
 	 */
 	EXPORT virtual void display();
 	/**
-	 * @brief Starts the main loop with no frame rate limit
-	 */
-	EXPORT void run();
-	/**
 	 * @brief Starts the main loop. This function calls poll_events() and
 	 * 	  display()
 	 * @param fps	The frames per second limit.
 	 *		Any number below 1 means no limit
 	 */
-	EXPORT void run(int fps);
+	EXPORT void run(unsigned int fps = 0);
 	/**
 	 * @brief Stops the main loop
 	 */

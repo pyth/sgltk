@@ -153,13 +153,9 @@ public:
 	EXPORT void set_parameter(GLenum name, float parameter);
 	/**
 	 * @brief Bind the texture to be used by the shader
-	 */
-	EXPORT void bind();
-	/**
-	 * @brief Bind the texture to be used by the shader
 	 * @param texture_unit The texture unit to bind the texture to
 	 */
-	EXPORT void bind(unsigned int texture_unit);
+	EXPORT void bind(unsigned int texture_unit = 0);
 	/**
 	 * @brief Unbind the texture
 	 */

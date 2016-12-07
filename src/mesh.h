@@ -728,15 +728,6 @@ public:
 	EXPORT void draw(GLenum mode);
 
 	/**
-	 * @brief Renders the mesh using the first index buffer and the
-	 * 	  model_matrix member as model matrix
-	 * @param mode Specifies the primitive that will be created from
-	 * 	  vertices
-	 * @param index_buffer The index buffer to use
-	 */
-	EXPORT void draw(GLenum mode, unsigned int index_buffer);
-
-	/**
 	 * @brief Renders the mesh using the first index buffer
 	 * @param mode Specifies the primitive that will be created from
 	 * 	  vertices
