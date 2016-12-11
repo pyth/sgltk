@@ -19,6 +19,9 @@ endif()
 
 set(CMAKE_PREFIX_PATH "" CACHE PATH "3rd party libraries and headers")
 
+include_directories(${CMAKE_PREFIX_PATH})
+link_directories(${CMAKE_PREFIX_PATH})
+
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for the library files")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for .dll files")
 set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
