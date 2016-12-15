@@ -71,6 +71,10 @@ bool App::init() {
 #endif //HAVE_SDL_TTF_H
 				App::initialized = true;
 				App::get_sys_info();
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+				SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+				SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 				return true;
 #ifdef HAVE_SDL_TTF_H
 			}
@@ -79,6 +83,59 @@ bool App::init() {
 
 	App::quit();
 	return false;
+}
+
+void App::set_gl_version(int major, int minor) {
+	int maj;
+	int min;
+	if(major < 3) {
+		maj = 3;
+		min = 0;
+		App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+	} else if(major > 4) {
+		maj = 3;
+		min = 0;
+		App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+	} else if(major == 3) {
+		if(minor < 0) {
+			maj = 3;
+			min = 0;
+			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+		} else if(minor > 3) {
+			maj = 3;
+			min = 0;
+			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+		} else {
+			maj = major;
+			min = minor;
+		}
+	} else if(major == 4) {
+		if(minor < 0) {
+			maj = 3;
+			min = 0;
+			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+		} else if(minor > 5) {
+			maj = 3;
+			min = 0;
+			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+		} else {
+			maj = major;
+			min = minor;
+		}
+	}
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, maj);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, min);
+}
+
+void App::set_depth_stencil_size(int depth_size, int stencil_size) {
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, depth_size);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, stencil_size);
+}
+
+void App::set_msaa_sample_number(int number_samples) {
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, number_samples);
 }
 
 void App::quit() {

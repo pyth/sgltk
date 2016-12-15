@@ -61,18 +61,10 @@ public:
 	 * @param res_y		The y window resolution
 	 * @param offset_x	The x position offset of the window
 	 * @param offset_y	The y position offset of the window
-	 * @param gl_maj	The major OpenGL version number
-	 * @param gl_min	The minor OpenGL version number
-	 * @param depth_bits	The minimum number bits in the depth buffer
-	 * @param stencil_bits	The minimum number bits in the stencil buffer
 	 * @param flags		Additional flags to be used by SDL_CreateWindow.
-				The default flag is SDL_WINDOW_OPENGL
+				The default flags are SDL_WINDOW_OPENGL and SDL_WINDOW_RESIZABLE
 	 */
-	EXPORT Window(const std::string& title, int res_x, int res_y,
-			int offset_x, int offset_y,
-			int gl_maj, int gl_min,
-			int depth_bits, int stencil_bits,
-			unsigned int flags);
+	EXPORT Window(const std::string& title, int res_x, int res_y, int offset_x, int offset_y, unsigned int flags = 0);
 	EXPORT ~Window();
 
 	/**

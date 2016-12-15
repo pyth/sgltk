@@ -157,6 +157,27 @@ namespace sgltk {
 		EXPORT static void quit();
 
 		/**
+		 * @brief Sets the OpenGL version
+		 * @param major The major version number
+		 * @param minor The minor version number
+		 * @note This function needs to be called before a window is created.
+			If the parameter combination is not valid, version defaults to 3.0
+		 */
+		EXPORT static void set_gl_version(int major, int minor);
+		/**
+		 * @brief Sets the size of the depth and stencil buffers
+		 * @param depth_size The minimum size of the depth buffer in bits
+		 * @param depth_size The minimum size of the stencil buffer in bits
+		 * @note This function needs to be called before a window is created.
+		 */
+		EXPORT static void set_depth_stencil_size(int depth_size, int stencil_size);
+		/**
+		 * @brief Sets the number of samples used for multisample anti-aliasing
+		 * @param number_samples The number of samples to be used
+		 */
+		EXPORT static void set_msaa_sample_number(int number_samples);
+
+		/**
 		* @brief Enables the screensaver
 		*/
 		EXPORT static void enable_screensaver();
