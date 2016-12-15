@@ -8,14 +8,36 @@ Image::Image() {
 	image = NULL;
 	width = 0;
 	height = 0;
+	bytes_per_pixel = 0;
 	image = NULL;
+	data = NULL;
 }
 
 Image::Image(std::string filename) {
 	image = NULL;
 	width = 0;
 	height = 0;
+	bytes_per_pixel = 0;
+	data = NULL;
 	if(!load(filename)) {
+		std::string error = std::string("Error loading image: ") +
+			SDL_GetError();
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
+}
+
+Image::Image(unsigned int width,
+	     unsigned int height,
+	     unsigned int bytes_per_pixel,
+	     void *data) {
+
+	image = NULL;
+	width = 0;
+	height = 0;
+	bytes_per_pixel = 0;
+	data = NULL;
+	if (!load(width, height, bytes_per_pixel, data)) {
 		std::string error = std::string("Error loading image: ") +
 			SDL_GetError();
 		App::error_string.push_back(error);
@@ -27,7 +49,7 @@ Image::~Image() {
 	SDL_FreeSurface(image);
 }
 
-bool Image::create_empty(int width, int height) {
+bool Image::create_empty(unsigned int width, unsigned int height) {
 	if(image) {
 		SDL_FreeSurface(image);
 		image = NULL;
@@ -35,6 +57,7 @@ bool Image::create_empty(int width, int height) {
 
 	this->width = width;
 	this->height = height;
+	bytes_per_pixel = 4;
 
 	Uint32 rmask, gmask, bmask, amask;
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -56,15 +79,15 @@ bool Image::create_empty(int width, int height) {
 			"empty image: ") + SDL_GetError());
 		width = 0;
 		height = 0;
+		bytes_per_pixel = 0;
+		data = NULL;
 		return false;
 	}
+	data = image->pixels;
 	return true;
 }
 
 bool Image::load(const std::string& filename) {
-	width = 0;
-	height = 0;
-
 	if(image)
 		SDL_FreeSurface(image);
 
@@ -85,16 +108,24 @@ bool Image::load(const std::string& filename) {
 			+ filename + std::string(" - ") + IMG_GetError());
 		width = 0;
 		height = 0;
+		bytes_per_pixel = 0;
+		data = NULL;
 		return false;
 	}
 
 	width = image->w;
 	height = image->h;
+	bytes_per_pixel = image->format->BytesPerPixel;
+	data = image->pixels;
 
 	return true;
 }
 
-bool Image::load(int width, int height, int bytes_per_pixel, void *data) {
+bool Image::load(unsigned int width,
+		 unsigned int height,
+		 unsigned int bytes_per_pixel,
+		 void *data) {
+
 	if(image)
 		SDL_FreeSurface(image);
 
@@ -113,6 +144,7 @@ bool Image::load(int width, int height, int bytes_per_pixel, void *data) {
 
 	this->width = width;
 	this->height = height;
+	this->bytes_per_pixel = bytes_per_pixel;
 
 	image = SDL_CreateRGBSurfaceFrom(data, width, height,
 			8 * bytes_per_pixel, bytes_per_pixel * width,
@@ -123,8 +155,11 @@ bool Image::load(int width, int height, int bytes_per_pixel, void *data) {
 			"image from buffer: ") + SDL_GetError());
 		width = 0;
 		height = 0;
+		bytes_per_pixel = 0;
+		data = NULL;
 		return false;
 	}
+	data = image->pixels;
 	return true;
 }
 
@@ -139,7 +174,7 @@ bool Image::save(const std::string& filename) {
 }
 
 #ifdef HAVE_SDL_TTF_H
-TTF_Font *Image::open_font_file(std::string font_file, unsigned int size) {
+TTF_Font *Image::open_font_file(const std::string& font_file, unsigned int size) {
 	TTF_Font *font;
 	if((font_file.length() > 1 && font_file[0] == '/') ||
 			(font_file.length() > 2 && font_file[1] == ':')) {
@@ -160,8 +195,8 @@ void Image::close_font_file(TTF_Font *font_file) {
 	TTF_CloseFont(font_file);
 }
 
-bool Image::create_text(std::string text, TTF_Font *font, Uint8 r, Uint8 g,
-								Uint8 b, Uint8 a) {
+bool Image::create_text(const std::string& text, TTF_Font *font,
+								Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if (!font)
 		return false;
 	if(image) {
@@ -176,10 +211,11 @@ bool Image::create_text(std::string text, TTF_Font *font, Uint8 r, Uint8 g,
 	}
 	width = image->w;
 	height = image->h;
+	bytes_per_pixel = 4;
 	return true;
 }
 
-bool Image::create_text(std::string text, std::string font_file, unsigned int size,
+bool Image::create_text(const std::string& text, std::string font_file, unsigned int size,
 			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	TTF_Font *font = open_font_file(font_file, size);
 	if(!font) {

@@ -28,6 +28,14 @@ public:
 	 * @brief The width of the image surface
 	 */
 	unsigned int height;
+	/**
+	 * @brief The number of bytes that make up a single pixel
+	 */
+	unsigned int bytes_per_pixel;
+	/**
+	 * @brief The pixel data
+	 */
+	const void *data;
 
 	/**
 	 * @brief The image surface
@@ -39,6 +47,16 @@ public:
 	 * @param filename Path to the image file to load
 	 */
 	EXPORT Image(std::string filename);
+	/**
+	 * @param width The width of the image
+	 * @param height The height of the image
+	 * @param bytes_per_pixel The number of bytes that represent a pixel
+	 * @param data A pointer to the buffer data
+	 */
+	EXPORT Image(unsigned int width,
+		     unsigned int height,
+		     unsigned int bytes_per_pixel,
+		     void *data);
 	EXPORT ~Image();
 
 	/**
@@ -47,7 +65,8 @@ public:
 	 * @param height The height of the image
 	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT bool create_empty(int width, int height);
+	EXPORT bool create_empty(unsigned int width,
+				 unsigned int height);
 
 	/**
 	 * @brief Loads a new image file
@@ -64,7 +83,10 @@ public:
 	 * @param data A pointer to the buffer data
 	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT bool load(int width, int height, int bytes_per_pixel, void *data);
+	EXPORT bool load(unsigned int width,
+			 unsigned int height,
+			 unsigned int bytes_per_pixel,
+			 void *data);
 
 	/**
 	 * @brief Saves the image as a file
@@ -81,7 +103,8 @@ public:
 	 * @return Return a ttf font file pointer on success, NULL on failure
 	 * @see close_font_file()
 	 */
-	EXPORT static TTF_Font *open_font_file(std::string font_file, unsigned int size);
+	EXPORT static TTF_Font *open_font_file(const std::string& font_file,
+					       unsigned int size);
 	/**
 	 * @brief Closes a ttf font file
 	 * @param A pointer to the ttf font file to close
@@ -102,8 +125,9 @@ public:
 	 * @see open_font_file()
 	 * @see close_font_file()
 	 */
-	EXPORT bool create_text(std::string text, TTF_Font *font, Uint8 r,
-						Uint8 g, Uint8 b, Uint8 a);
+	EXPORT bool create_text(const std::string& text,
+				TTF_Font *font,
+				Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 	/**
 	 * @brief Creates an image from a string
 	 * @param text		The string to be made into an image
@@ -115,8 +139,10 @@ public:
 	 * @param a		The alpha color channel
 	 * @return Retuurns true on success, false on failure
 	 */
-	EXPORT bool create_text(std::string text, std::string font_file,
-			unsigned int size, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+	EXPORT bool create_text(const std::string& text,
+				std::string font_file,
+				unsigned int size,
+				Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 #endif //HAVE_SDL_TTF_H
 
 	/**
