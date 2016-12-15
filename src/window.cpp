@@ -5,6 +5,7 @@ using namespace sgltk;
 Window::Window(const std::string& title, int res_x, int res_y,
 		int offset_x, int offset_y,
 		int gl_maj, int gl_min,
+		int depth_bits, int stencil_bits,
 		unsigned int flags) {
 
 	running = true;
@@ -37,8 +38,8 @@ Window::Window(const std::string& title, int res_x, int res_y,
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, glmaj);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, glmin);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, depth_bits);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, stencil_bits);
 
 	width = res_x;
 	height = res_y;
