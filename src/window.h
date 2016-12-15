@@ -76,10 +76,17 @@ public:
 	EXPORT ~Window();
 
 	/**
+	* @brief Sets the window icon
+	* @param filename The icon to use
+	* @note The image size should not exceed 356x356 pixel.
+	*/
+	EXPORT void set_icon(const std::string& filename);
+	/**
 	 * @brief Sets the window icon
 	 * @param icon The icon to use
+	 * @note The image size should not exceed 356x356 pixel.
 	 */
-	EXPORT void set_icon(const Image& icon);
+	EXPORT void set_icon(const sgltk::Image& icon);
 	/**
 	 * @brief Set window title
 	 * @param title The new window title

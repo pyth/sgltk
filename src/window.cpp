@@ -75,7 +75,12 @@ Window::~Window() {
 	keys_pressed.clear();
 }
 
-void Window::set_icon(const Image& icon) {
+void Window::set_icon(const std::string& filename) {
+	Image img(filename.c_str());
+	SDL_SetWindowIcon(window, img.image);
+}
+
+void Window::set_icon(const sgltk::Image& icon) {
 	SDL_SetWindowIcon(window, icon.image);
 }
 
