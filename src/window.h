@@ -93,6 +93,11 @@ public:
 	 */
 	EXPORT void set_title(const std::string& title);
 	/**
+	 * @brief Takes a screenshot of the window
+	 * @param image The image to save the screenshot to
+	 */
+	EXPORT void take_screenshot(sgltk::Image& image);
+	/**
 	 * @brief Sets the window to grab the mouse
 	 * When activate the mouse can not leave the window boundaries
 	 * @param on	True to turn on, false to turn off

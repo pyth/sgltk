@@ -88,6 +88,14 @@ void sgltk::Window::set_title(const std::string& title) {
 	SDL_SetWindowTitle(window, title.c_str());
 }
 
+void Window::take_screenshot(sgltk::Image& image) {
+	char *buf = new char[4 * width * height];
+	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buf);
+	image.load(width, height, 4, buf);
+	image.vertical_flip();
+	delete buf;
+}
+
 void Window::grab_mouse(bool on) {
 	SDL_SetWindowGrab(window, (SDL_bool)on);
 }
