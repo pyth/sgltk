@@ -10,6 +10,7 @@ namespace sgltk {
  * @brief Manages images
  */
 class Image {
+	bool free_data;
 	static std::vector<std::string> paths;
 public:
 	/**
@@ -35,7 +36,7 @@ public:
 	/**
 	 * @brief The pixel data
 	 */
-	const void *data;
+	void *data;
 
 	/**
 	 * @brief The image surface
@@ -82,6 +83,7 @@ public:
 	 * @param bytes_per_pixel The number of bytes that represent a pixel
 	 * @param data A pointer to the buffer data
 	 * @return Returns true on success, false otherwise
+	 * @note The image object keeps it's own copy of the data until a new image is loaded
 	 */
 	EXPORT bool load(unsigned int width,
 			 unsigned int height,

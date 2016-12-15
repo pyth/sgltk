@@ -5,6 +5,7 @@ using namespace sgltk;
 std::vector<std::string> Image::paths = {"./"}; 
 
 Image::Image() {
+	free_data = false;
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -14,6 +15,7 @@ Image::Image() {
 }
 
 Image::Image(std::string filename) {
+	free_data = false;
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -32,6 +34,7 @@ Image::Image(unsigned int width,
 	     unsigned int bytes_per_pixel,
 	     void *data) {
 
+	free_data = false;
 	image = NULL;
 	width = 0;
 	height = 0;
@@ -47,11 +50,15 @@ Image::Image(unsigned int width,
 
 Image::~Image() {
 	SDL_FreeSurface(image);
+	if(free_data)
+		free(data);
 }
 
 bool Image::create_empty(unsigned int width, unsigned int height) {
 	if(image) {
 		SDL_FreeSurface(image);
+		if(free_data)
+			free(data);
 		image = NULL;
 	}
 
@@ -88,8 +95,11 @@ bool Image::create_empty(unsigned int width, unsigned int height) {
 }
 
 bool Image::load(const std::string& filename) {
-	if(image)
+	if(image) {
 		SDL_FreeSurface(image);
+		if(free_data)
+			free(data);
+	}
 
 	if((filename.length() > 1 && filename[0] == '/') ||
 			(filename.length() > 2 && filename[1] == ':')) {
@@ -126,8 +136,12 @@ bool Image::load(unsigned int width,
 		 unsigned int bytes_per_pixel,
 		 void *data) {
 
-	if(image)
+	if(image) {
 		SDL_FreeSurface(image);
+		if(free_data)
+			free(this->data);
+		image = NULL;
+	}
 
 	Uint32 rmask, gmask, bmask, amask;
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -145,8 +159,19 @@ bool Image::load(unsigned int width,
 	this->width = width;
 	this->height = height;
 	this->bytes_per_pixel = bytes_per_pixel;
+	this->data = malloc(width * height * bytes_per_pixel);
+	if(!this->data) {
+		App::error_string.push_back(std::string("Image - load: "
+			"Unable to allocate memory"));
+		width = 0;
+		height = 0;
+		bytes_per_pixel = 0;
+		return false;
+	}
+	memcpy(this->data, data, width * height * bytes_per_pixel);
+	free_data = true;
 
-	image = SDL_CreateRGBSurfaceFrom(data, width, height,
+	image = SDL_CreateRGBSurfaceFrom(this->data, width, height,
 			8 * bytes_per_pixel, bytes_per_pixel * width,
 			rmask, gmask, bmask, amask);
 
@@ -156,10 +181,9 @@ bool Image::load(unsigned int width,
 		width = 0;
 		height = 0;
 		bytes_per_pixel = 0;
-		data = NULL;
+		this->data = NULL;
 		return false;
 	}
-	data = image->pixels;
 	return true;
 }
 
@@ -201,6 +225,8 @@ bool Image::create_text(const std::string& text, TTF_Font *font,
 		return false;
 	if(image) {
 		SDL_FreeSurface(image);
+		if(free_data)
+			free(data);
 		image = NULL;
 	}
 	SDL_Color color = {r, g, b, a};
