@@ -1,3 +1,6 @@
 21.10.2015
 In case there is someone reading this, no, this project is not dead.
 I'm currently finishing the scene loader and am looking into moving the project from autotools to cmake.
+
+15.12.2016
+Most of the planned funcionality has been implemented
