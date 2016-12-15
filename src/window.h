@@ -93,6 +93,11 @@ public:
 	 */
 	EXPORT void set_title(const std::string& title);
 	/**
+	 * @brief Sets or removes the ability to resize the window
+	 * @param on If true, the window is made resizable. If false, window becomes non-resizable.
+	 */
+	EXPORT void set_resizable(bool on);
+	/**
 	 * @brief Takes a screenshot of the window
 	 * @param image The image to save the screenshot to
 	 */

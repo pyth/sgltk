@@ -84,8 +84,12 @@ void Window::set_icon(const sgltk::Image& icon) {
 	SDL_SetWindowIcon(window, icon.image);
 }
 
-void sgltk::Window::set_title(const std::string& title) {
+void Window::set_title(const std::string& title) {
 	SDL_SetWindowTitle(window, title.c_str());
+}
+
+void Window::set_resizable(bool on) {
+	SDL_SetWindowResizable(window, (SDL_bool)on);
 }
 
 void Window::take_screenshot(sgltk::Image& image) {
