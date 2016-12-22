@@ -121,12 +121,12 @@ public:
 	 * @brief Load a new image as texture
 	 * @param image The image to use as the texture
 	 */
-	EXPORT void load_texture(const Image& image);
+	EXPORT bool load_texture(const Image& image);
 	/**
 	 * @param target The target to bind the texture
 	 * @param path The path to the image file
 	 */
-	EXPORT void load_texture(const std::string& path);
+	EXPORT bool load_texture(const std::string& path);
 	/**
 	 * @brief Load a new cubemap
 	 * @param pos_x The image to use as the positive x texture
@@ -136,7 +136,7 @@ public:
 	 * @param pos_z The image to use as the positive z texture
 	 * @param neg_z The image to use as the negative z texture
 	 */
-	EXPORT void load_cubemap(const Image& pos_x, const Image& neg_x,
+	EXPORT bool load_cubemap(const Image& pos_x, const Image& neg_x,
 				 const Image& pos_y, const Image& neg_y,
 				 const Image& pos_z, const Image& neg_z);
 	/**

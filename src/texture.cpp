@@ -133,21 +133,29 @@ void Texture::create_empty_cubemap(unsigned int res_x,
 	unbind();
 }
 
-void Texture::load_texture(const std::string& path) {
-	target = GL_TEXTURE_2D;
+bool Texture::load_texture(const std::string& path) {
+	Image img;
+	try {
+		img.load(path);
+	} catch(std::exception e) {
+		return false;
+	}
 	glGenTextures(1, &texture);
-	Image img(path);
+	target = GL_TEXTURE_2D;
 	width = img.width;
 	height = img.height;
-	load_texture(img);
+	return load_texture(img);
 }
 
-void Texture::load_texture(const Image& image) {
+bool Texture::load_texture(const Image& image) {
 	if(!image.image)
-		return;
+		return false;
 
 	SDL_Surface *tmp = SDL_ConvertSurfaceFormat(image.image,
 					SDL_PIXELFORMAT_RGBA8888, 0);
+	if(!tmp) {
+		return false;
+	}
 
 	bind();
 	glTexParameteri(target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -159,9 +167,10 @@ void Texture::load_texture(const Image& image) {
 	glGenerateMipmap(target);
 	unbind();
 	SDL_FreeSurface(tmp);
+	return true;
 }
 
-void Texture::load_cubemap(const Image& pos_x, const Image& neg_x,
+bool Texture::load_cubemap(const Image& pos_x, const Image& neg_x,
 			   const Image& pos_y, const Image& neg_y,
 			   const Image& pos_z, const Image& neg_z) {
 
@@ -171,10 +180,12 @@ void Texture::load_cubemap(const Image& pos_x, const Image& neg_x,
 		{&pos_x, &neg_x, &pos_y, &neg_y, &pos_z, &neg_z};
 
 	bind();
-
 	for(unsigned int i = 0; i < 6; i++) {
 		tmp = SDL_ConvertSurfaceFormat(sides[i]->image,
 					SDL_PIXELFORMAT_RGBA8888, 0);
+
+		if(!tmp)
+			return false;
 
 		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA,
 			     sides[i]->width, sides[i]->height,
@@ -187,6 +198,7 @@ void Texture::load_cubemap(const Image& pos_x, const Image& neg_x,
 	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	unbind();
+	return true;
 }
 
 bool Texture::store_texture(std::string name, Texture *texture) {
