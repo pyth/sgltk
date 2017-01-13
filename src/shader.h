@@ -52,6 +52,12 @@ public:
 	 */
 	EXPORT bool attach_string(const std::string& shader_string, GLenum type);
 	/**
+	 * @brief Sets the variable to record in transform feedback buffers
+	 * @param variables A list of variable names
+	 * @param buffer_mode The mode used to capture the variables when transform feedback is active. Must be must be GL_INTERLEAVED_ATTRIBS or GL_SEPARATE_ATTRIBS.
+	 */
+	EXPORT void set_transform_feedback_variables(std::vector<char *>& variables, GLenum buffer_mode);
+	/**
 	 * @brief Reads, compiles and links all associated shaders again.
 	 */
 	EXPORT void recompile();

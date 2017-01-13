@@ -117,6 +117,10 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 	return true;
 }
 
+void Shader::set_transform_feedback_variables(std::vector<char *>& variables, GLenum buffer_mode) {
+	glTransformFeedbackVaryings(program, variables.size(), variables.data(), buffer_mode);
+}
+
 void Shader::recompile() {
 	modify = false;
 	unbind();

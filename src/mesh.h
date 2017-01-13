@@ -712,6 +712,12 @@ public:
 	EXPORT int attach_index_buffer(const std::vector<unsigned int>& indices);
 
 	/**
+	 * @brief Sets a buffer to write the output of the vertex shader to
+	 * @param 
+	 */
+	//EXPORT void attach_transform_feedback_buffer(void *buffer, size_t size, size_t update_frequency);
+
+	/**
 	 * @brief Computes the bounding box of the mesh
 	 * @param vertexdata The vertices of the mesh
 	 * @param pointer The pointer to the position vector in the vertex
