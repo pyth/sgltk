@@ -67,8 +67,8 @@ namespace sgltk {
 	class App {
 		static bool initialized;
 
-		App();
-		~App();
+		EXPORT App();
+		EXPORT ~App();
 
 		public:
 
