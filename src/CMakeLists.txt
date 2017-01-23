@@ -29,8 +29,8 @@ set(LIB_HEADERS
 	timer.h
 	mesh.h)
 
-set(LIBS_REQUIRED SDL2 SDL2_image assimp)
-set(LIBS_OPTIONAL SDL2_ttf)
+set(LIBS_REQUIRED SDL2 SDL2_image)
+set(LIBS_OPTIONAL SDL2_ttf assimp)
 if(WIN32)
 	set(LIBS_REQUIRED OpenGL32 glew32 ${LIBS_REQUIRED})
 else()

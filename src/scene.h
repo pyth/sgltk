@@ -8,11 +8,14 @@
 #include "image.h"
 #include "texture.h"
 
+namespace sgltk {
+
+#ifdef HAVE_ASSIMP_H
+
 #ifndef BONES_PER_VERTEX
 	#define BONES_PER_VERTEX 4
 #endif
 
-namespace sgltk {
 
 /**
  * @class Scene
@@ -219,6 +222,8 @@ class Scene {
 		EXPORT void draw_instanced(unsigned int num_instances);
 	};
 
+#endif //HAVE_ASSIMP_H
+
 }
 
-#endif
+#endif //__SCENE_H__

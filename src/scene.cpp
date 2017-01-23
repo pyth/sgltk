@@ -1,3 +1,5 @@
+#ifdef HAVE_ASSIMP_H
+
 #include "scene.h"
 
 using namespace sgltk;
@@ -858,3 +860,5 @@ glm::mat4 Scene::ai_to_glm_mat4(const aiMatrix4x4& in) {
 
 	return ret;
 }
+
+#endif //HAVE_ASSIMP_H

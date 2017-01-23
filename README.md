@@ -11,13 +11,13 @@ applications easier by providing a layer of abstraction from OpenGL.
 
 * [OpenGL](http://www.opengl.org)
 * [GLEW](http://glew.sourceforge.net)
-* [Assimp](http://www.assimp.org/main_downloads.html)
 * [SDL2](http://www.libsdl.org/download-2.0.php)
 * [SDL2_image](http://www.libsdl.org/projects/SDL_image/)
 
 **Optional**:
 
 * [SDL2_ttf](http://www.libsdl.org/projects/SDL_ttf/)
+* [Assimp](http://www.assimp.org/main_downloads.html)
 
 ## Building the library
 * **Windows**

@@ -39,6 +39,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <algorithm>
 #include <exception>
 
 #define GLM_FORCE_RADIANS
@@ -55,9 +56,11 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#ifdef HAVE_ASSIMP_H
+	#include <assimp/Importer.hpp>
+	#include <assimp/scene.h>
+	#include <assimp/postprocess.h>
+#endif //HAVE_ASSIMP_H
 
 namespace sgltk {
 	/**
