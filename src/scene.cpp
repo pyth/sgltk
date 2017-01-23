@@ -1,6 +1,6 @@
-#ifdef HAVE_ASSIMP_H
-
 #include "scene.h"
+
+#ifdef HAVE_ASSIMP_H
 
 using namespace sgltk;
 
