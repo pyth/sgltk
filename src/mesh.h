@@ -713,9 +713,11 @@ public:
 
 	/**
 	 * @brief Sets a buffer to write the output of the vertex shader to
-	 * @param 
+	 * @param buffer The buffer to write to
+	 * @param size The size of the buffer in bytes
+	 * @param update_frequency The number of draw calls between writes to the buffer
 	 */
-	//EXPORT void attach_transform_feedback_buffer(void *buffer, size_t size, size_t update_frequency);
+	EXPORT void attach_transform_feedback_buffer(void *buffer, unsigned int size, unsigned int update_frequency);
 
 	/**
 	 * @brief Computes the bounding box of the mesh
@@ -724,7 +726,7 @@ public:
 	 * 	structure
 	 */
 	template <typename T = Vertex>
-	void compute_bounding_box(const std::vector<T>& vertexdata, size_t pointer);
+	void compute_bounding_box(const std::vector<T>& vertexdata, unsigned int pointer);
 
 	/**
 	 * @brief Renders the mesh using the first index buffer
@@ -926,7 +928,7 @@ bool Mesh::replace_partial_data(unsigned int buffer_index,
 }
 
 template <typename T>
-void Mesh::compute_bounding_box(const std::vector<T>& vertexdata, size_t pointer) {
+void Mesh::compute_bounding_box(const std::vector<T>& vertexdata, unsigned int pointer) {
 	glm::vec3 *pos = (glm::vec3 *)(&(vertexdata)[0] + pointer);
 	bounding_box[0] = *pos;
 	bounding_box[1] = *pos;
