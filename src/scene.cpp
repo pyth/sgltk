@@ -29,7 +29,9 @@ Scene::Scene() {
 }
 
 Scene::~Scene() {
-	meshes.clear();
+	for(Mesh *mesh : meshes) {
+		delete mesh;
+	}
 	bounding_box.clear();
 	bones.clear();
 	bone_map.clear();
