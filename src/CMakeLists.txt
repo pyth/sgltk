@@ -2,6 +2,7 @@ set(LIB_SOURCE
 	app.cpp
 	window.cpp
 	gamepad.cpp
+	joystick.cpp
 	particle.cpp
 	framebuffer.cpp
 	renderbuffer.cpp
@@ -18,6 +19,7 @@ set(LIB_HEADERS
 	app.h
 	window.h
 	gamepad.h
+	joystick.h
 	particle.h
 	framebuffer.h
 	renderbuffer.h

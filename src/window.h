@@ -5,6 +5,7 @@
 #include "image.h"
 #include "timer.h"
 #include "gamepad.h"
+#include "joystick.h"
 
 namespace sgltk {
 
@@ -37,6 +38,8 @@ class Window {
 	bool mouse_relative;
 	unsigned int fps_time;
 	std::vector<std::string> keys_pressed;
+	EXPORT static std::map<unsigned int, Gamepad *> gamepad_instance_id_map;
+	EXPORT static std::map<unsigned int, Joystick *> joystick_instance_id_map;
 public:
 	/**
 	 * @brief The width of the window surface
@@ -159,7 +162,7 @@ public:
 								int button);
 	/**
 	 * @brief This function is called by poll_events() once for every
-	 * 	  gamepad button pressed or released. This function should
+	 * 	  gamepad button press or release. This function should
 	 * 	  be overridden
 	 * @param gamepad_id The gamepad instance id
 	 * @param button The number of the button pressed or released
@@ -170,8 +173,8 @@ public:
 							int button,
 							bool pressed);
 	/**
-	 * @brief This function is called by poll_events() for every frame for
-	 * 	  every axis. This function should be overridden
+	 * @brief This function is called by poll_events() every frame for
+	 * 	  every axis of every gamepad. This function should be overridden
 	 * @param gamepad_id The gamepad instance id
 	 * @param axis The number of the axis that has a new value
 	 * @param value The new value of the axis
@@ -188,6 +191,90 @@ public:
 	EXPORT virtual void handle_gamepad_axis_change(unsigned int gamepad_id,
 							unsigned int axis,
 							int value);
+	/**
+	* @brief This function is called by poll_events() to handle
+	*	  the addition of new joysticks. This function should be
+	*	  overridden
+	* @param gamepad_id The joystick instance id
+	*/
+	EXPORT virtual void handle_joystick_added(unsigned int gamepad_id);
+	/**
+	* @brief This function is called by poll_events() to handle
+	*	  the removal of joysticks. This function should be overridden
+	* @param gamepad_id The joystick instance id
+	*/
+	EXPORT virtual void handle_joystick_removed(unsigned int gamepad_id);
+	/**
+	* @brief This function is called by poll_events() every frame for every
+	* 	  joystick button currently being pressed. This function should
+	* 	  be overridden
+	* @param gamepad_id The joystick instance id
+	* @param button The number of the button pressed or released
+	*/
+	EXPORT virtual void handle_joystick_button(unsigned int gamepad_id,
+		int button);
+	/**
+	* @brief This function is called by poll_events() once for every
+	* 	  joystick button pressed or released. This function should
+	* 	  be overridden
+	* @param gamepad_id The joystick instance id
+	* @param button The number of the button pressed or released
+	* @param pressed Indicates whether the button was pressed (true) or
+	* 		  released (false)
+	*/
+	EXPORT virtual void handle_joystick_button_press(unsigned int gamepad_id,
+		int button,
+		bool pressed);
+	/**
+	* @brief This function is called by poll_events() every frame for
+	* 	  every axis of every joystick. This function should be overridden
+	* @param gamepad_id The joystick instance id
+	* @param axis The number of the axis that has a new value
+	* @param value The new value of the axis
+	*/
+	EXPORT virtual void handle_joystick_axis(unsigned int gamepad_id,
+		unsigned int axis, int value);
+	/**
+	* @brief This function is called by poll_events() for every axis value
+	* 	  change. This function should be overridden
+	* @param gamepad_id The gamepad instance id
+	* @param axis The number of the axis that has a new value
+	* @param value The new value of the axis
+	*/
+	EXPORT virtual void handle_joystick_axis_change(unsigned int gamepad_id,
+		unsigned int axis,
+		int value);
+	/**
+	* @brief This function is called by poll_events() every frame for
+	* 	  every hat of every joystick. This function should be overridden
+	* @param gamepad_id The joystick instance id
+	* @param hat The number of the hat that has a new value
+	* @param value The new value of the hat
+	*/
+	EXPORT virtual void handle_joystick_hat(unsigned int gamepad_id,
+		unsigned int hat, unsigned int value);
+	/**
+	* @brief This function is called by poll_events() for every hat value
+	* 	  change. This function should be overridden
+	* @param gamepad_id The gamepad instance id
+	* @param axis The number of the hat that has a new value
+	* @param value The new value of the hat
+	*/
+	EXPORT virtual void handle_joystick_hat_change(unsigned int gamepad_id,
+		unsigned int hat,
+		unsigned int value);
+	/**
+	* @brief This function is called by poll_events() for every ball
+	*	 that has changed value change.
+	*	 This function should be overridden
+	* @param gamepad_id The gamepad instance id
+	* @param ball The number of the hat that has a new value
+	* @param xrel The new value of the hat
+	* @param yrel The new value of the hat
+	*/
+	EXPORT virtual void handle_joystick_ball_motion(unsigned int gamepad_id,
+		unsigned int ball,
+		int xrel, int yrel);
 	/**
 	 * @brief This function is called by poll_events() every frame for every
 	 * 	  key currently being pressed. This function should be

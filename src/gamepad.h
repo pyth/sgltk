@@ -12,21 +12,39 @@ namespace sgltk {
  * 	directly
  */
 class Gamepad {
-	friend class Window;
-
-	unsigned int id;
-	unsigned int num_axes;
-	unsigned int num_buttons;
 	SDL_GameController *gamepad;
 	SDL_Joystick *joystick;
 	SDL_Haptic *haptic;
-	unsigned int instance_id;
-	std::vector<int> buttons_pressed;
 
-	static std::map<unsigned int, Gamepad *> instance_id_map;
 	static unsigned int id_max;
 
 	public:
+	/**
+	 * @brief The gamepad id. When a new gamepad is attached it is assigned the
+	 *	first free ID starting at 0.
+	 */
+	unsigned int id;
+	/**
+	 * @brief The instance ID of the gamepad as provided
+	 *	by an SDL2 event
+	 */
+	unsigned int instance_id;
+	/**
+	* @brief The number of axes the gamepad has.
+	*/
+	unsigned int num_axes;
+	/**
+	* @brief The number of buttons the gamepad has.
+	*/
+	unsigned int num_buttons;
+	/**
+	* @brief The axis deadzone
+	*/
+	unsigned int deadzone;
+	/**
+	 * @brief A list of all buttons currently pressed
+	 */
+	std::vector<int> buttons_pressed;
 	/**
 	 * @brief Maps a gamepad id to a gamepad object
 	 */
@@ -38,6 +56,23 @@ class Gamepad {
 	EXPORT Gamepad(unsigned int device_id);
 	EXPORT ~Gamepad();
 
+	/**
+	 * @brief Sets the state of a button
+	 * @param button The button the state of which is to be set
+	 * @param state The new state of the button
+	 */
+	EXPORT void set_button_state(int button, bool state);
+	/**
+	* @brief Sets a dedzone for all axes
+	* @param deadzone The deadzone
+	*/
+	EXPORT void set_deadzone(unsigned int deadzone);
+	/**
+	 * @brief Call this function to get the current value of an axis
+	 * @param axis The axis the value of which to get
+	 * @return The current value of the axis
+	 */
+	EXPORT int get_axis_value(unsigned int axis);
 	/**
 	 * @brief Plays a rumble effect
 	 * @param magnitude The strength of the rumble on a scale from 0 to 1
@@ -52,4 +87,4 @@ class Gamepad {
 
 }
 
-#endif
+#endif //__GAMEPAD_H__
