@@ -13,6 +13,7 @@ namespace sgltk {
 */
 class Joystick {
 	SDL_Joystick *joystick;
+	std::vector<int> switches;
 
 	static unsigned int id_max;
 
@@ -27,6 +28,10 @@ class Joystick {
 	*	by an SDL2 event
 	*/
 	unsigned int instance_id;
+	/**
+	 * @brief The name of the joystick
+	 */
+	std::string name;
 	/**
 	 * @brief The number of axes the joystick has.
 	 */
@@ -64,6 +69,13 @@ class Joystick {
 	 * @param state The new state of the button
 	 */
 	EXPORT void set_button_state(int button, bool state);
+	/**
+	 * @brief Marks or unmarks a button as a switch.
+	 * 	Switches will not be added to the buttons_pressed list.
+	 * @param button The button to mark or unmark
+	 * @param mark True to mark, false to unmark
+	 */
+	EXPORT void mark_switch(int button, bool mark = true);
 	/**
 	 * @brief Sets a dedzone for all axes
 	 * @param deadzone The deadzone

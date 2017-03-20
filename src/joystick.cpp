@@ -14,6 +14,8 @@ Joystick::Joystick(unsigned int device_id) {
 		throw std::runtime_error(error);
 	}
 
+	name = std::string(SDL_JoystickName(joystick));
+
 	num_axes = SDL_JoystickNumAxes(joystick);
 	num_hats = SDL_JoystickNumHats(joystick);
 	num_buttons = SDL_JoystickNumButtons(joystick);
@@ -37,13 +39,31 @@ Joystick::~Joystick() {
 }
 
 void Joystick::set_button_state(int button, bool state) {
+	std::vector<int>::iterator it;
 	if(state) {
-		buttons_pressed.push_back(button);
+		it = std::find(switches.begin(), switches.end(), button);
+		if(it == switches.end())
+			buttons_pressed.push_back(button);
 	}
 	else {
-		std::vector<int>::iterator pressed_button = std::find(buttons_pressed.begin(),
+		it = std::find(buttons_pressed.begin(),
 			buttons_pressed.end(), button);
-		buttons_pressed.erase(pressed_button);
+		if(it != buttons_pressed.end())
+			buttons_pressed.erase(it);
+	}
+}
+
+void Joystick::mark_switch(int button, bool mark) {
+	std::vector<int>::iterator it = std::find(switches.begin(),
+						  switches.end(),
+						  button);
+
+	if(it == switches.end()) {
+		if(mark)
+			switches.push_back(button);
+	} else {
+		if(!mark)
+			switches.erase(it);
 	}
 }
 
