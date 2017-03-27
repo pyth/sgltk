@@ -74,6 +74,10 @@ public:
 };
 
 
+/**
+ * @class Texture_2d
+ * @brief Manages 2d textures
+ */
 class Texture_2d : public Texture {
 public:
 	EXPORT Texture_2d();
@@ -143,6 +147,10 @@ public:
 };
 
 
+/**
+ * @class Cubemap
+ * @brief Manages cubemaps
+ */
 class Cubemap : public Texture {
 public:
 	EXPORT Cubemap();
