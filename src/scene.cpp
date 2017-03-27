@@ -423,7 +423,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_AMBIENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture(str.C_Str());
+			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_ambient[i] = texture;
@@ -436,7 +436,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_DIFFUSE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture(str.C_Str());
+			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_diffuse[i] = texture;
@@ -449,7 +449,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_SPECULAR, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture(str.C_Str());
+			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_specular[i] = texture;
@@ -462,7 +462,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_SHININESS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture(str.C_Str());
+			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_shininess[i] = texture;
@@ -475,7 +475,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_EMISSIVE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture(str.C_Str());
+			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_emissive[i] = texture;
@@ -488,7 +488,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_NORMALS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture(str.C_Str());
+			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_normals[i] = texture;
@@ -501,7 +501,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_DISPLACEMENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture(str.C_Str());
+			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_displacement[i] = texture;
@@ -514,7 +514,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_OPACITY, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture(str.C_Str());
+			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_opacity[i] = texture;
@@ -527,7 +527,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_LIGHTMAP, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture(str.C_Str());
+			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->textures_lightmap[i] = texture;
