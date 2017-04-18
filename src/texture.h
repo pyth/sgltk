@@ -146,6 +146,80 @@ public:
 	EXPORT void unbind(unsigned int texture_unit = 0);
 };
 
+/**
+* @class Texture_3d
+* @brief Manages 3d textures
+*/
+class Texture_3d : public Texture {
+public:
+	EXPORT Texture_3d();
+	/**
+	* @param path Path to the image file to load
+	*/
+	EXPORT Texture_3d(const std::vector<std::string>& paths);
+	/**
+	* @param image The image to use as the texture
+	*/
+	EXPORT Texture_3d(const std::vector<Image>& images);
+	/**
+	* @param res_x The texture x resolution
+	* @param res_y The texture y resolution
+	* @param res_z The texture z resolution
+	* @param internal_format The internal format of the texture
+	* @param type The type of pixel data
+	* @param format The format of the textre
+	*/
+	EXPORT Texture_3d(unsigned int res_x, unsigned int res_y, unsigned int res_z, GLenum internal_format, GLenum type, GLenum format);
+	EXPORT ~Texture_3d();
+
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, int parameter);
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float parameter);
+	/**
+	* @brief Creates an empty texture
+	* @param res_x The texture x resolution
+	* @param res_y The texture y resolution
+	* @param res_z The texture z resolution
+	* @param internal_format The internal format of the texture
+	* @param type The type of pixel data
+	* @param format The format of the textre
+	*/
+	EXPORT void create_empty(unsigned int res_x,
+		unsigned int res_y,
+		unsigned int res_z,
+		GLenum internal_format,
+		GLenum type,
+		GLenum format);
+	/**
+	* @brief Load a new image as texture
+	* @param image The image to use as the texture
+	*/
+	EXPORT bool load(const std::vector<Image>& images);
+	/**
+	* @brief Load a new image as texture
+	* @param path The path to the image file
+	*/
+	EXPORT bool load(const std::vector<std::string>& paths);
+	/**
+	* @brief Bind the texture to be used by the shader
+	* @param texture_unit The texture unit to bind the texture to
+	*/
+	EXPORT void bind(unsigned int texture_unit = 0);
+	/**
+	* @brief Unbind the texture
+	* @param texture_unit The texture unit to bind the texture to
+	*/
+	EXPORT void unbind(unsigned int texture_unit = 0);
+};
 
 /**
  * @class Cubemap

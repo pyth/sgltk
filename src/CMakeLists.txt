@@ -7,8 +7,14 @@ set(LIB_SOURCE
 	framebuffer.cpp
 	renderbuffer.cpp
 	camera.cpp
+	camera_p.cpp
+	camera_o.cpp
+	camera_ip.cpp
 	image.cpp
 	texture.cpp
+	cubemap.cpp
+	texture_2d.cpp
+	texture_3d.cpp
 	scene.cpp
 	shader.cpp
 	timer.cpp
