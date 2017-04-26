@@ -20,6 +20,8 @@ Gamepad::Gamepad(unsigned int device_id) {
 	num_axes = SDL_JoystickNumAxes(joystick);
 	num_buttons = SDL_JoystickNumButtons(joystick);
 
+	deadzone = 0;
+
 	if(SDL_JoystickIsHaptic(joystick)) {
 		haptic = SDL_HapticOpenFromJoystick(joystick);
 		if(!haptic) {

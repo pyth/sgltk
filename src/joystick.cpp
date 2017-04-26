@@ -21,6 +21,8 @@ Joystick::Joystick(unsigned int device_id) {
 	num_buttons = SDL_JoystickNumButtons(joystick);
 	instance_id = SDL_JoystickInstanceID(joystick);
 
+	deadzone = 0;
+
 	unsigned int i;
 	for(i = 0; i < id_max + 2; i++) {
 		if(id_map.find(i) == id_map.end()) {
