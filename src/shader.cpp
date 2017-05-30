@@ -44,8 +44,7 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	} else {
 		//relative path
 		for(unsigned int i = 0; i < paths.size(); i++) {
-			file = SDL_RWFromFile((paths[i] + filename).c_str(),
-						"r+b");
+			file = SDL_RWFromFile((paths[i] + filename).c_str(), "r+b");
 			if(file) {
 				path = paths[i] + filename;
 				break;
@@ -72,8 +71,8 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength,
 				   infoLog);
 		if(infoLogLength > 0) {
-			printf("CompileShader() infoLog %s \n%s\n",
-				filename.c_str(), infoLog);
+			std::cerr << "CompileShader() infoLog " <<
+				filename << std::endl << infoLog << std::endl;
 			return false;
 		}
 	}
@@ -102,8 +101,8 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength,
 				   infoLog);
 		if(infoLogLength > 0) {
-			printf("CompileShader() infoLog \n%s\n",
-			       infoLog);
+			std::cerr << "CompileShader() infoLog " << std::endl
+				<< infoLog << std::endl;
 			return false;
 		}
 	}
@@ -150,7 +149,7 @@ void Shader::unbind() {
 }
 
 int Shader::get_attribute_location(const std::string& name) {
-	return glGetAttribLocation(program, name.c_str()); 
+	return glGetAttribLocation(program, name.c_str());
 }
 
 int Shader::get_uniform_location(const std::string& name) {
