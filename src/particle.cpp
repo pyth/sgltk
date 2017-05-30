@@ -18,9 +18,9 @@ void Particles::resize(unsigned int number) {
 	for(unsigned int i = 0; i < number; i++) {
 		indices[i] = i;
 	}
-	pos_buf = mesh.attach_vertex_buffer<glm::vec3>(position, GL_DYNAMIC_DRAW);
-	vel_buf = mesh.attach_vertex_buffer<glm::vec3>(velocity, GL_DYNAMIC_DRAW);
-	life_buf = mesh.attach_vertex_buffer<glm::vec2>(lifetime, GL_DYNAMIC_DRAW);
+	pos_buf = mesh.attach_vertex_buffer<glm::vec3>(position, GL_STREAM_DRAW);
+	vel_buf = mesh.attach_vertex_buffer<glm::vec3>(velocity, GL_STREAM_DRAW);
+	life_buf = mesh.attach_vertex_buffer<glm::vec2>(lifetime, GL_STREAM_DRAW);
 	mesh.attach_index_buffer(indices);
 	mesh.set_vertex_attribute("position_in", pos_buf, 3, GL_FLOAT, 0, 0);
 	mesh.set_vertex_attribute("velocity_in", vel_buf, 3, GL_FLOAT, 0, 0);
