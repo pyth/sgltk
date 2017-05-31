@@ -15,7 +15,7 @@ set(LIB_SOURCE
 	cubemap.cpp
 	texture_2d.cpp
 	texture_3d.cpp
-	scene.cpp
+	model.cpp
 	shader.cpp
 	timer.cpp
 	mesh.cpp)
@@ -32,7 +32,7 @@ set(LIB_HEADERS
 	camera.h
 	image.h
 	texture.h
-	scene.h
+	model.h
 	shader.h
 	timer.h
 	buffer.h

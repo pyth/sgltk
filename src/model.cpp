@@ -1,12 +1,12 @@
-#include "scene.h"
+#include "model.h"
 
 #ifdef HAVE_ASSIMP_H
 
 using namespace sgltk;
 
-std::vector<std::string> Scene::paths = {"./"};
+std::vector<std::string> Model::paths = {"./"};
 
-Scene::Scene() {
+Model::Model() {
 	scene = NULL;
 	shader = NULL;
 
@@ -28,7 +28,7 @@ Scene::Scene() {
 	bounding_box = {glm::vec3(0, 0, 0), glm::vec3(0, 0, 0)};
 }
 
-Scene::~Scene() {
+Model::~Model() {
 	for(Mesh *mesh : meshes) {
 		delete mesh;
 	}
@@ -38,7 +38,7 @@ Scene::~Scene() {
 	importer.FreeScene();
 }
 
-bool Scene::load(const std::string& filename) {
+bool Model::load(const std::string& filename) {
 	unsigned int flags = aiProcess_GenSmoothNormals |
 			     aiProcess_Triangulate |
 			     aiProcess_CalcTangentSpace |
@@ -82,7 +82,7 @@ bool Scene::load(const std::string& filename) {
 	return true;
 }
 
-void Scene::compute_bounding_box() {
+void Model::compute_bounding_box() {
 	for(unsigned int i = 0; i < meshes.size(); i++) {
 		glm::vec3 min = meshes[i]->bounding_box[0];
 		glm::vec3 max = meshes[i]->bounding_box[1];
@@ -101,7 +101,7 @@ void Scene::compute_bounding_box() {
 	}
 }
 
-bool Scene::setup_camera(glm::mat4 *view_matrix,
+bool Model::setup_camera(glm::mat4 *view_matrix,
 			 glm::mat4 *projection_matrix) {
 	bool ret;
 	for(Mesh *mesh : meshes) {
@@ -114,7 +114,7 @@ bool Scene::setup_camera(glm::mat4 *view_matrix,
 	return true;
 }
 
-bool Scene::setup_camera(Camera *camera) {
+bool Model::setup_camera(Camera *camera) {
 	bool ret;
 	for(Mesh *mesh : meshes) {
 		ret = mesh->setup_camera(camera);
@@ -126,63 +126,63 @@ bool Scene::setup_camera(Camera *camera) {
 	return true;
 }
 
-void Scene::set_position_name(const std::string& name) {
+void Model::set_position_name(const std::string& name) {
 	if(name.length() == 0)
 		position_name = "pos_in";
 
 	position_name = name;
 }
 
-void Scene::set_normal_name(const std::string& name) {
+void Model::set_normal_name(const std::string& name) {
 	if(name.length() == 0)
 		normal_name = "norm_in";
 
 	normal_name = name;
 }
 
-void Scene::set_tangent_name(const std::string& name) {
+void Model::set_tangent_name(const std::string& name) {
 	if(name.length() == 0)
 		tangent_name = "tang_in";
 
 	tangent_name = name;
 }
 
-void Scene::set_color_name(const std::string& name) {
+void Model::set_color_name(const std::string& name) {
 	if(name.length() == 0)
 		color_name = "col_in";
 
 	color_name = name;
 }
 
-void Scene::set_texture_coordinates_name(const std::string& name) {
+void Model::set_texture_coordinates_name(const std::string& name) {
 	if(name.length() == 0)
 		texture_coordinates_name = "tex_coord_in";
 
 	texture_coordinates_name = name;
 }
 
-void Scene::set_bone_ids_name(const std::string& name) {
+void Model::set_bone_ids_name(const std::string& name) {
 	if(name.length() == 0)
 		bone_ids_name = "bone_ids_in";
 
 	bone_ids_name = name;
 }
 
-void Scene::set_bone_weights_name(const std::string& name) {
+void Model::set_bone_weights_name(const std::string& name) {
 	if(name.length() == 0)
 		bone_weights_name = "bone_weights_in";
 
 	bone_weights_name = name;
 }
 
-void sgltk::Scene::set_bone_array_name(const std::string& name) {
+void sgltk::Model::set_bone_array_name(const std::string& name) {
 	if(name.length() == 0)
 		bone_array_name = "bone_array";
 
 	bone_array_name = name;
 }
 
-void Scene::setup_shader(Shader *shader) {
+void Model::setup_shader(Shader *shader) {
 	this->shader = shader;
 	for(Mesh *mesh : meshes) {
 		mesh->setup_shader(shader);
@@ -190,7 +190,7 @@ void Scene::setup_shader(Shader *shader) {
 	}
 }
 
-void Scene::set_vertex_attribute(Mesh *mesh) {
+void Model::set_vertex_attribute(Mesh *mesh) {
 	unsigned int buf = 0;
 	mesh->set_vertex_attribute(position_name, buf++, 4, GL_FLOAT,
 				0, 0);
@@ -220,7 +220,7 @@ void Scene::set_vertex_attribute(Mesh *mesh) {
 	}
 }
 
-void Scene::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) {
+void Model::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) {
 	aiMatrix4x4 trafo = start_node->mTransformation;;
 	if(parent_trafo)
 		trafo = *parent_trafo * trafo;
@@ -237,7 +237,7 @@ void Scene::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 	}
 }
 
-Mesh *Scene::create_mesh(unsigned int index) {
+Mesh *Model::create_mesh(unsigned int index) {
 	aiMesh *mesh = scene->mMeshes[index];
 	unsigned int num_uv = mesh->GetNumUVChannels();
 	unsigned int num_col = mesh->GetNumColorChannels();
@@ -536,7 +536,7 @@ Mesh *Scene::create_mesh(unsigned int index) {
 	return mesh_tmp;
 }
 
-void Scene::traverse_animation_nodes(float time,
+void Model::traverse_animation_nodes(float time,
 			      aiNode *node,
 			      aiMatrix4x4 parent_transformation) {
 
@@ -577,7 +577,7 @@ void Scene::traverse_animation_nodes(float time,
 		traverse_animation_nodes(time, node->mChildren[i], glob_transf);
 }
 
-void Scene::set_animation_speed(double speed) {
+void Model::set_animation_speed(double speed) {
 	if(scene->mAnimations[0]->mTicksPerSecond == 0)
 		ticks_per_second = 25.0 * speed;
 	else
@@ -585,7 +585,7 @@ void Scene::set_animation_speed(double speed) {
 								speed;
 }
 
-aiVector3D Scene::interpolate_scaling(float time, aiNodeAnim *node) {
+aiVector3D Model::interpolate_scaling(float time, aiNodeAnim *node) {
 
 	if(node->mNumScalingKeys == 1)
 		return node->mScalingKeys[0].mValue;
@@ -605,7 +605,7 @@ aiVector3D Scene::interpolate_scaling(float time, aiNodeAnim *node) {
 	return start + factor * (end - start);
 }
 
-aiVector3D Scene::interpolate_translation(float time, aiNodeAnim *node) {
+aiVector3D Model::interpolate_translation(float time, aiNodeAnim *node) {
 	if(node->mNumPositionKeys == 1)
 		return node->mPositionKeys[0].mValue;
 
@@ -624,7 +624,7 @@ aiVector3D Scene::interpolate_translation(float time, aiNodeAnim *node) {
 	return start + factor * (end - start);
 }
 
-aiQuaternion Scene::interpolate_rotation(float time, aiNodeAnim *node) {
+aiQuaternion Model::interpolate_rotation(float time, aiNodeAnim *node) {
 	if(node->mNumRotationKeys == 1)
 		return node->mRotationKeys[0].mValue;
 
@@ -645,13 +645,13 @@ aiQuaternion Scene::interpolate_rotation(float time, aiNodeAnim *node) {
 	return rot.Normalize();
 }
 
-void Scene::attach_texture(const std::string& name, Texture *texture) {
+void Model::attach_texture(const std::string& name, Texture *texture) {
 	for(Mesh *mesh : meshes) {
 		mesh->textures_misc.push_back(std::make_pair(name, texture));
 	}
 }
 
-void Scene::set_texture_parameter(GLenum name, int parameter) {
+void Model::set_texture_parameter(GLenum name, int parameter) {
 	for(Mesh *mesh : meshes) {
 		for(Texture *texture : mesh->textures_ambient) {
 			texture->set_parameter(name, parameter);
@@ -683,7 +683,7 @@ void Scene::set_texture_parameter(GLenum name, int parameter) {
 	}
 }
 
-void Scene::set_texture_parameter(GLenum name, float parameter) {
+void Model::set_texture_parameter(GLenum name, float parameter) {
 	for(Mesh *mesh : meshes) {
 		for(Texture *texture : mesh->textures_ambient) {
 			texture->set_parameter(name, parameter);
@@ -715,10 +715,10 @@ void Scene::set_texture_parameter(GLenum name, float parameter) {
 	}
 }
 
-bool Scene::animate(float time) {
+bool Model::animate(float time) {
 	if(!scene->HasAnimations())
 		return false;
-	
+
 	aiMatrix4x4 mat = aiMatrix4x4();
 	std::vector<glm::mat4> trafos;
 	trafos.resize(bones.size());
@@ -740,7 +740,7 @@ bool Scene::animate(float time) {
 	return true;
 }
 
-void Scene::setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
+void Model::setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
 								GLenum usage) {
 	if(!shader) {
 		std::string error = std::string("No shader specified before a"
@@ -778,7 +778,7 @@ void Scene::setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
 	}
 }
 
-void Scene::set_instanced_matrix_attributes() {
+void Model::set_instanced_matrix_attributes() {
 	if(!shader) {
 		std::string error = std::string("No shader specified before a"
 			"call to the setup_instanced_matrix function");
@@ -809,7 +809,7 @@ void Scene::set_instanced_matrix_attributes() {
 	}
 }
 
-void Scene::draw(const glm::mat4 *model_matrix) {
+void Model::draw(const glm::mat4 *model_matrix) {
 	for(unsigned int i = 0; i < meshes.size(); i++) {
 		if(model_matrix) {
 			glm::mat4 matrix_tmp = *model_matrix * meshes[i]->model_matrix;
@@ -820,7 +820,7 @@ void Scene::draw(const glm::mat4 *model_matrix) {
 	}
 }
 
-void Scene::draw_instanced(unsigned int num_instances) {
+void Model::draw_instanced(unsigned int num_instances) {
 	if(num_instances == 0)
 		return;
 
@@ -829,15 +829,15 @@ void Scene::draw_instanced(unsigned int num_instances) {
 	}
 }
 
-void Scene::add_path(std::string path) {
+void Model::add_path(std::string path) {
 	if(path[path.length() - 1] != '/')
 		path += '/';
 
-	if(std::find(Scene::paths.begin(), Scene::paths.end(), path) == Scene::paths.end())
-		Scene::paths.push_back(path);
+	if(std::find(Model::paths.begin(), Model::paths.end(), path) == Model::paths.end())
+		Model::paths.push_back(path);
 }
 
-glm::mat4 Scene::ai_to_glm_mat4(const aiMatrix4x4& in) {
+glm::mat4 Model::ai_to_glm_mat4(const aiMatrix4x4& in) {
 	glm::mat4 ret;
 
 	ret[0][0] = in.a1;

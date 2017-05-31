@@ -1,5 +1,5 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#ifndef __MODEL_H__
+#define __MODEL_H__
 
 #include "app.h"
 #include "mesh.h"
@@ -18,10 +18,10 @@ namespace sgltk {
 
 
 /**
- * @class Scene
- * @brief Manages imported scenes
+ * @class Model
+ * @brief Manages imported models
  */
-class Scene {
+class Model {
 	typedef struct Bone {
 		aiMatrix4x4 transformation;
 		aiMatrix4x4 offset;
@@ -71,8 +71,8 @@ class Scene {
 		std::vector<glm::vec3> bounding_box;
 		std::vector<Mesh *> meshes;
 
-		EXPORT Scene();
-		EXPORT ~Scene();
+		EXPORT Model();
+		EXPORT ~Model();
 
 		/**
 		 * @brief Adds a new path where files will be loaded from
@@ -81,7 +81,7 @@ class Scene {
 		EXPORT static void add_path(std::string path);
 
 		/**
-		 * @brief Loads a scene from file
+		 * @brief Loads a model from file
 		 * @param filename The file to be loaded
 		 * @return Returns true on success, false otherwise
 		 * @note If the path you pass to this function is not an
@@ -97,7 +97,7 @@ class Scene {
 		EXPORT void setup_shader(Shader *shader);
 		/**
 		 * @brief Sets up the view and projection matrices that will be
-		 *	  used by the meshes in the scene
+		 *	  used by the meshes in the model
 		 * @param view_matrix The view matrix
 		 * @param projection_matrix The projection matrix
 		 * @return Returns true if both pointers are not NULL pointers, flase otherwise
@@ -106,7 +106,7 @@ class Scene {
 					 glm::mat4 *projection_matrix);
 		/**
 		 * @brief Sets up the view and projection matrices that will be
-		 *	  used by the meshes in the scene
+		 *	  used by the meshes in the model
 		 * @param camera The camera to use
 		 * @return Returns true on success, false otherwise
 		 */
@@ -165,13 +165,13 @@ class Scene {
 		 */
 		EXPORT void set_animation_speed(double speed);
 		/**
-		 * @brief Attaches a texture to every mesh of the scene
+		 * @brief Attaches a texture to every mesh of the model
 		 * @param name The name of the texture in the shader
 		 * @param texture The texture to be bound when rendering the model
 		 */
 		EXPORT void attach_texture(const std::string& name, Texture *texture);
 		/**
-		 * @brief Sets a texture parameter for all textures in the scene except
+		 * @brief Sets a texture parameter for all textures in the model except
 		 * 	  those attached using attach_texture or contained in the
 		 * 	  textures_misc vector of a mesh.
 		 * @param name The name of the texture parameter
@@ -179,7 +179,7 @@ class Scene {
 		 */
 		EXPORT void set_texture_parameter(GLenum name, int parameter);
 		/**
-		 * @brief Sets a texture parameter for all textures in the scene except
+		 * @brief Sets a texture parameter for all textures in the model except
 		 * 	  those attached using attach_texture or contained in the
 		 * 	  textures_misc vector of a mesh.
 		 * @param name The name of the texture parameter
@@ -189,7 +189,7 @@ class Scene {
 		/**
 		 * @brief Calculates a new bone pose based on the animation time
 		 * @param time The current animation time. If time is greater than
-		 * 	the duration of the animation 
+		 * 	the duration of the animation
 		 * @return Returns true on success, false otherwise
 		 */
 		EXPORT bool animate(float time);
@@ -226,4 +226,4 @@ class Scene {
 
 }
 
-#endif //__SCENE_H__
+#endif //__MODEL_H__
