@@ -2,132 +2,135 @@
 #define __MESH_H__
 
 #include "app.h"
+#include "buffer.h"
 #include "shader.h"
 #include "camera.h"
 #include "texture.h"
 
 namespace sgltk {
+
+/**
+ * @struct Vertex
+ * @brief A basic vertex structure
+ */
+typedef EXPORT struct Vertex {
 	/**
-	 * @struct Vertex
-	 * @brief A basic vertex structure
+	 * @brief Vertex position
 	 */
-	typedef EXPORT struct Vertex {
-		/**
-		 * @brief Vertex position
-		 */
-		glm::vec4 position;
-		/**
-		 * @brief Vertex normal
-		 */
-		glm::vec3 normal;
-		/**
-		 * @brief Vertex tangent
-		 */
-		glm::vec4 tangent;
-		/**
-		 * @brief Vertex bi-tangent
-		 */
-		glm::vec4 bitangent;
-		/**
-		 * @brief Vertex color
-		 */
-		glm::vec4 color;
-		/**
-		 * @brief Vertex texture coordinates
-		 */
-		glm::vec3 tex_coord;
+	glm::vec4 position;
+	/**
+	 * @brief Vertex normal
+	 */
+	glm::vec3 normal;
+	/**
+	 * @brief Vertex tangent
+	 */
+	glm::vec4 tangent;
+	/**
+	 * @brief Vertex bi-tangent
+	 */
+	glm::vec4 bitangent;
+	/**
+	 * @brief Vertex color
+	 */
+	glm::vec4 color;
+	/**
+	 * @brief Vertex texture coordinates
+	 */
+	glm::vec3 tex_coord;
 
-		Vertex() {
-			position = {0, 0, 0, 1};
+	Vertex() {
+		position = {0, 0, 0, 1};
 
-			normal = {0, 0, 0};
+		normal = {0, 0, 0};
 
-			tangent = {0, 0, 0, 1};
+		tangent = {0, 0, 0, 1};
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = {0, 0, 0, 0};
-		};
+		color = {0, 0, 0, 0};
+	};
 
-		/**
-		 * @param p	Vertex position
-		 * @param n	Vertex normal
-		 */
-		Vertex(glm::vec3 p, glm::vec3 n) {
-			position = glm::vec4(p, 1);
+	/**
+	 * @param p	Vertex position
+	 * @param n	Vertex normal
+	 */
+	Vertex(glm::vec3 p, glm::vec3 n) {
+		position = glm::vec4(p, 1);
 
-			normal = n;
+		normal = n;
 
-			tangent = {0, 0, 0, 1};
+		tangent = {0, 0, 0, 1};
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = {0, 0, 0, 0};
+		color = {0, 0, 0, 0};
 
-			tex_coord = {0, 0, 0};
-		};
+		tex_coord = {0, 0, 0};
+	};
 
-		/**
-		 * @param p	Vertex position
-		 * @param n	Vertex normal
-		 * @param tc	Texture coordinates
-		 */
-		Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 tc) {
-			position = glm::vec4(p, 1);
+	/**
+	 * @param p	Vertex position
+	 * @param n	Vertex normal
+	 * @param tc	Texture coordinates
+	 */
+	Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 tc) {
+		position = glm::vec4(p, 1);
 
-			normal = n;
+		normal = n;
 
-			tangent = {0, 0, 0, 1};
+		tangent = {0, 0, 0, 1};
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = {0, 0, 0, 0};
+		color = {0, 0, 0, 0};
 
-			tex_coord = tc;
-		};
+		tex_coord = tc;
+	};
 
-		/**
-		 * @param p	Vertex position
-		 * @param n	Vertex normal
-		 * @param t	Vertex tangent
-		 * @param tc	Texture coordinates
-		 */
-		Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec3 tc) {
-			position = glm::vec4(p, 1);
+	/**
+	 * @param p	Vertex position
+	 * @param n	Vertex normal
+	 * @param t	Vertex tangent
+	 * @param tc	Texture coordinates
+	 */
+	Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec3 tc) {
+		position = glm::vec4(p, 1);
 
-			normal = n;
+		normal = n;
 
-			tangent = glm::vec4(t, 1);
+		tangent = glm::vec4(t, 1);
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = {0, 0, 0, 0};
+		color = {0, 0, 0, 0};
 
-			tex_coord = tc;
-		};
+		tex_coord = tc;
+	};
 
-		/**
-		 * @param p	Vertex position
-		 * @param n	Vertex normal
-		 * @param t	Vertex tangent
-		 * @param c	Vertex color
-		 * @param tc	Texture coordinates
-		 */
-		Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t,
-		       glm::vec4 c, glm::vec3 tc) {
-			position = glm::vec4(p, 1);
+	/**
+	 * @param p	Vertex position
+	 * @param n	Vertex normal
+	 * @param t	Vertex tangent
+	 * @param c	Vertex color
+	 * @param tc	Texture coordinates
+	 */
+	Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t,
+	       glm::vec4 c, glm::vec3 tc) {
+		position = glm::vec4(p, 1);
 
-			normal = n;
+		normal = n;
 
-			tangent = glm::vec4(t, 1);
+		tangent = glm::vec4(t, 1);
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = c;
+		color = c;
 
-			tex_coord = tc;
-		};
-	} Vertex;
+		tex_coord = tc;
+	};
+} Vertex;
+
 
 /**
  * @class Mesh
@@ -138,12 +141,10 @@ class Mesh {
 	glm::mat4 *projection_matrix;
 
 	GLuint vao;
-	std::vector<GLuint> vbo;
-	std::vector<unsigned int> vbo_sizes;
+	std::vector<Buffer*> vbo;
 
 	GLenum index_type;
-	std::vector<GLuint> ibo;
-	std::vector<unsigned int> num_indices;
+	std::vector<Buffer*> ibo;
 
 	void material_uniform();
 public:
@@ -715,9 +716,10 @@ public:
 	 * @brief Sets a buffer to write the output of the vertex shader to
 	 * @param buffer The buffer to write to
 	 * @param size The size of the buffer in bytes
-	 * @param update_frequency The number of draw calls between writes to the buffer
+	 * @param usage A hint as to how the buffer will be accessed.
+	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 */
-	EXPORT void attach_transform_feedback_buffer(void *buffer, unsigned int size, unsigned int update_frequency);
+	EXPORT void attach_tf_buffer(void *buffer, unsigned int size, GLenum usage = GL_STATIC_READ);
 
 	/**
 	 * @brief Computes the bounding box of the mesh
@@ -840,15 +842,9 @@ template <typename T>
 unsigned int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
 					GLenum usage) {
 
-	GLuint buf;
-	glGenBuffers(1, &buf);
+	Buffer *buf = new Buffer(GL_ARRAY_BUFFER);
+	buf->load<T>(vertexdata, usage);
 	vbo.push_back(buf);
-
-	unsigned int buffer_size = vertexdata.size() * sizeof(T);
-	vbo_sizes.push_back(buffer_size);
-
-	glBindBuffer(GL_ARRAY_BUFFER, buf);
-	glBufferData(GL_ARRAY_BUFFER, buffer_size, vertexdata.data(), usage);
 
 	return vbo.size() - 1;
 }
@@ -874,21 +870,7 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index,
 		return false;
 	}
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
-
-	int usage;
-	int current_size = vbo_sizes[buffer_index];
-	int new_size = data.size() * sizeof(T);
-	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_USAGE, &usage);
-
-	if(current_size == new_size) {
-		//replace the buffer data without reallocation
-		glBufferSubData(GL_ARRAY_BUFFER, 0, new_size, data.data());
-	} else {
-		//replace the buffer data with reallocation
-		glBufferData(GL_ARRAY_BUFFER, new_size, data.data(), usage);
-		vbo_sizes[buffer_index] = new_size;
-	}
+	vbo[buffer_index]->replace_data(data);
 
 	return true;
 }
@@ -916,15 +898,7 @@ bool Mesh::replace_partial_data(unsigned int buffer_index,
 		return false;
 	}
 
-	int current_size = vbo_sizes[buffer_index];
-	int size = data.size() * sizeof(T);
-
-	if(offset + (unsigned int)size > (unsigned int)current_size) {
-		return false;
-	}
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
-	glBufferSubData(GL_ARRAY_BUFFER, offset, size, data.data());
-	return true;
+	return vbo[buffer_index]->replace_partial_data(offset, data);
 }
 
 template <typename T>

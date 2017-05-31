@@ -48,8 +48,12 @@ Mesh::Mesh() {
 }
 
 Mesh::~Mesh() {
-	glDeleteBuffers(vbo.size(), vbo.data());
-	glDeleteBuffers(ibo.size(), ibo.data());
+	for(Buffer *buffer : vbo) {
+		delete buffer;
+	}
+	for(Buffer *buffer : ibo) {
+		delete buffer;
+	}
 	glDeleteVertexArrays(1, &vao);
 }
 
@@ -264,7 +268,7 @@ int Mesh::set_vertex_attribute(int attrib_location,
 	}
 
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
+	vbo[buffer_index]->bind();
 
 	glEnableVertexAttribArray(attrib_location);
 	switch(type) {
@@ -283,7 +287,7 @@ int Mesh::set_vertex_attribute(int attrib_location,
 			break;
 		default:
 			glVertexAttribPointer(attrib_location, number_elements,
-						type, GL_FALSE, stride, 
+						type, GL_FALSE, stride,
 						(void*)pointer);
 			break;
 	}
@@ -298,16 +302,8 @@ int Mesh::attach_index_buffer(const std::vector<unsigned char>& indices) {
 		return -1;
 
 	index_type = GL_UNSIGNED_BYTE;
-	num_indices.push_back(indices.size());
-
-	GLuint index;
-	glGenBuffers(1, &index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		     indices.size() * sizeof(unsigned char),
-		     indices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+	Buffer *index = new Buffer(GL_ELEMENT_ARRAY_BUFFER);
+	index->load<unsigned char>(indices, GL_STATIC_DRAW);
 	ibo.push_back(index);
 	return ibo.size() - 1;
 }
@@ -317,16 +313,8 @@ int Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
 		return -1;
 
 	index_type = GL_UNSIGNED_SHORT;
-	num_indices.push_back(indices.size());
-
-	GLuint index;
-	glGenBuffers(1, &index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		     indices.size() * sizeof(unsigned short),
-		     indices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+	Buffer *index = new Buffer(GL_ELEMENT_ARRAY_BUFFER);
+	index->load<unsigned short>(indices, GL_STATIC_DRAW);
 	ibo.push_back(index);
 	return ibo.size() - 1;
 }
@@ -336,16 +324,8 @@ int Mesh::attach_index_buffer(const std::vector<unsigned int>& indices) {
 		return -1;
 
 	index_type = GL_UNSIGNED_INT;
-	num_indices.push_back(indices.size());
-
-	GLuint index;
-	glGenBuffers(1, &index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		     indices.size() * sizeof(unsigned int),
-		     indices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+	Buffer *index = new Buffer(GL_ELEMENT_ARRAY_BUFFER);
+	index->load<unsigned int>(indices, GL_STATIC_DRAW);
 	ibo.push_back(index);
 	return ibo.size() - 1;
 }
@@ -481,10 +461,10 @@ void Mesh::draw(GLenum mode,
 	material_uniform();
 
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
-	glDrawElements(mode, num_indices[index_buffer],
+	ibo[index_buffer]->bind();
+	glDrawElements(mode, ibo[index_buffer]->num_elements,
 		       index_type, (void*)0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	ibo[index_buffer]->unbind();
 	glBindVertexArray(0);
 	shader->unbind();
 }
@@ -511,10 +491,10 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 	material_uniform();
 
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
-	glDrawElementsInstanced(mode, num_indices[index_buffer],
+	ibo[index_buffer]->bind();
+	glDrawElementsInstanced(mode, ibo[index_buffer]->num_elements,
 		       index_type, (void*)0, num_instances);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	ibo[index_buffer]->unbind();
 	glBindVertexArray(0);
 	shader->unbind();
 }

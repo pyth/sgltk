@@ -35,6 +35,7 @@ set(LIB_HEADERS
 	scene.h
 	shader.h
 	timer.h
+	buffer.h
 	mesh.h)
 
 set(LIBS_REQUIRED SDL2 SDL2_image)
