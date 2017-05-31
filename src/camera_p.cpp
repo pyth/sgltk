@@ -83,57 +83,60 @@ void P_Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
 	glm::vec3 *far_top_right,
 	glm::vec3 *far_top_left) {
 
-	float far_y = 0.5f * glm::tan(fovy) * far_plane;
-	float far_x = far_y * 0.5f * width / height;
+	float near_y = tan(fovy) * near_plane;
+	float near_x = width / height * near_y;
+
+	float far_y = tan(fovy) * far_plane;
+	float far_x = width / height * far_y;
 
 	glm::vec3 cam_dir = glm::normalize(dir);
 	glm::vec3 cam_right = glm::normalize(right);
 	glm::vec3 cam_up = glm::normalize(up);
 
-	glm::vec3 far_center = pos + far_plane * cam_dir;
 	glm::vec3 near_center = pos + near_plane * cam_dir;
+	glm::vec3 far_center = pos + far_plane * cam_dir;
 
 	if(near_bottom_left)
 		*near_bottom_left = near_center
-		- 0.5f * width * cam_right
-		- 0.5f * height * cam_up;
+			- near_x * cam_right
+			- near_y * cam_up;
 	if(near_bottom_right)
 		*near_bottom_right = near_center
-		+ 0.5f * width * cam_right
-		- 0.5f * height * cam_up;
+			+ near_x * cam_right
+			- near_y * cam_up;
 	if(near_top_right)
 		*near_top_right = near_center
-		+ 0.5f * width * cam_right
-		+ 0.5f * height * cam_up;
+			+ near_x * cam_right
+			+ near_y * cam_up;
 	if(near_top_left)
 		*near_top_left = near_center
-		- 0.5f * width * cam_right
-		+ 0.5f * height * cam_up;
+			- near_x * cam_right
+			+ near_y * cam_up;
 	if(far_bottom_left)
 		*far_bottom_left = far_center
-		- far_x * cam_right
-		- far_y * cam_up;
+			- far_x * cam_right
+			- far_y * cam_up;
 	if(far_bottom_right)
 		*far_bottom_right = far_center
-		+ far_x * cam_right
-		- far_y * cam_up;
+			+ far_x * cam_right
+			- far_y * cam_up;
 	if(far_top_right)
 		*far_top_right = far_center
-		+ far_x * cam_right
-		+ far_y * cam_up;
+			+ far_x * cam_right
+			+ far_y * cam_up;
 	if(far_top_left)
 		*far_top_left = far_center
-		- far_x * cam_right
-		+ far_y * cam_up;
+			- far_x * cam_right
+			+ far_y * cam_up;
 }
 
 void P_Camera::calculate_frustum_distance(glm::vec3 position,
-	float *far,
-	float *near,
-	float *left,
-	float *right,
-	float *top,
-	float *bottom) {
+						float *far,
+						float *near,
+						float *left,
+						float *right,
+						float *top,
+						float *bottom) {
 
 	glm::vec3 near_bottom_left;
 	glm::vec3 near_bottom_right;
@@ -150,39 +153,39 @@ void P_Camera::calculate_frustum_distance(glm::vec3 position,
 	glm::vec3 near_center = pos + near_plane * cam_dir;
 
 	calculate_frustum_points(&near_bottom_left,
-		&near_bottom_right,
-		&near_top_right,
-		&near_top_left,
-		&far_bottom_left,
-		&far_bottom_right,
-		&far_top_right,
-		&far_top_left);
+					&near_bottom_right,
+					&near_top_right,
+					&near_top_left,
+					&far_bottom_left,
+					&far_bottom_right,
+					&far_top_right,
+					&far_top_left);
 
-	glm::vec3 left_normal = glm::cross(far_top_left - near_top_left,
-		near_bottom_left - near_top_left);
-	glm::vec3 right_normal = glm::cross(near_bottom_right - near_top_right,
-		far_top_right - near_top_right);
-	glm::vec3 top_normal = glm::cross(far_top_left - near_top_left,
-		near_top_right - near_top_left);
-	glm::vec3 bottom_normal = glm::cross(near_bottom_right - near_bottom_left,
-		far_bottom_left - near_bottom_left);
+	glm::vec3 left_normal = glm::normalize(glm::cross(far_top_left - near_top_left,
+							near_bottom_left - near_top_left));
+	glm::vec3 right_normal = glm::normalize(glm::cross(near_bottom_right - near_top_right,
+							far_top_right - near_top_right));
+	glm::vec3 top_normal = glm::normalize(glm::cross(near_top_right - near_top_left,
+							far_top_left - near_top_left));
+	glm::vec3 bottom_normal = glm::normalize(glm::cross(far_bottom_left - near_bottom_left,
+							near_bottom_right - near_bottom_left));
 
 	if(far) {
-		*far = glm::dot(position - far_center, cam_dir);
+		*far = glm::dot(cam_dir, position - far_center);
 	}
 	if(near) {
-		*near = glm::dot(position - near_center, -cam_dir);
+		*near = glm::dot(-cam_dir, position - near_center);
 	}
 	if(left) {
-		*left = glm::dot(position - near_top_left, left_normal);
+		*left = glm::dot(left_normal, position - near_top_left);
 	}
 	if(right) {
-		*right = glm::dot(position - near_top_right, right_normal);
+		*right = glm::dot(right_normal, position - near_top_right);
 	}
 	if(top) {
-		*top = glm::dot(position - near_top_left, top_normal);
+		*top = glm::dot(top_normal, position - near_top_left);
 	}
 	if(bottom) {
-		*bottom = glm::dot(position - near_bottom_left, bottom_normal);
+		*bottom = glm::dot(bottom_normal, position - near_bottom_left);
 	}
 }

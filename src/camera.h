@@ -379,10 +379,39 @@ class IP_Camera : public Camera {
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane
 	 */
-	EXPORT void update_projection_matrix(float fovy,
-					     float width,
-					     float height,
-					     float near_plane);
+	EXPORT void update_projection_matrix(float fovy, float width,
+					     float height, float near_plane);
+
+	/**
+	 * @brief Calculates the corner points of the camera's frustum
+	 * @param near_bottom_left The world coordinates of the near-bottom-left
+	 * 		point of the frustum. Can be NULL.
+	 * @param near_bottom_right The world coordinates of the near-bottom-right
+	 * 		point of the frustum. Can be NULL.
+	 * @param near_top_right The world coordinates of the near-top-right
+	 * 		point of the frustum. Can be NULL.
+	 * @param near_top_left The world coordinates of the near-top-left
+	 * 		point of the frustum. Can be NULL.
+	 */
+	EXPORT virtual void calculate_frustum_points(glm::vec3 *near_bottom_left,
+						     glm::vec3 *near_bottom_right,
+						     glm::vec3 *near_top_right,
+						     glm::vec3 *near_top_left);
+	/**
+ 	 * @brief Calculates the distances of a point to all planes of the
+	 * 	  camera's frustum. Positive values indicate that the point
+	 * 	  and the frustum are on the opposite sides of the plane.
+	 * @param position The position of the point to calculate the distance to
+ 	 * @param near The distance to the near plane of the frustum. Can be NULL.
+ 	 * @param left The distance to the left plane of the frustum. Can be NULL.
+ 	 * @param right The distance to the right plane of the frustum. Can be NULL.
+ 	 * @param top The distance to the top plane of the frustum. Can be NULL.
+ 	 * @param bottom The distance to the bottom plane of the frustum. Can be NULL.
+ 	 */
+	EXPORT void calculate_frustum_distance(glm::vec3 position,
+						float *near, float *left,
+						float *right, float *top,
+						float *bottom);
 };
 
 }
