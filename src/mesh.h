@@ -497,23 +497,33 @@ public:
 	EXPORT void set_lightmap_texture_name(const std::string& name);
 
 	/**
-	 * @brief Loads vertices into memory
-	 * @param vertexdata The vertices to be loaded into memory
+	 * @brief Loads data into memory
+	 * @param buffer The buffer to attach to the mesh
+	 * @return Returns the index of the buffer in the list of all attached
+	 * 	vertex buffers
+	 */
+	EXPORT unsigned int attach_vertex_buffer(sgltk::Buffer *buffer);
+
+	/**
+	 * @brief Loads data into memory
+	 * @param vertexdata The data to be loaded into memory
 	 * @param number_elements Number of elements
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
-	 * @return Returns the index that the buffer was attached to
+	 * @return Returns the index of the buffer in the list of all attached
+	 * 	vertex buffers
 	 */
 	template <typename T = Vertex>
 	unsigned int attach_vertex_buffer(const void *vertexdata,
 					  unsigned int number_elements,
 					  GLenum usage = GL_STATIC_DRAW);
 	/**
-	 * @brief Loads vertices into memory
-	 * @param vertexdata The vertices to be loaded into memory
+	 * @brief Loads data into memory
+	 * @param vertexdata The data to be loaded into memory
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
-	 * @return Returns the index that the buffer was attached to
+	 * @return Returns the index of the buffer in the list of all attached
+	 * 	vertex buffers
 	 */
 	template <typename T = Vertex>
 	unsigned int attach_vertex_buffer(const std::vector<T>& vertexdata,
@@ -523,6 +533,7 @@ public:
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param data The data to be loaded into the buffer
 	 * @param number_elements Number of elements
+	 * @return Returns true on success, flase otherwise
 	 */
 	template <typename T = Vertex>
 	bool replace_buffer_data(unsigned int buffer_index,
@@ -532,6 +543,7 @@ public:
 	 * @brief Overwrites all data in a vertex buffer
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param data The data to be loaded into the buffer
+	 * @return Returns true on success, flase otherwise
 	 */
 	template <typename T = Vertex>
 	bool replace_buffer_data(unsigned int buffer_index,
@@ -542,6 +554,7 @@ public:
 	 * @param offset The byte offset into the buffer
 	 * @param data The data to be loaded into the buffer
 	 * @param number_elements Number of elements
+	 * @return Returns true on success, flase otherwise
 	 */
 	template <typename T = Vertex>
 	bool replace_partial_data(unsigned int buffer_index,
@@ -553,6 +566,7 @@ public:
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param offset The byte offset into the buffer
 	 * @param data The data to be loaded into the buffer
+	 * @return Returns true on success, flase otherwise
 	 */
 	template <typename T = Vertex>
 	bool replace_partial_data(unsigned int buffer_index,

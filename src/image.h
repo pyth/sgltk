@@ -18,7 +18,7 @@ public:
 	 *	  for image files.
 	 * @param path The path to add to the list
 	 * @note To avoid duplicates this function first performs
-	 *	 a search an existing entry path.
+	 *	 a search on existing entries.
 	 */
 	EXPORT static void add_path(std::string path);
 	/**

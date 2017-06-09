@@ -77,6 +77,8 @@ class Model {
 		/**
 		 * @brief Adds a new path where files will be loaded from
 		 * @param path A new path to use
+		 * @note To avoid duplicates this function first performs
+		 *	 a search on existing entries.
 		 */
 		EXPORT static void add_path(std::string path);
 

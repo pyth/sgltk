@@ -41,10 +41,9 @@ public:
 	 */
 	EXPORT static bool store_texture(std::string name, Texture *texture);
 	/**
-	 * @brief Finds a texture in the internal map using the name as
-	 * 	  key
+	 * @brief Finds a texture in the internal map using the name as key
 	 * @param name The key used to find the texture
-	 * @return Returns a pointer to the found texture object or NULL 
+	 * @return Returns a pointer to the found texture object or NULL
 	 * 	   if no texture with such name could be found.
 	 */
 	EXPORT static Texture *find_texture(std::string name);
