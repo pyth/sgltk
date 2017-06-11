@@ -17,12 +17,12 @@ public:
 	/**
 	 * @brief Size of the buffer in bytes
 	 */
-	 unsigned int size;
+	unsigned int size;
 
 	/**
 	 * @brief Number of elements contained in the buffer
 	 */
-	 unsigned int num_elements;
+	unsigned int num_elements;
 
 	/**
 	 * @param target The target to bind the buffer object to
@@ -51,7 +51,7 @@ public:
 	 * @brief Sets the binding target for the buffer
 	 * @param target The target to bind the buffer object to
 	 */
-	 void set_target(GLenum target) {
+	void set_target(GLenum target) {
 		this->target = target;
 	}
 
@@ -59,8 +59,27 @@ public:
 	 * @brief Binds the buffer object to its target
 	 * @see set_target
 	 */
-	 void bind() {
+	void bind() {
 		glBindBuffer(target, buffer);
+	}
+
+	/**
+	 * @brief Binds the buffer object to an indexed buffer target.
+	 * @param index The index of the binding point within the array
+	 * 	specified by target.
+	 * @return Returns false if the target of the buffer is not
+	 * 	GL_ATOMIC_COUNTER_BUFFER, GL_TRANSFORM_FEEDBACK_BUFFER,
+	 * 	GL_UNIFORM_BUFFER or GL_SHADER_STORAGE_BUFFER.
+	 * @see set_target
+	 */
+	bool bind_buffer_base(unsigned int index = 0) {
+		if(GL_ATOMIC_COUNTER_BUFFER || GL_TRANSFORM_FEEDBACK_BUFFER ||
+				GL_UNIFORM_BUFFER || GL_SHADER_STORAGE_BUFFER) {
+			glBindBufferBase(target, index, buffer);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -76,7 +95,7 @@ public:
 	 * @param usage A hint as to how the buffer will be accessed.
 	 *      Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
 	 */
-	 template <typename T>
+	template <typename T>
 	void load(const std::vector<T> &data, GLenum usage) {
 		this->usage = usage;
 		bind();
@@ -107,7 +126,6 @@ public:
 	/**
 	 * @brief Overwrites all data in a vertex buffer
 	 * @param data The data to be loaded into the buffer
-	 * @param number_elements Number of elements
 	 */
 	template <typename T>
 	void replace_data(const std::vector<T> &data) {
@@ -125,6 +143,32 @@ public:
 		unbind();
 	}
 
+	/**
+	 * @brief Overwrites all data in the buffer
+	 * @param data The data to be loaded into the buffer
+	 * @param number_elements Number of elements
+	 */
+	template <typename T>
+	void replace_data(const T *data, unsigned int number_elements) {
+		bind();
+
+		unsigned int new_size = number_elements * sizeof(T);
+
+		if(size == new_size) {
+			//replace the buffer data without reallocation
+			glBufferSubData(target, 0, size, data);
+		} else {
+			//replace the buffer data with reallocation
+			glBufferData(target, new_size, data, usage);
+		}
+		unbind();
+	}
+
+	/**
+	 * @brief Overwrites data in the buffer starting at the specified offset
+	 * @param offset The offset from the start of the buffer in bytes
+	 * @param data The data to be loaded into the buffer
+	 */
 	template <typename T>
 	bool replace_partial_data(unsigned int offset, const std::vector<T>& data) {
 
@@ -139,6 +183,30 @@ public:
 		unbind();
 		return true;
 	}
+
+	/**
+	 * @brief Overwrites data in the buffer starting at the specified offset
+	 * @param offset The offset from the start of the buffer in bytes
+	 * @param data The data to be loaded into the buffer
+	 * @param number_elements Number of elements
+	 */
+	template <typename T>
+	bool replace_partial_data(unsigned int offset,
+				  const T *data,
+				  unsigned int number_elements) {
+
+		unsigned int data_size = data.size() * sizeof(T);
+
+		if(offset + data_size > size) {
+			return false;
+		}
+
+		bind();
+		glBufferSubData(target, offset, size, data.data());
+		unbind();
+		return true;
+	}
+
 };
 
 };
