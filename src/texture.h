@@ -17,6 +17,14 @@ class Texture {
 	EXPORT static std::map<std::string, Texture *> textures;
 public:
 	/**
+	 * @brief Adds a path to the list of paths to be searched
+	 *	  for image files.
+	 * @param path The path to add to the list
+	 * @note To avoid duplicates this function first performs
+	 *	 a search on existing entries.
+	 */
+	EXPORT static void add_path(std::string path);
+	/**
 	 * @brief The texture name
 	 */
 	GLuint texture;

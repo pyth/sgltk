@@ -22,3 +22,7 @@ Texture *Texture::find_texture(std::string name) {
 		return NULL;
 	return it->second;
 }
+
+void Texture::add_path(std::string path) {
+	Image::add_path(path);
+}
