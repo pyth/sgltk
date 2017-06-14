@@ -297,6 +297,69 @@ int Mesh::set_vertex_attribute(int attrib_location,
 	return 0;
 }
 
+int Mesh::set_vertex_attribute(const std::string& attrib_name,
+				sgltk::Buffer *buffer,
+				GLint number_elements,
+				GLenum type,
+				GLsizei stride,
+				const GLvoid *pointer,
+				unsigned int divisor) {
+
+	if(!shader) {
+		return -1;
+	}
+
+	int loc = shader->get_attribute_location(attrib_name);
+	if(loc < 0) {
+		return -2;
+	}
+
+	return set_vertex_attribute(loc, buffer, number_elements, type,
+					stride, pointer, divisor);
+}
+
+int Mesh::set_vertex_attribute(int attrib_location,
+				sgltk::Buffer *buffer,
+				GLint number_elements,
+				GLenum type,
+				GLsizei stride,
+				const GLvoid *pointer,
+				unsigned int divisor) {
+
+	if(attrib_location < 0) {
+		return -2;
+	}
+
+	glBindVertexArray(vao);
+	buffer->bind();
+
+	glEnableVertexAttribArray(attrib_location);
+	switch(type) {
+		case GL_BYTE:
+		case GL_UNSIGNED_BYTE:
+		case GL_SHORT:
+		case GL_UNSIGNED_SHORT:
+		case GL_INT:
+		case GL_UNSIGNED_INT:
+			glVertexAttribIPointer(attrib_location, number_elements,
+						type, stride, (void *)pointer);
+			break;
+		case GL_DOUBLE:
+			glVertexAttribLPointer(attrib_location, number_elements,
+						type, stride, (void *)pointer);
+			break;
+		default:
+			glVertexAttribPointer(attrib_location, number_elements,
+						type, GL_FALSE, stride,
+						(void*)pointer);
+			break;
+	}
+
+	glVertexAttribDivisor(attrib_location, divisor);
+	glBindVertexArray(0);
+	return 0;
+}
+
 int Mesh::attach_index_buffer(const std::vector<unsigned char>& indices) {
 	if(index_type && index_type != GL_UNSIGNED_BYTE)
 		return -1;
