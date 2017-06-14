@@ -495,15 +495,6 @@ public:
 	 * 	The name is reset if string is empty.
 	 */
 	EXPORT void set_lightmap_texture_name(const std::string& name);
-
-	/**
-	 * @brief Loads data into memory
-	 * @param buffer The buffer to attach to the mesh
-	 * @return Returns the index of the buffer in the list of all attached
-	 * 	vertex buffers
-	 */
-	EXPORT unsigned int attach_vertex_buffer(sgltk::Buffer *buffer);
-
 	/**
 	 * @brief Loads data into memory
 	 * @param vertexdata The data to be loaded into memory
@@ -648,6 +639,54 @@ public:
 				 GLenum type,
 				 const std::vector<T>& data,
 				 GLenum usage = GL_STATIC_DRAW);
+	 /**
+	 * @brief Sets pointers to vertex attributes
+	 * @param attrib_name		The attribute name in the shader
+	 * @param buffer		The buffer that contains the attribute
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param stride		Memory offset between vertices
+	 * @param pointer		The offset of the attribute in the
+	 * 				vertex structure
+	 * @param divisor Determines how many instances share the same attribute value.
+	 * 		0 means that every shader instance gets a new value,
+	 * 		1 means every mesh instance gets a new value,
+	 * 		2 means that two instances get the same value and so on.
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
+	 */
+	EXPORT int set_buffer_vertex_attribute(const std::string& attrib_name,
+				        sgltk::Buffer *buffer,
+				        GLint number_elements,
+				        GLenum type,
+				        GLsizei stride,
+				        const GLvoid *pointer,
+				        unsigned int divisor = 0);
+	/**
+	 * @brief Sets pointers to vertex attributes
+	 * @param attrib_location	The attribute location in the shader
+	 * @param buffer		The buffer that contains the attribute
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param stride		Memory offset between vertices
+	 * @param pointer		The offset of the attribute in the
+	 * 				vertex structure
+	 * @param divisor Determines how many instances share the same attribute value.
+	 * 		0 means that every shader instance gets a new value,
+	 * 		1 means every mesh instance gets a new value,
+	 * 		2 means that two instances get the same value and so on.
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
+	 */
+	EXPORT int set_buffer_vertex_attribute(int attrib_location,
+					sgltk::Buffer *buffer,
+					GLint number_elements,
+					GLenum type,
+					GLsizei stride,
+					const GLvoid *pointer,
+					unsigned int divisor = 0);
 	/**
 	 * @brief Sets pointers to vertex attributes
 	 * @param attrib_name		The attribute name in the shader
