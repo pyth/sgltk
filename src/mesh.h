@@ -656,7 +656,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	EXPORT int set_vertex_attribute(const std::string& attrib_name,
+	EXPORT int set_buffer_vertex_attribute(const std::string& attrib_name,
 				        sgltk::Buffer *buffer,
 				        GLint number_elements,
 				        GLenum type,
@@ -680,7 +680,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	EXPORT int set_vertex_attribute(int attrib_location,
+	EXPORT int set_buffer_vertex_attribute(int attrib_location,
 					sgltk::Buffer *buffer,
 					GLint number_elements,
 					GLenum type,

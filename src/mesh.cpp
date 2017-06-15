@@ -297,7 +297,7 @@ int Mesh::set_vertex_attribute(int attrib_location,
 	return 0;
 }
 
-int Mesh::set_vertex_attribute(const std::string& attrib_name,
+int Mesh::set_buffer_vertex_attribute(const std::string& attrib_name,
 				sgltk::Buffer *buffer,
 				GLint number_elements,
 				GLenum type,
@@ -314,11 +314,11 @@ int Mesh::set_vertex_attribute(const std::string& attrib_name,
 		return -2;
 	}
 
-	return set_vertex_attribute(loc, buffer, number_elements, type,
-					stride, pointer, divisor);
+	return set_buffer_vertex_attribute(loc, buffer, number_elements, type,
+							stride, pointer, divisor);
 }
 
-int Mesh::set_vertex_attribute(int attrib_location,
+int Mesh::set_buffer_vertex_attribute(int attrib_location,
 				sgltk::Buffer *buffer,
 				GLint number_elements,
 				GLenum type,
