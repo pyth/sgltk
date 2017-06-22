@@ -122,8 +122,6 @@ public:
 		unbind();
 	}
 
-
-
 	/**
 	 * @brief Writes the contents of the buffer object into the storage
 	 * @param offset The offset in bytes into the buffer object
@@ -148,8 +146,30 @@ public:
 		return true;
 	 }
 
+	/**
+	 * @brief Maps all of a buffer object's data into the client's address space
+	 * @param access Indicates whether it will be possible to read from,
+	 * 	write to, or both read from and write to the buffer object's
+	 * 	mapped data store. Must be GL_READ_ONLY, GL_WRITE_ONLY, or GL_READ_WRITE
+	 * @return Returns a pointer to the beginning of the mapped range once
+	 * 	all pending operations on that buffer object have completed
+	 */
+	void *map(GLenum access) {
+		bind(GL_ARRAY_BUFFER);
+		void *ptr = glMapBuffer(target, access);
+		unbind();
+		return ptr;
+	 }
 
-
+	/**
+	  * @brief Releases the mapping of a buffer object's data store into
+	  * 	the client's address space
+	  */
+	void unmap() {
+		bind(GL_ARRAY_BUFFER);
+		glUnmapBuffer(target);
+		unbind();
+	 }
 
 	/**
 	 * @brief Overwrites all data in a vertex buffer
