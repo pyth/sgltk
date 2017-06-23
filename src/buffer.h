@@ -128,6 +128,9 @@ public:
 	 * @param size The size of the storage
 	 * @param storage The storage to write the data to
 	 * @return Returns true on success, false otherwise
+	 * @note To ensure that the shader program has finished its operations
+	 * 	on the buffer you should call glMemoryBarrier before calling
+	 * 	this function.
 	 */
 	bool store(unsigned int offset, unsigned int size, void *storage) {
 		if(offset > this->size)
