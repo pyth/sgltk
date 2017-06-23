@@ -25,41 +25,33 @@ public:
 	unsigned int num_elements;
 
 	/**
-	 * @param target The target to bind the buffer object to
+	 * @param The initial target to bind the buffer to
 	 */
 	Buffer(GLenum target = GL_ARRAY_BUFFER) {
+		this->target = target;
 		glGenBuffers(1, &buffer);
-		set_target(target);
 	}
 
 	~Buffer() {
 		glDeleteBuffers(1, &buffer);
 	}
 
-	Buffer& operator=(const Buffer& other) {
-		if(this != &other) {
-			this->usage = other.usage;
-			this->target = other.target;
-			this->buffer = other.buffer;
-			this->size = other.size;
-			this->num_elements = other.num_elements;
-		}
-		return *this;
-	}
-
 	/**
-	 * @brief Sets the binding target for the buffer
-	 * @param target The target to bind the buffer object to
-	 */
-	void set_target(GLenum target) {
-		this->target = target;
-	}
-
-	/**
-	 * @brief Binds the buffer object to its target
-	 * @see set_target
+	 * @brief Binds the buffer object to the target it was previously
+	 * 	bound to or GL_ARRAY_BUFFER if the buffer has not been bound to
+	 * 	a target before
+	 * @param The target to bind the buffer to
 	 */
 	void bind() {
+		glBindBuffer(target, buffer);
+	}
+
+	/**
+	 * @brief Binds the buffer object to a target
+	 * @param The target to bind the buffer to
+	 */
+	void bind(GLenum target) {
+		this->target = target;
 		glBindBuffer(target, buffer);
 	}
 
@@ -67,23 +59,30 @@ public:
 	 * @brief Binds the buffer object to an indexed buffer target.
 	 * @param index The index of the binding point within the array
 	 * 	specified by target.
-	 * @return Returns false if the target of the buffer is not
-	 * 	GL_ATOMIC_COUNTER_BUFFER, GL_TRANSFORM_FEEDBACK_BUFFER,
-	 * 	GL_UNIFORM_BUFFER or GL_SHADER_STORAGE_BUFFER.
-	 * @see set_target
+	 * @note If the target of the buffer is not GL_ATOMIC_COUNTER_BUFFER,
+	 * 	GL_TRANSFORM_FEEDBACK_BUFFER, GL_UNIFORM_BUFFER or
+	 * 	GL_SHADER_STORAGE_BUFFER the index is ignored.
 	 */
-	bool bind_buffer_base(unsigned int index = 0) {
-		if(GL_ATOMIC_COUNTER_BUFFER || GL_TRANSFORM_FEEDBACK_BUFFER ||
-				GL_UNIFORM_BUFFER || GL_SHADER_STORAGE_BUFFER) {
-			glBindBufferBase(target, index, buffer);
-			return true;
-		} else {
-			return false;
+	void bind(GLenum target, unsigned int index) {
+		this->target = target;
+		switch(target) {
+			case GL_ATOMIC_COUNTER_BUFFER:
+			case GL_TRANSFORM_FEEDBACK_BUFFER:
+			case GL_UNIFORM_BUFFER:
+			case GL_SHADER_STORAGE_BUFFER:
+				glBindBufferBase(target, index, buffer);
+				break;
+			default:
+				glBindBuffer(target, buffer);
+				break;
 		}
 	}
 
 	/**
-	 * @brief Unbinds the buffer object
+	 * @brief Unbinds the buffer object from the target it was bound to
+	 * Exercise caution when unbinding a buffer! If you bind two buffers
+	 * 	to the same target and then call unbind on the first one, you
+	 *
 	 */
 	void unbind() {
 		glBindBuffer(target, 0);
@@ -124,6 +123,58 @@ public:
 	}
 
 	/**
+	 * @brief Writes the contents of the buffer object into the storage
+	 * @param offset The offset in bytes into the buffer object
+	 * @param size The size of the storage
+	 * @param storage The storage to write the data to
+	 * @return Returns true on success, false otherwise
+	 * @note To ensure that the shader program has finished its operations
+	 * 	on the buffer you should call glMemoryBarrier before calling
+	 * 	this function.
+	 */
+	bool store(unsigned int offset, unsigned int size, void *storage) {
+		if(offset > this->size)
+			return false;
+
+		if(size < this->size - offset)
+			return false;
+
+		if(!storage)
+			return false;
+
+		bind(GL_COPY_READ_BUFFER);
+		glGetBufferSubData(GL_COPY_READ_BUFFER, offset, size, storage);
+		unbind();
+
+		return true;
+	 }
+
+	/**
+	 * @brief Maps all of a buffer object's data into the client's address space
+	 * @param access Indicates whether it will be possible to read from,
+	 * 	write to, or both read from and write to the buffer object's
+	 * 	mapped data store. Must be GL_READ_ONLY, GL_WRITE_ONLY, or GL_READ_WRITE
+	 * @return Returns a pointer to the beginning of the mapped range once
+	 * 	all pending operations on that buffer object have completed
+	 */
+	void *map(GLenum access) {
+		bind(GL_ARRAY_BUFFER);
+		void *ptr = glMapBuffer(target, access);
+		unbind();
+		return ptr;
+	 }
+
+	/**
+	  * @brief Releases the mapping of a buffer object's data store into
+	  * 	the client's address space
+	  */
+	void unmap() {
+		bind(GL_ARRAY_BUFFER);
+		glUnmapBuffer(target);
+		unbind();
+	 }
+
+	/**
 	 * @brief Overwrites all data in a vertex buffer
 	 * @param data The data to be loaded into the buffer
 	 */
@@ -138,6 +189,7 @@ public:
 			glBufferSubData(target, 0, size, data.data());
 		} else {
 			//replace the buffer data with reallocation
+			size = new_size;
 			glBufferData(target, new_size, data.data(), usage);
 		}
 		unbind();
@@ -159,6 +211,7 @@ public:
 			glBufferSubData(target, 0, size, data);
 		} else {
 			//replace the buffer data with reallocation
+			size = new_size;
 			glBufferData(target, new_size, data, usage);
 		}
 		unbind();
