@@ -133,7 +133,7 @@ public:
 	 * 	this function.
 	 */
 	bool store(unsigned int offset, unsigned int size, void *storage) {
-		if(offset > this->size)
+		if(offset >= this->size)
 			return false;
 
 		if(size < this->size - offset)
@@ -148,6 +148,66 @@ public:
 
 		return true;
 	 }
+
+	/**
+	 * @brief Copies data from another buffer object
+	 * @param source The source of the data to copy
+	 * @param read_offset The offset into the source buffer
+	 * @param write_offset The offset into the destination buffer
+	 * @param size The size of the data to copy in bytes
+	 * @return Returns true on success, false otherwise
+	 */
+	bool copy(Buffer& source, unsigned int read_offset,
+		  unsigned int write_offset, unsigned int size) {
+
+		if(read_offset >= source.size ||
+			read_offset + size >= source.size)
+				return false;
+
+		if(write_offset >= this->size ||
+			write_offset + size >= this->size)
+				return false;
+
+		source.bind(GL_COPY_READ_BUFFER);
+		bind(GL_COPY_WRITE_BUFFER);
+		glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER,
+						read_offset, write_offset, size);
+		source.unbind();
+		unbind();
+
+		return true;
+	}
+	/**
+	 * @brief Copies data from another buffer object
+	 * @param source The source of the data to copy
+	 * @param read_offset The offset into the source buffer
+	 * @param write_offset The offset into the destination buffer
+	 * @param size The size of the data to copy in bytes
+	 * @return Returns true on success, false otherwise
+	 */
+	bool copy(Buffer *source, unsigned int read_offset,
+		  unsigned int write_offset, unsigned int size) {
+
+		if(!source)
+			return false;
+
+		if(read_offset >= source->size ||
+			read_offset + size >= source->size)
+				return false;
+
+		if(write_offset >= this->size ||
+			write_offset + size >= this->size)
+				return false;
+
+		source->bind(GL_COPY_READ_BUFFER);
+		bind(GL_COPY_WRITE_BUFFER);
+		glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER,
+						read_offset, write_offset, size);
+		source->unbind();
+		unbind();
+
+		return true;
+	}
 
 	/**
 	 * @brief Maps all of a buffer object's data into the client's address space
