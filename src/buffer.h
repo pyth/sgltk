@@ -133,7 +133,7 @@ public:
 	 * 	this function.
 	 */
 	bool store(unsigned int offset, unsigned int size, void *storage) {
-		if(offset > this->size)
+		if(offset >= this->size)
 			return false;
 
 		if(size < this->size - offset)
