@@ -116,9 +116,9 @@ public:
 	void load(unsigned int num_elements, const T *data, GLenum usage) {
 		this->usage = usage;
 		bind();
-		unsigned int buffer_size = num_elements * sizeof(T);
+		size = num_elements * sizeof(T);
 
-		glBufferData(target, buffer_size, data, usage);
+		glBufferData(target, size, data, usage);
 		unbind();
 	}
 
