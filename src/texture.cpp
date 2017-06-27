@@ -26,3 +26,10 @@ Texture *Texture::find_texture(std::string name) {
 void Texture::add_path(std::string path) {
 	Image::add_path(path);
 }
+
+void Texture::bind_image(GLuint unit, GLint level,
+			 GLboolean layered, GLint layer,
+			 GLenum access, GLenum format) {
+
+	glBindImageTexture(unit, texture, level, layered, layer, access, format);
+}

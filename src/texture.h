@@ -78,6 +78,22 @@ public:
 	 * @param texture_unit The texture unit to bind the texture to
 	 */
 	virtual void unbind(unsigned int texture_unit = 0) = 0;
+	/**
+	 * @brief Binds a level of a texture to an image unit
+	 * @param unit The index of the image unit to which to bind the texture
+	 * @param level The level of the texture that is to be bound
+	 * @param layered Specifies whether a layered texture binding
+	 * 	is to be established
+	 * @param layer If layered is GL_FALSE, specifies the layer of texture
+	 * 	to be bound to the image unit, ignored otherwise
+	 * @param access Specifies the type of access that will
+	 * 	be performed on the image
+	 * @param format Specifies the format that the elements of the image
+	 * 	will be treated as
+	 */
+	EXPORT void bind_image(GLuint unit, GLint level,
+			       GLboolean layered, GLint layer,
+			       GLenum access, GLenum format);
 };
 
 
