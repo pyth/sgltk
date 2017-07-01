@@ -63,31 +63,24 @@ void IP_Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
 					 glm::vec3 *near_top_right,
 					 glm::vec3 *near_top_left) {
 
-	float near_y = tan(fovy) * near_plane;
-	float near_x = width / height * near_y;
+	 std::vector<glm::vec4> ndc = {
+		glm::vec4(-1, -1, -1,  1),
+		glm::vec4( 1, -1, -1,  1),
+		glm::vec4( 1,  1, -1,  1),
+		glm::vec4(-1,  1, -1,  1),
+	};
 
-	glm::vec3 cam_dir = glm::normalize(dir);
-	glm::vec3 cam_right = glm::normalize(right);
-	glm::vec3 cam_up = glm::normalize(up);
+	glm::mat4 mat = glm::inverse(projection_matrix * view_matrix);
 
-	glm::vec3 near_center = pos + near_plane * cam_dir;
-
-	if(near_bottom_left)
-		*near_bottom_left = near_center
-			- near_x * cam_right
-			- near_y * cam_up;
-	if(near_bottom_right)
-		*near_bottom_right = near_center
-			+ near_x * cam_right
-			- near_y * cam_up;
-	if(near_top_right)
-		*near_top_right = near_center
-			+ near_x * cam_right
-			+ near_y * cam_up;
-	if(near_top_left)
-		*near_top_left = near_center
-			- near_x * cam_right
-			+ near_y * cam_up;
+	glm::vec4 tmp;
+	tmp = mat * ndc[0];
+	*near_bottom_left = glm::vec3(tmp) / tmp[3];
+	tmp = mat * ndc[1];
+	*near_bottom_right = glm::vec3(tmp) / tmp[3];
+	tmp = mat * ndc[2];
+	*near_top_right = glm::vec3(tmp) / tmp[3];
+	tmp = mat * ndc[3];
+	*near_top_left = glm::vec3(tmp) / tmp[3];
 }
 
 void IP_Camera::calculate_frustum_distance(glm::vec3 position,

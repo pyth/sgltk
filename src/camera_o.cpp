@@ -61,56 +61,35 @@ void O_Camera::update_projection_matrix(float width,
 }
 
 void O_Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
-	glm::vec3 *near_bottom_right,
-	glm::vec3 *near_top_right,
-	glm::vec3 *near_top_left,
-	glm::vec3 *far_bottom_left,
-	glm::vec3 *far_bottom_right,
-	glm::vec3 *far_top_right,
-	glm::vec3 *far_top_left) {
+					glm::vec3 *near_bottom_right,
+					glm::vec3 *near_top_right,
+					glm::vec3 *near_top_left,
+					glm::vec3 *far_bottom_left,
+					glm::vec3 *far_bottom_right,
+					glm::vec3 *far_top_right,
+					glm::vec3 *far_top_left) {
 
-	float far_x = width / 2;
-	float far_y = height / 2;
+	std::vector<glm::vec4> ndc = {
+		glm::vec4(-1, -1, -1,  1),
+		glm::vec4( 1, -1, -1,  1),
+		glm::vec4( 1,  1, -1,  1),
+		glm::vec4(-1,  1, -1,  1),
+		glm::vec4(-1, -1,  1,  1),
+		glm::vec4( 1, -1,  1,  1),
+		glm::vec4( 1,  1,  1,  1),
+		glm::vec4(-1,  1,  1,  1)
+	};
 
-	glm::vec3 cam_dir = glm::normalize(dir);
-	glm::vec3 cam_right = glm::normalize(right);
-	glm::vec3 cam_up = glm::normalize(up);
+	glm::mat4 mat = glm::inverse(projection_matrix * view_matrix);
 
-	glm::vec3 far_center = pos + far_plane * cam_dir;
-	glm::vec3 near_center = pos + near_plane * cam_dir;
-
-	if(near_bottom_left)
-		*near_bottom_left = near_center
-		- 0.5f * width * cam_right
-		- 0.5f * height * cam_up;
-	if(near_bottom_right)
-		*near_bottom_right = near_center
-		+ 0.5f * width * cam_right
-		- 0.5f * height * cam_up;
-	if(near_top_right)
-		*near_top_right = near_center
-		+ 0.5f * width * cam_right
-		+ 0.5f * height * cam_up;
-	if(near_top_left)
-		*near_top_left = near_center
-		- 0.5f * width * cam_right
-		+ 0.5f * height * cam_up;
-	if(far_bottom_left)
-		*far_bottom_left = far_center
-		- far_x * cam_right
-		- far_y * cam_up;
-	if(far_bottom_right)
-		*far_bottom_right = far_center
-		+ far_x * cam_right
-		- far_y * cam_up;
-	if(far_top_right)
-		*far_top_right = far_center
-		+ far_x * cam_right
-		+ far_y * cam_up;
-	if(far_top_left)
-		*far_top_left = far_center
-		- far_x * cam_right
-		+ far_y * cam_up;
+	*near_bottom_left = glm::vec3(mat * ndc[0]);
+	*near_bottom_right = glm::vec3(mat * ndc[1]);
+	*near_top_right = glm::vec3(mat * ndc[2]);
+	*near_top_left = glm::vec3(mat * ndc[3]);
+	*far_bottom_left = glm::vec3(mat * ndc[4]);
+	*far_bottom_right = glm::vec3(mat * ndc[5]);
+	*far_top_right = glm::vec3(mat * ndc[6]);
+	*far_top_left = glm::vec3(mat * ndc[7]);
 }
 
 void O_Camera::calculate_frustum_distance(glm::vec3 position,
