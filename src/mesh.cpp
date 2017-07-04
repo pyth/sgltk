@@ -546,7 +546,6 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 
 	glm::mat4 VP = (*projection_matrix) * (*view_matrix);
 
-	shader->bind();
 	shader->set_uniform(view_matrix_name, false, *view_matrix);
 	shader->set_uniform(projection_matrix_name, false, *projection_matrix);
 	shader->set_uniform(view_proj_matrix_name, false, VP);

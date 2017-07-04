@@ -10,9 +10,15 @@ namespace sgltk {
  * @brief Manager shaders
  */
 class Shader {
-	bool modify;
+	EXPORT static int counter;
 
-	GLuint saved_program;
+	//The id of the currently bound shader object
+	EXPORT static int bound;
+
+	//The id of the shader object
+	int id;
+
+	bool modify;
 
 	std::map<std::string, GLenum> shader_path_map;
 
@@ -85,63 +91,42 @@ public:
 	 * @brief Returns the location of a uniform variable
 	 * @param name The name of the uniform variable
 	 * @return Returns the location of the uniform variable or -1 if it is not found
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT int get_uniform_location(const std::string& name);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param v0 The value
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(int location, int v0);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param v0 The value
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(int location, unsigned int v0);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param v0 The value
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(int location, float v0);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param v0 The value
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(const std::string& name, int v0);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param v0 The value
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(const std::string& name, unsigned int v0);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param v0 The value
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(const std::string& name, float v0);
 	/**
@@ -149,9 +134,6 @@ public:
 	 * @param location The uniform location
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(int location, int v0,
 						  int v1);
@@ -160,9 +142,6 @@ public:
 	 * @param location The uniform location
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(int location, unsigned int v0,
 						   unsigned int v1);
@@ -171,9 +150,6 @@ public:
 	 * @param location The uniform location
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(int location, float v0,
 						    float v1);
@@ -182,9 +158,6 @@ public:
 	 * @param name The uniform name
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(const std::string& name, int v0, int v1);
 	/**
@@ -192,9 +165,6 @@ public:
 	 * @param name The uniform name
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(const std::string& name, unsigned int v0,
 							      unsigned int v1);
@@ -203,9 +173,6 @@ public:
 	 * @param name The uniform name
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(const std::string& name, float v0,
 							       float v1);
@@ -215,9 +182,6 @@ public:
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(int location, int v0,
 						  int v1,
@@ -228,9 +192,6 @@ public:
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(int location, unsigned int v0,
 						   unsigned int v1,
@@ -241,9 +202,6 @@ public:
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(int location, float v0,
 						    float v1,
@@ -254,9 +212,6 @@ public:
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(const std::string& name, int v0,
 							     int v1,
@@ -267,9 +222,6 @@ public:
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(const std::string& name, unsigned int v0,
 							      unsigned int v1,
@@ -280,9 +232,6 @@ public:
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(const std::string& name, float v0,
 							       float v1,
@@ -294,9 +243,6 @@ public:
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
 	 * @param v3 The value of the fourth element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(int location, int v0,
 						  int v1,
@@ -309,9 +255,6 @@ public:
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
 	 * @param v3 The value of the fourth element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(int location, unsigned int v0,
 						   unsigned int v1,
@@ -324,9 +267,6 @@ public:
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
 	 * @param v3 The value of the fourth element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(int location, float v0,
 						    float v1,
@@ -339,9 +279,6 @@ public:
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
 	 * @param v3 The value of the fourth element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(const std::string& name, int v0,
 							     int v1,
@@ -354,9 +291,6 @@ public:
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
 	 * @param v3 The value of the fourth element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(const std::string& name, unsigned int v0,
 							      unsigned int v1,
@@ -369,9 +303,6 @@ public:
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
 	 * @param v3 The value of the fourth element
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(const std::string& name, float v0,
 							       float v1,
@@ -383,9 +314,6 @@ public:
 	 * @param count The number of vectors
 	 * @param elements The number of elements per vector
 	 * @param value A pointer to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(int location,
 				    unsigned int count,
@@ -397,9 +325,6 @@ public:
 	 * @param count The number of vectors
 	 * @param elements The number of elements per vector
 	 * @param value A pointer to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(int location,
 				     unsigned int count,
@@ -411,9 +336,6 @@ public:
 	 * @param count The number of vectors
 	 * @param elements The number of elements per vector
 	 * @param value A pointer to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(int location,
 				      unsigned int count,
@@ -425,9 +347,6 @@ public:
 	 * @param count The number of vectors
 	 * @param elements The number of elements per vector
 	 * @param value A pointer to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_int(const std::string& name,
 				    unsigned int count,
@@ -439,9 +358,6 @@ public:
 	 * @param count The number of vectors
 	 * @param elements The number of elements per vector
 	 * @param value A pointer to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_uint(const std::string& name,
 				     unsigned int count,
@@ -453,9 +369,6 @@ public:
 	 * @param count The number of vectors
 	 * @param elements The number of elements per vector
 	 * @param value A pointer to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform_float(const std::string& name,
 				      unsigned int count,
@@ -469,9 +382,6 @@ public:
 	 * @param rows The number of matrix rows
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A pointer to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				unsigned int count,
@@ -487,9 +397,6 @@ public:
 	 * @param rows The number of matrix rows
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A pointer to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				unsigned int count,
@@ -501,36 +408,24 @@ public:
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location, const glm::vec2& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location, const glm::vec3& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location, const glm::vec4& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				const glm::vec2& value);
@@ -538,9 +433,6 @@ public:
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				const glm::vec3& value);
@@ -548,9 +440,6 @@ public:
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				const glm::vec4& value);
@@ -559,9 +448,6 @@ public:
 	 * @param location The uniform location
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				bool transpose,
@@ -571,9 +457,6 @@ public:
 	 * @param location The uniform location
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				bool transpose,
@@ -583,9 +466,6 @@ public:
 	 * @param location The uniform location
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				bool transpose,
@@ -595,9 +475,6 @@ public:
 	 * @param name The uniform name
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				bool transpose,
@@ -607,9 +484,6 @@ public:
 	 * @param name The uniform name
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				bool transpose,
@@ -619,9 +493,6 @@ public:
 	 * @param name The uniform name
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				bool transpose,
@@ -630,9 +501,6 @@ public:
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				const std::vector<glm::vec2>& value);
@@ -640,9 +508,6 @@ public:
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				const std::vector<glm::vec3>& value);
@@ -650,9 +515,6 @@ public:
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				const std::vector<glm::vec4>& value);
@@ -660,9 +522,6 @@ public:
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				const std::vector<glm::vec2>& value);
@@ -670,9 +529,6 @@ public:
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				const std::vector<glm::vec3>& value);
@@ -680,9 +536,6 @@ public:
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				const std::vector<glm::vec4>& value);
@@ -691,9 +544,6 @@ public:
 	 * @param location The uniform location
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				bool transpose,
@@ -703,9 +553,6 @@ public:
 	 * @param location The uniform location
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				bool transpose,
@@ -715,9 +562,6 @@ public:
 	 * @param location The uniform location
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(int location,
 				bool transpose,
@@ -727,9 +571,6 @@ public:
 	 * @param name The uniform name
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				bool transpose,
@@ -739,9 +580,6 @@ public:
 	 * @param name The uniform name
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				bool transpose,
@@ -751,9 +589,6 @@ public:
 	 * @param name The uniform name
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
-	 * @note The shader has to be bound before calling this function
-	 * @see bind
-	 * @see unbind
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				bool transpose,

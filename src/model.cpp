@@ -729,14 +729,12 @@ bool Model::animate(float time) {
 	for(unsigned int i = 0; i < bones.size(); i++) {
 		trafos[i] = ai_to_glm_mat4(bones[i].transformation);
 	}
-	shader->bind();
 	int loc = shader->get_uniform_location(bone_array_name);
 	if(loc >= 0) {
 		shader->set_uniform(loc, false, trafos);
 	} else {
 		return false;
 	}
-	shader->unbind();
 	return true;
 }
 
