@@ -24,15 +24,15 @@ Cubemap::~Cubemap() {
 }
 
 void Cubemap::set_parameter(GLenum name, int parameter) {
-	glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+	bind();
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, name, parameter);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	unbind();
 }
 
 void Cubemap::set_parameter(GLenum name, float parameter) {
-	glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+	bind();
 	glTexParameterf(GL_TEXTURE_CUBE_MAP, name, parameter);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	unbind();
 }
 
 void Cubemap::create_empty(unsigned int res_x,

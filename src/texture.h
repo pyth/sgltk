@@ -98,6 +98,76 @@ public:
 
 
 /**
+ * @class Texture_1d
+ * @brief Manages 1d textures
+ */
+class Texture_1d : public Texture {
+public:
+	EXPORT Texture_1d();
+	/**
+	 * @param path Path to the image file to load
+	 */
+	EXPORT Texture_1d(const std::string& path);
+	/**
+	* @param image The image to use as the texture
+	*/
+	EXPORT Texture_1d(const Image& image);
+	/**
+	 * @param res The texture resolution
+	 * @param internal_format The internal format of the texture
+	 * @param type The type of pixel data
+	 * @param format The format of the textre
+	 */
+	EXPORT Texture_1d(unsigned int res, GLenum internal_format, GLenum type, GLenum format);
+	EXPORT ~Texture_1d();
+
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, int parameter);
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float parameter);
+	/**
+	* @brief Creates an empty texture
+	* @param res The texture resolution
+	* @param internal_format The internal format of the texture
+	* @param type The type of pixel data
+	* @param format The format of the textre
+	*/
+	EXPORT void create_empty(unsigned int res,
+				 GLenum internal_format,
+				 GLenum type,
+				 GLenum format);
+	/**
+	 * @brief Load a new image as texture
+	 * @param image The image to use as the texture
+	 */
+	EXPORT bool load(const Image& image);
+	/**
+	 * @brief Load a new image as texture
+	 * @param path The path to the image file
+	 */
+	EXPORT bool load(const std::string& path);
+	/**
+	* @brief Bind the texture to be used by the shader
+	* @param texture_unit The texture unit to bind the texture to
+	*/
+	EXPORT void bind(unsigned int texture_unit = 0);
+	/**
+	* @brief Unbind the texture
+	* @param texture_unit The texture unit to bind the texture to
+	*/
+	EXPORT void unbind(unsigned int texture_unit = 0);
+};
+
+
+/**
  * @class Texture_2d
  * @brief Manages 2d textures
  */

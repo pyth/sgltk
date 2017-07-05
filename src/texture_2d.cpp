@@ -72,15 +72,15 @@ bool Texture_2d::load(const Image& image) {
 }
 
 void Texture_2d::set_parameter(GLenum name, int parameter) {
-	glBindTexture(GL_TEXTURE_2D, texture);
+	bind();
 	glTexParameteri(GL_TEXTURE_2D, name, parameter);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	unbind();
 }
 
 void Texture_2d::set_parameter(GLenum name, float parameter) {
-	glBindTexture(GL_TEXTURE_2D, texture);
+	bind();
 	glTexParameterf(GL_TEXTURE_2D, name, parameter);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	unbind();
 }
 
 void Texture_2d::bind(unsigned int texture_unit) {

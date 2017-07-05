@@ -96,15 +96,15 @@ bool Texture_3d::load(const std::vector<Image>& images) {
 }
 
 void Texture_3d::set_parameter(GLenum name, int parameter) {
-	glBindTexture(GL_TEXTURE_3D, texture);
+	bind();
 	glTexParameteri(GL_TEXTURE_3D, name, parameter);
-	glBindTexture(GL_TEXTURE_3D, 0);
+	unbind();
 }
 
 void Texture_3d::set_parameter(GLenum name, float parameter) {
-	glBindTexture(GL_TEXTURE_3D, texture);
+	bind();
 	glTexParameterf(GL_TEXTURE_3D, name, parameter);
-	glBindTexture(GL_TEXTURE_3D, 0);
+	unbind();
 }
 
 void Texture_3d::bind(unsigned int texture_unit) {
