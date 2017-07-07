@@ -247,11 +247,11 @@ class Texture_3d : public Texture {
 public:
 	EXPORT Texture_3d();
 	/**
-	* @param path Path to the image file to load
+	* @param paths Path to the image file to load
 	*/
 	EXPORT Texture_3d(const std::vector<std::string>& paths);
 	/**
-	* @param image The image to use as the texture
+	* @param images The image to use as the texture
 	*/
 	EXPORT Texture_3d(const std::vector<Image>& images);
 	/**
@@ -294,12 +294,12 @@ public:
 		GLenum format);
 	/**
 	* @brief Load a new image as texture
-	* @param image The image to use as the texture
+	* @param images The image to use as the texture
 	*/
 	EXPORT bool load(const std::vector<Image>& images);
 	/**
 	* @brief Load a new image as texture
-	* @param path The path to the image file
+	* @param paths The path to the image file
 	*/
 	EXPORT bool load(const std::vector<std::string>& paths);
 	/**

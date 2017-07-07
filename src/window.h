@@ -257,7 +257,7 @@ public:
 	* @brief This function is called by poll_events() for every hat value
 	* 	  change. This function should be overridden
 	* @param gamepad_id The gamepad instance id
-	* @param axis The number of the hat that has a new value
+	* @param hat The number of the hat that has a new value
 	* @param value The new value of the hat
 	*/
 	EXPORT virtual void handle_joystick_hat_change(unsigned int gamepad_id,

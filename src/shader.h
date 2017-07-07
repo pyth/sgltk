@@ -317,7 +317,7 @@ public:
 	 */
 	EXPORT void set_uniform_int(int location,
 				    unsigned int count,
-				    unsigned int element,
+				    unsigned int elements,
 				    const int *value);
 	/**
 	 * @brief Sets the uniform
@@ -328,7 +328,7 @@ public:
 	 */
 	EXPORT void set_uniform_uint(int location,
 				     unsigned int count,
-				     unsigned int element,
+				     unsigned int elements,
 				     const unsigned int *value);
 	/**
 	 * @brief Sets the uniform
@@ -339,7 +339,7 @@ public:
 	 */
 	EXPORT void set_uniform_float(int location,
 				      unsigned int count,
-				      unsigned int element,
+				      unsigned int elements,
 				      const float *value);
 	/**
 	 * @brief Sets the uniform

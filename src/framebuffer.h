@@ -36,7 +36,7 @@ public:
 	EXPORT void bind();
 	/**
 	 * @brief Binds the framebuffer to a framebuffer target
-	 * @parma target The target of the binding operation
+	 * @param target The target of the binding operation
 	 */
 	EXPORT void bind(GLenum target);
 	/**

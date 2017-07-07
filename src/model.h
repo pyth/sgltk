@@ -67,8 +67,17 @@ class Model {
 	static glm::mat4 ai_to_glm_mat4(const aiMatrix4x4& in);
 
 	public:
+		/**
+		 * @brief The model matrix of the model
+		 */
 		glm::mat4 model_matrix;
+		/**
+		 * @brief Two corners of the bounding box of the model
+		 */
 		std::vector<glm::vec3> bounding_box;
+		/**
+		 * @brief The meshes that make up the model
+		 */
 		std::vector<Mesh *> meshes;
 
 		EXPORT Model();

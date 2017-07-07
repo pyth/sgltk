@@ -25,7 +25,7 @@ public:
 	unsigned int num_elements;
 
 	/**
-	 * @param The initial target to bind the buffer to
+	 * @param target The initial target to bind the buffer to
 	 */
 	Buffer(GLenum target = GL_ARRAY_BUFFER) {
 		this->target = target;
@@ -38,9 +38,8 @@ public:
 
 	/**
 	 * @brief Binds the buffer object to the target it was previously
-	 * 	bound to or GL_ARRAY_BUFFER if the buffer has not been bound to
-	 * 	a target before
-	 * @param The target to bind the buffer to
+	 * 	  bound to or GL_ARRAY_BUFFER if the buffer has not been bound
+	 * 	  to a target before
 	 */
 	void bind() {
 		glBindBuffer(target, buffer);
@@ -48,7 +47,7 @@ public:
 
 	/**
 	 * @brief Binds the buffer object to a target
-	 * @param The target to bind the buffer to
+	 * @param target The target to bind the buffer to
 	 */
 	void bind(GLenum target) {
 		this->target = target;
@@ -57,11 +56,12 @@ public:
 
 	/**
 	 * @brief Binds the buffer object to an indexed buffer target.
+	 * @param target The target to bind the buffer to
 	 * @param index The index of the binding point within the array
-	 * 	specified by target.
+	 * 		specified by target.
 	 * @note If the target of the buffer is not GL_ATOMIC_COUNTER_BUFFER,
-	 * 	GL_TRANSFORM_FEEDBACK_BUFFER, GL_UNIFORM_BUFFER or
-	 * 	GL_SHADER_STORAGE_BUFFER the index is ignored.
+	 * 	 GL_TRANSFORM_FEEDBACK_BUFFER, GL_UNIFORM_BUFFER or
+	 * 	 GL_SHADER_STORAGE_BUFFER the index is ignored.
 	 */
 	void bind(GLenum target, unsigned int index) {
 		this->target = target;
@@ -80,8 +80,8 @@ public:
 
 	/**
 	 * @brief Unbinds the buffer object from the target it was bound to
-	 * Exercise caution when unbinding a buffer! If you bind two buffers
-	 * 	to the same target and then call unbind on the first one, you
+	 * @note Exercise caution when unbinding a buffer! If you bind two buffers
+	 * 	 to the same target and then call unbind on the first one, you
 	 *
 	 */
 	void unbind() {
@@ -107,7 +107,7 @@ public:
 
 	/**
 	 * @brief Loads data into the buffer
-	 * @param number_elements Number of elements
+	 * @param num_elements Number of elements
 	 * @param data The data to load into the buffer
 	 * @param usage A hint as to how the buffer will be accessed.
 	 *      Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.

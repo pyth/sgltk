@@ -109,7 +109,7 @@ public:
 					       unsigned int size);
 	/**
 	 * @brief Closes a ttf font file
-	 * @param A pointer to the ttf font file to close
+	 * @param font_file A pointer to the ttf font file to close
 	 * @see open_font_file()
 	 */
 	EXPORT static void close_font_file(TTF_Font *font_file);
