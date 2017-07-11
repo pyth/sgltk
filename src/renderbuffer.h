@@ -24,6 +24,8 @@ class Renderbuffer {
 	 * @brief The renderbuffer name
 	 */
 	GLuint buffer;
+
+	EXPORT Renderbuffer();
 	/**
 	 * @param height The width of the buffer
 	 * @param width The height of the buffer
@@ -41,6 +43,17 @@ class Renderbuffer {
 	 * @brief Unbinds the renderbuffer
 	 */
 	EXPORT void unbind();
+	/**
+	 * @brief Sets the format of the renderbuffer
+	 * @param format The internal format of the buffer
+	 */
+	EXPORT void set_format(GLenum format);
+	/**
+	 * @brief Sets the width and height of the renderbuffer
+	 * @param height The width of the buffer
+	 * @param width The height of the buffer
+	 */
+	EXPORT void set_size(unsigned int width, unsigned int height);
 };
 
 }
