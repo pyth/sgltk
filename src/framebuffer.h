@@ -16,7 +16,7 @@ class Framebuffer {
 	GLenum target;
 	unsigned int width;
 	unsigned int height;
-	std::vector<GLenum> draw_buffers;
+	std::vector<unsigned int> draw_buffers;
 
 	static int max_color_attachments;
 public:
@@ -47,16 +47,18 @@ public:
 	 * @brief Attaches a texture to the framebuffer
 	 * @param attachment The attachment point to which the texture is attached
 	 * @param texture The texture to attach
+	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT void attach_texture(GLenum attachment,
+	EXPORT bool attach_texture(GLenum attachment,
 				   Texture& texture);
 	/**
 	 * @brief Attaches a renderbuffer to the framebuffer
 	 * @param attachment The attachment point to which
 	 * 	  the renderbuffer is attached
 	 * @param buffer The renderbuffer to attach
+	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT void attach_renderbuffer(GLenum attachment,
+	EXPORT bool attach_renderbuffer(GLenum attachment,
 					Renderbuffer& buffer);
 	/**
 	 * @brief Sets the draw buffers to be drawn into
