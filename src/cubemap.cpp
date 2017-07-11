@@ -3,6 +3,7 @@
 using namespace sgltk;
 
 Cubemap::Cubemap() : Texture() {
+	target = GL_TEXTURE_CUBE_MAP;
 }
 
 Cubemap::Cubemap(unsigned int res_x,
@@ -10,6 +11,7 @@ Cubemap::Cubemap(unsigned int res_x,
 	GLenum internal_format,
 	GLenum type, GLenum format) : Texture() {
 
+	target = GL_TEXTURE_CUBE_MAP;
 	create_empty(res_x, res_y, internal_format, type, format);
 }
 
@@ -17,6 +19,7 @@ Cubemap::Cubemap(const Image& pos_x, const Image& neg_x,
 	const Image& pos_y, const Image& neg_y,
 	const Image& pos_z, const Image& neg_z) : Texture() {
 
+	target = GL_TEXTURE_CUBE_MAP;
 	load(pos_x, neg_x, pos_y, neg_y, pos_z, neg_z);
 }
 

@@ -3,18 +3,21 @@
 using namespace sgltk;
 
 Texture_2d::Texture_2d() : Texture() {
+	target = GL_TEXTURE_2D;
 }
 
 Texture_2d::Texture_2d(unsigned int res_x, unsigned int res_y, GLenum internal_format, GLenum type, GLenum format) : Texture() {
-
+	target = GL_TEXTURE_2D;
 	create_empty(res_x, res_y, internal_format, type, format);
 }
 
 Texture_2d::Texture_2d(const Image& image) : Texture() {
+	target = GL_TEXTURE_2D;
 	load(image);
 }
 
 Texture_2d::Texture_2d(const std::string& path) : Texture() {
+	target = GL_TEXTURE_2D;
 	load(path);
 }
 

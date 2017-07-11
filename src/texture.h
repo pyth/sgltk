@@ -25,6 +25,10 @@ public:
 	 */
 	EXPORT static void add_path(std::string path);
 	/**
+	 * @brief The texture target
+	 */
+	GLenum target;
+	/**
 	 * @brief The texture name
 	 */
 	GLuint texture;
