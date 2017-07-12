@@ -126,3 +126,45 @@ void Framebuffer::finalize() {
 	}
 	unbind();
 }
+
+void Framebuffer::blit_to(sgltk::Framebuffer *target,
+			  unsigned int src_x0,
+			  unsigned int src_y0,
+			  unsigned int src_x1,
+			  unsigned int src_y1,
+			  unsigned int dst_x0,
+			  unsigned int dst_y0,
+			  unsigned int dst_x1,
+			  unsigned int dst_y1,
+			  GLbitfield mask,
+			  GLenum filter) {
+
+	if(!target) {
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	} else {
+		target->bind(GL_DRAW_FRAMEBUFFER);
+	}
+	bind(GL_READ_FRAMEBUFFER);
+	glBlitFramebuffer(src_x0, src_y0, src_x1, src_y1, dst_x0, dst_y0, dst_x1, dst_y1, mask, filter);
+	unbind();
+	if(target) {
+		target->unbind();
+	}
+}
+
+void Framebuffer::blit_from_default(unsigned int src_x0,
+				    unsigned int src_y0,
+				    unsigned int src_x1,
+				    unsigned int src_y1,
+				    unsigned int dst_x0,
+				    unsigned int dst_y0,
+				    unsigned int dst_x1,
+				    unsigned int dst_y1,
+				    GLbitfield mask,
+				    GLenum filter) {
+
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+	bind(GL_DRAW_FRAMEBUFFER);
+	glBlitFramebuffer(src_x0, src_y0, src_x1, src_y1, dst_x0, dst_y0, dst_x1, dst_y1, mask, filter);
+	unbind();
+}
