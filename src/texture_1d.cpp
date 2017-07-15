@@ -28,7 +28,7 @@ void Texture_1d::create_empty(unsigned int res,
 			      GLenum internal_format,
 			      GLenum type, GLenum format) {
 	width = res;
-	height = 0
+	height = 1;
 
 	bind();
 	glTexImage1D(GL_TEXTURE_1D, 0,
@@ -47,7 +47,7 @@ bool Texture_1d::load(const std::string& path) {
 		return false;
 	}
 	width = img.width;
-	height = 0;
+	height = 1;
 	return load(img);
 }
 
