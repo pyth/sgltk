@@ -109,6 +109,26 @@ void Window::set_relative_mode(bool on) {
 	SDL_SetRelativeMouseMode((SDL_bool)on);
 }
 
+void Window::set_mouse_position(int x, int y) {
+	SDL_WarpMouseInWindow(window, x, y);
+}
+
+void Window::set_cursor_visibility(bool show) {
+	int toggle = SDL_DISABLE;
+	if(show)
+		toggle = SDL_ENABLE;
+
+	SDL_ShowCursor(toggle);
+}
+
+bool Window::get_cursor_visibility() {
+	int ret = SDL_ShowCursor(SDL_QUERY);
+	if(ret == SDL_ENABLE)
+		return true;
+
+	return false;
+}
+
 void Window::poll_events() {
 	int value;
 	SDL_Event event;

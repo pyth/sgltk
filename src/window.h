@@ -134,6 +134,22 @@ public:
 	 */
 	EXPORT void set_relative_mode(bool on);
 	/**
+	 * @brief Sets the mouse position inside the window
+	 * @param x The x coordiante inside the window
+	 * @param y The y coordiante inside the window
+	 */
+	EXPORT void set_mouse_position(int x, int y);
+	/**
+	 * @brief Sets mouse cursor visibility
+	 * @param show True to show the cursor, false otherwise
+	 */
+	EXPORT void set_cursor_visibility(bool show);
+	/**
+	 * @brief Returns mouse cursor visibility status
+	 * @return Returns true if the cursor is visible, false otherwise
+	 */
+	EXPORT bool get_cursor_visibility();
+	/**
 	 * @brief Polls all events and calls the handlers.
 	 * 	  Called by the run function
 	 */
