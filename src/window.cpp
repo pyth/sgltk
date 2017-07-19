@@ -26,7 +26,26 @@ Window::Window(const std::string& title, int res_x, int res_y, int offset_x, int
 		App::error_string.push_back(error);
 		throw std::runtime_error(error);
 	}
-	context = SDL_GL_CreateContext(window);
+	if(App::gl_version_manual) {
+		SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &gl_maj);
+		SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &gl_min);
+		context = SDL_GL_CreateContext(window);
+	} else {
+		for(gl_maj = 4; gl_maj > 2; gl_maj--) {
+			for(gl_min = 5; gl_min >= 0; gl_min--) {
+				if(gl_maj == 3 && gl_min > 3) {
+					continue;
+				}
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl_maj);
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl_min);
+				context = SDL_GL_CreateContext(window);
+				if(context) {
+					goto endloop;
+				}
+			}
+		}
+	}
+endloop:
 	if(!context) {
 		SDL_DestroyWindow(window);
 		std::string error = std::string("Error creating OpenGL context: ") +

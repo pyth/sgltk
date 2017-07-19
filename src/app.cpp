@@ -3,6 +3,7 @@
 using namespace sgltk;
 
 bool App::initialized = false;
+bool App::gl_version_manual = false;
 struct SYS_INFO App::sys_info;
 std::vector<std::string> App::error_string = {};
 
@@ -126,6 +127,8 @@ void App::set_gl_version(int major, int minor) {
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, maj);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, min);
+
+	gl_version_manual = true;
 }
 
 void App::set_depth_stencil_size(int depth_size, int stencil_size) {
@@ -140,6 +143,7 @@ void App::set_msaa_sample_number(int number_samples) {
 
 void App::quit() {
 	App::initialized = false;
+	gl_version_manual = false;
 	App::quit_img();
 #ifdef HAVE_SDL_TTF_H
 	App::quit_ttf();

@@ -121,6 +121,11 @@ class App {
 	public:
 
 	/**
+	 * @brief True if set_gl_version was called, false otherwise
+	 */
+	EXPORT static bool gl_version_manual;
+
+	/**
 	 * @brief System information
 	 */
 	EXPORT static struct SYS_INFO sys_info;

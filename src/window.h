@@ -42,6 +42,14 @@ class Window {
 	EXPORT static std::map<unsigned int, Joystick *> joystick_instance_id_map;
 public:
 	/**
+	 * @brief The manjor OpenGL version number
+	 */
+	int gl_maj;
+	/**
+	 * @brief The minor OpenGL version number
+	 */
+	int gl_min;
+	/**
 	 * @brief The width of the window surface
 	 */
 	int width;
@@ -71,10 +79,10 @@ public:
 	EXPORT ~Window();
 
 	/**
-	* @brief Sets the window icon
-	* @param filename The icon to use
-	* @note The image size should not exceed 356x356 pixel.
-	*/
+	 * @brief Sets the window icon
+	 * @param filename The icon to use
+	 * @note The image size should not exceed 356x356 pixel.
+	 */
 	EXPORT void set_icon(const std::string& filename);
 	/**
 	 * @brief Sets the window icon
