@@ -23,6 +23,7 @@ Shader::Shader() {
 	id = counter;
 	counter++;
 	modify = true;
+	linked = false;
 	program = glCreateProgram();
 	if(!program) {
 		std::string error("Error creating new shader program");
@@ -127,6 +128,9 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 
 void Shader::set_transform_feedback_variables(std::vector<char *>& variables, GLenum buffer_mode) {
 	glTransformFeedbackVaryings(program, variables.size(), variables.data(), buffer_mode);
+	if(linked) {
+		link();
+	}
 }
 
 void Shader::recompile() {
@@ -144,8 +148,16 @@ void Shader::recompile() {
 	modify = true;
 }
 
-void Shader::link() {
+bool Shader::link() {
+	GLint isLinked = 0;
 	glLinkProgram(program);
+	glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
+	if(isLinked == GL_FALSE) {
+		linked = false;
+		return false;
+	}
+	linked = true;
+	return true;
 }
 
 void Shader::bind() {

@@ -19,6 +19,7 @@ class Shader {
 	int id;
 
 	bool modify;
+	bool linked;
 
 	std::map<std::string, GLenum> shader_path_map;
 
@@ -71,8 +72,9 @@ public:
 	EXPORT void recompile();
 	/**
 	 * @brief Links the attached shaders
+	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT void link();
+	EXPORT bool link();
 	/**
 	 * @brief Binds the shader and stores the previously bound shader
 	 */
