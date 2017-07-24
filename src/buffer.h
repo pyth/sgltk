@@ -12,8 +12,12 @@ namespace sgltk {
 class Buffer {
 	GLenum usage;
 	GLenum target;
-	GLuint buffer;
 public:
+	/**
+	 * @brief The name of the buffer object
+	 */
+	GLuint buffer;
+
 	/**
 	 * @brief Size of the buffer in bytes
 	 */
