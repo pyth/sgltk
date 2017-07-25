@@ -22,6 +22,7 @@ Shader::Shader() {
 	}
 	id = counter;
 	counter++;
+	transform_feedback = false;
 	modify = true;
 	linked = false;
 	program = glCreateProgram();
@@ -126,10 +127,19 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 	return true;
 }
 
-void Shader::set_transform_feedback_variables(std::vector<char *>& variables, GLenum buffer_mode) {
-	glTransformFeedbackVaryings(program, variables.size(), variables.data(), buffer_mode);
+void Shader::set_transform_feedback_variables(std::vector<std::string>& variables, GLenum buffer_mode) {
+	transform_feedback = true;
+	char **vars = new char*[variables.size()];
+	for(unsigned int i = 0; i < variables.size(); i++) {
+		vars[i] = new char[variables[i].length() + 1];
+		std::strcpy(vars[i], variables[i].c_str());
+	}
+	glTransformFeedbackVaryings(program, variables.size(), vars, buffer_mode);
 	if(linked) {
 		link();
+	}
+	for(unsigned int i = 0; i < variables.size(); i++) {
+		delete vars[i];
 	}
 }
 
