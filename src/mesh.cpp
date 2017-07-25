@@ -235,6 +235,19 @@ void Mesh::set_lightmap_texture_name(const std::string& name) {
 		lightmap_texture_name = "texture_lightmap";
 }
 
+void Mesh::set_transform_feedback_mode(GLenum mode) {
+	tf_mode = mode;
+}
+
+void Mesh::attach_buffer(sgltk::Buffer *buffer,
+			 GLuint target,
+			 unsigned int index) {
+
+	attached_buffers.push_back(buffer);
+	attached_buffers_targets.push_back(target);
+	attached_buffers_indices.push_back(index);
+}
+
 int Mesh::set_vertex_attribute(const std::string& attrib_name,
 				unsigned int buffer_index,
 				GLint number_elements,
@@ -524,6 +537,11 @@ void Mesh::draw(GLenum mode,
 
 	material_uniform();
 
+	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
+		attached_buffers[i]->bind(attached_buffers_targets[i],
+					  attached_buffers_indices[i]);
+	}
+
 	glBindVertexArray(vao);
 	ibo[index_buffer]->bind();
 	if(shader->transform_feedback) {
@@ -560,6 +578,11 @@ void Mesh::draw(GLenum mode,
 	}
 	ibo[index_buffer]->unbind();
 	glBindVertexArray(0);
+
+	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
+		attached_buffers[i]->unbind();
+	}
+
 	shader->unbind();
 }
 
@@ -582,6 +605,11 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 	shader->set_uniform(view_proj_matrix_name, false, VP);
 
 	material_uniform();
+
+	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
+		attached_buffers[i]->bind(attached_buffers_targets[i],
+					  attached_buffers_indices[i]);
+	}
 
 	glBindVertexArray(vao);
 	ibo[index_buffer]->bind();
@@ -619,5 +647,10 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 	}
 	ibo[index_buffer]->unbind();
 	glBindVertexArray(0);
+
+	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
+		attached_buffers[i]->unbind();
+	}
+
 	shader->unbind();
 }

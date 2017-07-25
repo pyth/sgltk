@@ -137,14 +137,20 @@ typedef EXPORT struct Vertex {
  * @brief Manages meshes
  */
 class Mesh {
+	GLuint vao;
+	GLenum tf_mode;
+
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
 
-	GLuint vao;
 	std::vector<Buffer*> vbo;
 
 	GLenum index_type;
 	std::vector<Buffer*> ibo;
+
+	std::vector<Buffer *>attached_buffers;
+	std::vector<GLuint>attached_buffers_targets;
+	std::vector<unsigned int>attached_buffers_indices;
 
 	void material_uniform();
 public:
@@ -501,6 +507,18 @@ public:
 	 * 	into the buffer objects that are bound for transform feedback
 	 */
 	EXPORT void set_transform_feedback_mode(GLenum mode);
+	/**
+	 * @brief Attaches a buffer that is automatically bound before
+	 * 	each draw call
+	 * @param buffer The buffer to attach_buffer
+	 * @param target The target the buffer will be bound to
+	 * @param index The index of the binding point within the array
+	 * 		specified by target.
+	 * @note If the target of the buffer is not GL_ATOMIC_COUNTER_BUFFER,
+	 * 	 GL_TRANSFORM_FEEDBACK_BUFFER, GL_UNIFORM_BUFFER or
+	 * 	 GL_SHADER_STORAGE_BUFFER the index is ignored.
+	 */
+	EXPORT void attach_buffer(sgltk::Buffer *buffer, GLuint target, unsigned int index = 0);
 	/**
 	 * @brief Loads data into memory
 	 * @param vertexdata The data to be loaded into memory
