@@ -496,6 +496,12 @@ public:
 	 */
 	EXPORT void set_lightmap_texture_name(const std::string& name);
 	/**
+	 * @brief Sets the output type for transform feedback operations
+	 * @param mode The output type of the primitives that will be recorded
+	 * 	into the buffer objects that are bound for transform feedback
+	 */
+	EXPORT void set_transform_feedback_mode(GLenum mode);
+	/**
 	 * @brief Loads data into memory
 	 * @param vertexdata The data to be loaded into memory
 	 * @param number_elements Number of elements

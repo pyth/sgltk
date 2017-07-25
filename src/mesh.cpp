@@ -3,6 +3,7 @@
 using namespace sgltk;
 
 Mesh::Mesh() {
+	tf_mode = GL_NONE;
 	model_matrix = glm::mat4(1.0);
 	shader = nullptr;
 	num_uv = 0;
@@ -525,8 +526,38 @@ void Mesh::draw(GLenum mode,
 
 	glBindVertexArray(vao);
 	ibo[index_buffer]->bind();
+	if(shader->transform_feedback) {
+		GLenum primitive_type = tf_mode;
+		if(primitive_type == GL_NONE) {
+			switch(mode) {
+				case GL_POINTS:
+					primitive_type = GL_POINTS;
+					break;
+				case GL_LINES:
+				case GL_LINE_LOOP:
+				case GL_LINE_STRIP:
+				case GL_LINES_ADJACENCY:
+				case GL_LINE_STRIP_ADJACENCY:
+					primitive_type = GL_LINES;
+					break;
+				case GL_TRIANGLES:
+				case GL_TRIANGLE_STRIP:
+				case GL_TRIANGLE_FAN:
+				case GL_TRIANGLES_ADJACENCY:
+				case GL_TRIANGLE_STRIP_ADJACENCY:
+					primitive_type = GL_TRIANGLES;
+					break;
+				default:
+					break;
+			}
+		}
+		glBeginTransformFeedback(primitive_type);
+	}
 	glDrawElements(mode, ibo[index_buffer]->num_elements,
 		       index_type, (void*)0);
+	if(shader->transform_feedback) {
+		glEndTransformFeedback();
+	}
 	ibo[index_buffer]->unbind();
 	glBindVertexArray(0);
 	shader->unbind();
@@ -554,8 +585,38 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 
 	glBindVertexArray(vao);
 	ibo[index_buffer]->bind();
+	if(shader->transform_feedback) {
+		GLenum primitive_type = tf_mode;
+		if(primitive_type == GL_NONE) {
+			switch(mode) {
+				case GL_POINTS:
+					primitive_type = GL_POINTS;
+					break;
+				case GL_LINES:
+				case GL_LINE_LOOP:
+				case GL_LINE_STRIP:
+				case GL_LINES_ADJACENCY:
+				case GL_LINE_STRIP_ADJACENCY:
+					primitive_type = GL_LINES;
+					break;
+				case GL_TRIANGLES:
+				case GL_TRIANGLE_STRIP:
+				case GL_TRIANGLE_FAN:
+				case GL_TRIANGLES_ADJACENCY:
+				case GL_TRIANGLE_STRIP_ADJACENCY:
+					primitive_type = GL_TRIANGLES;
+					break;
+				default:
+					break;
+			}
+		}
+		glBeginTransformFeedback(primitive_type);
+	}
 	glDrawElementsInstanced(mode, ibo[index_buffer]->num_elements,
 		       index_type, (void*)0, num_instances);
+	if(shader->transform_feedback) {
+		glEndTransformFeedback();
+	}
 	ibo[index_buffer]->unbind();
 	glBindVertexArray(0);
 	shader->unbind();
