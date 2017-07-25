@@ -93,6 +93,21 @@ public:
 	}
 
 	/**
+	 * @brief Creates an empty buffer
+	 * @param num_elements Number of elements
+	 * @param usage A hint as to how the buffer will be accessed.
+	 *      Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
+	 */
+	template <typename T>
+	void create_empty(unsigned int num_elements, GLenum usage) {
+		this->usage = usage;
+		this->size = num_elements * sizeof(T);
+		bind();
+		glBufferData(target, size, NULL, usage);
+		unbind();
+	}
+
+	/**
 	 * @brief Loads data into the buffer
 	 * @param data The data to load into the buffer
 	 * @param usage A hint as to how the buffer will be accessed.
