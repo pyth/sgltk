@@ -11,17 +11,18 @@ set(SGLTK_VERSION_MAJOR 0)
 set(SGLTK_VERSION_MINOR 4)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 endif()
 
-set(CMAKE_PREFIX_PATH "" CACHE PATH "3rd party libraries and headers")
+set(LIBRARY_PATH "" CACHE PATH "3rd party libraries")
+set(INCLUDE_PATH "" CACHE PATH "3rd party library headers")
 
-include_directories(${CMAKE_PREFIX_PATH})
-link_directories(${CMAKE_PREFIX_PATH})
+include_directories(${INCLUDE_PATH})
+link_directories(${LIBRARY_PATH})
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for the library files")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for .dll files")
