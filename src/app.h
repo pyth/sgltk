@@ -1,9 +1,9 @@
 #ifndef __APP_H__
 #define __APP_H__
+/** @file */
 
 /**
- * @def check_gl_error(message)
- * @brief Prints out the OpenGL error message, file and line where this macro
+ * Prints out the OpenGL error message, file and line where this macro
  * 	was called as well as the message string passed to it.
  */
 #define check_gl_error(message) do{\
@@ -227,7 +227,8 @@ class App {
 	EXPORT static void get_sys_info();
 	/**
 	 * @brief Outputs OpenGL error messages
-	 * @note Dont't call this function directly
+	 * @note Dont't call this function directly,
+	 * 	use check_gl_error(error_message) instead
 	 * @see check_gl_error
 	 */
 	EXPORT static void _check_error(std::string message, std::string file, unsigned int line);
