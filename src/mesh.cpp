@@ -502,7 +502,6 @@ void Mesh::draw(GLenum mode,
 		App::error_string.push_back("Error: No shader specified");
 		return;
 	}
-	shader->bind();
 
 	glm::mat4 M;
 	glm::mat4 MV;
@@ -582,8 +581,6 @@ void Mesh::draw(GLenum mode,
 	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
 		attached_buffers[i]->unbind();
 	}
-
-	shader->unbind();
 }
 
 void Mesh::draw_instanced(GLenum mode, unsigned int num_instances) {
@@ -651,6 +648,4 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
 		attached_buffers[i]->unbind();
 	}
-
-	shader->unbind();
 }
