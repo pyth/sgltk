@@ -23,8 +23,8 @@ namespace sgltk {
  */
 class Model {
 	typedef struct Bone {
-		aiMatrix4x4 transformation;
-		aiMatrix4x4 offset;
+		glm::mat4 transformation;
+		glm::mat4 offset;
 	} Bone;
 
 	static std::vector<std::string> paths;
@@ -48,15 +48,11 @@ class Model {
 	std::string bone_array_name;
 
 	double ticks_per_second;
-	std::vector<Bone> bones;
-	aiMatrix4x4 glob_inv_transf;
-	std::map<std::string, unsigned int> bone_map;
-
-	std::map<std::string, unsigned int> mesh_map;
+	glm::mat4 glob_inv_transf;
 
 	void set_vertex_attribute(Mesh *mesh);
 	void traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
-	void traverse_animation_nodes(float time, aiNode *node, aiMatrix4x4 parent_transformation);
+	void traverse_animation_nodes(float time, aiNode *node, glm::mat4 parent_transformation);
 
 	Mesh *create_mesh(unsigned int index);
 	void compute_bounding_box();
@@ -79,6 +75,18 @@ class Model {
 		 * @brief The meshes that make up the model
 		 */
 		std::vector<Mesh *> meshes;
+		/**
+		 * @brief The bones of the model's skeleton
+		 */
+		std::vector<Bone> bones;
+		/**
+		 * @brief Maps bone names to bone indices
+		 */
+		std::map<std::string, unsigned int> bone_map;
+		/**
+		 * @brief Maps mesh names to mesh indices
+		 */
+		std::map<std::string, unsigned int> mesh_map;
 
 		EXPORT Model();
 		EXPORT ~Model();

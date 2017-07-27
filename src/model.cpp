@@ -72,8 +72,7 @@ bool Model::load(const std::string& filename) {
 		return false;
 	}
 
-	glob_inv_transf = scene->mRootNode->mTransformation;
-	glob_inv_transf.Inverse();
+	glob_inv_transf = glm::inverse(ai_to_glm_mat4(scene->mRootNode->mTransformation));
 
 	traverse_scene_nodes(scene->mRootNode, NULL);
 	compute_bounding_box();
@@ -311,7 +310,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 			index = bones.size();
 			bone_map[bone_name] = index;
 			Bone bone;
-			bone.offset = mesh->mBones[i]->mOffsetMatrix;
+			bone.offset = ai_to_glm_mat4(mesh->mBones[i]->mOffsetMatrix);
 			bones.push_back(bone);
 		} else {
 			index = bone_map[bone_name];
@@ -538,10 +537,10 @@ Mesh *Model::create_mesh(unsigned int index) {
 
 void Model::traverse_animation_nodes(float time,
 			      aiNode *node,
-			      aiMatrix4x4 parent_transformation) {
+			      glm::mat4 parent_transformation) {
 
 	std::string node_name(node->mName.data);
-	aiMatrix4x4 node_transformation = node->mTransformation;
+	glm::mat4 node_transformation = ai_to_glm_mat4(node->mTransformation);
 	aiNodeAnim *node_animation = NULL;
 
 	for(unsigned int i = 0; i < scene->mAnimations[0]->mNumChannels; i++) {
@@ -564,10 +563,10 @@ void Model::traverse_animation_nodes(float time,
 		aiQuaternion rot = interpolate_rotation(time, node_animation);
 		aiMatrix4x4 rotation = aiMatrix4x4(rot.GetMatrix());
 
-		node_transformation = translation * rotation * scaling;
+		node_transformation = ai_to_glm_mat4(translation * rotation * scaling);
 	}
 
-	aiMatrix4x4 glob_transf = parent_transformation * node_transformation;
+	glm::mat4 glob_transf = parent_transformation * node_transformation;
 	if(bone_map.find(node_name) != bone_map.end()) {
 		unsigned int index = bone_map[node_name];
 		bones[index].transformation = glob_inv_transf * glob_transf *
@@ -719,7 +718,7 @@ bool Model::animate(float time) {
 	if(!scene->HasAnimations())
 		return false;
 
-	aiMatrix4x4 mat = aiMatrix4x4();
+	glm::mat4 mat = glm::mat4(1);
 	std::vector<glm::mat4> trafos;
 	trafos.resize(bones.size());
 
@@ -727,7 +726,7 @@ bool Model::animate(float time) {
 					scene->mAnimations[0]->mDuration);
 	traverse_animation_nodes((float)animation_time, scene->mRootNode, mat);
 	for(unsigned int i = 0; i < bones.size(); i++) {
-		trafos[i] = ai_to_glm_mat4(bones[i].transformation);
+		trafos[i] = bones[i].transformation;
 	}
 	int loc = shader->get_uniform_location(bone_array_name);
 	if(loc >= 0) {
