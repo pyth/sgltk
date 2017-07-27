@@ -31,7 +31,6 @@
 #include "config.h"
 
 #include <GL/glew.h>
-#include <GL/glu.h>
 
 #include <string>
 #include <chrono>
