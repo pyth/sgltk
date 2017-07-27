@@ -16,11 +16,11 @@
 			#define EXPORT __declspec(dllexport)
 		#elif MAKE_STATIC
 			#define EXPORT
-		#endif
-	#else
-		#ifdef DYNAMIC
+		#endif //MAKE_DLL
+	#else //linking with sgltk
+		#ifndef SGLTK_STATIC //dynamic
 			#define EXPORT __declspec(dllimport)
-		#elif STATIC
+		#else //static
 			#define EXPORT
 		#endif
 	#endif
