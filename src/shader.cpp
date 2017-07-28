@@ -129,18 +129,15 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 
 void Shader::set_transform_feedback_variables(std::vector<std::string>& variables, GLenum buffer_mode) {
 	transform_feedback = true;
-	char **vars = new char*[variables.size()];
+	const char **vars = new const char*[variables.size()];
 	for(unsigned int i = 0; i < variables.size(); i++) {
-		vars[i] = new char[variables[i].length() + 1];
-		std::strcpy(vars[i], variables[i].c_str());
+		vars[i] = variables[i].c_str();
 	}
 	glTransformFeedbackVaryings(program, variables.size(), vars, buffer_mode);
 	if(linked) {
 		link();
 	}
-	for(unsigned int i = 0; i < variables.size(); i++) {
-		delete vars[i];
-	}
+	delete vars;
 }
 
 void Shader::recompile() {
