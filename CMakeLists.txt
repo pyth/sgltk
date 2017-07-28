@@ -20,6 +20,7 @@ endif()
 
 set(LIBRARY_PATH "" CACHE PATH "3rd party libraries")
 set(INCLUDE_PATH "" CACHE PATH "3rd party library headers")
+set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${LIBRARY_PATH};${INCLUDE_PATH}")
 
 include_directories(${INCLUDE_PATH})
 link_directories(${LIBRARY_PATH})
