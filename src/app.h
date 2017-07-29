@@ -11,10 +11,10 @@
 } while(0)
 
 #ifdef _WIN32
-	#ifdef MAKE_LIB
-		#ifdef MAKE_DLL
+	#ifdef MAKE_LIB //building sgltk
+		#ifdef MAKE_DLL //dynamic
 			#define EXPORT __declspec(dllexport)
-		#elif MAKE_STATIC
+		#elif MAKE_STATIC //static
 			#define EXPORT
 		#endif //MAKE_DLL
 	#else //linking with sgltk
@@ -23,10 +23,10 @@
 		#else //static
 			#define EXPORT
 		#endif
-	#endif
-#else
+	#endif //MAKE_LIB
+#else //linux
 	#define EXPORT
-#endif
+#endif //_WIN32
 
 #include "config.h"
 
@@ -40,6 +40,12 @@
 #include <vector>
 #include <algorithm>
 #include <exception>
+
+#ifdef _WIN32 //windows
+	#include <direct.h>
+#else //linux
+	#include <unistd.h>
+#endif //_WIN32
 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
@@ -117,29 +123,33 @@ class App {
 	EXPORT App();
 	EXPORT ~App();
 
-	public:
-
+public:
 	/**
 	 * @brief True if set_gl_version was called, false otherwise
 	 */
 	EXPORT static bool gl_version_manual;
-
 	/**
 	 * @brief System information
 	 */
 	EXPORT static struct SYS_INFO sys_info;
-
 	/**
 	 * @brief A list of all error strings.
 	 */
 	EXPORT static std::vector<std::string> error_string;
-
+	/**
+	 * @brief Initializes SGLTK
+	 * @return Returns true on success, false otherwise
+	 */
+	EXPORT static bool init();
+	/**
+	 * @brief Deinitializes SGLTK
+	 */
+	EXPORT static void quit();
 	/**
 	 * @brief Initializes GLEW
 	 * @return Returns true on success, false otherwise
 	 */
 	EXPORT static bool init_glew();
-
 	/**
 	 * @brief Initializes SDL2_img
 	 * @return Returns true on success, false otherwise
@@ -149,7 +159,6 @@ class App {
 	 * @brief Deinitializes SDL2_img
 	 */
 	EXPORT static void quit_img();
-
 	/**
 	 * @brief Initializes SDL2
 	 * @return Returns true on success, false otherwise
@@ -171,17 +180,6 @@ class App {
 	 */
 	EXPORT static void quit_ttf();
 #endif //HAVE_SDL_TTF_H
-
-	/**
-	 * @brief Initializes SGLTK
-	 * @return Returns true on success, false otherwise
-	 */
-	EXPORT static bool init();
-	/**
-	 * @brief Deinitializes SGLTK
-	 */
-	EXPORT static void quit();
-
 	/**
 	 * @brief Sets the OpenGL version
 	 * @param major The major version number
@@ -202,24 +200,25 @@ class App {
 	 * @param number_samples The number of samples to be used
 	 */
 	EXPORT static void set_msaa_sample_number(int number_samples);
-
 	/**
 	* @brief Enables the screensaver
+	* @param enable True to enable or false to disable the screensaver
 	*/
-	EXPORT static void enable_screensaver();
-
-	/**
-	* @brief Disables the screensaver
-	*/
-	EXPORT static void disable_screensaver();
-
+	EXPORT static void enable_screensaver(bool enable);
 	/**
 	* @brief Turns VSync on or off
 	* @param on	True turns VSync on, false turns it off
 	* @return	Returns false if VSync is not supported, true otherwise
 	*/
 	EXPORT static bool enable_vsync(bool on);
-
+	/**
+	 * @brief Changes the current working directory to the directory
+	 * 	containing the executable
+	 * @param argv The array of command line arguments passed to the main
+	 * 	function
+	 * @return Returns true on success, false otherwise
+	 */
+	EXPORT static bool chdir_to_bin(char **argv);
 	/**
 	 * @brief Gathers system information and populates the sys_info attribute
 	 */

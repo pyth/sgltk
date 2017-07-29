@@ -155,12 +155,11 @@ sgltk::App::~App() {
 	error_string.clear();
 }
 
-void App::enable_screensaver() {
-	SDL_EnableScreenSaver();
-}
-
-void App::disable_screensaver() {
-	SDL_DisableScreenSaver();
+void App::enable_screensaver(bool enable) {
+	if(enable)
+		SDL_EnableScreenSaver();
+	else
+		SDL_DisableScreenSaver();
 }
 
 bool App::enable_vsync(bool on) {
@@ -175,6 +174,25 @@ bool App::enable_vsync(bool on) {
 		ret = SDL_GL_SetSwapInterval(0);
 	}
 	return (ret == 1);
+}
+
+bool App::chdir_to_bin(char **argv) {
+	std::string path(argv[0]);
+	path = path.substr(0, path.find_last_of("\\/"));
+	int ret;
+#ifdef __linux__
+	ret = chdir(path.c_str());
+#else
+	ret = _chdir(path.c_str());
+#endif
+	if(ret) {
+		std::string error("An error occured while trying to change "
+			"current working directory to the directory containing "
+			"the executable file.");
+		error_string.push_back(error);
+		return false;
+	}
+	return true;
 }
 
 void App::_check_error(std::string message, std::string file, unsigned int line) {
