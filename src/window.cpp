@@ -438,13 +438,13 @@ void Window::run(unsigned int fps) {
 			break;
 		}
 		display();
-		delta_time = frame_timer.get_time();
+		delta_time = frame_timer.get_time_s();
 		if(fps > 0) {
 			if(delta_time < frame_time) {
 				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(frame_time - delta_time));
 			}
 		}
-		delta_time = frame_timer.get_time();
+		delta_time = frame_timer.get_time_s();
 		SDL_GL_SwapWindow(window);
 	}
 }
