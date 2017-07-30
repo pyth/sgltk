@@ -311,7 +311,7 @@ public:
 		}
 
 		bind();
-		glBufferSubData(target, offset, size, data.data());
+		glBufferSubData(target, offset, data_size, data.data());
 		unbind();
 		return true;
 	}
@@ -327,14 +327,14 @@ public:
 				  const T *data,
 				  unsigned int number_elements) {
 
-		unsigned int data_size = data.size() * sizeof(T);
+		unsigned int data_size = number_elements * sizeof(T);
 
 		if(offset + data_size > size) {
 			return false;
 		}
 
 		bind();
-		glBufferSubData(target, offset, size, data.data());
+		glBufferSubData(target, offset, data_size, data);
 		unbind();
 		return true;
 	}
