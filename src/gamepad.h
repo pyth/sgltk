@@ -70,7 +70,8 @@ class Gamepad {
 	/**
 	 * @brief Call this function to get the current value of an axis
 	 * @param axis The axis the value of which to get
-	 * @return The current value of the axis
+	 * @return The current value of the axis in the range from 0 to 32767
+	 *	for a trigger and -32768 to 32767 for an analog stick
 	 */
 	EXPORT int get_axis_value(unsigned int axis);
 	/**
