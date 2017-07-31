@@ -424,24 +424,27 @@ void Window::display() {
 
 void Window::run(unsigned int fps) {
 	double frame_time;
+	double time_to_wait;
 	Timer frame_timer;
 	if(fps < 1)
-		frame_time = 1e-30;
+		frame_time = 0;
 	else
 		frame_time = 1000.0 / fps;
 	running = true;
 
+	display();
+
 	while(running) {
-		frame_timer.start();
 		poll_events();
 		if(!window) {
 			break;
 		}
+		frame_timer.start();
 		display();
-		delta_time = frame_timer.get_time_s();
 		if(fps > 0) {
+			time_to_wait = frame_time - frame_timer.get_time_ms();
 			if(delta_time < frame_time) {
-				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(frame_time - delta_time));
+				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(time_to_wait));
 			}
 		}
 		delta_time = frame_timer.get_time_s();
