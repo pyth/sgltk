@@ -164,14 +164,14 @@ void Window::poll_events() {
 			break;
 		case SDL_WINDOWEVENT:
 			switch(event.window.event) {
-			case SDL_WINDOWEVENT_CLOSE:
-				handle_exit();
-				break;
-			case SDL_WINDOWEVENT_RESIZED:
-				width = event.window.data1;
-				height = event.window.data2;
-				handle_resize();
-				break;
+				case SDL_WINDOWEVENT_CLOSE:
+					handle_exit();
+					break;
+				case SDL_WINDOWEVENT_RESIZED:
+					width = event.window.data1;
+					height = event.window.data2;
+					handle_resize();
+					break;
 			}
 			break;
 		case SDL_KEYDOWN:
