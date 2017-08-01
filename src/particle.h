@@ -62,17 +62,29 @@ public:
 	 * @brief Adds a new particle to the system if the particle buffer has an empty space
 	 * @param position The position of the new particle
 	 * @param velocity The velocity vector of the new particle
-	 * @param lifetime The lifetime of the particle in seconds 
-	 * @return Returns true if the particle was successfully added to the buffer, 
+	 * @param lifetime The lifetime of the particle in seconds
+	 * @return Returns true if the particle was successfully added to the buffer,
 	 * 	false otherwise
 	 */
 	EXPORT bool add_particle(glm::vec3 position,
 				 glm::vec3 velocity,
 				 float lifetime);
 	/**
+	 * @brief Adds a new particle to the system if the particle buffer has an empty space
+	 *	and immediately updates the buffer
+	 * @param position The position of the new particle
+	 * @param velocity The velocity vector of the new particle
+	 * @param lifetime The lifetime of the particle in seconds
+	 * @return Returns true if the particle was successfully added to the buffer,
+	 * 	false otherwise
+	 */
+	EXPORT bool add_particle_immediately(glm::vec3 position,
+					     glm::vec3 velocity,
+					     float lifetime);
+	/**
 	 * @brief Updates the particle buffers
 	 */
-	EXPORT void update();
+	EXPORT void update_all();
 	/**
 	 * @brief Draws the particles
 	 */

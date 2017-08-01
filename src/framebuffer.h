@@ -16,7 +16,7 @@ class Framebuffer {
 	GLenum target;
 	unsigned int width;
 	unsigned int height;
-	std::vector<GLenum> draw_buffers;
+	std::vector<unsigned int> draw_buffers;
 
 	static int max_color_attachments;
 public:
@@ -36,7 +36,7 @@ public:
 	EXPORT void bind();
 	/**
 	 * @brief Binds the framebuffer to a framebuffer target
-	 * @parma target The target of the binding operation
+	 * @param target The target of the binding operation
 	 */
 	EXPORT void bind(GLenum target);
 	/**
@@ -47,21 +47,71 @@ public:
 	 * @brief Attaches a texture to the framebuffer
 	 * @param attachment The attachment point to which the texture is attached
 	 * @param texture The texture to attach
+	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT void attach_texture(GLenum attachment,
+	EXPORT bool attach_texture(GLenum attachment,
 				   Texture& texture);
 	/**
 	 * @brief Attaches a renderbuffer to the framebuffer
 	 * @param attachment The attachment point to which
 	 * 	  the renderbuffer is attached
 	 * @param buffer The renderbuffer to attach
+	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT void attach_renderbuffer(GLenum attachment,
+	EXPORT bool attach_renderbuffer(GLenum attachment,
 					Renderbuffer& buffer);
 	/**
 	 * @brief Sets the draw buffers to be drawn into
 	 */
 	EXPORT void finalize();
+	/**
+	 * @brief Copies a block of pixels from this framebuffer to another
+	 * @param target The framebuffer to copy to. A null pointer indicates
+	 * 	the default framebuffer
+	 * @param src_x0,src_y0,src_x1,src_y1 The bounds of the source rectangle
+	 * 	within the default framebuffer
+	 * @param dst_x0,dst_y0,dst_x1,dst_y1 The bounds of the destination
+	 * 	rectangle
+	 * @param mask The bitwise OR of the flags indicating which buffers are
+	 * 	to be copied. The allowed flags are GL_COLOR_BUFFER_BIT,
+	 * 	GL_DEPTH_BUFFER_BIT and GL_STENCIL_BUFFER_BIT.
+	 * @param filter The interpolation to be applied if the image is
+	 * 	stretched. Must be GL_NEAREST or GL_LINEAR.
+	 */
+	EXPORT void blit_to(sgltk::Framebuffer *target,
+			    unsigned int src_x0,
+			    unsigned int src_y0,
+			    unsigned int src_x1,
+			    unsigned int src_y1,
+			    unsigned int dst_x0,
+			    unsigned int dst_y0,
+			    unsigned int dst_x1,
+			    unsigned int dst_y1,
+			    GLbitfield mask,
+			    GLenum filter);
+	/**
+	 * @brief Copies a block of pixels from the default framebuffer to this
+	 * 	object to another
+	 * @param src_x0,src_y0,src_x1,src_y1 The bounds of the source rectangle
+	 * 	within the default framebuffer
+	 * @param dst_x0,dst_y0,dst_x1,dst_y1 The bounds of the destination
+	 * 	rectangle
+	 * @param mask The bitwise OR of the flags indicating which buffers are
+	 * 	to be copied. The allowed flags are GL_COLOR_BUFFER_BIT,
+	 * 	GL_DEPTH_BUFFER_BIT and GL_STENCIL_BUFFER_BIT.
+	 * @param filter The interpolation to be applied if the image is
+	 * 	stretched. Must be GL_NEAREST or GL_LINEAR.
+	 */
+	EXPORT void blit_from_default(unsigned int src_x0,
+				      unsigned int src_y0,
+				      unsigned int src_x1,
+				      unsigned int src_y1,
+				      unsigned int dst_x0,
+				      unsigned int dst_y0,
+				      unsigned int dst_x1,
+				      unsigned int dst_y1,
+				      GLbitfield mask,
+				      GLenum filter);
 };
 
 }

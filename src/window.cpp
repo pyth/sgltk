@@ -2,43 +2,17 @@
 
 using namespace sgltk;
 
-Window::Window(const std::string& title, int res_x, int res_y,
-		int offset_x, int offset_y,
-		int gl_maj, int gl_min,
-		unsigned int flags) {
+std::map<unsigned int, Gamepad *> Window::gamepad_instance_id_map;
+std::map<unsigned int, Joystick *> Window::joystick_instance_id_map;
+
+Window::Window(const std::string& title, int res_x, int res_y, int offset_x, int offset_y, unsigned int flags) {
 
 	running = true;
 	mouse_relative = false;
 	keys = SDL_GetKeyboardState(NULL);
 	delta_time = 0;
 
-	int glmaj = gl_maj;
-	int glmin = gl_min;
-	if(gl_min < 0) {
-		App::error_string.push_back("Minor version number cannot be"
-			" negative. Defaulting to version x.0");
-		glmin = 0;
-	}
-	if(gl_maj < 3) {
-		App::error_string.push_back("sgltk requires opengl version 3.0"
-			" or newer. Defaulting to version 3.0");
-		glmaj = 3;
-		glmin = 0;
-	} else if(gl_maj == 3 && gl_min > 3) {
-		App::error_string.push_back("Did you mean 3.3?"
-			" Defaulting to version 3.3");
-		glmin = 3;
-	} else if(gl_maj == 4 && gl_min > 5) {
-		App::error_string.push_back("Did you mean 4.5?"
-			" Defaulting to version 4.5");
-		glmin = 5;
-	}
-
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, glmaj);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, glmin);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
 	width = res_x;
 	height = res_y;
@@ -52,7 +26,26 @@ Window::Window(const std::string& title, int res_x, int res_y,
 		App::error_string.push_back(error);
 		throw std::runtime_error(error);
 	}
-	context = SDL_GL_CreateContext(window);
+	if(App::gl_version_manual) {
+		SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &gl_maj);
+		SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &gl_min);
+		context = SDL_GL_CreateContext(window);
+	} else {
+		for(gl_maj = 4; gl_maj > 2; gl_maj--) {
+			for(gl_min = 5; gl_min >= 0; gl_min--) {
+				if(gl_maj == 3 && gl_min > 3) {
+					continue;
+				}
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, gl_maj);
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, gl_min);
+				context = SDL_GL_CreateContext(window);
+				if(context) {
+					goto endloop;
+				}
+			}
+		}
+	}
+endloop:
 	if(!context) {
 		SDL_DestroyWindow(window);
 		std::string error = std::string("Error creating OpenGL context: ") +
@@ -74,12 +67,29 @@ Window::~Window() {
 	keys_pressed.clear();
 }
 
+void Window::set_icon(const std::string& filename) {
+	Image img(filename.c_str());
+	SDL_SetWindowIcon(window, img.image);
+}
+
 void Window::set_icon(const Image& icon) {
 	SDL_SetWindowIcon(window, icon.image);
 }
 
-void sgltk::Window::set_title(const std::string& title) {
+void Window::set_title(const std::string& title) {
 	SDL_SetWindowTitle(window, title.c_str());
+}
+
+void Window::set_resizable(bool on) {
+	SDL_SetWindowResizable(window, (SDL_bool)on);
+}
+
+void Window::take_screenshot(Image& image) {
+	char *buf = new char[4 * width * height];
+	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buf);
+	image.load(width, height, 4, buf);
+	image.vertical_flip();
+	delete buf;
 }
 
 void Window::grab_mouse(bool on) {
@@ -118,10 +128,33 @@ void Window::set_relative_mode(bool on) {
 	SDL_SetRelativeMouseMode((SDL_bool)on);
 }
 
+void Window::set_mouse_position(int x, int y) {
+	SDL_WarpMouseInWindow(window, x, y);
+}
+
+void Window::set_cursor_visibility(bool show) {
+	int toggle = SDL_DISABLE;
+	if(show)
+		toggle = SDL_ENABLE;
+
+	SDL_ShowCursor(toggle);
+}
+
+bool Window::get_cursor_visibility() {
+	int ret = SDL_ShowCursor(SDL_QUERY);
+	if(ret == SDL_ENABLE)
+		return true;
+
+	return false;
+}
+
 void Window::poll_events() {
 	int value;
 	SDL_Event event;
 	Gamepad *gamepad;
+	Joystick *joystick;
+	std::map<unsigned int, Gamepad *>::iterator gamepad_it;
+	std::map<unsigned int, Joystick *>::iterator joystick_it;
 	std::vector<int>::iterator button;
 
 	while(SDL_PollEvent(&event)) {
@@ -131,14 +164,14 @@ void Window::poll_events() {
 			break;
 		case SDL_WINDOWEVENT:
 			switch(event.window.event) {
-			case SDL_WINDOWEVENT_CLOSE:
-				handle_exit();
-				break;
-			case SDL_WINDOWEVENT_RESIZED:
-				width = event.window.data1;
-				height = event.window.data2;
-				handle_resize();
-				break;
+				case SDL_WINDOWEVENT_CLOSE:
+					handle_exit();
+					break;
+				case SDL_WINDOWEVENT_RESIZED:
+					width = event.window.data1;
+					height = event.window.data2;
+					handle_resize();
+					break;
 			}
 			break;
 		case SDL_KEYDOWN:
@@ -177,53 +210,139 @@ void Window::poll_events() {
 						    event.motion.y);
 			break;
 		case SDL_CONTROLLERDEVICEADDED:
-			gamepad = new sgltk::Gamepad(event.cdevice.which);
+			gamepad = new Gamepad(event.cdevice.which);
+			gamepad_instance_id_map[gamepad->instance_id] = gamepad;
 			handle_gamepad_added(gamepad->id);
 			break;
 		case SDL_CONTROLLERDEVICEREMOVED:
-			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
-			handle_gamepad_removed(gamepad->id);
-			delete sgltk::Gamepad::id_map[gamepad->id];
+			gamepad_it = gamepad_instance_id_map.find(event.cdevice.which);
+			if(gamepad_it != gamepad_instance_id_map.end()) {
+				gamepad = gamepad_it->second;
+				gamepad_instance_id_map.erase(gamepad->instance_id);
+				handle_gamepad_removed(gamepad->id);
+				delete Gamepad::id_map[gamepad->id];
+			}
 			break;
 		case SDL_CONTROLLERBUTTONDOWN:
-			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
-			gamepad->buttons_pressed.push_back(event.cbutton.button);
-			handle_gamepad_button_press(gamepad->id,
-				event.cbutton.button,
-				(event.cbutton.state == SDL_PRESSED));
+			gamepad_it = gamepad_instance_id_map.find(event.cdevice.which);
+			if(gamepad_it != gamepad_instance_id_map.end()) {
+				gamepad = gamepad_it->second;
+				gamepad->set_button_state(event.cbutton.button, true);
+				handle_gamepad_button_press(gamepad->id,
+					event.cbutton.button, true);
+			}
 			break;
 		case SDL_CONTROLLERBUTTONUP:
-			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
-			button = std::find(gamepad->buttons_pressed.begin(),
-					gamepad->buttons_pressed.end(),
-					event.cbutton.button);
-			gamepad->buttons_pressed.erase(button);
-			handle_gamepad_button_press(gamepad->id,
-				event.cbutton.button,
-				(event.cbutton.state == SDL_PRESSED));
+			gamepad_it = gamepad_instance_id_map.find(event.cdevice.which);
+			if(gamepad_it != gamepad_instance_id_map.end()) {
+				gamepad = gamepad_it->second;
+				gamepad->set_button_state(event.cbutton.button, false);
+				handle_gamepad_button_press(gamepad->id,
+					event.cbutton.button, false);
+			}
 			break;
 		case SDL_CONTROLLERAXISMOTION:
-			gamepad = sgltk::Gamepad::instance_id_map[event.cdevice.which];
-			handle_gamepad_axis_change(gamepad->id,
-				event.caxis.axis,
-				event.caxis.value);
+			gamepad_it = gamepad_instance_id_map.find(event.cdevice.which);
+			if(gamepad_it != gamepad_instance_id_map.end()) {
+				gamepad = gamepad_it->second;
+				handle_gamepad_axis_change(gamepad->id,
+					event.caxis.axis,
+					gamepad->get_axis_value(event.caxis.axis));
+			}
+			break;
+		case SDL_JOYDEVICEADDED:
+			if(!SDL_IsGameController(event.jdevice.which)) {
+				joystick = new Joystick(event.jdevice.which);
+				joystick_instance_id_map[joystick->instance_id] = joystick;
+				handle_joystick_added(joystick->id);
+			}
+			break;
+		case SDL_JOYDEVICEREMOVED:
+			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
+			if(joystick_it != joystick_instance_id_map.end()) {
+				joystick = joystick_it->second;
+				joystick_instance_id_map.erase(joystick->instance_id);
+				handle_joystick_removed(joystick->id);
+				delete Joystick::id_map[joystick->id];
+			}
+			break;
+		case SDL_JOYBUTTONDOWN:
+			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
+			if(joystick_it != joystick_instance_id_map.end()) {
+				joystick = joystick_it->second;
+				joystick->set_button_state(event.jbutton.button, true);
+				handle_joystick_button_press(joystick->id,
+					event.jbutton.button, true);
+			}
+			break;
+		case SDL_JOYBUTTONUP:
+			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
+			if(joystick_it != joystick_instance_id_map.end()) {
+				joystick = joystick_it->second;
+				joystick->set_button_state(event.jbutton.button, false);
+				handle_joystick_button_press(joystick->id,
+					event.jbutton.button, false);
+			}
+			break;
+		case SDL_JOYAXISMOTION:
+			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
+			if(joystick_it != joystick_instance_id_map.end()) {
+				joystick = joystick_it->second;
+				handle_joystick_axis_change(joystick->id,
+					event.jaxis.axis,
+					joystick->get_axis_value(event.jaxis.axis));
+			}
+			break;
+		case SDL_JOYHATMOTION:
+			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
+			if(joystick_it != joystick_instance_id_map.end()) {
+				joystick = joystick_it->second;
+				handle_joystick_hat_change(joystick->id,
+					event.jhat.hat,
+					event.jhat.value);
+			}
+			break;
+		case SDL_JOYBALLMOTION:
+			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
+			if(joystick_it != joystick_instance_id_map.end()) {
+				joystick = joystick_it->second;
+				handle_joystick_ball_motion(joystick->id,
+					event.jball.ball,
+					event.jball.xrel,
+					event.jball.yrel);
+			}
 			break;
 		}
 	}
 
-	for(auto key : keys_pressed) {
+	for(std::string key : keys_pressed) {
 		handle_keyboard(key);
 	}
 
-	for(auto device : sgltk::Gamepad::instance_id_map) {
+	for(std::pair<unsigned int, Gamepad *> device : gamepad_instance_id_map) {
 		if(!device.second)
 			continue;
 		for(unsigned int axis = 0; axis < device.second->num_axes; axis++) {
-			value = SDL_GameControllerGetAxis(device.second->gamepad, (SDL_GameControllerAxis)axis);
+			value = device.second->get_axis_value(axis);
 			handle_gamepad_axis(device.second->id, axis, value);
 		}
 		for(unsigned int button = 0; button < device.second->buttons_pressed.size(); button++) {
 			handle_gamepad_button(device.second->id, device.second->buttons_pressed[button]);
+		}
+	}
+
+	for(std::pair<unsigned int, Joystick *> device : joystick_instance_id_map) {
+		if(!device.second)
+			continue;
+		for(unsigned int axis = 0; axis < device.second->num_axes; axis++) {
+			value = device.second->get_axis_value(axis);
+			handle_joystick_axis(device.second->id, axis, value);
+		}
+		for(unsigned int button = 0; button < device.second->buttons_pressed.size(); button++) {
+			handle_joystick_button(device.second->id, device.second->buttons_pressed[button]);
+		}
+		for(unsigned int hat = 0; hat < device.second->num_hats; hat++) {
+			handle_joystick_hat(device.second->id, hat, device.second->get_hat_value(hat));
 		}
 	}
 }
@@ -244,6 +363,33 @@ void Window::handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int
 }
 
 void Window::handle_gamepad_axis_change(unsigned int gamepad_id, unsigned int axis, int value) {
+}
+
+void Window::handle_joystick_added(unsigned int joystick_id) {
+}
+
+void Window::handle_joystick_removed(unsigned int joystick_id) {
+}
+
+void Window::handle_joystick_button(unsigned int joystick_id, int button) {
+}
+
+void Window::handle_joystick_button_press(unsigned int joystick_id, int button, bool pressed) {
+}
+
+void Window::handle_joystick_axis(unsigned int joystick_id, unsigned int axis, int value) {
+}
+
+void Window::handle_joystick_axis_change(unsigned int joystick_id, unsigned int axis, int value) {
+}
+
+void Window::handle_joystick_hat(unsigned int joystick_id, unsigned int hat, unsigned int value) {
+}
+
+void Window::handle_joystick_hat_change(unsigned int joystick_id, unsigned int hat, unsigned int value) {
+}
+
+void Window::handle_joystick_ball_motion(unsigned int joystick_id, unsigned int ball, int xrel, int yrel) {
 }
 
 void Window::handle_keyboard(const std::string& key) {
@@ -276,33 +422,32 @@ void Window::display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Window::run() {
-	run(0);
-}
-
-void Window::run(int fps) {
+void Window::run(unsigned int fps) {
 	double frame_time;
+	double time_to_wait;
 	Timer frame_timer;
 	if(fps < 1)
-		frame_time = 1e-30;
+		frame_time = 0;
 	else
 		frame_time = 1000.0 / fps;
 	running = true;
 
+	display();
+
 	while(running) {
-		frame_timer.start();
 		poll_events();
 		if(!window) {
 			break;
 		}
+		frame_timer.start();
 		display();
-		delta_time = frame_timer.get_time();
 		if(fps > 0) {
+			time_to_wait = frame_time - frame_timer.get_time_ms();
 			if(delta_time < frame_time) {
-				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(frame_time - delta_time));
+				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(time_to_wait));
 			}
 		}
-		delta_time = frame_timer.get_time();
+		delta_time = frame_timer.get_time_s();
 		SDL_GL_SwapWindow(window);
 	}
 }

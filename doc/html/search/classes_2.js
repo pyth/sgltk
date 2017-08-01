@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['framebuffer',['Framebuffer',['../classsgltk_1_1_framebuffer.html',1,'sgltk']]]
+  ['camera',['Camera',['../classsgltk_1_1_camera.html',1,'sgltk']]],
+  ['cubemap',['Cubemap',['../classsgltk_1_1_cubemap.html',1,'sgltk']]]
 ];

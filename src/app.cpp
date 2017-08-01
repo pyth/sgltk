@@ -3,7 +3,8 @@
 using namespace sgltk;
 
 bool App::initialized = false;
-struct App::SYS_INFO App::sys_info;
+bool App::gl_version_manual = false;
+struct SYS_INFO App::sys_info;
 std::vector<std::string> App::error_string = {};
 
 bool App::init_glew() {
@@ -71,6 +72,10 @@ bool App::init() {
 #endif //HAVE_SDL_TTF_H
 				App::initialized = true;
 				App::get_sys_info();
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+				SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+				SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 				return true;
 #ifdef HAVE_SDL_TTF_H
 			}
@@ -81,8 +86,64 @@ bool App::init() {
 	return false;
 }
 
+void App::set_gl_version(int major, int minor) {
+	int maj;
+	int min;
+	if(major < 3) {
+		maj = 3;
+		min = 0;
+		App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+	} else if(major > 4) {
+		maj = 3;
+		min = 0;
+		App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+	} else if(major == 3) {
+		if(minor < 0) {
+			maj = 3;
+			min = 0;
+			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+		} else if(minor > 3) {
+			maj = 3;
+			min = 0;
+			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+		} else {
+			maj = major;
+			min = minor;
+		}
+	} else if(major == 4) {
+		if(minor < 0) {
+			maj = 3;
+			min = 0;
+			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+		} else if(minor > 5) {
+			maj = 3;
+			min = 0;
+			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
+		} else {
+			maj = major;
+			min = minor;
+		}
+	}
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, maj);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, min);
+
+	gl_version_manual = true;
+}
+
+void App::set_depth_stencil_size(int depth_size, int stencil_size) {
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, depth_size);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, stencil_size);
+}
+
+void App::set_msaa_sample_number(int number_samples) {
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, number_samples);
+}
+
 void App::quit() {
 	App::initialized = false;
+	gl_version_manual = false;
 	App::quit_img();
 #ifdef HAVE_SDL_TTF_H
 	App::quit_ttf();
@@ -94,12 +155,11 @@ sgltk::App::~App() {
 	error_string.clear();
 }
 
-void App::enable_screensaver() {
-	SDL_EnableScreenSaver();
-}
-
-void App::disable_screensaver() {
-	SDL_DisableScreenSaver();
+void App::enable_screensaver(bool enable) {
+	if(enable)
+		SDL_EnableScreenSaver();
+	else
+		SDL_DisableScreenSaver();
 }
 
 bool App::enable_vsync(bool on) {
@@ -114,6 +174,25 @@ bool App::enable_vsync(bool on) {
 		ret = SDL_GL_SetSwapInterval(0);
 	}
 	return (ret == 1);
+}
+
+bool App::chdir_to_bin(char **argv) {
+	std::string path(argv[0]);
+	path = path.substr(0, path.find_last_of("\\/"));
+	int ret;
+#ifdef __linux__
+	ret = chdir(path.c_str());
+#else
+	ret = _chdir(path.c_str());
+#endif
+	if(ret) {
+		std::string error("An error occured while trying to change "
+			"current working directory to the directory containing "
+			"the executable file.");
+		error_string.push_back(error);
+		return false;
+	}
+	return true;
 }
 
 void App::_check_error(std::string message, std::string file, unsigned int line) {

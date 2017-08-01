@@ -20,10 +20,15 @@ public:
 	 */
 	EXPORT void start();
 	/**
-	 * @brief Starts the timer
-	 * @return Time in milliseconds that has passed since start() was called
+	* @brief Returns the time in seconds since the timer was started
+	* @return Time in seconds that has passed since start was called
+	*/
+	EXPORT double get_time_s();
+	/**
+	 * @brief Returns the time in milliseconds since the timer was started
+	 * @return Time in milliseconds that has passed since start was called
 	 */
-	EXPORT double get_time();
+	EXPORT double get_time_ms();
 };
 }
 

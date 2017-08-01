@@ -3,6 +3,7 @@
 using namespace sgltk;
 
 Mesh::Mesh() {
+	tf_mode = GL_NONE;
 	model_matrix = glm::mat4(1.0);
 	shader = nullptr;
 	num_uv = 0;
@@ -48,8 +49,12 @@ Mesh::Mesh() {
 }
 
 Mesh::~Mesh() {
-	glDeleteBuffers(vbo.size(), vbo.data());
-	glDeleteBuffers(ibo.size(), ibo.data());
+	for(Buffer *buffer : vbo) {
+		delete buffer;
+	}
+	for(Buffer *buffer : ibo) {
+		delete buffer;
+	}
 	glDeleteVertexArrays(1, &vao);
 }
 
@@ -230,6 +235,19 @@ void Mesh::set_lightmap_texture_name(const std::string& name) {
 		lightmap_texture_name = "texture_lightmap";
 }
 
+void Mesh::set_transform_feedback_mode(GLenum mode) {
+	tf_mode = mode;
+}
+
+void Mesh::attach_buffer(sgltk::Buffer *buffer,
+			 GLuint target,
+			 unsigned int index) {
+
+	attached_buffers.push_back(buffer);
+	attached_buffers_targets.push_back(target);
+	attached_buffers_indices.push_back(index);
+}
+
 int Mesh::set_vertex_attribute(const std::string& attrib_name,
 				unsigned int buffer_index,
 				GLint number_elements,
@@ -264,7 +282,7 @@ int Mesh::set_vertex_attribute(int attrib_location,
 	}
 
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
+	vbo[buffer_index]->bind();
 
 	glEnableVertexAttribArray(attrib_location);
 	switch(type) {
@@ -283,7 +301,70 @@ int Mesh::set_vertex_attribute(int attrib_location,
 			break;
 		default:
 			glVertexAttribPointer(attrib_location, number_elements,
-						type, GL_FALSE, stride, 
+						type, GL_FALSE, stride,
+						(void*)pointer);
+			break;
+	}
+
+	glVertexAttribDivisor(attrib_location, divisor);
+	glBindVertexArray(0);
+	return 0;
+}
+
+int Mesh::set_buffer_vertex_attribute(const std::string& attrib_name,
+				sgltk::Buffer *buffer,
+				GLint number_elements,
+				GLenum type,
+				GLsizei stride,
+				const GLvoid *pointer,
+				unsigned int divisor) {
+
+	if(!shader) {
+		return -1;
+	}
+
+	int loc = shader->get_attribute_location(attrib_name);
+	if(loc < 0) {
+		return -2;
+	}
+
+	return set_buffer_vertex_attribute(loc, buffer, number_elements, type,
+							stride, pointer, divisor);
+}
+
+int Mesh::set_buffer_vertex_attribute(int attrib_location,
+				sgltk::Buffer *buffer,
+				GLint number_elements,
+				GLenum type,
+				GLsizei stride,
+				const GLvoid *pointer,
+				unsigned int divisor) {
+
+	if(attrib_location < 0) {
+		return -2;
+	}
+
+	glBindVertexArray(vao);
+	buffer->bind();
+
+	glEnableVertexAttribArray(attrib_location);
+	switch(type) {
+		case GL_BYTE:
+		case GL_UNSIGNED_BYTE:
+		case GL_SHORT:
+		case GL_UNSIGNED_SHORT:
+		case GL_INT:
+		case GL_UNSIGNED_INT:
+			glVertexAttribIPointer(attrib_location, number_elements,
+						type, stride, (void *)pointer);
+			break;
+		case GL_DOUBLE:
+			glVertexAttribLPointer(attrib_location, number_elements,
+						type, stride, (void *)pointer);
+			break;
+		default:
+			glVertexAttribPointer(attrib_location, number_elements,
+						type, GL_FALSE, stride,
 						(void*)pointer);
 			break;
 	}
@@ -298,16 +379,8 @@ int Mesh::attach_index_buffer(const std::vector<unsigned char>& indices) {
 		return -1;
 
 	index_type = GL_UNSIGNED_BYTE;
-	num_indices.push_back(indices.size());
-
-	GLuint index;
-	glGenBuffers(1, &index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		     indices.size() * sizeof(unsigned char),
-		     indices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+	Buffer *index = new Buffer(GL_ELEMENT_ARRAY_BUFFER);
+	index->load<unsigned char>(indices, GL_STATIC_DRAW);
 	ibo.push_back(index);
 	return ibo.size() - 1;
 }
@@ -317,16 +390,8 @@ int Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
 		return -1;
 
 	index_type = GL_UNSIGNED_SHORT;
-	num_indices.push_back(indices.size());
-
-	GLuint index;
-	glGenBuffers(1, &index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		     indices.size() * sizeof(unsigned short),
-		     indices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+	Buffer *index = new Buffer(GL_ELEMENT_ARRAY_BUFFER);
+	index->load<unsigned short>(indices, GL_STATIC_DRAW);
 	ibo.push_back(index);
 	return ibo.size() - 1;
 }
@@ -336,16 +401,8 @@ int Mesh::attach_index_buffer(const std::vector<unsigned int>& indices) {
 		return -1;
 
 	index_type = GL_UNSIGNED_INT;
-	num_indices.push_back(indices.size());
-
-	GLuint index;
-	glGenBuffers(1, &index);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-		     indices.size() * sizeof(unsigned int),
-		     indices.data(), GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+	Buffer *index = new Buffer(GL_ELEMENT_ARRAY_BUFFER);
+	index->load<unsigned int>(indices, GL_STATIC_DRAW);
 	ibo.push_back(index);
 	return ibo.size() - 1;
 }
@@ -433,22 +490,18 @@ void Mesh::draw(GLenum mode) {
 	draw(mode, 0, NULL);
 }
 
-void Mesh::draw(GLenum mode, unsigned int index_buffer) {
-	draw(mode, index_buffer, NULL);
-}
-
 void Mesh::draw(GLenum mode, const glm::mat4 *model_matrix) {
 	draw(mode, 0, model_matrix);
 }
 
-void Mesh::draw(GLenum mode, unsigned int index_buffer,
-			const glm::mat4 *model_matrix) {
+void Mesh::draw(GLenum mode,
+		unsigned int index_buffer,
+		const glm::mat4 *model_matrix = NULL) {
 
 	if(!shader) {
 		App::error_string.push_back("Error: No shader specified");
 		return;
 	}
-	shader->bind();
 
 	glm::mat4 M;
 	glm::mat4 MV;
@@ -483,13 +536,51 @@ void Mesh::draw(GLenum mode, unsigned int index_buffer,
 
 	material_uniform();
 
+	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
+		attached_buffers[i]->bind(attached_buffers_targets[i],
+					  attached_buffers_indices[i]);
+	}
+
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
-	glDrawElements(mode, num_indices[index_buffer],
+	ibo[index_buffer]->bind();
+	if(shader->transform_feedback) {
+		GLenum primitive_type = tf_mode;
+		if(primitive_type == GL_NONE) {
+			switch(mode) {
+				case GL_POINTS:
+					primitive_type = GL_POINTS;
+					break;
+				case GL_LINES:
+				case GL_LINE_LOOP:
+				case GL_LINE_STRIP:
+				case GL_LINES_ADJACENCY:
+				case GL_LINE_STRIP_ADJACENCY:
+					primitive_type = GL_LINES;
+					break;
+				case GL_TRIANGLES:
+				case GL_TRIANGLE_STRIP:
+				case GL_TRIANGLE_FAN:
+				case GL_TRIANGLES_ADJACENCY:
+				case GL_TRIANGLE_STRIP_ADJACENCY:
+					primitive_type = GL_TRIANGLES;
+					break;
+				default:
+					break;
+			}
+		}
+		glBeginTransformFeedback(primitive_type);
+	}
+	glDrawElements(mode, ibo[index_buffer]->num_elements,
 		       index_type, (void*)0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	if(shader->transform_feedback) {
+		glEndTransformFeedback();
+	}
+	ibo[index_buffer]->unbind();
 	glBindVertexArray(0);
-	shader->unbind();
+
+	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
+		attached_buffers[i]->unbind();
+	}
 }
 
 void Mesh::draw_instanced(GLenum mode, unsigned int num_instances) {
@@ -506,18 +597,55 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 
 	glm::mat4 VP = (*projection_matrix) * (*view_matrix);
 
-	shader->bind();
 	shader->set_uniform(view_matrix_name, false, *view_matrix);
 	shader->set_uniform(projection_matrix_name, false, *projection_matrix);
 	shader->set_uniform(view_proj_matrix_name, false, VP);
 
 	material_uniform();
 
+	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
+		attached_buffers[i]->bind(attached_buffers_targets[i],
+					  attached_buffers_indices[i]);
+	}
+
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo[index_buffer]);
-	glDrawElementsInstanced(mode, num_indices[index_buffer],
+	ibo[index_buffer]->bind();
+	if(shader->transform_feedback) {
+		GLenum primitive_type = tf_mode;
+		if(primitive_type == GL_NONE) {
+			switch(mode) {
+				case GL_POINTS:
+					primitive_type = GL_POINTS;
+					break;
+				case GL_LINES:
+				case GL_LINE_LOOP:
+				case GL_LINE_STRIP:
+				case GL_LINES_ADJACENCY:
+				case GL_LINE_STRIP_ADJACENCY:
+					primitive_type = GL_LINES;
+					break;
+				case GL_TRIANGLES:
+				case GL_TRIANGLE_STRIP:
+				case GL_TRIANGLE_FAN:
+				case GL_TRIANGLES_ADJACENCY:
+				case GL_TRIANGLE_STRIP_ADJACENCY:
+					primitive_type = GL_TRIANGLES;
+					break;
+				default:
+					break;
+			}
+		}
+		glBeginTransformFeedback(primitive_type);
+	}
+	glDrawElementsInstanced(mode, ibo[index_buffer]->num_elements,
 		       index_type, (void*)0, num_instances);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	if(shader->transform_feedback) {
+		glEndTransformFeedback();
+	}
+	ibo[index_buffer]->unbind();
 	glBindVertexArray(0);
-	shader->unbind();
+
+	for(unsigned int i = 0; i < attached_buffers.size(); i++) {
+		attached_buffers[i]->unbind();
+	}
 }

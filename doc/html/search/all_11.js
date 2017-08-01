@@ -1,20 +1,12 @@
 var searchData=
 [
-  ['tangent',['tangent',['../structsgltk_1_1_vertex.html#ab7033e3cebed8203ad99c47d53a431ce',1,'sgltk::Vertex']]],
-  ['target',['target',['../classsgltk_1_1_texture.html#aac599e0c4df9a763c002fc630ca450b7',1,'sgltk::Texture']]],
-  ['tex_5fcoord',['tex_coord',['../structsgltk_1_1_vertex.html#a732a1ae254c68c292e4700c367db4a91',1,'sgltk::Vertex']]],
-  ['texture',['Texture',['../classsgltk_1_1_texture.html',1,'sgltk']]],
-  ['texture',['Texture',['../classsgltk_1_1_texture.html#a1d28f44985f70933f75fd4bc5fe19534',1,'sgltk::Texture::Texture(GLenum target, unsigned int res_x, unsigned int res_y, GLenum internal_format, GLenum type, GLenum format)'],['../classsgltk_1_1_texture.html#a3b160a81bede92888887898529646363',1,'sgltk::Texture::Texture(GLenum target=GL_TEXTURE_2D)'],['../classsgltk_1_1_texture.html#a4cd45e8898c02b5a5c790a479233124b',1,'sgltk::Texture::Texture(const std::string &amp;path)'],['../classsgltk_1_1_texture.html#aeb0d3951da8e1a97267ab608b580df70',1,'sgltk::Texture::Texture(GLenum target, const std::string &amp;path)'],['../classsgltk_1_1_texture.html#a169bf6c0f7958eee33cf1d60ba0c7806',1,'sgltk::Texture::Texture(const Image &amp;image)'],['../classsgltk_1_1_texture.html#a70506321f5be61147fa1e39cdae319e0',1,'sgltk::Texture::Texture(GLenum target, const Image &amp;image)'],['../classsgltk_1_1_texture.html#adef495a5c9e0e6053ccdde0574de2d21',1,'sgltk::Texture::texture()']]],
-  ['textures_5fambient',['textures_ambient',['../classsgltk_1_1_mesh.html#a72c16f92714c41e733c91897597fe2fc',1,'sgltk::Mesh']]],
-  ['textures_5fdiffuse',['textures_diffuse',['../classsgltk_1_1_mesh.html#a64c5a3922e540cba5ea549725269b953',1,'sgltk::Mesh']]],
-  ['textures_5fdisplacement',['textures_displacement',['../classsgltk_1_1_mesh.html#ae720a7144a574991ef6f3798236169cd',1,'sgltk::Mesh']]],
-  ['textures_5femissive',['textures_emissive',['../classsgltk_1_1_mesh.html#ad7a53964768e4d7e618924d0b54b4612',1,'sgltk::Mesh']]],
-  ['textures_5flightmap',['textures_lightmap',['../classsgltk_1_1_mesh.html#a834e634fdc39b1ee3a2723d70af0999b',1,'sgltk::Mesh']]],
-  ['textures_5fmisc',['textures_misc',['../classsgltk_1_1_mesh.html#a6f370de497b285214bd8cd7b6792d535',1,'sgltk::Mesh']]],
-  ['textures_5fnormals',['textures_normals',['../classsgltk_1_1_mesh.html#afe78bbb55cfa375101413c0db370cfd3',1,'sgltk::Mesh']]],
-  ['textures_5fopacity',['textures_opacity',['../classsgltk_1_1_mesh.html#ae91fdd201ad42c063db7fd5a23a7db14',1,'sgltk::Mesh']]],
-  ['textures_5fshininess',['textures_shininess',['../classsgltk_1_1_mesh.html#ad963e0c94b2dee3d34d88f6641db7210',1,'sgltk::Mesh']]],
-  ['textures_5fspecular',['textures_specular',['../classsgltk_1_1_mesh.html#ab8d85189f3aebbf26ad4db5ea8931ff9',1,'sgltk::Mesh']]],
-  ['timer',['Timer',['../classsgltk_1_1_timer.html',1,'sgltk']]],
-  ['twosided',['twosided',['../classsgltk_1_1_mesh.html#a2a8118822e6f3f7211d13b9c8cd57cc0',1,'sgltk::Mesh']]]
+  ['recompile',['recompile',['../classsgltk_1_1_shader.html#a42e1fa45b551f7b72d7325607f20687d',1,'sgltk::Shader']]],
+  ['renderbuffer',['Renderbuffer',['../classsgltk_1_1_renderbuffer.html',1,'sgltk::Renderbuffer'],['../classsgltk_1_1_renderbuffer.html#aef293d56ab5ee38c2898a634669e754a',1,'sgltk::Renderbuffer::Renderbuffer()']]],
+  ['replace_5fbuffer_5fdata',['replace_buffer_data',['../classsgltk_1_1_mesh.html#a4af1d65d0c101334803f90d78cd2592b',1,'sgltk::Mesh::replace_buffer_data(unsigned int buffer_index, const void *data, unsigned int number_elements)'],['../classsgltk_1_1_mesh.html#a4d58cbee463be18f858b5ffe2daf0ee4',1,'sgltk::Mesh::replace_buffer_data(unsigned int buffer_index, const std::vector&lt; T &gt; &amp;data)']]],
+  ['replace_5fdata',['replace_data',['../classsgltk_1_1_buffer.html#a9a2b52bf7d73e6a92a004a966600a898',1,'sgltk::Buffer::replace_data(const std::vector&lt; T &gt; &amp;data)'],['../classsgltk_1_1_buffer.html#ab71d156c84fe51bf3c6849e4151891fd',1,'sgltk::Buffer::replace_data(const T *data, unsigned int number_elements)']]],
+  ['replace_5fpartial_5fdata',['replace_partial_data',['../classsgltk_1_1_buffer.html#a6a364f25ab7187ad49c9d69364a85916',1,'sgltk::Buffer::replace_partial_data(unsigned int offset, const std::vector&lt; T &gt; &amp;data)'],['../classsgltk_1_1_buffer.html#ad568f59f35d9fbe3fc78fa56421b4648',1,'sgltk::Buffer::replace_partial_data(unsigned int offset, const T *data, unsigned int number_elements)'],['../classsgltk_1_1_mesh.html#afd18219a4b952b6bfd7a79791d38a570',1,'sgltk::Mesh::replace_partial_data(unsigned int buffer_index, unsigned int offset, const void *data, unsigned int number_elements)'],['../classsgltk_1_1_mesh.html#a1d5d483e9082f0c9b6320a3ecef7ea30',1,'sgltk::Mesh::replace_partial_data(unsigned int buffer_index, unsigned int offset, const std::vector&lt; T &gt; &amp;data)']]],
+  ['resize',['resize',['../classsgltk_1_1_particles.html#ad115671c093df0a1d7328356ee8ce46c',1,'sgltk::Particles']]],
+  ['right',['right',['../classsgltk_1_1_camera.html#a16559c771e5a73746fca937a796df906',1,'sgltk::Camera']]],
+  ['roll',['roll',['../classsgltk_1_1_camera.html#a72be99f88b1cc21122178109d3441818',1,'sgltk::Camera']]],
+  ['run',['run',['../classsgltk_1_1_window.html#a74239be8f7f10d7ffc1bc5d5f2119ce2',1,'sgltk::Window']]]
 ];

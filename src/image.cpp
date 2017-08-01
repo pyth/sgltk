@@ -5,17 +5,42 @@ using namespace sgltk;
 std::vector<std::string> Image::paths = {"./"}; 
 
 Image::Image() {
+	free_data = false;
 	image = NULL;
 	width = 0;
 	height = 0;
+	bytes_per_pixel = 0;
 	image = NULL;
+	data = NULL;
 }
 
 Image::Image(std::string filename) {
+	free_data = false;
 	image = NULL;
 	width = 0;
 	height = 0;
+	bytes_per_pixel = 0;
+	data = NULL;
 	if(!load(filename)) {
+		std::string error = std::string("Error loading image: ") +
+			SDL_GetError();
+		App::error_string.push_back(error);
+		throw std::runtime_error(error);
+	}
+}
+
+Image::Image(unsigned int width,
+	     unsigned int height,
+	     unsigned int bytes_per_pixel,
+	     void *data) {
+
+	free_data = false;
+	image = NULL;
+	width = 0;
+	height = 0;
+	bytes_per_pixel = 0;
+	data = NULL;
+	if (!load(width, height, bytes_per_pixel, data)) {
 		std::string error = std::string("Error loading image: ") +
 			SDL_GetError();
 		App::error_string.push_back(error);
@@ -25,16 +50,21 @@ Image::Image(std::string filename) {
 
 Image::~Image() {
 	SDL_FreeSurface(image);
+	if(free_data)
+		free(data);
 }
 
-bool Image::create_empty(int width, int height) {
+bool Image::create_empty(unsigned int width, unsigned int height) {
 	if(image) {
 		SDL_FreeSurface(image);
+		if(free_data)
+			free(data);
 		image = NULL;
 	}
 
 	this->width = width;
 	this->height = height;
+	bytes_per_pixel = 4;
 
 	Uint32 rmask, gmask, bmask, amask;
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -52,17 +82,24 @@ bool Image::create_empty(int width, int height) {
 	image = SDL_CreateRGBSurface(0, width, height, 32,
 				     rmask, gmask, bmask, amask);
 	if(!image) {
+		App::error_string.push_back(std::string("Unable to create an"
+			"empty image: ") + SDL_GetError());
+		width = 0;
+		height = 0;
+		bytes_per_pixel = 0;
+		data = NULL;
 		return false;
 	}
+	data = image->pixels;
 	return true;
 }
 
-bool Image::load(std::string filename) {
-	width = 0;
-	height = 0;
-
-	if(image)
+bool Image::load(const std::string& filename) {
+	if(image) {
 		SDL_FreeSurface(image);
+		if(free_data)
+			free(data);
+	}
 
 	if((filename.length() > 1 && filename[0] == '/') ||
 			(filename.length() > 2 && filename[1] == ':')) {
@@ -81,17 +118,87 @@ bool Image::load(std::string filename) {
 			+ filename + std::string(" - ") + IMG_GetError());
 		width = 0;
 		height = 0;
+		bytes_per_pixel = 0;
+		data = NULL;
 		return false;
 	}
 
 	width = image->w;
 	height = image->h;
+	bytes_per_pixel = image->format->BytesPerPixel;
+	data = image->pixels;
 
 	return true;
 }
 
+bool Image::load(unsigned int width,
+		 unsigned int height,
+		 unsigned int bytes_per_pixel,
+		 void *data) {
+
+	if(image) {
+		SDL_FreeSurface(image);
+		if(free_data)
+			free(this->data);
+		image = NULL;
+	}
+
+	Uint32 rmask, gmask, bmask, amask;
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
+
+	this->width = width;
+	this->height = height;
+	this->bytes_per_pixel = bytes_per_pixel;
+	this->data = malloc(width * height * bytes_per_pixel);
+	if(!this->data) {
+		App::error_string.push_back(std::string("Image - load: "
+			"Unable to allocate memory"));
+		width = 0;
+		height = 0;
+		bytes_per_pixel = 0;
+		return false;
+	}
+	memcpy(this->data, data, width * height * bytes_per_pixel);
+	free_data = true;
+
+	image = SDL_CreateRGBSurfaceFrom(this->data, width, height,
+			8 * bytes_per_pixel, bytes_per_pixel * width,
+			rmask, gmask, bmask, amask);
+
+	if(!image) {
+		App::error_string.push_back(std::string("Unable to load the"
+			"image from buffer: ") + SDL_GetError());
+		width = 0;
+		height = 0;
+		bytes_per_pixel = 0;
+		this->data = NULL;
+		return false;
+	}
+	return true;
+}
+
+bool Image::save(const std::string& filename) {
+	int ret = SDL_SaveBMP(image, filename.c_str());
+	if(ret < 0) {
+		App::error_string.push_back(std::string("Unable to save the"
+			"image to ") + filename + std::string(": ") + SDL_GetError());
+		return false;
+	}
+	return true;
+}
+
 #ifdef HAVE_SDL_TTF_H
-TTF_Font *Image::open_font_file(std::string font_file, unsigned int size) {
+TTF_Font *Image::open_font_file(const std::string& font_file, unsigned int size) {
 	TTF_Font *font;
 	if((font_file.length() > 1 && font_file[0] == '/') ||
 			(font_file.length() > 2 && font_file[1] == ':')) {
@@ -112,12 +219,14 @@ void Image::close_font_file(TTF_Font *font_file) {
 	TTF_CloseFont(font_file);
 }
 
-bool Image::create_text(std::string text, TTF_Font *font, Uint8 r, Uint8 g,
-								Uint8 b, Uint8 a) {
+bool Image::create_text(const std::string& text, TTF_Font *font,
+								Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if (!font)
 		return false;
 	if(image) {
 		SDL_FreeSurface(image);
+		if(free_data)
+			free(data);
 		image = NULL;
 	}
 	SDL_Color color = {r, g, b, a};
@@ -128,10 +237,11 @@ bool Image::create_text(std::string text, TTF_Font *font, Uint8 r, Uint8 g,
 	}
 	width = image->w;
 	height = image->h;
+	bytes_per_pixel = 4;
 	return true;
 }
 
-bool Image::create_text(std::string text, std::string font_file, unsigned int size,
+bool Image::create_text(const std::string& text, std::string font_file, unsigned int size,
 			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	TTF_Font *font = open_font_file(font_file, size);
 	if(!font) {
@@ -158,10 +268,14 @@ bool Image::copy_from(const Image& src, SDL_Rect& dst_rect) {
 		image = SDL_ConvertSurface(src.image, src.image->format,
 					   src.image->flags);
 		if(!image) {
+			App::error_string.push_back(std::string("SDL_ConvertSurface"
+				" failed: ") + SDL_GetError());
 			return false;
 		}
 	}
 	if(SDL_BlitSurface(src.image, NULL, image, &dst_rect) < 0) {
+		App::error_string.push_back(std::string("SDL_BlitSurface"
+			" failed: ") + SDL_GetError());
 		return false;
 	}
 	return true;
@@ -173,10 +287,14 @@ bool Image::copy_from(const Image& src, SDL_Rect& dst_rect,
 		image = SDL_ConvertSurface(src.image, src.image->format,
 					   src.image->flags);
 		if(!image) {
+			App::error_string.push_back(std::string("SDL_ConvertSurface"
+				" failed: ") + SDL_GetError());
 			return false;
 		}
 	}
 	if(SDL_BlitSurface(src.image, &src_rect, image, &dst_rect) < 0) {
+		App::error_string.push_back(std::string("SDL_BlitSurface"
+			" failed: ") + SDL_GetError());
 		return false;
 	}
 	return true;
@@ -185,6 +303,48 @@ bool Image::copy_from(const Image& src, SDL_Rect& dst_rect,
 /*bool Image::copy_scaled() {
 	SDL_BlitScaled(src,srcrect, dst, dstrect);
 }*/
+
+void Image::vertical_flip() {
+	if(!image)
+		return;
+
+	unsigned int bpp = image->format->BytesPerPixel;
+
+	unsigned char *buf = new unsigned char[width * height * bpp];
+	
+	for(unsigned int y = 0; y < height; y++) {
+		for(unsigned int x = 0; x < width; x++) {
+			for(unsigned int c = 0; c < bpp; c++) {
+				buf[(y * width + x) * bpp + c] = 
+					((unsigned char *)image->pixels)[((height - y - 1) * width + x) * bpp + c];
+			}
+		}
+	}
+
+	memcpy(image->pixels, buf, width * height * bpp);
+	delete buf;
+}
+
+void Image::horizontal_flip() {
+	if(!image)
+		return;
+
+	unsigned int bpp = image->format->BytesPerPixel;
+
+	unsigned char *buf = new unsigned char[width * height * bpp];
+	
+	for(unsigned int y = 0; y < height; y++) {
+		for(unsigned int x = 0; x < width; x++) {
+			for(unsigned int c = 0; c < bpp; c++) {
+				buf[(y * width + x) * bpp + c] = 
+					((unsigned char *)image->pixels)[(y * width + (width - x - 1)) * bpp + c];
+			}
+		}
+	}
+
+	memcpy(image->pixels, buf, width * height * bpp);
+	delete buf;
+}
 
 void Image::set_color_key(int r, int g, int b) {
 	SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, r, g, b));

@@ -2,148 +2,155 @@
 #define __MESH_H__
 
 #include "app.h"
+#include "buffer.h"
 #include "shader.h"
 #include "camera.h"
 #include "texture.h"
 
 namespace sgltk {
+
+/**
+ * @struct Vertex
+ * @brief A basic vertex structure
+ */
+typedef EXPORT struct Vertex {
 	/**
-	 * @struct Vertex
-	 * @brief A basic vertex structure
+	 * @brief Vertex position
 	 */
-	typedef EXPORT struct Vertex {
-		/**
-		 * @brief Vertex position
-		 */
-		glm::vec4 position;
-		/**
-		 * @brief Vertex normal
-		 */
-		glm::vec3 normal;
-		/**
-		 * @brief Vertex tangent
-		 */
-		glm::vec4 tangent;
-		/**
-		 * @brief Vertex bi-tangent
-		 */
-		glm::vec4 bitangent;
-		/**
-		 * @brief Vertex color
-		 */
-		glm::vec4 color;
-		/**
-		 * @brief Vertex texture coordinates
-		 */
-		glm::vec3 tex_coord;
+	glm::vec4 position;
+	/**
+	 * @brief Vertex normal
+	 */
+	glm::vec3 normal;
+	/**
+	 * @brief Vertex tangent
+	 */
+	glm::vec4 tangent;
+	/**
+	 * @brief Vertex bi-tangent
+	 */
+	glm::vec4 bitangent;
+	/**
+	 * @brief Vertex color
+	 */
+	glm::vec4 color;
+	/**
+	 * @brief Vertex texture coordinates
+	 */
+	glm::vec3 tex_coord;
 
-		Vertex() {
-			position = {0, 0, 0, 1};
+	Vertex() {
+		position = {0, 0, 0, 1};
 
-			normal = {0, 0, 0};
+		normal = {0, 0, 0};
 
-			tangent = {0, 0, 0, 1};
+		tangent = {0, 0, 0, 1};
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = {0, 0, 0, 0};
-		};
+		color = {0, 0, 0, 0};
+	};
 
-		/**
-		 * @param p	Vertex position
-		 * @param n	Vertex normal
-		 */
-		Vertex(glm::vec3 p, glm::vec3 n) {
-			position = glm::vec4(p, 1);
+	/**
+	 * @param p	Vertex position
+	 * @param n	Vertex normal
+	 */
+	Vertex(glm::vec3 p, glm::vec3 n) {
+		position = glm::vec4(p, 1);
 
-			normal = n;
+		normal = n;
 
-			tangent = {0, 0, 0, 1};
+		tangent = {0, 0, 0, 1};
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = {0, 0, 0, 0};
+		color = {0, 0, 0, 0};
 
-			tex_coord = {0, 0, 0};
-		};
+		tex_coord = {0, 0, 0};
+	};
 
-		/**
-		 * @param p	Vertex position
-		 * @param n	Vertex normal
-		 * @param tc	Texture coordinates
-		 */
-		Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 tc) {
-			position = glm::vec4(p, 1);
+	/**
+	 * @param p	Vertex position
+	 * @param n	Vertex normal
+	 * @param tc	Texture coordinates
+	 */
+	Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 tc) {
+		position = glm::vec4(p, 1);
 
-			normal = n;
+		normal = n;
 
-			tangent = {0, 0, 0, 1};
+		tangent = {0, 0, 0, 1};
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = {0, 0, 0, 0};
+		color = {0, 0, 0, 0};
 
-			tex_coord = tc;
-		};
+		tex_coord = tc;
+	};
 
-		/**
-		 * @param p	Vertex position
-		 * @param n	Vertex normal
-		 * @param t	Vertex tangent
-		 * @param tc	Texture coordinates
-		 */
-		Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec3 tc) {
-			position = glm::vec4(p, 1);
+	/**
+	 * @param p	Vertex position
+	 * @param n	Vertex normal
+	 * @param t	Vertex tangent
+	 * @param tc	Texture coordinates
+	 */
+	Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t, glm::vec3 tc) {
+		position = glm::vec4(p, 1);
 
-			normal = n;
+		normal = n;
 
-			tangent = glm::vec4(t, 1);
+		tangent = glm::vec4(t, 1);
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = {0, 0, 0, 0};
+		color = {0, 0, 0, 0};
 
-			tex_coord = tc;
-		};
+		tex_coord = tc;
+	};
 
-		/**
-		 * @param p	Vertex position
-		 * @param n	Vertex normal
-		 * @param t	Vertex tangent
-		 * @param c	Vertex color
-		 * @param tc	Texture coordinates
-		 */
-		Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t,
-		       glm::vec4 c, glm::vec3 tc) {
-			position = glm::vec4(p, 1);
+	/**
+	 * @param p	Vertex position
+	 * @param n	Vertex normal
+	 * @param t	Vertex tangent
+	 * @param c	Vertex color
+	 * @param tc	Texture coordinates
+	 */
+	Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 t,
+	       glm::vec4 c, glm::vec3 tc) {
+		position = glm::vec4(p, 1);
 
-			normal = n;
+		normal = n;
 
-			tangent = glm::vec4(t, 1);
+		tangent = glm::vec4(t, 1);
 
-			bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
+		bitangent = glm::vec4(glm::cross(normal, glm::vec3(tangent)), 1);
 
-			color = c;
+		color = c;
 
-			tex_coord = tc;
-		};
-	} Vertex;
+		tex_coord = tc;
+	};
+} Vertex;
+
 
 /**
  * @class Mesh
  * @brief Manages meshes
  */
 class Mesh {
+	GLuint vao;
+	GLenum tf_mode;
+
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
 
-	GLuint vao;
-	std::vector<GLuint> vbo;
-	std::vector<unsigned int> vbo_sizes;
+	std::vector<Buffer*> vbo;
 
 	GLenum index_type;
-	std::vector<GLuint> ibo;
-	std::vector<unsigned int> num_indices;
+	std::vector<Buffer*> ibo;
+
+	std::vector<Buffer *>attached_buffers;
+	std::vector<GLuint>attached_buffers_targets;
+	std::vector<unsigned int>attached_buffers_indices;
 
 	void material_uniform();
 public:
@@ -494,25 +501,44 @@ public:
 	 * 	The name is reset if string is empty.
 	 */
 	EXPORT void set_lightmap_texture_name(const std::string& name);
-
 	/**
-	 * @brief Loads vertices into memory
-	 * @param vertexdata The vertices to be loaded into memory
+	 * @brief Sets the output type for transform feedback operations
+	 * @param mode The output type of the primitives that will be recorded
+	 * 	into the buffer objects that are bound for transform feedback
+	 */
+	EXPORT void set_transform_feedback_mode(GLenum mode);
+	/**
+	 * @brief Attaches a buffer that is automatically bound before
+	 * 	each draw call
+	 * @param buffer The buffer to attach_buffer
+	 * @param target The target the buffer will be bound to
+	 * @param index The index of the binding point within the array
+	 * 		specified by target.
+	 * @note If the target of the buffer is not GL_ATOMIC_COUNTER_BUFFER,
+	 * 	 GL_TRANSFORM_FEEDBACK_BUFFER, GL_UNIFORM_BUFFER or
+	 * 	 GL_SHADER_STORAGE_BUFFER the index is ignored.
+	 */
+	EXPORT void attach_buffer(sgltk::Buffer *buffer, GLuint target, unsigned int index = 0);
+	/**
+	 * @brief Loads data into memory
+	 * @param vertexdata The data to be loaded into memory
 	 * @param number_elements Number of elements
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
-	 * @return Returns the index that the buffer was attached to
+	 * @return Returns the index of the buffer in the list of all attached
+	 * 	vertex buffers
 	 */
 	template <typename T = Vertex>
 	unsigned int attach_vertex_buffer(const void *vertexdata,
 					  unsigned int number_elements,
 					  GLenum usage = GL_STATIC_DRAW);
 	/**
-	 * @brief Loads vertices into memory
-	 * @param vertexdata The vertices to be loaded into memory
+	 * @brief Loads data into memory
+	 * @param vertexdata The data to be loaded into memory
 	 * @param usage A hint as to how the buffer will be accessed.
 	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
-	 * @return Returns the index that the buffer was attached to
+	 * @return Returns the index of the buffer in the list of all attached
+	 * 	vertex buffers
 	 */
 	template <typename T = Vertex>
 	unsigned int attach_vertex_buffer(const std::vector<T>& vertexdata,
@@ -522,6 +548,7 @@ public:
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param data The data to be loaded into the buffer
 	 * @param number_elements Number of elements
+	 * @return Returns true on success, flase otherwise
 	 */
 	template <typename T = Vertex>
 	bool replace_buffer_data(unsigned int buffer_index,
@@ -531,6 +558,7 @@ public:
 	 * @brief Overwrites all data in a vertex buffer
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param data The data to be loaded into the buffer
+	 * @return Returns true on success, flase otherwise
 	 */
 	template <typename T = Vertex>
 	bool replace_buffer_data(unsigned int buffer_index,
@@ -541,6 +569,7 @@ public:
 	 * @param offset The byte offset into the buffer
 	 * @param data The data to be loaded into the buffer
 	 * @param number_elements Number of elements
+	 * @return Returns true on success, flase otherwise
 	 */
 	template <typename T = Vertex>
 	bool replace_partial_data(unsigned int buffer_index,
@@ -552,6 +581,7 @@ public:
 	 * @param buffer_index The index of the buffer to be modified
 	 * @param offset The byte offset into the buffer
 	 * @param data The data to be loaded into the buffer
+	 * @return Returns true on success, flase otherwise
 	 */
 	template <typename T = Vertex>
 	bool replace_partial_data(unsigned int buffer_index,
@@ -633,6 +663,54 @@ public:
 				 GLenum type,
 				 const std::vector<T>& data,
 				 GLenum usage = GL_STATIC_DRAW);
+	 /**
+	 * @brief Sets pointers to vertex attributes
+	 * @param attrib_name		The attribute name in the shader
+	 * @param buffer		The buffer that contains the attribute
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param stride		Memory offset between vertices
+	 * @param pointer		The offset of the attribute in the
+	 * 				vertex structure
+	 * @param divisor Determines how many instances share the same attribute value.
+	 * 		0 means that every shader instance gets a new value,
+	 * 		1 means every mesh instance gets a new value,
+	 * 		2 means that two instances get the same value and so on.
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
+	 */
+	EXPORT int set_buffer_vertex_attribute(const std::string& attrib_name,
+				        sgltk::Buffer *buffer,
+				        GLint number_elements,
+				        GLenum type,
+				        GLsizei stride,
+				        const GLvoid *pointer,
+				        unsigned int divisor = 0);
+	/**
+	 * @brief Sets pointers to vertex attributes
+	 * @param attrib_location	The attribute location in the shader
+	 * @param buffer		The buffer that contains the attribute
+	 * @param number_elements	Number of elements
+	 * @param type			Element type
+	 * @param stride		Memory offset between vertices
+	 * @param pointer		The offset of the attribute in the
+	 * 				vertex structure
+	 * @param divisor Determines how many instances share the same attribute value.
+	 * 		0 means that every shader instance gets a new value,
+	 * 		1 means every mesh instance gets a new value,
+	 * 		2 means that two instances get the same value and so on.
+	 * @return	Returns 0 on success, -1 if no shader was
+	 * 		specified for the mesh, -2 if the vertex attribute
+	 * 		could not be found
+	 */
+	EXPORT int set_buffer_vertex_attribute(int attrib_location,
+					sgltk::Buffer *buffer,
+					GLint number_elements,
+					GLenum type,
+					GLsizei stride,
+					const GLvoid *pointer,
+					unsigned int divisor = 0);
 	/**
 	 * @brief Sets pointers to vertex attributes
 	 * @param attrib_name		The attribute name in the shader
@@ -712,13 +790,22 @@ public:
 	EXPORT int attach_index_buffer(const std::vector<unsigned int>& indices);
 
 	/**
+	 * @brief Sets a buffer to write the output of the vertex shader to
+	 * @param buffer The buffer to write to
+	 * @param size The size of the buffer in bytes
+	 * @param usage A hint as to how the buffer will be accessed.
+	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
+	 */
+	EXPORT void attach_tf_buffer(void *buffer, unsigned int size, GLenum usage = GL_STATIC_READ);
+
+	/**
 	 * @brief Computes the bounding box of the mesh
 	 * @param vertexdata The vertices of the mesh
 	 * @param pointer The pointer to the position vector in the vertex
 	 * 	structure
 	 */
 	template <typename T = Vertex>
-	void compute_bounding_box(const std::vector<T>& vertexdata, size_t pointer);
+	void compute_bounding_box(const std::vector<T>& vertexdata, unsigned int pointer);
 
 	/**
 	 * @brief Renders the mesh using the first index buffer
@@ -726,15 +813,6 @@ public:
 	 * 	vertices
 	 */
 	EXPORT void draw(GLenum mode);
-
-	/**
-	 * @brief Renders the mesh using the first index buffer and the
-	 * 	  model_matrix member as model matrix
-	 * @param mode Specifies the primitive that will be created from
-	 * 	  vertices
-	 * @param index_buffer The index buffer to use
-	 */
-	EXPORT void draw(GLenum mode, unsigned int index_buffer);
 
 	/**
 	 * @brief Renders the mesh using the first index buffer
@@ -841,15 +919,9 @@ template <typename T>
 unsigned int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
 					GLenum usage) {
 
-	GLuint buf;
-	glGenBuffers(1, &buf);
+	Buffer *buf = new Buffer(GL_ARRAY_BUFFER);
+	buf->load<T>(vertexdata, usage);
 	vbo.push_back(buf);
-
-	unsigned int buffer_size = vertexdata.size() * sizeof(T);
-	vbo_sizes.push_back(buffer_size);
-
-	glBindBuffer(GL_ARRAY_BUFFER, buf);
-	glBufferData(GL_ARRAY_BUFFER, buffer_size, vertexdata.data(), usage);
 
 	return vbo.size() - 1;
 }
@@ -875,21 +947,7 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index,
 		return false;
 	}
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
-
-	int usage;
-	int current_size = vbo_sizes[buffer_index];
-	int new_size = data.size() * sizeof(T);
-	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_USAGE, &usage);
-
-	if(current_size == new_size) {
-		//replace the buffer data without reallocation
-		glBufferSubData(GL_ARRAY_BUFFER, 0, new_size, data.data());
-	} else {
-		//replace the buffer data with reallocation
-		glBufferData(GL_ARRAY_BUFFER, new_size, data.data(), usage);
-		vbo_sizes[buffer_index] = new_size;
-	}
+	vbo[buffer_index]->replace_data(data);
 
 	return true;
 }
@@ -917,19 +975,11 @@ bool Mesh::replace_partial_data(unsigned int buffer_index,
 		return false;
 	}
 
-	int current_size = vbo_sizes[buffer_index];
-	int size = data.size() * sizeof(T);
-
-	if(offset + (unsigned int)size > (unsigned int)current_size) {
-		return false;
-	}
-	glBindBuffer(GL_ARRAY_BUFFER, vbo[buffer_index]);
-	glBufferSubData(GL_ARRAY_BUFFER, offset, size, data.data());
-	return true;
+	return vbo[buffer_index]->replace_partial_data(offset, data);
 }
 
 template <typename T>
-void Mesh::compute_bounding_box(const std::vector<T>& vertexdata, size_t pointer) {
+void Mesh::compute_bounding_box(const std::vector<T>& vertexdata, unsigned int pointer) {
 	glm::vec3 *pos = (glm::vec3 *)(&(vertexdata)[0] + pointer);
 	bounding_box[0] = *pos;
 	bounding_box[1] = *pos;

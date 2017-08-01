@@ -4,7 +4,6 @@ using namespace sgltk;
 
 unsigned int Gamepad::id_max;
 std::map<unsigned int, Gamepad *> Gamepad::id_map;
-std::map<unsigned int, Gamepad *> Gamepad::instance_id_map;
 
 Gamepad::Gamepad(unsigned int device_id) {
 	gamepad = SDL_GameControllerOpen(device_id);
@@ -17,10 +16,11 @@ Gamepad::Gamepad(unsigned int device_id) {
 
 	joystick = SDL_GameControllerGetJoystick(gamepad);
 	instance_id = SDL_JoystickInstanceID(joystick);
-	instance_id_map[instance_id] = this;
 
 	num_axes = SDL_JoystickNumAxes(joystick);
 	num_buttons = SDL_JoystickNumButtons(joystick);
+
+	deadzone = 0;
 
 	if(SDL_JoystickIsHaptic(joystick)) {
 		haptic = SDL_HapticOpenFromJoystick(joystick);
@@ -49,11 +49,30 @@ Gamepad::Gamepad(unsigned int device_id) {
 }
 
 Gamepad::~Gamepad() {
-	instance_id_map.erase(instance_id);
-	buttons_pressed.clear();
 	SDL_HapticClose(haptic);
 	SDL_GameControllerClose(gamepad);
 	id_map.erase(id);
+}
+
+void Gamepad::set_button_state(int button, bool state) {
+	if(state) {
+		buttons_pressed.push_back(button);
+	} else {
+		std::vector<int>::iterator pressed_button = std::find(buttons_pressed.begin(),
+			buttons_pressed.end(), button);
+		buttons_pressed.erase(pressed_button);
+	}
+}
+
+void Gamepad::set_deadzone(unsigned int deadzone) {
+	this->deadzone = deadzone;
+}
+
+int Gamepad::get_axis_value(unsigned int axis) {
+	int value = SDL_GameControllerGetAxis(gamepad, (SDL_GameControllerAxis)axis);
+	if((unsigned int)std::abs(value) > deadzone)
+		return value;
+	return 0;
 }
 
 void Gamepad::play_rumble(float magnitude, unsigned int duration) {

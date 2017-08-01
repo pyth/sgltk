@@ -2,13 +2,21 @@ set(LIB_SOURCE
 	app.cpp
 	window.cpp
 	gamepad.cpp
+	joystick.cpp
 	particle.cpp
 	framebuffer.cpp
 	renderbuffer.cpp
 	camera.cpp
+	camera_p.cpp
+	camera_o.cpp
+	camera_ip.cpp
 	image.cpp
 	texture.cpp
-	scene.cpp
+	cubemap.cpp
+	texture_1d.cpp
+	texture_2d.cpp
+	texture_3d.cpp
+	model.cpp
 	shader.cpp
 	timer.cpp
 	mesh.cpp)
@@ -18,19 +26,21 @@ set(LIB_HEADERS
 	app.h
 	window.h
 	gamepad.h
+	joystick.h
 	particle.h
 	framebuffer.h
 	renderbuffer.h
 	camera.h
 	image.h
 	texture.h
-	scene.h
+	model.h
 	shader.h
 	timer.h
+	buffer.h
 	mesh.h)
 
-set(LIBS_REQUIRED SDL2 SDL2_image assimp)
-set(LIBS_OPTIONAL SDL2_ttf)
+set(LIBS_REQUIRED SDL2 SDL2_image)
+set(LIBS_OPTIONAL SDL2_ttf assimp)
 if(WIN32)
 	set(LIBS_REQUIRED OpenGL32 glew32 ${LIBS_REQUIRED})
 else()

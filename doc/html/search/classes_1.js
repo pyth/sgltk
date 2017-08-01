@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['camera',['Camera',['../classsgltk_1_1_camera.html',1,'sgltk']]]
+  ['buffer',['Buffer',['../classsgltk_1_1_buffer.html',1,'sgltk']]]
 ];

@@ -1,12 +1,14 @@
 var searchData=
 [
-  ['recompile',['recompile',['../classsgltk_1_1_shader.html#a42e1fa45b551f7b72d7325607f20687d',1,'sgltk::Shader']]],
-  ['renderbuffer',['Renderbuffer',['../classsgltk_1_1_renderbuffer.html',1,'sgltk']]],
-  ['renderbuffer',['Renderbuffer',['../classsgltk_1_1_renderbuffer.html#aef293d56ab5ee38c2898a634669e754a',1,'sgltk::Renderbuffer']]],
-  ['replace_5fbuffer_5fdata',['replace_buffer_data',['../classsgltk_1_1_mesh.html#a4af1d65d0c101334803f90d78cd2592b',1,'sgltk::Mesh::replace_buffer_data(unsigned int buffer_index, const void *data, unsigned int number_elements)'],['../classsgltk_1_1_mesh.html#a4d58cbee463be18f858b5ffe2daf0ee4',1,'sgltk::Mesh::replace_buffer_data(unsigned int buffer_index, const std::vector&lt; T &gt; &amp;data)']]],
-  ['replace_5fpartial_5fdata',['replace_partial_data',['../classsgltk_1_1_mesh.html#afd18219a4b952b6bfd7a79791d38a570',1,'sgltk::Mesh::replace_partial_data(unsigned int buffer_index, unsigned int offset, const void *data, unsigned int number_elements)'],['../classsgltk_1_1_mesh.html#a1d5d483e9082f0c9b6320a3ecef7ea30',1,'sgltk::Mesh::replace_partial_data(unsigned int buffer_index, unsigned int offset, const std::vector&lt; T &gt; &amp;data)']]],
-  ['resize',['resize',['../classsgltk_1_1_particles.html#ad115671c093df0a1d7328356ee8ce46c',1,'sgltk::Particles']]],
-  ['right',['right',['../classsgltk_1_1_camera.html#a16559c771e5a73746fca937a796df906',1,'sgltk::Camera']]],
-  ['roll',['roll',['../classsgltk_1_1_camera.html#a72be99f88b1cc21122178109d3441818',1,'sgltk::Camera']]],
-  ['run',['run',['../classsgltk_1_1_window.html#ae137ec42ddc87d666d49661484410091',1,'sgltk::Window::run()'],['../classsgltk_1_1_window.html#ada638e711a70bf4d4b68cf103bfe3648',1,'sgltk::Window::run(int fps)']]]
+  ['p_5fcamera',['P_Camera',['../classsgltk_1_1_p___camera.html',1,'sgltk::P_Camera'],['../classsgltk_1_1_p___camera.html#a148b487b6c1e02f9de0a3253250d791b',1,'sgltk::P_Camera::P_Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up)'],['../classsgltk_1_1_p___camera.html#afa071fbbd917292f399525b6ffeb6522',1,'sgltk::P_Camera::P_Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fovy, float width, float height, float near_plane, float far_plane)']]],
+  ['particles',['Particles',['../classsgltk_1_1_particles.html',1,'sgltk']]],
+  ['pitch',['pitch',['../classsgltk_1_1_camera.html#a49e00b90b94853e4485a6bdf063796de',1,'sgltk::Camera']]],
+  ['platform_5fname',['platform_name',['../structsgltk_1_1_s_y_s___i_n_f_o.html#a09a78e8f9df7854adb6fead385d297a4',1,'sgltk::SYS_INFO']]],
+  ['play_5frumble',['play_rumble',['../classsgltk_1_1_gamepad.html#afa3479fc3d9e5056975dc9b7978d2442',1,'sgltk::Gamepad']]],
+  ['poll_5fevents',['poll_events',['../classsgltk_1_1_window.html#a2a5504a7fabe168d445989f210613e16',1,'sgltk::Window']]],
+  ['pos',['pos',['../classsgltk_1_1_camera.html#a084bee6592ad8530826677cf48ca6f50',1,'sgltk::Camera']]],
+  ['position',['position',['../structsgltk_1_1_vertex.html#ad23198ffa44ec9f032b7195b2a59254f',1,'sgltk::Vertex']]],
+  ['program',['program',['../classsgltk_1_1_shader.html#a81b067c3c22eb1ec25e106a3891b1d9a',1,'sgltk::Shader']]],
+  ['projection_5fmatrix',['projection_matrix',['../classsgltk_1_1_camera.html#ab9ead3c6d936bd7ce6294eecdb8d00c8',1,'sgltk::Camera']]],
+  ['projection_5fmatrix_5fname',['projection_matrix_name',['../classsgltk_1_1_mesh.html#a4bcde5c60a9e0824229f21c3ef75d933',1,'sgltk::Mesh']]]
 ];

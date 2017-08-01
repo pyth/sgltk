@@ -5,6 +5,7 @@
 #include "image.h"
 #include "timer.h"
 #include "gamepad.h"
+#include "joystick.h"
 
 namespace sgltk {
 
@@ -37,7 +38,17 @@ class Window {
 	bool mouse_relative;
 	unsigned int fps_time;
 	std::vector<std::string> keys_pressed;
+	EXPORT static std::map<unsigned int, Gamepad *> gamepad_instance_id_map;
+	EXPORT static std::map<unsigned int, Joystick *> joystick_instance_id_map;
 public:
+	/**
+	 * @brief The manjor OpenGL version number
+	 */
+	int gl_maj;
+	/**
+	 * @brief The minor OpenGL version number
+	 */
+	int gl_min;
 	/**
 	 * @brief The width of the window surface
 	 */
@@ -61,27 +72,39 @@ public:
 	 * @param res_y		The y window resolution
 	 * @param offset_x	The x position offset of the window
 	 * @param offset_y	The y position offset of the window
-	 * @param gl_maj	The major OpenGL version number
-	 * @param gl_min	The minor OpenGL version number
 	 * @param flags		Additional flags to be used by SDL_CreateWindow.
-				The default flag is SDL_WINDOW_OPENGL
+				The default flags are SDL_WINDOW_OPENGL and SDL_WINDOW_RESIZABLE
 	 */
-	EXPORT Window(const std::string& title, int res_x, int res_y,
-			int offset_x, int offset_y,
-			int gl_maj, int gl_min,
-			unsigned int flags);
+	EXPORT Window(const std::string& title, int res_x, int res_y, int offset_x, int offset_y, unsigned int flags = 0);
 	EXPORT ~Window();
 
 	/**
 	 * @brief Sets the window icon
-	 * @param icon The icon to use
+	 * @param filename The icon to use
+	 * @note The image size should not exceed 356x356 pixel.
 	 */
-	EXPORT void set_icon(const Image& icon);
+	EXPORT void set_icon(const std::string& filename);
+	/**
+	 * @brief Sets the window icon
+	 * @param icon The icon to use
+	 * @note The image size should not exceed 356x356 pixel.
+	 */
+	EXPORT void set_icon(const sgltk::Image& icon);
 	/**
 	 * @brief Set window title
 	 * @param title The new window title
 	 */
 	EXPORT void set_title(const std::string& title);
+	/**
+	 * @brief Sets or removes the ability to resize the window
+	 * @param on If true, the window is made resizable. If false, window becomes non-resizable.
+	 */
+	EXPORT void set_resizable(bool on);
+	/**
+	 * @brief Takes a screenshot of the window
+	 * @param image The image to save the screenshot to
+	 */
+	EXPORT void take_screenshot(sgltk::Image& image);
 	/**
 	 * @brief Sets the window to grab the mouse
 	 * When activate the mouse can not leave the window boundaries
@@ -119,6 +142,22 @@ public:
 	 */
 	EXPORT void set_relative_mode(bool on);
 	/**
+	 * @brief Sets the mouse position inside the window
+	 * @param x The x coordiante inside the window
+	 * @param y The y coordiante inside the window
+	 */
+	EXPORT void set_mouse_position(int x, int y);
+	/**
+	 * @brief Sets mouse cursor visibility
+	 * @param show True to show the cursor, false otherwise
+	 */
+	EXPORT void set_cursor_visibility(bool show);
+	/**
+	 * @brief Returns mouse cursor visibility status
+	 * @return Returns true if the cursor is visible, false otherwise
+	 */
+	EXPORT bool get_cursor_visibility();
+	/**
 	 * @brief Polls all events and calls the handlers.
 	 * 	  Called by the run function
 	 */
@@ -147,7 +186,7 @@ public:
 								int button);
 	/**
 	 * @brief This function is called by poll_events() once for every
-	 * 	  gamepad button pressed or released. This function should
+	 * 	  gamepad button press or release. This function should
 	 * 	  be overridden
 	 * @param gamepad_id The gamepad instance id
 	 * @param button The number of the button pressed or released
@@ -158,8 +197,8 @@ public:
 							int button,
 							bool pressed);
 	/**
-	 * @brief This function is called by poll_events() for every frame for
-	 * 	  every axis. This function should be overridden
+	 * @brief This function is called by poll_events() every frame for
+	 * 	  every axis of every gamepad. This function should be overridden
 	 * @param gamepad_id The gamepad instance id
 	 * @param axis The number of the axis that has a new value
 	 * @param value The new value of the axis
@@ -176,6 +215,90 @@ public:
 	EXPORT virtual void handle_gamepad_axis_change(unsigned int gamepad_id,
 							unsigned int axis,
 							int value);
+	/**
+	* @brief This function is called by poll_events() to handle
+	*	  the addition of new joysticks. This function should be
+	*	  overridden
+	* @param gamepad_id The joystick instance id
+	*/
+	EXPORT virtual void handle_joystick_added(unsigned int gamepad_id);
+	/**
+	* @brief This function is called by poll_events() to handle
+	*	  the removal of joysticks. This function should be overridden
+	* @param gamepad_id The joystick instance id
+	*/
+	EXPORT virtual void handle_joystick_removed(unsigned int gamepad_id);
+	/**
+	* @brief This function is called by poll_events() every frame for every
+	* 	  joystick button currently being pressed. This function should
+	* 	  be overridden
+	* @param gamepad_id The joystick instance id
+	* @param button The number of the button pressed or released
+	*/
+	EXPORT virtual void handle_joystick_button(unsigned int gamepad_id,
+		int button);
+	/**
+	* @brief This function is called by poll_events() once for every
+	* 	  joystick button pressed or released. This function should
+	* 	  be overridden
+	* @param gamepad_id The joystick instance id
+	* @param button The number of the button pressed or released
+	* @param pressed Indicates whether the button was pressed (true) or
+	* 		  released (false)
+	*/
+	EXPORT virtual void handle_joystick_button_press(unsigned int gamepad_id,
+		int button,
+		bool pressed);
+	/**
+	* @brief This function is called by poll_events() every frame for
+	* 	  every axis of every joystick. This function should be overridden
+	* @param gamepad_id The joystick instance id
+	* @param axis The number of the axis that has a new value
+	* @param value The new value of the axis
+	*/
+	EXPORT virtual void handle_joystick_axis(unsigned int gamepad_id,
+		unsigned int axis, int value);
+	/**
+	* @brief This function is called by poll_events() for every axis value
+	* 	  change. This function should be overridden
+	* @param gamepad_id The gamepad instance id
+	* @param axis The number of the axis that has a new value
+	* @param value The new value of the axis
+	*/
+	EXPORT virtual void handle_joystick_axis_change(unsigned int gamepad_id,
+		unsigned int axis,
+		int value);
+	/**
+	* @brief This function is called by poll_events() every frame for
+	* 	  every hat of every joystick. This function should be overridden
+	* @param gamepad_id The joystick instance id
+	* @param hat The number of the hat that has a new value
+	* @param value The new value of the hat
+	*/
+	EXPORT virtual void handle_joystick_hat(unsigned int gamepad_id,
+		unsigned int hat, unsigned int value);
+	/**
+	* @brief This function is called by poll_events() for every hat value
+	* 	  change. This function should be overridden
+	* @param gamepad_id The gamepad instance id
+	* @param hat The number of the hat that has a new value
+	* @param value The new value of the hat
+	*/
+	EXPORT virtual void handle_joystick_hat_change(unsigned int gamepad_id,
+		unsigned int hat,
+		unsigned int value);
+	/**
+	* @brief This function is called by poll_events() for every ball
+	*	 that has changed value change.
+	*	 This function should be overridden
+	* @param gamepad_id The gamepad instance id
+	* @param ball The number of the hat that has a new value
+	* @param xrel The new value of the hat
+	* @param yrel The new value of the hat
+	*/
+	EXPORT virtual void handle_joystick_ball_motion(unsigned int gamepad_id,
+		unsigned int ball,
+		int xrel, int yrel);
 	/**
 	 * @brief This function is called by poll_events() every frame for every
 	 * 	  key currently being pressed. This function should be
@@ -233,16 +356,12 @@ public:
 	 */
 	EXPORT virtual void display();
 	/**
-	 * @brief Starts the main loop with no frame rate limit
-	 */
-	EXPORT void run();
-	/**
 	 * @brief Starts the main loop. This function calls poll_events() and
 	 * 	  display()
 	 * @param fps	The frames per second limit.
 	 *		Any number below 1 means no limit
 	 */
-	EXPORT void run(int fps);
+	EXPORT void run(unsigned int fps = 0);
 	/**
 	 * @brief Stops the main loop
 	 */

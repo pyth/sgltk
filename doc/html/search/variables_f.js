@@ -1,18 +1,15 @@
 var searchData=
 [
-  ['tangent',['tangent',['../structsgltk_1_1_vertex.html#ab7033e3cebed8203ad99c47d53a431ce',1,'sgltk::Vertex']]],
-  ['target',['target',['../classsgltk_1_1_texture.html#aac599e0c4df9a763c002fc630ca450b7',1,'sgltk::Texture']]],
-  ['tex_5fcoord',['tex_coord',['../structsgltk_1_1_vertex.html#a732a1ae254c68c292e4700c367db4a91',1,'sgltk::Vertex']]],
-  ['texture',['texture',['../classsgltk_1_1_texture.html#adef495a5c9e0e6053ccdde0574de2d21',1,'sgltk::Texture']]],
-  ['textures_5fambient',['textures_ambient',['../classsgltk_1_1_mesh.html#a72c16f92714c41e733c91897597fe2fc',1,'sgltk::Mesh']]],
-  ['textures_5fdiffuse',['textures_diffuse',['../classsgltk_1_1_mesh.html#a64c5a3922e540cba5ea549725269b953',1,'sgltk::Mesh']]],
-  ['textures_5fdisplacement',['textures_displacement',['../classsgltk_1_1_mesh.html#ae720a7144a574991ef6f3798236169cd',1,'sgltk::Mesh']]],
-  ['textures_5femissive',['textures_emissive',['../classsgltk_1_1_mesh.html#ad7a53964768e4d7e618924d0b54b4612',1,'sgltk::Mesh']]],
-  ['textures_5flightmap',['textures_lightmap',['../classsgltk_1_1_mesh.html#a834e634fdc39b1ee3a2723d70af0999b',1,'sgltk::Mesh']]],
-  ['textures_5fmisc',['textures_misc',['../classsgltk_1_1_mesh.html#a6f370de497b285214bd8cd7b6792d535',1,'sgltk::Mesh']]],
-  ['textures_5fnormals',['textures_normals',['../classsgltk_1_1_mesh.html#afe78bbb55cfa375101413c0db370cfd3',1,'sgltk::Mesh']]],
-  ['textures_5fopacity',['textures_opacity',['../classsgltk_1_1_mesh.html#ae91fdd201ad42c063db7fd5a23a7db14',1,'sgltk::Mesh']]],
-  ['textures_5fshininess',['textures_shininess',['../classsgltk_1_1_mesh.html#ad963e0c94b2dee3d34d88f6641db7210',1,'sgltk::Mesh']]],
-  ['textures_5fspecular',['textures_specular',['../classsgltk_1_1_mesh.html#ab8d85189f3aebbf26ad4db5ea8931ff9',1,'sgltk::Mesh']]],
-  ['twosided',['twosided',['../classsgltk_1_1_mesh.html#a2a8118822e6f3f7211d13b9c8cd57cc0',1,'sgltk::Mesh']]]
+  ['shader',['shader',['../classsgltk_1_1_mesh.html#aa7b1acac7c76f3b56cb3e6aab7280514',1,'sgltk::Mesh']]],
+  ['shininess',['shininess',['../classsgltk_1_1_mesh.html#af1594b0f68d4aee7400e2b395228248e',1,'sgltk::Mesh']]],
+  ['shininess_5fname',['shininess_name',['../classsgltk_1_1_mesh.html#ac3433b84df82c35255f9bb6186dded19',1,'sgltk::Mesh']]],
+  ['shininess_5fstrength',['shininess_strength',['../classsgltk_1_1_mesh.html#aa9c8cb157dd0326779b8dda5fbc909aa',1,'sgltk::Mesh']]],
+  ['shininess_5fstrength_5fname',['shininess_strength_name',['../classsgltk_1_1_mesh.html#a8113b33787e9b0f1198d754110ce59ab',1,'sgltk::Mesh']]],
+  ['shininess_5ftexture_5fname',['shininess_texture_name',['../classsgltk_1_1_mesh.html#a30488518eb8a2e00ff70663dda8da697',1,'sgltk::Mesh']]],
+  ['size',['size',['../classsgltk_1_1_buffer.html#adaf1f454272ac452b333cda03f31f6f3',1,'sgltk::Buffer']]],
+  ['specular_5fcolor_5fname',['specular_color_name',['../classsgltk_1_1_mesh.html#adeba46ce86a0868544e18c797537472d',1,'sgltk::Mesh']]],
+  ['specular_5ftexture_5fname',['specular_texture_name',['../classsgltk_1_1_mesh.html#a4b186ddf28827fa4e1984858ae9481d7',1,'sgltk::Mesh']]],
+  ['supported_5fdisplay_5fmodes',['supported_display_modes',['../structsgltk_1_1_s_y_s___i_n_f_o.html#af763e1df0b4a6d3e8b9a0033a5041e62',1,'sgltk::SYS_INFO']]],
+  ['sys_5finfo',['sys_info',['../classsgltk_1_1_app.html#a97fae6e7c9fb907546d2b79c50e088e4',1,'sgltk::App']]],
+  ['system_5fram',['system_ram',['../structsgltk_1_1_s_y_s___i_n_f_o.html#ad466d699fae043a0fe2ec77e1fd4f55c',1,'sgltk::SYS_INFO']]]
 ];
