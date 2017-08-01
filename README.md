@@ -21,29 +21,37 @@ applications easier by providing a layer of abstraction from OpenGL.
 
 ## Building the library
 * **Windows**
-    1. Generate the makefiles or project files using `cmake`:
+	1. Generate the makefiles or project files using `cmake`:
 
-        `cmake -G` to get the list of available generators
+	`cmake -G` to get the list of available generators
 
-        `cmake -G "generator_name" -DCMAKE_PREFIX_PATH="path/to/include;path/to/lib" .`
+	`cmake -G "generator_name" -DINCLUDE_PATH="path/to/include" -DLIBRARY_PATH="path/to/lib" .`
 
-    2. Use `make` or open the project file in the appropriate IDE to build the project
-    3. When linking your program with the static library `sgltk_static` you will have to define `STATIC` in the precompiler
+	Alternatively you can use a graphical tool like **CMake GUI**
+
+	2. Use `make` or open the project file in the appropriate IDE to build the project
+
 
 * **Linux**
-    1. Generate the makefiles using `cmake`:
+	1. Generate the makefiles using `cmake`:
 
-        `cmake .` or `cmake path/to/sgltk/source`
+	`cmake .`
 
-    2. Build the project using `make`:
+	Alternatively you can use a graphical tool like **CMake GUI**
 
-        `make` or `make -j number-of-threads`
+	2. Build the project using `make`:
 
-        This will build both a shared and a static library. To build only one of these you can use the build targets `sgltk` or `sgltk_static`.
+	`make` or `make -j number-of-threads`
 
-    3. Optionally you can install the library using `make` with appropriate privileges:
+	This will build both a shared and a static library. To build only one of these you can use the build targets `sgltk` or `sgltk_static`.
 
-        `make install`
+	3. Optionally you can install the library using `make` with appropriate privileges:
+
+	`make install`
+
+## Linking against sgltk
+If you are linking against the **static** version of sgltk on a **Windows** system, you will have to define **SGLTK_STATIC**. Otherwise just link against sgltk like you would do it with any other 3rd party library.
+
 
 ## Documentation
 The documentation is available [here](http://pyth.github.io/sgltk/doc/html/annotated.html).
