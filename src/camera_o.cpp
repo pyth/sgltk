@@ -9,22 +9,22 @@ O_Camera::O_Camera() : Camera(glm::vec3(0, 0, 0),
 	update_projection_matrix();
 }
 
-O_Camera::O_Camera(glm::vec3 pos,
-		   glm::vec3 dir,
+O_Camera::O_Camera(glm::vec3 position,
+		   glm::vec3 direction,
 		   glm::vec3 up) :
-		   Camera(pos, dir, up) {
+		   Camera(position, direction, up) {
 
 	update_projection_matrix();
 };
 
-O_Camera::O_Camera(glm::vec3 pos,
-		   glm::vec3 dir,
+O_Camera::O_Camera(glm::vec3 position,
+		   glm::vec3 direction,
 		   glm::vec3 up,
 		   float width,
 		   float height,
 		   float near_plane,
 		   float far_plane) :
-		   Camera(pos, dir, up) {
+		   Camera(position, direction, up) {
 
 	this->width = width;
 	this->height = height;
@@ -92,10 +92,10 @@ void O_Camera::calculate_frustum_distance(glm::vec3 position,
 	glm::vec3 far_top_right;
 	glm::vec3 far_top_left;
 
-	glm::vec3 cam_dir = glm::normalize(dir);
+	glm::vec3 cam_dir = glm::normalize(direction);
 
-	glm::vec3 far_center = pos + far_plane * cam_dir;
-	glm::vec3 near_center = pos + near_plane * cam_dir;
+	glm::vec3 far_center = position + far_plane * cam_dir;
+	glm::vec3 near_center = position + near_plane * cam_dir;
 
 	calculate_frustum_points(&near_bottom_left,
 		&near_bottom_right,

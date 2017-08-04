@@ -2,7 +2,7 @@ var searchData=
 [
   ['calculate_5ffrustum_5fdistance',['calculate_frustum_distance',['../classsgltk_1_1_p___camera.html#afa79ed12d37b9555e05c0408e5a34ee2',1,'sgltk::P_Camera::calculate_frustum_distance()'],['../classsgltk_1_1_o___camera.html#a80beb4fb111144dd218fd1edc16ca03c',1,'sgltk::O_Camera::calculate_frustum_distance()'],['../classsgltk_1_1_i_p___camera.html#a956023dfe7a01273aec1c5887b6e2619',1,'sgltk::IP_Camera::calculate_frustum_distance()']]],
   ['calculate_5ffrustum_5fpoints',['calculate_frustum_points',['../classsgltk_1_1_p___camera.html#ae662aa22d62d85774d339a4e966daee8',1,'sgltk::P_Camera::calculate_frustum_points()'],['../classsgltk_1_1_o___camera.html#a3108e71e18318e827f0080b54a508594',1,'sgltk::O_Camera::calculate_frustum_points()'],['../classsgltk_1_1_i_p___camera.html#ad697f795d59f5df96294a4a32dfbe9e7',1,'sgltk::IP_Camera::calculate_frustum_points()']]],
-  ['camera',['Camera',['../classsgltk_1_1_camera.html',1,'sgltk::Camera'],['../classsgltk_1_1_camera.html#a104615d38a37718844cce9910747b378',1,'sgltk::Camera::Camera()']]],
+  ['camera',['Camera',['../classsgltk_1_1_camera.html',1,'sgltk::Camera'],['../classsgltk_1_1_camera.html#a8237ba9974234fe416ebd7665d7ec866',1,'sgltk::Camera::Camera()']]],
   ['chdir_5fto_5fbin',['chdir_to_bin',['../classsgltk_1_1_app.html#a6eec768fb2828bdb9663c9fe596c3c16',1,'sgltk::App']]],
   ['check_5fgl_5ferror',['check_gl_error',['../app_8h.html#a27abadb9942c40edb9f2a60545ae36dc',1,'app.h']]],
   ['color',['color',['../structsgltk_1_1_vertex.html#a61d9a06d9f1cbb076161c639d4f36cd3',1,'sgltk::Vertex']]],

@@ -42,11 +42,11 @@ public:
 	/**
 	 * @brief The camera position
 	 */
-	glm::vec3 pos;
+	glm::vec3 position;
 	/**
 	 * @brief The direction the camera is pointing
 	 */
-	glm::vec3 dir;
+	glm::vec3 direction;
 	/**
 	 * @brief The up vector of the camera
 	 */
@@ -57,12 +57,12 @@ public:
 	glm::vec3 right;
 
 	/**
-	 * @param pos The camera position
-	 * @param dir The view direction
+	 * @param position The camera position
+	 * @param direction The view direction
 	 * @param up The up vector
 	 */
-	EXPORT Camera(glm::vec3 pos,
-		      glm::vec3 dir,
+	EXPORT Camera(glm::vec3 position,
+		      glm::vec3 direction,
 		      glm::vec3 up);
 	EXPORT ~Camera();
 
@@ -128,16 +128,16 @@ class P_Camera : public Camera {
 	public:
 	EXPORT P_Camera();
 	/**
-	 * @param pos The camera position
-	 * @param dir The view direction
+	 * @param position The camera position
+	 * @param direction The view direction
 	 * @param up The up vector
 	 */
-	EXPORT P_Camera(glm::vec3 pos,
-			glm::vec3 dir,
+	EXPORT P_Camera(glm::vec3 position,
+			glm::vec3 direction,
 			glm::vec3 up);
 	/**
-	 * @param pos The camera position
-	 * @param dir The view direction
+	 * @param position The camera position
+	 * @param direction The view direction
 	 * @param up The up vector
 	 * @param fovy The field of view in radians
 	 * @param width The width of the viewport
@@ -145,8 +145,8 @@ class P_Camera : public Camera {
 	 * @param near_plane The near plane
 	 * @param far_plane The far plane
 	 */
-	EXPORT P_Camera(glm::vec3 pos,
-			glm::vec3 dir,
+	EXPORT P_Camera(glm::vec3 position,
+			glm::vec3 direction,
 			glm::vec3 up,
 			float fovy,
 			float width,
@@ -214,24 +214,24 @@ class O_Camera : public Camera {
 	public:
 	EXPORT O_Camera();
 	/**
-	 * @param pos The camera position
-	 * @param dir The view direction
+	 * @param position The camera position
+	 * @param direction The view direction
 	 * @param up The up vector
 	 */
-	EXPORT O_Camera(glm::vec3 pos,
-			glm::vec3 dir,
+	EXPORT O_Camera(glm::vec3 position,
+			glm::vec3 direction,
 			glm::vec3 up);
 	/**
-	 * @param pos The camera position
-	 * @param dir The view direction
+	 * @param position The camera position
+	 * @param direction The view direction
 	 * @param up The up vector
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane
 	 * @param far_plane The far plane
 	 */
-	EXPORT O_Camera(glm::vec3 pos,
-			glm::vec3 dir,
+	EXPORT O_Camera(glm::vec3 position,
+			glm::vec3 direction,
 			glm::vec3 up,
 			float width,
 			float height,
@@ -298,24 +298,24 @@ class IP_Camera : public Camera {
 	public:
 	EXPORT IP_Camera();
 	/**
-	 * @param pos The camera position
-	 * @param dir The view direction
+	 * @param position The camera position
+	 * @param direction The view direction
 	 * @param up The up vector
 	 */
-	EXPORT IP_Camera(glm::vec3 pos,
-			 glm::vec3 dir,
+	EXPORT IP_Camera(glm::vec3 position,
+			 glm::vec3 direction,
 			 glm::vec3 up);
 	/**
-	 * @param pos The camera position
-	 * @param dir The view direction
+	 * @param position The camera position
+	 * @param direction The view direction
 	 * @param up The up vector
 	 * @param fovy The field of view in radians
 	 * @param width The width of the viewport
 	 * @param height The height of the viewport
 	 * @param near_plane The near plane
 	 */
-	EXPORT IP_Camera(glm::vec3 pos,
-			 glm::vec3 dir,
+	EXPORT IP_Camera(glm::vec3 position,
+			 glm::vec3 direction,
 			 glm::vec3 up,
 			 float fovy,
 			 float width,

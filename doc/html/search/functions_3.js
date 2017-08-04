@@ -2,7 +2,7 @@ var searchData=
 [
   ['calculate_5ffrustum_5fdistance',['calculate_frustum_distance',['../classsgltk_1_1_p___camera.html#afa79ed12d37b9555e05c0408e5a34ee2',1,'sgltk::P_Camera::calculate_frustum_distance()'],['../classsgltk_1_1_o___camera.html#a80beb4fb111144dd218fd1edc16ca03c',1,'sgltk::O_Camera::calculate_frustum_distance()'],['../classsgltk_1_1_i_p___camera.html#a956023dfe7a01273aec1c5887b6e2619',1,'sgltk::IP_Camera::calculate_frustum_distance()']]],
   ['calculate_5ffrustum_5fpoints',['calculate_frustum_points',['../classsgltk_1_1_p___camera.html#ae662aa22d62d85774d339a4e966daee8',1,'sgltk::P_Camera::calculate_frustum_points()'],['../classsgltk_1_1_o___camera.html#a3108e71e18318e827f0080b54a508594',1,'sgltk::O_Camera::calculate_frustum_points()'],['../classsgltk_1_1_i_p___camera.html#ad697f795d59f5df96294a4a32dfbe9e7',1,'sgltk::IP_Camera::calculate_frustum_points()']]],
-  ['camera',['Camera',['../classsgltk_1_1_camera.html#a104615d38a37718844cce9910747b378',1,'sgltk::Camera']]],
+  ['camera',['Camera',['../classsgltk_1_1_camera.html#a8237ba9974234fe416ebd7665d7ec866',1,'sgltk::Camera']]],
   ['chdir_5fto_5fbin',['chdir_to_bin',['../classsgltk_1_1_app.html#a6eec768fb2828bdb9663c9fe596c3c16',1,'sgltk::App']]],
   ['compute_5fbounding_5fbox',['compute_bounding_box',['../classsgltk_1_1_mesh.html#a06b4ade472f0a9882c70c48f104b12da',1,'sgltk::Mesh']]],
   ['copy',['copy',['../classsgltk_1_1_buffer.html#acd7db03802582a2ecb10eefedea2f3a3',1,'sgltk::Buffer::copy(Buffer &amp;source, unsigned int read_offset, unsigned int write_offset, unsigned int size)'],['../classsgltk_1_1_buffer.html#ab4b24ce69178f838aba4b8759d4d7229',1,'sgltk::Buffer::copy(Buffer *source, unsigned int read_offset, unsigned int write_offset, unsigned int size)']]],
