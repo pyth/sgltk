@@ -42,7 +42,7 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	GLint compiled;
 	char infoLog[4096];
 	int infoLogLength;
-	SDL_RWops *file;
+	std::ifstream file;
 	const char *code;
 	GLuint tmp;
 	GLint size;
@@ -50,12 +50,12 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	if((filename.length() > 1 && filename[0] == '/') ||
 			(filename.length() > 2 && filename[1] == ':')) {
 		//absolute path
-		file = SDL_RWFromFile(filename.c_str(), "r+b");
+		file.open(filename.c_str(), std::ifstream::in | std::ifstream::binary);
 		path = filename;
 	} else {
 		//relative path
 		for(unsigned int i = 0; i < paths.size(); i++) {
-			file = SDL_RWFromFile((paths[i] + filename).c_str(), "r+b");
+			file.open((paths[i] + filename).c_str(), std::ifstream::in | std::ifstream::binary);
 			if(file) {
 				path = paths[i] + filename;
 				break;
@@ -65,14 +65,17 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 
 	if(!file) {
 		App::error_string.push_back(std::string("Could not open shader file: ")
-				+ filename + std::string(" - ") + SDL_GetError());
+				+ filename);
 		return false;
 	}
-	size = (int)SDL_RWsize(file);
-	std::vector<char> buf(size);
-	SDL_RWread(file, buf.data(), size, 1);
-	SDL_RWclose(file);
-	code = buf.data();
+	file.seekg(0, file.end);
+	size = file.tellg();
+	file.seekg(0, file.beg);
+	char buf[size];
+	file.read(buf, size);
+
+	file.close();
+	code = buf;
 
 	tmp = glCreateShader(type);
 	glShaderSource(tmp, 1, &code, &size);
