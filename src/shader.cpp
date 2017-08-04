@@ -205,6 +205,11 @@ void Shader::set_uniform_float(int location, float v0) {
 	glUniform1f(location, v0);
 }
 
+void Shader::set_uniform_double(int location, double v0) {
+	bind();
+	glUniform1d(location, v0);
+}
+
 void Shader::set_uniform_int(const std::string& name, int v0) {
 	int loc = get_uniform_location(name);
 	set_uniform_int(loc, v0);
@@ -218,6 +223,11 @@ void Shader::set_uniform_uint(const std::string& name, unsigned int v0) {
 void Shader::set_uniform_float(const std::string& name, float v0) {
 	int loc = get_uniform_location(name);
 	set_uniform_float(loc, v0);
+}
+
+void Shader::set_uniform_double(const std::string& name, double v0) {
+	int loc = get_uniform_location(name);
+	set_uniform_double(loc, v0);
 }
 
 void Shader::set_uniform_int(int location, int v0,
@@ -238,6 +248,12 @@ void Shader::set_uniform_float(int location, float v0,
 	glUniform2f(location, v0, v1);
 }
 
+void Shader::set_uniform_double(int location, double v0,
+					      double v1) {
+	bind();
+	glUniform2d(location, v0, v1);
+}
+
 void Shader::set_uniform_int(const std::string& name, int v0,
 						      int v1) {
 	int loc = get_uniform_location(name);
@@ -254,6 +270,12 @@ void Shader::set_uniform_float(const std::string& name, float v0,
 							float v1) {
 	int loc = get_uniform_location(name);
 	set_uniform_float(loc, v0, v1);
+}
+
+void Shader::set_uniform_double(const std::string& name, double v0,
+							 double v1) {
+	int loc = get_uniform_location(name);
+	set_uniform_double(loc, v0, v1);
 }
 
 void Shader::set_uniform_int(int location, int v0,
@@ -277,6 +299,13 @@ void Shader::set_uniform_float(int location, float v0,
 	glUniform3f(location, v0, v1, v2);
 }
 
+void Shader::set_uniform_double(int location, double v0,
+					      double v1,
+					      double v2) {
+	bind();
+	glUniform3d(location, v0, v1, v2);
+}
+
 void Shader::set_uniform_int(const std::string& name, int v0,
 						      int v1,
 						      int v2) {
@@ -296,6 +325,13 @@ void Shader::set_uniform_float(const std::string& name, float v0,
 							float v2) {
 	int loc = get_uniform_location(name);
 	set_uniform_float(loc, v0, v1, v2);
+}
+
+void Shader::set_uniform_double(const std::string& name, double v0,
+							 double v1,
+							 double v2) {
+	int loc = get_uniform_location(name);
+	set_uniform_double(loc, v0, v1, v2);
 }
 
 void Shader::set_uniform_int(int location, int v0,
@@ -322,6 +358,14 @@ void Shader::set_uniform_float(int location, float v0,
 	glUniform4f(location, v0, v1, v2, v3);
 }
 
+void Shader::set_uniform_double(int location, double v0,
+					      double v1,
+					      double v2,
+					      double v3) {
+	bind();
+	glUniform4d(location, v0, v1, v2, v3);
+}
+
 void Shader::set_uniform_int(const std::string& name, int v0,
 						      int v1,
 						      int v2,
@@ -344,6 +388,14 @@ void Shader::set_uniform_float(const std::string& name, float v0,
 							float v3) {
 	int loc = get_uniform_location(name);
 	set_uniform_float(loc, v0, v1, v2, v3);
+}
+
+void Shader::set_uniform_double(const std::string& name, double v0,
+							 double v1,
+							 double v2,
+							 double v3) {
+	int loc = get_uniform_location(name);
+	set_uniform_double(loc, v0, v1, v2, v3);
 }
 
 void Shader::set_uniform_int(int location,
@@ -439,6 +491,37 @@ void Shader::set_uniform_float(int location,
 	}
 }
 
+void Shader::set_uniform_double(int location,
+				unsigned int count,
+				unsigned int elements,
+				const double *value) {
+	if(location < 0)
+		return;
+
+	bind();
+
+	switch(elements) {
+		case 1:
+			glUniform1dv(location, count, value);
+			break;
+		case 2:
+			glUniform2dv(location, count, value);
+			break;
+		case 3:
+			glUniform3dv(location, count, value);
+			break;
+		case 4:
+			glUniform4dv(location, count, value);
+			break;
+		default:
+			std::string error = "Wrong number of elements given to"
+				"the set_uniform function";
+			App::error_string.push_back(error);
+			throw std::runtime_error(error);
+			break;
+	}
+}
+
 void Shader::set_uniform_int(const std::string& name,
 			     unsigned int count,
 			     unsigned int elements,
@@ -466,12 +549,21 @@ void Shader::set_uniform_float(const std::string& name,
 	set_uniform_float(loc, count, elements, value);
 }
 
-void Shader::set_uniform(int location,
-			 unsigned int count,
-			 unsigned int columns,
-			 unsigned int rows,
-			 bool transpose,
-			 const float *value) {
+void Shader::set_uniform_double(const std::string& name,
+				unsigned int count,
+				unsigned int elements,
+				const double *value) {
+
+	int loc = get_uniform_location(name);
+	set_uniform_double(loc, count, elements, value);
+}
+
+void Shader::set_uniform_float(int location,
+			       unsigned int count,
+			       unsigned int columns,
+			       unsigned int rows,
+			       bool transpose,
+			       const float *value) {
 	if(location < 0)
 		return;
 	if(columns < 2 || rows < 2 || columns > 4 || rows > 4)
@@ -517,81 +609,209 @@ void Shader::set_uniform(int location,
 	}
 }
 
-void Shader::set_uniform(const std::string& name,
-			 unsigned int count,
-			 unsigned int columns,
-			 unsigned int rows,
-			 bool transpose,
-			 const float *value) {
+void Shader::set_uniform_double(int location,
+				unsigned int count,
+				unsigned int columns,
+				unsigned int rows,
+				bool transpose,
+				const double *value) {
+	if(location < 0)
+		return;
+	if(columns < 2 || rows < 2 || columns > 4 || rows > 4)
+		return;
+
+	bind();
+
+	if(columns == rows) {
+		switch(rows) {
+			case 2:
+				glUniformMatrix2dv(location,
+						   count,
+						   transpose,
+						   value);
+				break;
+			case 3:
+				glUniformMatrix3dv(location,
+						   count,
+						   transpose,
+						   value);
+				break;
+			case 4:
+				glUniformMatrix4dv(location,
+						   count,
+						   transpose,
+						   value);
+				break;
+		}
+	} else  {
+		if(columns == 2 && rows == 3) {
+			glUniformMatrix2x3dv(location, count, transpose, value);
+		} else if(columns == 3 && rows == 2) {
+			glUniformMatrix3x2dv(location, count, transpose, value);
+		} else if(columns == 2 && rows == 4) {
+			glUniformMatrix2x4dv(location, count, transpose, value);
+		} else if(columns == 4 && rows == 2) {
+			glUniformMatrix4x2dv(location, count, transpose, value);
+		} else if(columns == 3 && rows == 4) {
+			glUniformMatrix3x4dv(location, count, transpose, value);
+		} else if(columns == 4 && rows == 3) {
+			glUniformMatrix4x3dv(location, count, transpose, value);
+		}
+	}
+}
+
+void Shader::set_uniform_float(const std::string& name,
+			       unsigned int count,
+			       unsigned int columns,
+			       unsigned int rows,
+			       bool transpose,
+			       const float *value) {
 
 	int loc = get_uniform_location(name);
-	set_uniform(loc, count, columns, rows, transpose, value);
+	set_uniform_float(loc, count, columns, rows, transpose, value);
+}
+
+void Shader::set_uniform_double(const std::string& name,
+				unsigned int count,
+				unsigned int columns,
+				unsigned int rows,
+				bool transpose,
+				const double *value) {
+
+	int loc = get_uniform_location(name);
+	set_uniform_double(loc, count, columns, rows, transpose, value);
 }
 
 void Shader::set_uniform(int location, const glm::vec2& value) {
 	set_uniform_float(location, value.x, value.y);
 }
 
+void Shader::set_uniform(int location, const glm::dvec2& value) {
+	set_uniform_double(location, value.x, value.y);
+}
+
 void Shader::set_uniform(int location, const glm::vec3& value) {
 	set_uniform_float(location, value.x, value.y, value.z);
+}
+
+void Shader::set_uniform(int location, const glm::dvec3& value) {
+	set_uniform_double(location, value.x, value.y, value.z);
 }
 
 void Shader::set_uniform(int location, const glm::vec4& value) {
 	set_uniform_float(location, value.x, value.y, value.z, value.w);
 }
 
+void Shader::set_uniform(int location, const glm::dvec4& value) {
+	set_uniform_double(location, value.x, value.y, value.z, value.w);
+}
+
 void Shader::set_uniform(const std::string& name, const glm::vec2& value) {
 	set_uniform_float(name, value.x, value.y);
+}
+
+void Shader::set_uniform(const std::string& name, const glm::dvec2& value) {
+	set_uniform_double(name, value.x, value.y);
 }
 
 void Shader::set_uniform(const std::string& name, const glm::vec3& value) {
 	set_uniform_float(name, value.x, value.y, value.z);
 }
 
+void Shader::set_uniform(const std::string& name, const glm::dvec3& value) {
+	set_uniform_double(name, value.x, value.y, value.z);
+}
+
 void Shader::set_uniform(const std::string& name, const glm::vec4& value) {
 	set_uniform_float(name, value.x, value.y, value.z, value.w);
 }
 
+void Shader::set_uniform(const std::string& name, const glm::dvec4& value) {
+	set_uniform_double(name, value.x, value.y, value.z, value.w);
+}
+
 void Shader::set_uniform(int location, bool transpose, const glm::mat2& value) {
-	set_uniform(location, 1, 2, 2, transpose, glm::value_ptr(value));
+	set_uniform_float(location, 1, 2, 2, transpose, glm::value_ptr(value));
+}
+
+void Shader::set_uniform(int location, bool transpose, const glm::dmat2& value) {
+	set_uniform_double(location, 1, 2, 2, transpose, glm::value_ptr(value));
 }
 
 void Shader::set_uniform(int location, bool transpose, const glm::mat3& value) {
-	set_uniform(location, 1, 3, 3, transpose, glm::value_ptr(value));
+	set_uniform_float(location, 1, 3, 3, transpose, glm::value_ptr(value));
+}
+
+void Shader::set_uniform(int location, bool transpose, const glm::dmat3& value) {
+	set_uniform_double(location, 1, 3, 3, transpose, glm::value_ptr(value));
 }
 
 void Shader::set_uniform(int location, bool transpose, const glm::mat4& value) {
-	set_uniform(location, 1, 4, 4, transpose, glm::value_ptr(value));
+	set_uniform_float(location, 1, 4, 4, transpose, glm::value_ptr(value));
+}
+
+void Shader::set_uniform(int location, bool transpose, const glm::dmat4& value) {
+	set_uniform_double(location, 1, 4, 4, transpose, glm::value_ptr(value));
 }
 
 void Shader::set_uniform(const std::string& name,
 			 bool transpose,
 			 const glm::mat2& value) {
-	set_uniform(name, 1, 2, 2, transpose, glm::value_ptr(value));
+	set_uniform_float(name, 1, 2, 2, transpose, glm::value_ptr(value));
+}
+
+void Shader::set_uniform(const std::string& name,
+			 bool transpose,
+			 const glm::dmat2& value) {
+	set_uniform_double(name, 1, 2, 2, transpose, glm::value_ptr(value));
 }
 
 void Shader::set_uniform(const std::string& name,
 			 bool transpose,
 			 const glm::mat3& value) {
-	set_uniform(name, 1, 3, 3, transpose, glm::value_ptr(value));
+	set_uniform_float(name, 1, 3, 3, transpose, glm::value_ptr(value));
+}
+
+void Shader::set_uniform(const std::string& name,
+			 bool transpose,
+			 const glm::dmat3& value) {
+	set_uniform_double(name, 1, 3, 3, transpose, glm::value_ptr(value));
 }
 
 void Shader::set_uniform(const std::string& name,
 			 bool transpose,
 			 const glm::mat4& value) {
-	set_uniform(name, 1, 4, 4, transpose, glm::value_ptr(value));
+	set_uniform_float(name, 1, 4, 4, transpose, glm::value_ptr(value));
+}
+
+void Shader::set_uniform(const std::string& name,
+			 bool transpose,
+			 const glm::dmat4& value) {
+	set_uniform_double(name, 1, 4, 4, transpose, glm::value_ptr(value));
 }
 
 void Shader::set_uniform(int location, const std::vector<glm::vec2>& value) {
 	set_uniform_float(location, value.size(), 2, glm::value_ptr(value[0]));
 }
 
+void Shader::set_uniform(int location, const std::vector<glm::dvec2>& value) {
+	set_uniform_double(location, value.size(), 2, glm::value_ptr(value[0]));
+}
+
 void Shader::set_uniform(int location, const std::vector<glm::vec3>& value) {
 	set_uniform_float(location, value.size(), 3, glm::value_ptr(value[0]));
 }
 
+void Shader::set_uniform(int location, const std::vector<glm::dvec3>& value) {
+	set_uniform_double(location, value.size(), 3, glm::value_ptr(value[0]));
+}
+
 void Shader::set_uniform(int location, const std::vector<glm::vec4>& value) {
 	set_uniform_float(location, value.size(), 4, glm::value_ptr(value[0]));
+}
+
+void Shader::set_uniform(int location, const std::vector<glm::dvec4>& value) {
+	set_uniform_double(location, value.size(), 4, glm::value_ptr(value[0]));
 }
 
 void Shader::set_uniform(const std::string& name,
@@ -600,8 +820,18 @@ void Shader::set_uniform(const std::string& name,
 }
 
 void Shader::set_uniform(const std::string& name,
+			 const std::vector<glm::dvec2>& value) {
+	set_uniform_double(name, value.size(), 2, glm::value_ptr(value[0]));
+}
+
+void Shader::set_uniform(const std::string& name,
 			 const std::vector<glm::vec3>& value) {
 	set_uniform_float(name, value.size(), 3, glm::value_ptr(value[0]));
+}
+
+void Shader::set_uniform(const std::string& name,
+			 const std::vector<glm::dvec3>& value) {
+	set_uniform_double(name, value.size(), 3, glm::value_ptr(value[0]));
 }
 
 void Shader::set_uniform(const std::string& name,
@@ -609,44 +839,91 @@ void Shader::set_uniform(const std::string& name,
 	set_uniform_float(name, value.size(), 4, glm::value_ptr(value[0]));
 }
 
+void Shader::set_uniform(const std::string& name,
+			 const std::vector<glm::dvec4>& value) {
+	set_uniform_double(name, value.size(), 4, glm::value_ptr(value[0]));
+}
+
 void Shader::set_uniform(int location,
 			 bool transpose,
 			 const std::vector<glm::mat2>& value) {
-	set_uniform(location, value.size(), 2, 2,
-		    transpose, glm::value_ptr(value[0]));
+	set_uniform_float(location, value.size(), 2, 2,
+			  transpose, glm::value_ptr(value[0]));
+}
+
+void Shader::set_uniform(int location,
+			 bool transpose,
+			 const std::vector<glm::dmat2>& value) {
+	set_uniform_double(location, value.size(), 2, 2,
+			   transpose, glm::value_ptr(value[0]));
 }
 
 void Shader::set_uniform(int location,
 			 bool transpose,
 			 const std::vector<glm::mat3>& value) {
-	set_uniform(location, value.size(), 3, 3,
-		    transpose, glm::value_ptr(value[0]));
+	set_uniform_float(location, value.size(), 3, 3,
+			  transpose, glm::value_ptr(value[0]));
+}
+
+void Shader::set_uniform(int location,
+			 bool transpose,
+			 const std::vector<glm::dmat3>& value) {
+	set_uniform_double(location, value.size(), 3, 3,
+			   transpose, glm::value_ptr(value[0]));
 }
 
 void Shader::set_uniform(int location,
 			 bool transpose,
 			 const std::vector<glm::mat4>& value) {
-	set_uniform(location, value.size(), 4, 4,
-		    transpose, glm::value_ptr(value[0]));
+	set_uniform_float(location, value.size(), 4, 4,
+			  transpose, glm::value_ptr(value[0]));
+}
+
+void Shader::set_uniform(int location,
+			 bool transpose,
+			 const std::vector<glm::dmat4>& value) {
+	set_uniform_double(location, value.size(), 4, 4,
+			   transpose, glm::value_ptr(value[0]));
 }
 
 void Shader::set_uniform(const std::string& name,
 			 bool transpose,
 			 const std::vector<glm::mat2>& value) {
-	set_uniform(name, value.size(), 2, 2,
-		    transpose, glm::value_ptr(value[0]));
+	set_uniform_float(name, value.size(), 2, 2,
+			  transpose, glm::value_ptr(value[0]));
+}
+
+void Shader::set_uniform(const std::string& name,
+			 bool transpose,
+			 const std::vector<glm::dmat2>& value) {
+	set_uniform_double(name, value.size(), 2, 2,
+			   transpose, glm::value_ptr(value[0]));
 }
 
 void Shader::set_uniform(const std::string& name,
 			 bool transpose,
 			 const std::vector<glm::mat3>& value) {
-	set_uniform(name, value.size(), 3, 3,
-		    transpose, glm::value_ptr(value[0]));
+	set_uniform_float(name, value.size(), 3, 3,
+			  transpose, glm::value_ptr(value[0]));
+}
+
+void Shader::set_uniform(const std::string& name,
+			 bool transpose,
+			 const std::vector<glm::dmat3>& value) {
+	set_uniform_double(name, value.size(), 3, 3,
+			   transpose, glm::value_ptr(value[0]));
 }
 
 void Shader::set_uniform(const std::string& name,
 			 bool transpose,
 			 const std::vector<glm::mat4>& value) {
-	set_uniform(name, value.size(), 4, 4,
-		    transpose, glm::value_ptr(value[0]));
+	set_uniform_float(name, value.size(), 4, 4,
+			  transpose, glm::value_ptr(value[0]));
+}
+
+void Shader::set_uniform(const std::string& name,
+			 bool transpose,
+			 const std::vector<glm::dmat4>& value) {
+	set_uniform_double(name, value.size(), 4, 4,
+			   transpose, glm::value_ptr(value[0]));
 }

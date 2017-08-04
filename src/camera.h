@@ -73,10 +73,8 @@ public:
 
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
 	 */
-	EXPORT virtual void update_projection_matrix(float width, float height) = 0;
+	EXPORT virtual void update_projection_matrix() = 0;
 
 	/**
 	 * @brief Move the camera along the up vector
@@ -158,30 +156,8 @@ class P_Camera : public Camera {
 	EXPORT ~P_Camera();
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
 	 */
-	EXPORT void update_projection_matrix(float width, float height);
-	/**
-	 * @brief Recalculates the projection matrix
-	 * @param fovy The field of view in radians
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
-	 */
-	EXPORT void update_projection_matrix(float fovy, float width, float height);
-	/**
-	 * @brief Recalculates the projection matrix
-	 * @param fovy The field of view in radians
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
-	 * @param near_plane The near plane
-	 * @param far_plane The far plane
-	 */
-	EXPORT void update_projection_matrix(float fovy,
-					     float width,
-					     float height,
-					     float near_plane,
-					     float far_plane);
+	EXPORT void update_projection_matrix();
 	/**
 	 * @brief Calculates the corner points of the camera's frustum
 	 * @param near_bottom_left The world coordinates of the near-bottom-left
@@ -264,21 +240,8 @@ class O_Camera : public Camera {
 	EXPORT ~O_Camera();
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
 	 */
-	EXPORT void update_projection_matrix(float width, float height);
-	/**
-	 * @brief Recalculates the projection matrix
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
-	 * @param near_plane The near plane
-	 * @param far_plane The far plane
-	 */
-	EXPORT void update_projection_matrix(float width,
-					     float height,
-					     float near_plane,
-					     float far_plane);
+	EXPORT void update_projection_matrix();
 	/**
 	 * @brief Calculates the corner points of the camera's frustum
 	 * @param near_bottom_left The world coordinates of the near-bottom-left
@@ -361,27 +324,8 @@ class IP_Camera : public Camera {
 	EXPORT ~IP_Camera();
 	/**
 	 * @brief Recalculates the projection matrix
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
 	 */
-	EXPORT void update_projection_matrix(float width, float height);
-	/**
-	 * @brief Recalculates the projection matrix
-	 * @param fovy The field of view in radians
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
-	 */
-	EXPORT void update_projection_matrix(float fovy, float width, float height);
-	/**
-	 * @brief Recalculates the projection matrix
-	 * @param fovy The field of view in radians
-	 * @param width The width of the viewport
-	 * @param height The height of the viewport
-	 * @param near_plane The near plane
-	 */
-	EXPORT void update_projection_matrix(float fovy, float width,
-					     float height, float near_plane);
-
+	EXPORT void update_projection_matrix();
 	/**
 	 * @brief Calculates the corner points of the camera's frustum
 	 * @param near_bottom_left The world coordinates of the near-bottom-left

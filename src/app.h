@@ -18,9 +18,9 @@
 			#define EXPORT
 		#endif //MAKE_DLL
 	#else //linking with sgltk
-		#ifndef SGLTK_STATIC //static
+		#ifndef SGLTK_STATIC //dynamic
 			#define EXPORT __declspec(dllimport)
-		#else //dynamic
+		#else //static
 			#define EXPORT
 		#endif
 	#endif //MAKE_LIB

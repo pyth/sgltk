@@ -96,9 +96,10 @@ Public Member Functions</h2></td></tr>
 EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#aa8314e7d472a74170c6e5c249da1ef2a">update_view_matrix</a> ()</td></tr>
 <tr class="memdesc:aa8314e7d472a74170c6e5c249da1ef2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the view matrix. <br /></td></tr>
 <tr class="separator:aa8314e7d472a74170c6e5c249da1ef2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92efd1b913bdac79710160c6923d8b71"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a92efd1b913bdac79710160c6923d8b71">update_projection_matrix</a> (float <a class="el" href="classsgltk_1_1_camera.html#a219880a12bcf7e8cb3fc9cee5000652e">width</a>, float <a class="el" href="classsgltk_1_1_camera.html#a0c40a8d4208118065a3276a934ea3762">height</a>)=0</td></tr>
-<tr class="memdesc:a92efd1b913bdac79710160c6923d8b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix.  <a href="#a92efd1b913bdac79710160c6923d8b71">More...</a><br /></td></tr>
-<tr class="separator:a92efd1b913bdac79710160c6923d8b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af06c842a9c04a2653f2c74a3763e8213"><td class="memItemLeft" align="right" valign="top"><a id="af06c842a9c04a2653f2c74a3763e8213"></a>
+virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#af06c842a9c04a2653f2c74a3763e8213">update_projection_matrix</a> ()=0</td></tr>
+<tr class="memdesc:af06c842a9c04a2653f2c74a3763e8213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix. <br /></td></tr>
+<tr class="separator:af06c842a9c04a2653f2c74a3763e8213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acab319dbcc7b55200541b7217a6ec9dc"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#acab319dbcc7b55200541b7217a6ec9dc">move_up</a> (float delta)</td></tr>
 <tr class="memdesc:acab319dbcc7b55200541b7217a6ec9dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the camera along the up vector.  <a href="#acab319dbcc7b55200541b7217a6ec9dc">More...</a><br /></td></tr>
 <tr class="separator:acab319dbcc7b55200541b7217a6ec9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -435,53 +436,6 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 
 </div>
 </div>
-<a id="a92efd1b913bdac79710160c6923d8b71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92efd1b913bdac79710160c6923d8b71">&#9670;&nbsp;</a></span>update_projection_matrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual EXPORT void sgltk::Camera::update_projection_matrix </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Recalculates the projection matrix. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">width</td><td>The width of the viewport </td></tr>
-    <tr><td class="paramname">height</td><td>The height of the viewport </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="classsgltk_1_1_i_p___camera.html#a258e2ddf93aebcd606b8b16d9628d40b">sgltk::IP_Camera</a>, <a class="el" href="classsgltk_1_1_o___camera.html#a17ba1f78a13dfdfa8fb6ce33b74aab97">sgltk::O_Camera</a>, and <a class="el" href="classsgltk_1_1_p___camera.html#a39e0c47f248df156b9288fe13a996660">sgltk::P_Camera</a>.</p>
-
-</div>
-</div>
 <a id="ab4eab94754431725c572d528a07a35cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab4eab94754431725c572d528a07a35cc">&#9670;&nbsp;</a></span>yaw()</h2>
 
@@ -517,7 +471,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 1 2017 02:17:13 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Aug 4 2017 06:25:59 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -3,61 +3,44 @@
 using namespace sgltk;
 
 O_Camera::O_Camera() : Camera(glm::vec3(0, 0, 0),
-	glm::vec3(0, 0, -1),
-	glm::vec3(0, 1, 0)) {
+			      glm::vec3(0, 0, -1),
+			      glm::vec3(0, 1, 0)) {
 
-	update_projection_matrix(width, height, near_plane, far_plane);
+	update_projection_matrix();
 }
 
 O_Camera::O_Camera(glm::vec3 pos,
-	glm::vec3 dir,
-	glm::vec3 up) :
-	Camera(pos, dir, up) {
+		   glm::vec3 dir,
+		   glm::vec3 up) :
+		   Camera(pos, dir, up) {
 
-	update_projection_matrix(width, height, near_plane, far_plane);
+	update_projection_matrix();
 };
 
 O_Camera::O_Camera(glm::vec3 pos,
-	glm::vec3 dir,
-	glm::vec3 up,
-	float width,
-	float height,
-	float near_plane,
-	float far_plane) :
-	Camera(pos, dir, up) {
+		   glm::vec3 dir,
+		   glm::vec3 up,
+		   float width,
+		   float height,
+		   float near_plane,
+		   float far_plane) :
+		   Camera(pos, dir, up) {
 
 	this->width = width;
 	this->height = height;
 	this->near_plane = near_plane;
 	this->far_plane = far_plane;
-	update_projection_matrix(width, height, near_plane, far_plane);
+	update_projection_matrix();
 }
 
 O_Camera::~O_Camera() {
 }
 
-void O_Camera::update_projection_matrix(float width,
-	float height) {
-
-	this->width = width;
-	this->height = height;
-
-	update_projection_matrix(width, height, near_plane, far_plane);
-}
-
-void O_Camera::update_projection_matrix(float width,
-	float height,
-	float near_plane,
-	float far_plane) {
-
-	this->width = width;
-	this->height = height;
-	this->near_plane = near_plane;
-	this->far_plane = far_plane;
+void O_Camera::update_projection_matrix() {
 
 	projection_matrix = glm::ortho(-width / 2, width / 2,
-		-height / 2, height / 2,
-		near_plane, far_plane);
+				       -height / 2, height / 2,
+				       near_plane, far_plane);
 }
 
 void O_Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,

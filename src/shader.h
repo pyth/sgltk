@@ -122,6 +122,12 @@ public:
 	EXPORT void set_uniform_float(int location, float v0);
 	/**
 	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param v0 The value
+	 */
+	EXPORT void set_uniform_double(int location, double v0);
+	/**
+	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param v0 The value
 	 */
@@ -138,6 +144,12 @@ public:
 	 * @param v0 The value
 	 */
 	EXPORT void set_uniform_float(const std::string& name, float v0);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param v0 The value
+	 */
+	EXPORT void set_uniform_double(const std::string& name, double v0);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -164,6 +176,14 @@ public:
 						    float v1);
 	/**
 	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param v0 The value of the first element
+	 * @param v1 The value of the second element
+	 */
+	EXPORT void set_uniform_double(int location, double v0,
+						     double v1);
+	/**
+	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
@@ -185,6 +205,14 @@ public:
 	 */
 	EXPORT void set_uniform_float(const std::string& name, float v0,
 							       float v1);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param v0 The value of the first element
+	 * @param v1 The value of the second element
+	 */
+	EXPORT void set_uniform_double(const std::string& name, double v0,
+								double v1);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -217,6 +245,16 @@ public:
 						    float v2);
 	/**
 	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param v0 The value of the first element
+	 * @param v1 The value of the second element
+	 * @param v2 The value of the third element
+	 */
+	EXPORT void set_uniform_double(int location, double v0,
+						     double v1,
+						     double v2);
+	/**
+	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
@@ -245,6 +283,16 @@ public:
 	EXPORT void set_uniform_float(const std::string& name, float v0,
 							       float v1,
 							       float v2);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param v0 The value of the first element
+	 * @param v1 The value of the second element
+	 * @param v2 The value of the third element
+	 */
+	EXPORT void set_uniform_double(const std::string& name, double v0,
+								double v1,
+								double v2);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -283,6 +331,18 @@ public:
 						    float v3);
 	/**
 	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param v0 The value of the first element
+	 * @param v1 The value of the second element
+	 * @param v2 The value of the third element
+	 * @param v3 The value of the fourth element
+	 */
+	EXPORT void set_uniform_double(int location, double v0,
+						     double v1,
+						     double v2,
+						     double v3);
+	/**
+	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
@@ -319,6 +379,18 @@ public:
 							       float v3);
 	/**
 	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param v0 The value of the first element
+	 * @param v1 The value of the second element
+	 * @param v2 The value of the third element
+	 * @param v3 The value of the fourth element
+	 */
+	EXPORT void set_uniform_double(const std::string& name, double v0,
+								double v1,
+								double v2,
+								double v3);
+	/**
+	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param count The number of vectors
 	 * @param elements The number of elements per vector
@@ -350,6 +422,17 @@ public:
 				      unsigned int count,
 				      unsigned int elements,
 				      const float *value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param count The number of vectors
+	 * @param elements The number of elements per vector
+	 * @param value A pointer to the values
+	 */
+	EXPORT void set_uniform_double(int location,
+				       unsigned int count,
+				       unsigned int elements,
+				       const double *value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -385,6 +468,17 @@ public:
 				      const float *value);
 	/**
 	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param count The number of vectors
+	 * @param elements The number of elements per vector
+	 * @param value A pointer to the values
+	 */
+	EXPORT void set_uniform_double(const std::string& name,
+				       unsigned int count,
+				       unsigned int elements,
+				       const double *value);
+	/**
+	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param count The number of vectors
 	 * @param columns The number of matrix columns
@@ -392,12 +486,27 @@ public:
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A pointer to the values
 	 */
-	EXPORT void set_uniform(int location,
-				unsigned int count,
-				unsigned int columns,
-				unsigned int rows,
-				bool transpose,
-				const float *value);
+	EXPORT void set_uniform_float(int location,
+				      unsigned int count,
+				      unsigned int columns,
+				      unsigned int rows,
+				      bool transpose,
+				      const float *value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param count The number of vectors
+	 * @param columns The number of matrix columns
+	 * @param rows The number of matrix rows
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A pointer to the values
+	 */
+	EXPORT void set_uniform_double(int location,
+				       unsigned int count,
+				       unsigned int columns,
+				       unsigned int rows,
+				       bool transpose,
+				       const double *value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -407,12 +516,27 @@ public:
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A pointer to the values
 	 */
-	EXPORT void set_uniform(const std::string& name,
-				unsigned int count,
-				unsigned int columns,
-				unsigned int rows,
-				bool transpose,
-				const float *value);
+	EXPORT void set_uniform_float(const std::string& name,
+				      unsigned int count,
+				      unsigned int columns,
+				      unsigned int rows,
+				      bool transpose,
+				      const float *value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param count The number of vectors
+	 * @param columns The number of matrix columns
+	 * @param rows The number of matrix rows
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A pointer to the values
+	 */
+	EXPORT void set_uniform_double(const std::string& name,
+				       unsigned int count,
+				       unsigned int columns,
+				       unsigned int rows,
+				       bool transpose,
+				       const double *value);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -424,13 +548,31 @@ public:
 	 * @param location The uniform location
 	 * @param value A reference to the values
 	 */
+	EXPORT void set_uniform(int location, const glm::dvec2& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param value A reference to the values
+	 */
 	EXPORT void set_uniform(int location, const glm::vec3& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param value A reference to the values
 	 */
+	EXPORT void set_uniform(int location, const glm::dvec3& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param value A reference to the values
+	 */
 	EXPORT void set_uniform(int location, const glm::vec4& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location, const glm::dvec4& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -444,7 +586,21 @@ public:
 	 * @param value A reference to the values
 	 */
 	EXPORT void set_uniform(const std::string& name,
+				const glm::dvec2& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
 				const glm::vec3& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
+				const glm::dvec3& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -454,6 +610,13 @@ public:
 				const glm::vec4& value);
 	/**
 	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
+				const glm::dvec4& value);
+	/**
+	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A reference to the values
@@ -461,6 +624,15 @@ public:
 	EXPORT void set_uniform(int location,
 				bool transpose,
 				const glm::mat2& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location,
+				bool transpose,
+				const glm::dmat2& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -478,7 +650,25 @@ public:
 	 */
 	EXPORT void set_uniform(int location,
 				bool transpose,
+				const glm::dmat3& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location,
+				bool transpose,
 				const glm::mat4& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location,
+				bool transpose,
+				const glm::dmat4& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -496,7 +686,25 @@ public:
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				bool transpose,
+				const glm::dmat2& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
+				bool transpose,
 				const glm::mat3& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
+				bool transpose,
+				const glm::dmat3& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -508,11 +716,27 @@ public:
 				const glm::mat4& value);
 	/**
 	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
+				bool transpose,
+				const glm::dmat4& value);
+	/**
+	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param value A reference to the values
 	 */
 	EXPORT void set_uniform(int location,
 				const std::vector<glm::vec2>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location,
+				const std::vector<glm::dvec2>& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -526,7 +750,21 @@ public:
 	 * @param value A reference to the values
 	 */
 	EXPORT void set_uniform(int location,
+				const std::vector<glm::dvec3>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location,
 				const std::vector<glm::vec4>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location,
+				const std::vector<glm::dvec4>& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -540,6 +778,13 @@ public:
 	 * @param value A reference to the values
 	 */
 	EXPORT void set_uniform(const std::string& name,
+				const std::vector<glm::dvec2>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
 				const std::vector<glm::vec3>& value);
 	/**
 	 * @brief Sets the uniform
@@ -547,7 +792,21 @@ public:
 	 * @param value A reference to the values
 	 */
 	EXPORT void set_uniform(const std::string& name,
+				const std::vector<glm::dvec3>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
 				const std::vector<glm::vec4>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
+				const std::vector<glm::dvec4>& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -565,6 +824,15 @@ public:
 	 */
 	EXPORT void set_uniform(int location,
 				bool transpose,
+				const std::vector<glm::dmat2>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location,
+				bool transpose,
 				const std::vector<glm::mat3>& value);
 	/**
 	 * @brief Sets the uniform
@@ -574,7 +842,25 @@ public:
 	 */
 	EXPORT void set_uniform(int location,
 				bool transpose,
+				const std::vector<glm::dmat3>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location,
+				bool transpose,
 				const std::vector<glm::mat4>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param location The uniform location
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(int location,
+				bool transpose,
+				const std::vector<glm::dmat4>& value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -592,6 +878,15 @@ public:
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				bool transpose,
+				const std::vector<glm::dmat2>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
+				bool transpose,
 				const std::vector<glm::mat3>& value);
 	/**
 	 * @brief Sets the uniform
@@ -601,7 +896,25 @@ public:
 	 */
 	EXPORT void set_uniform(const std::string& name,
 				bool transpose,
+				const std::vector<glm::dmat3>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
+				bool transpose,
 				const std::vector<glm::mat4>& value);
+	/**
+	 * @brief Sets the uniform
+	 * @param name The uniform name
+	 * @param transpose Specifies whether to transpose the matrix
+	 * @param value A reference to the values
+	 */
+	EXPORT void set_uniform(const std::string& name,
+				bool transpose,
+				const std::vector<glm::dmat4>& value);
 };
 
 }
