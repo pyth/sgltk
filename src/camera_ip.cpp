@@ -8,15 +8,15 @@ IP_Camera::IP_Camera() :
 	update_projection_matrix();
 }
 
-IP_Camera::IP_Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up) :
-						Camera(pos, dir, up) {
+IP_Camera::IP_Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up) :
+						Camera(position, direction, up) {
 
 	update_projection_matrix();
 };
 
-IP_Camera::IP_Camera(glm::vec3 pos, glm::vec3 dir, glm::vec3 up, float fovy,
+IP_Camera::IP_Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up, float fovy,
 		     float width, float height, float near_plane) :
-		     					Camera(pos, dir, up) {
+		     					Camera(position, direction, up) {
 
 	this->fovy = fovy;
 	this->width = width;
@@ -72,22 +72,22 @@ void IP_Camera::calculate_frustum_distance(glm::vec3 position,
 	glm::vec3 near_top_right;
 	glm::vec3 near_top_left;
 
-	glm::vec3 cam_dir = glm::normalize(dir);
+	glm::vec3 cam_dir = glm::normalize(direction);
 
-	glm::vec3 near_center = pos + near_plane * cam_dir;
+	glm::vec3 near_center = position + near_plane * cam_dir;
 
 	calculate_frustum_points(&near_bottom_left,
 					&near_bottom_right,
 					&near_top_right,
 					&near_top_left);
 
-	glm::vec3 left_normal = glm::normalize(glm::cross(near_top_left - pos,
+	glm::vec3 left_normal = glm::normalize(glm::cross(near_top_left - position,
 							near_bottom_left - near_top_left));
 	glm::vec3 right_normal = glm::normalize(glm::cross(near_bottom_right - near_top_right,
-							near_top_right - pos));
+							near_top_right - position));
 	glm::vec3 top_normal = glm::normalize(glm::cross(near_top_right - near_top_left,
-							near_top_left - pos));
-	glm::vec3 bottom_normal = glm::normalize(glm::cross(near_bottom_left - pos,
+							near_top_left - position));
+	glm::vec3 bottom_normal = glm::normalize(glm::cross(near_bottom_left - position,
 							near_bottom_right - near_bottom_left));
 
 	if(near) {
