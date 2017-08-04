@@ -3,75 +3,46 @@
 using namespace sgltk;
 
 P_Camera::P_Camera() : Camera(glm::vec3(0, 0, 0),
-	glm::vec3(0, 0, -1),
-	glm::vec3(0, 1, 0)) {
+			      glm::vec3(0, 0, -1),
+			      glm::vec3(0, 1, 0)) {
 
-	update_projection_matrix(fovy, width, height, near_plane, far_plane);
+	update_projection_matrix();
 }
 
 P_Camera::P_Camera(glm::vec3 pos,
-	glm::vec3 dir,
-	glm::vec3 up) :
-	Camera(pos, dir, up) {
+		   glm::vec3 dir,
+		   glm::vec3 up) :
+		   Camera(pos, dir, up) {
 
-	update_projection_matrix(fovy, width, height, near_plane, far_plane);
+	update_projection_matrix();
 };
 
 P_Camera::P_Camera(glm::vec3 pos,
-	glm::vec3 dir,
-	glm::vec3 up,
-	float fovy,
-	float width,
-	float height,
-	float near_plane,
-	float far_plane) :
-	Camera(pos, dir, up) {
+		   glm::vec3 dir,
+		   glm::vec3 up,
+		   float fovy,
+		   float width,
+		   float height,
+		   float near_plane,
+		   float far_plane) :
+		   Camera(pos, dir, up) {
 
 	this->fovy = fovy;
 	this->width = width;
 	this->height = height;
 	this->near_plane = near_plane;
 	this->far_plane = far_plane;
-	update_projection_matrix(fovy, width, height, near_plane, far_plane);
+	update_projection_matrix();
 }
 
 P_Camera::~P_Camera() {
 }
 
-void P_Camera::update_projection_matrix(float width,
-	float height) {
-	this->width = width;
-	this->height = height;
-
-	update_projection_matrix(fovy, width, height, near_plane, far_plane);
-}
-
-void P_Camera::update_projection_matrix(float fovy,
-	float width,
-	float height) {
-
-	this->fovy = fovy;
-	this->width = width;
-	this->height = height;
-
-	update_projection_matrix(fovy, width, height, near_plane, far_plane);
-}
-
-void P_Camera::update_projection_matrix(float fovy,
-	float width,
-	float height,
-	float near_plane,
-	float far_plane) {
-
-	this->fovy = fovy;
-	this->width = width;
-	this->height = height;
-	this->near_plane = near_plane;
-	this->far_plane = far_plane;
+void P_Camera::update_projection_matrix() {
 
 	projection_matrix = glm::perspective(fovy,
-		(GLfloat)width / (GLfloat)height,
-		near_plane, far_plane);
+					     (GLfloat)width / (GLfloat)height,
+					     near_plane, far_plane);
 }
 
 void P_Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
