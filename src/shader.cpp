@@ -40,7 +40,6 @@ Shader::~Shader() {
 bool Shader::attach_file(const std::string& filename, GLenum type) {
 	std::string path;
 	GLint compiled;
-	char infoLog[4096];
 	int infoLogLength;
 	std::ifstream file;
 	const char *code;
@@ -82,16 +81,17 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	glCompileShader(tmp);
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
-		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength,
-				   infoLog);
-		if(infoLogLength > 0) {
-			std::cerr << "CompileShader() infoLog " <<
-				filename << std::endl << infoLog << std::endl;
-			return false;
-		}
+		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &infoLogLength);
+		char infoLog[infoLogLength];
+		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength, infoLog);
+		std::cerr << "CompileShader() infoLog " << filename
+			  << std::endl << infoLog << std::endl;
+		glDeleteShader(tmp);
+		return false;
 	}
 
 	glAttachShader(program, tmp);
+	attached.push_back(tmp);
 	if(modify) {
 		shader_path_map[path] = type;
 	}
@@ -104,7 +104,6 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 	GLint compiled;
 	const char *string_ptr = shader_string.c_str();
 	int size = shader_string.length();
-	char infoLog[4096];
 	int infoLogLength;
 
 	GLuint tmp = glCreateShader(type);
@@ -112,16 +111,17 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 	glCompileShader(tmp);
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
-		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength,
-				   infoLog);
-		if(infoLogLength > 0) {
-			std::cerr << "CompileShader() infoLog " << std::endl
-				<< infoLog << std::endl;
-			return false;
-		}
+		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &infoLogLength);
+		char infoLog[infoLogLength];
+		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength, infoLog);
+		std::cerr << "CompileShader() infoLog " << std::endl
+			  << infoLog << std::endl;
+		glDeleteShader(tmp);
+		return false;
 	}
 
 	glAttachShader(program, tmp);
+	attached.push_back(tmp);
 	if(modify) {
 		shader_string_map[shader_string] = type;
 	}
@@ -165,6 +165,9 @@ bool Shader::link() {
 	if(isLinked == GL_FALSE) {
 		linked = false;
 		return false;
+	}
+	for(GLuint shader : attached) {
+		glDetachShader(program, shader);
 	}
 	linked = true;
 	return true;
