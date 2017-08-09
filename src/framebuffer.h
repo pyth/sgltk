@@ -16,7 +16,7 @@ class Framebuffer {
 	GLenum target;
 	unsigned int width;
 	unsigned int height;
-	std::vector<unsigned int> draw_buffers;
+	std::vector<GLenum> draw_buffers;
 
 	static int max_color_attachments;
 public:
