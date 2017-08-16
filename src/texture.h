@@ -385,6 +385,18 @@ public:
 	 * @param pos_z The image to use as the positive z texture
 	 * @param neg_z The image to use as the negative z texture
 	 */
+	EXPORT bool load(const std::string& pos_x, const std::string& neg_x,
+			 const std::string& pos_y, const std::string& neg_y,
+			 const std::string& pos_z, const std::string& neg_z);
+	/**
+	 * @brief Load a new cubemap
+	 * @param pos_x The image to use as the positive x texture
+	 * @param neg_x The image to use as the negative x texture
+	 * @param pos_y The image to use as the positive y texture
+	 * @param neg_y The image to use as the negative y texture
+	 * @param pos_z The image to use as the positive z texture
+	 * @param neg_z The image to use as the negative z texture
+	 */
 	EXPORT bool load(const Image& pos_x, const Image& neg_x,
 			 const Image& pos_y, const Image& neg_y,
 			 const Image& pos_z, const Image& neg_z);

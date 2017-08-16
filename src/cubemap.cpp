@@ -7,17 +7,17 @@ Cubemap::Cubemap() : Texture() {
 }
 
 Cubemap::Cubemap(unsigned int res_x,
-	unsigned int res_y,
-	GLenum internal_format,
-	GLenum type, GLenum format) : Texture() {
+		 unsigned int res_y,
+		 GLenum internal_format,
+		 GLenum type, GLenum format) : Texture() {
 
 	target = GL_TEXTURE_CUBE_MAP;
 	create_empty(res_x, res_y, internal_format, type, format);
 }
 
 Cubemap::Cubemap(const Image& pos_x, const Image& neg_x,
-	const Image& pos_y, const Image& neg_y,
-	const Image& pos_z, const Image& neg_z) : Texture() {
+		 const Image& pos_y, const Image& neg_y,
+		 const Image& pos_z, const Image& neg_z) : Texture() {
 
 	target = GL_TEXTURE_CUBE_MAP;
 	load(pos_x, neg_x, pos_y, neg_y, pos_z, neg_z);
@@ -39,9 +39,9 @@ void Cubemap::set_parameter(GLenum name, float parameter) {
 }
 
 void Cubemap::create_empty(unsigned int res_x,
-	unsigned int res_y,
-	GLenum internal_format,
-	GLenum type, GLenum format) {
+			   unsigned int res_y,
+			   GLenum internal_format,
+			   GLenum type, GLenum format) {
 
 	width = res_x;
 	height = res_y;
@@ -60,9 +60,23 @@ void Cubemap::create_empty(unsigned int res_x,
 	unbind();
 }
 
+bool Cubemap::load(const std::string& pos_x, const std::string& neg_x,
+		   const std::string& pos_y, const std::string& neg_y,
+		   const std::string& pos_z, const std::string& neg_z) {
+
+	Image positive_x(pos_x);
+	Image negative_x(neg_x);
+	Image positive_y(pos_y);
+	Image negative_y(neg_y);
+	Image positive_z(pos_z);
+	Image negative_z(neg_z);
+
+	return load(positive_x, negative_x, positive_y, negative_y, positive_z, negative_z);
+}
+
 bool Cubemap::load(const Image& pos_x, const Image& neg_x,
-	const Image& pos_y, const Image& neg_y,
-	const Image& pos_z, const Image& neg_z) {
+		   const Image& pos_y, const Image& neg_y,
+		   const Image& pos_z, const Image& neg_z) {
 
 	SDL_Surface *tmp;
 	std::vector<const Image *> sides =
