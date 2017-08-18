@@ -38,6 +38,12 @@ void Cubemap::set_parameter(GLenum name, float parameter) {
 	unbind();
 }
 
+void Cubemap::set_parameter(GLenum name, float *parameter) {
+	bind();
+	glTexParameterfv(GL_TEXTURE_CUBE_MAP, name, parameter);
+	unbind();
+}
+
 void Cubemap::create_empty(unsigned int res_x,
 			   unsigned int res_y,
 			   GLenum internal_format,

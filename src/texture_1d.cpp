@@ -85,6 +85,12 @@ void Texture_1d::set_parameter(GLenum name, float parameter) {
 	unbind();
 }
 
+void Texture_1d::set_parameter(GLenum name, float *parameter) {
+	bind();
+	glTexParameterfv(GL_TEXTURE_1D, name, parameter);
+	unbind();
+}
+
 void Texture_1d::bind(unsigned int texture_unit) {
 	glActiveTexture(GL_TEXTURE0 + texture_unit);
 	glBindTexture(GL_TEXTURE_1D, texture);

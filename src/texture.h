@@ -138,6 +138,12 @@ public:
 	*/
 	EXPORT void set_parameter(GLenum name, float parameter);
 	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float *parameter);
+	/**
 	* @brief Creates an empty texture
 	* @param res The texture resolution
 	* @param internal_format The internal format of the texture
@@ -208,6 +214,12 @@ public:
 	* @param parameter The parameter value
 	*/
 	EXPORT void set_parameter(GLenum name, float parameter);
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float *parameter);
 	/**
 	* @brief Creates an empty texture
 	* @param res_x The texture x resolution
@@ -281,6 +293,12 @@ public:
 	* @param parameter The parameter value
 	*/
 	EXPORT void set_parameter(GLenum name, float parameter);
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float *parameter);
 	/**
 	* @brief Creates an empty texture
 	* @param res_x The texture x resolution
@@ -363,6 +381,12 @@ public:
 	* @param parameter The parameter value
 	*/
 	EXPORT void set_parameter(GLenum name, float parameter);
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float *parameter);
 	/**
 	 * @brief Creates an empty texture
 	 * @param res_x The texture x resolution
