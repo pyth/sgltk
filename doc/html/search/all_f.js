@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['p_5fcamera',['P_Camera',['../classsgltk_1_1_p___camera.html',1,'sgltk::P_Camera'],['../classsgltk_1_1_p___camera.html#af72b7510304e0229b1d4add457ae6d16',1,'sgltk::P_Camera::P_Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up)'],['../classsgltk_1_1_p___camera.html#a4919535ce8a9757c69b979984561a72a',1,'sgltk::P_Camera::P_Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up, float fovy, float width, float height, float near_plane, float far_plane)']]],
+  ['p_5fcamera',['P_Camera',['../classsgltk_1_1_p___camera.html',1,'sgltk::P_Camera'],['../classsgltk_1_1_p___camera.html#a4044d07db260a4cf947bddcea6eab82e',1,'sgltk::P_Camera::P_Camera(const sgltk::P_Camera &amp;camera)'],['../classsgltk_1_1_p___camera.html#af72b7510304e0229b1d4add457ae6d16',1,'sgltk::P_Camera::P_Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up)'],['../classsgltk_1_1_p___camera.html#a4919535ce8a9757c69b979984561a72a',1,'sgltk::P_Camera::P_Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up, float fovy, float width, float height, float near_plane, float far_plane)']]],
   ['particles',['Particles',['../classsgltk_1_1_particles.html',1,'sgltk']]],
   ['pitch',['pitch',['../classsgltk_1_1_camera.html#a49e00b90b94853e4485a6bdf063796de',1,'sgltk::Camera']]],
   ['platform_5fname',['platform_name',['../structsgltk_1_1_s_y_s___i_n_f_o.html#a09a78e8f9df7854adb6fead385d297a4',1,'sgltk::SYS_INFO']]],

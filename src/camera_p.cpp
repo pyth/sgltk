@@ -9,6 +9,17 @@ P_Camera::P_Camera() : Camera(glm::vec3(0, 0, 0),
 	update_projection_matrix();
 }
 
+P_Camera::P_Camera(const P_Camera& camera) :
+		Camera(camera.position, camera.direction, camera.up) {
+
+	fovy = camera.fovy;
+	width = camera.width;
+	height = camera.height;
+	near_plane = camera.near_plane;
+	far_plane = camera.far_plane;
+	update_projection_matrix();
+}
+
 P_Camera::P_Camera(glm::vec3 position,
 		   glm::vec3 direction,
 		   glm::vec3 up) :

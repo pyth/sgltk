@@ -138,6 +138,12 @@ public:
 	*/
 	EXPORT void set_parameter(GLenum name, float parameter);
 	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float *parameter);
+	/**
 	* @brief Creates an empty texture
 	* @param res The texture resolution
 	* @param internal_format The internal format of the texture
@@ -208,6 +214,12 @@ public:
 	* @param parameter The parameter value
 	*/
 	EXPORT void set_parameter(GLenum name, float parameter);
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float *parameter);
 	/**
 	* @brief Creates an empty texture
 	* @param res_x The texture x resolution
@@ -281,6 +293,12 @@ public:
 	* @param parameter The parameter value
 	*/
 	EXPORT void set_parameter(GLenum name, float parameter);
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float *parameter);
 	/**
 	* @brief Creates an empty texture
 	* @param res_x The texture x resolution
@@ -364,6 +382,12 @@ public:
 	*/
 	EXPORT void set_parameter(GLenum name, float parameter);
 	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float *parameter);
+	/**
 	 * @brief Creates an empty texture
 	 * @param res_x The texture x resolution
 	 * @param res_y The texture y resolution
@@ -376,6 +400,18 @@ public:
 				 GLenum internal_format,
 				 GLenum type,
 				 GLenum format);
+	/**
+	 * @brief Load a new cubemap
+	 * @param pos_x The image to use as the positive x texture
+	 * @param neg_x The image to use as the negative x texture
+	 * @param pos_y The image to use as the positive y texture
+	 * @param neg_y The image to use as the negative y texture
+	 * @param pos_z The image to use as the positive z texture
+	 * @param neg_z The image to use as the negative z texture
+	 */
+	EXPORT bool load(const std::string& pos_x, const std::string& neg_x,
+			 const std::string& pos_y, const std::string& neg_y,
+			 const std::string& pos_z, const std::string& neg_z);
 	/**
 	 * @brief Load a new cubemap
 	 * @param pos_x The image to use as the positive x texture

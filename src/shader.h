@@ -21,6 +21,8 @@ class Shader {
 	bool modify;
 	bool linked;
 
+	std::vector<GLuint> attached;
+
 	std::map<std::string, GLenum> shader_path_map;
 
 	std::map<std::string, GLenum> shader_string_map;

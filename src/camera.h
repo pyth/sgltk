@@ -128,6 +128,10 @@ class P_Camera : public Camera {
 	public:
 	EXPORT P_Camera();
 	/**
+	 * @param camera The camera to copy
+	 */
+	EXPORT P_Camera(const sgltk::P_Camera& camera);
+	/**
 	 * @param position The camera position
 	 * @param direction The view direction
 	 * @param up The up vector
@@ -214,6 +218,10 @@ class O_Camera : public Camera {
 	public:
 	EXPORT O_Camera();
 	/**
+	 * @param camera The camera to copy
+	 */
+	EXPORT O_Camera(const O_Camera& camera);
+	/**
 	 * @param position The camera position
 	 * @param direction The view direction
 	 * @param up The up vector
@@ -297,6 +305,10 @@ class O_Camera : public Camera {
 class IP_Camera : public Camera {
 	public:
 	EXPORT IP_Camera();
+	/**
+	 * @param camera The camera to copy
+	 */
+	EXPORT IP_Camera(const IP_Camera& camera);
 	/**
 	 * @param position The camera position
 	 * @param direction The view direction

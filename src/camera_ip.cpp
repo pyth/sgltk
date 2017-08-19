@@ -8,6 +8,16 @@ IP_Camera::IP_Camera() :
 	update_projection_matrix();
 }
 
+IP_Camera::IP_Camera(const IP_Camera& camera) :
+		Camera(camera.position, camera.direction, camera.up) {
+
+	fovy = camera.fovy;
+	width = camera.width;
+	height = camera.height;
+	near_plane = camera.near_plane;
+	update_projection_matrix();
+}
+
 IP_Camera::IP_Camera(glm::vec3 position, glm::vec3 direction, glm::vec3 up) :
 						Camera(position, direction, up) {
 
