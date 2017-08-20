@@ -86,12 +86,9 @@ void O_Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
 }
 
 void O_Camera::calculate_frustum_distance(glm::vec3 position,
-	float *far,
-	float *near,
-	float *left,
-	float *right,
-	float *top,
-	float *bottom) {
+					  float *far, float *near,
+					  float *left, float *right,
+					  float *top, float *bottom) {
 
 	glm::vec3 near_bottom_left;
 	glm::vec3 near_bottom_right;
@@ -143,4 +140,90 @@ void O_Camera::calculate_frustum_distance(glm::vec3 position,
 	if(bottom) {
 		*bottom = glm::dot(position - near_bottom_left, bottom_normal);
 	}
+}
+
+void O_Camera::calculate_bounding_frustum(O_Camera& camera, glm::vec3 direction, float offset) {
+	std::vector<glm::vec3> frustum_points(8);
+
+	camera.calculate_frustum_points(&frustum_points[0], &frustum_points[1],
+					&frustum_points[2], &frustum_points[3],
+					&frustum_points[4], &frustum_points[5],
+					&frustum_points[6], &frustum_points[7]);
+
+	glm::vec3 forward = glm::normalize(direction);
+	glm::vec3 right = normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
+	glm::vec3 up = normalize(glm::cross(right, forward));
+
+	glm::mat4 lm = glm::lookAt(glm::vec3(0), forward, up);
+	glm::mat4 lm_inv = glm::inverse(lm);
+
+	for(unsigned int i = 0; i < frustum_points.size(); i++) {
+		frustum_points[i] = glm::vec3(lm * glm::vec4(frustum_points[i], 1));
+	}
+
+	glm::vec3 min = frustum_points[0];
+	glm::vec3 max = frustum_points[0];
+
+	for(int i = 1; i < 8; i++) {
+		for(int j = 0; j < 3; j++) {
+			if(frustum_points[i][j] > max[j])
+				max[j] = frustum_points[i][j];
+			else if(frustum_points[i][j] < min[j])
+				min[j] = frustum_points[i][j];
+		}
+	}
+
+	far_plane = abs(max[2] - min[2]);
+	width = abs(max[0] - min[0]);
+	height = abs(max[1] - min[1]);
+
+	position = glm::vec3(lm_inv * glm::vec4(0.5f * (min + max), 1));
+
+	update_view_matrix();
+	projection_matrix = glm::ortho(-0.5f * width - offset, 0.5f * width + offset,
+				       -0.5f * height - offset, 0.5f * height + offset,
+				       -0.5f * far_plane - offset, 0.5f * far_plane + offset);
+}
+
+void O_Camera::calculate_bounding_frustum(P_Camera& camera, glm::vec3 direction, float offset) {
+	std::vector<glm::vec3> frustum_points(8);
+
+	camera.calculate_frustum_points(&frustum_points[0], &frustum_points[1],
+					&frustum_points[2], &frustum_points[3],
+					&frustum_points[4], &frustum_points[5],
+					&frustum_points[6], &frustum_points[7]);
+
+	glm::vec3 forward = glm::normalize(direction);
+	glm::vec3 right = normalize(glm::cross(forward, glm::vec3(0, 1, 0)));
+	glm::vec3 up = normalize(glm::cross(right, forward));
+
+	glm::mat4 lm = glm::lookAt(glm::vec3(0), forward, up);
+	glm::mat4 lm_inv = glm::inverse(lm);
+
+	for(unsigned int i = 0; i < frustum_points.size(); i++) {
+		frustum_points[i] = glm::vec3(lm * glm::vec4(frustum_points[i], 1));
+	}
+
+	glm::vec3 min = frustum_points[0];
+	glm::vec3 max = frustum_points[0];
+
+	for(int i = 1; i < 8; i++) {
+		for(int j = 0; j < 3; j++) {
+			if(frustum_points[i][j] > max[j])
+				max[j] = frustum_points[i][j];
+			else if(frustum_points[i][j] < min[j])
+				min[j] = frustum_points[i][j];
+		}
+	}
+
+	far_plane = abs(max[2] - min[2]);
+	width = abs(max[0] - min[0]);
+	height = abs(max[1] - min[1]);
+
+	position = glm::vec3(lm_inv * glm::vec4(0.5f * (min + max), 1));
+
+	update_view_matrix();
+	projection_matrix = glm::ortho(-0.5f * width - offset, 0.5f * width + offset,
+				       -0.5f * height - offset, 0.5f * height + offset,
+				       -0.5f * far_plane - offset, 0.5f * far_plane + offset);
 }

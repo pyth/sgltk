@@ -296,6 +296,26 @@ class O_Camera : public Camera {
 					       float *right,
 					       float *top,
 					       float *bottom);
+	/**
+	 * @brief Sets the camera parameters in such a way as to make the
+	 * 	frustum of this camera the bounding box of the frustum of the
+	 * 	other camera aligned to the direction vector
+	 * @param camera The camera to calculate the bounding box for
+	 * @param direction The vector to align the bounding box to
+	 * @param offset The offset by which the planes of the frustum will
+	 * 	be moved
+	 */
+	EXPORT void calculate_bounding_frustum(O_Camera& camera, glm::vec3 direction, float offset);
+	/**
+	 * @brief Sets the camera parameters in such a way as to make the
+	 * 	frustum of this camera the bounding box of the frustum of the
+	 * 	other camera aligned to the direction vector
+	 * @param camera The camera to calculate the bounding box for
+	 * @param direction The vector to align the bounding box to
+	 * @param offset The offset by which the planes of the frustum will
+	 * 	be moved
+	 */
+	EXPORT void calculate_bounding_frustum(P_Camera& camera, glm::vec3 direction, float offset);
 };
 
 /**
