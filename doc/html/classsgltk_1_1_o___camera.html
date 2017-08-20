@@ -111,6 +111,12 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:a80beb4fb111144dd218fd1edc16ca03c"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_o___camera.html#a80beb4fb111144dd218fd1edc16ca03c">calculate_frustum_distance</a> (glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a779a5755ca0a2685e80eb82a387285ea">position</a>, float *far, float *near, float *left, float *<a class="el" href="classsgltk_1_1_camera.html#a16559c771e5a73746fca937a796df906">right</a>, float *top, float *bottom)</td></tr>
 <tr class="memdesc:a80beb4fb111144dd218fd1edc16ca03c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the distances of a point to all planes of the camera's frustum. Positive values indicate that the point and the frustum are on the opposite sides of the plane.  <a href="#a80beb4fb111144dd218fd1edc16ca03c">More...</a><br /></td></tr>
 <tr class="separator:a80beb4fb111144dd218fd1edc16ca03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b48cbbbe37cd6a2c3cbdd8e9d65da09"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_o___camera.html#a1b48cbbbe37cd6a2c3cbdd8e9d65da09">calculate_bounding_frustum</a> (<a class="el" href="classsgltk_1_1_o___camera.html">O_Camera</a> &amp;camera, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a2b34c21aef654cdae974d3abd01a0f59">direction</a>)</td></tr>
+<tr class="memdesc:a1b48cbbbe37cd6a2c3cbdd8e9d65da09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the camera parameters in a manner that make the frustum of this camera the bounding box of the frustum of the other camera aligned to the direction vector.  <a href="#a1b48cbbbe37cd6a2c3cbdd8e9d65da09">More...</a><br /></td></tr>
+<tr class="separator:a1b48cbbbe37cd6a2c3cbdd8e9d65da09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46c4f82013303b142ecaf0d860d2e9a6"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_o___camera.html#a46c4f82013303b142ecaf0d860d2e9a6">calculate_bounding_frustum</a> (<a class="el" href="classsgltk_1_1_p___camera.html">P_Camera</a> &amp;camera, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a2b34c21aef654cdae974d3abd01a0f59">direction</a>)</td></tr>
+<tr class="memdesc:a46c4f82013303b142ecaf0d860d2e9a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the camera parameters in a manner that make the frustum of this camera the bounding box of the frustum of the other camera aligned to the direction vector.  <a href="#a46c4f82013303b142ecaf0d860d2e9a6">More...</a><br /></td></tr>
+<tr class="separator:a46c4f82013303b142ecaf0d860d2e9a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classsgltk_1_1_camera"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsgltk_1_1_camera')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsgltk_1_1_camera.html">sgltk::Camera</a></td></tr>
 <tr class="memitem:a8237ba9974234fe416ebd7665d7ec866 inherit pub_methods_classsgltk_1_1_camera"><td class="memItemLeft" align="right" valign="top">EXPORT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_camera.html#a8237ba9974234fe416ebd7665d7ec866">Camera</a> (glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a779a5755ca0a2685e80eb82a387285ea">position</a>, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a2b34c21aef654cdae974d3abd01a0f59">direction</a>, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a5874dd9ab21e2d32cb488f4ba9daf8d7">up</a>)</td></tr>
 <tr class="separator:a8237ba9974234fe416ebd7665d7ec866 inherit pub_methods_classsgltk_1_1_camera"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -340,6 +346,84 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1b48cbbbe37cd6a2c3cbdd8e9d65da09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b48cbbbe37cd6a2c3cbdd8e9d65da09">&#9670;&nbsp;</a></span>calculate_bounding_frustum() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void O_Camera::calculate_bounding_frustum </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsgltk_1_1_o___camera.html">O_Camera</a> &amp;&#160;</td>
+          <td class="paramname"><em>camera</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up the camera parameters in a manner that make the frustum of this camera the bounding box of the frustum of the other camera aligned to the direction vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">camera</td><td>The camera to calculate the bounding box for </td></tr>
+    <tr><td class="paramname">direction</td><td>The vector to align the bounding box to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="camera__o_8cpp_source.html#l00145">145</a> of file <a class="el" href="camera__o_8cpp_source.html">camera_o.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a46c4f82013303b142ecaf0d860d2e9a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46c4f82013303b142ecaf0d860d2e9a6">&#9670;&nbsp;</a></span>calculate_bounding_frustum() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void O_Camera::calculate_bounding_frustum </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsgltk_1_1_p___camera.html">P_Camera</a> &amp;&#160;</td>
+          <td class="paramname"><em>camera</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec3&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up the camera parameters in a manner that make the frustum of this camera the bounding box of the frustum of the other camera aligned to the direction vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">camera</td><td>The camera to calculate the bounding box for </td></tr>
+    <tr><td class="paramname">direction</td><td>The vector to align the bounding box to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="camera__o_8cpp_source.html#l00188">188</a> of file <a class="el" href="camera__o_8cpp_source.html">camera_o.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a80beb4fb111144dd218fd1edc16ca03c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80beb4fb111144dd218fd1edc16ca03c">&#9670;&nbsp;</a></span>calculate_frustum_distance()</h2>
 
@@ -510,7 +594,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 19 2017 03:25:10 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 20 2017 22:07:36 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
