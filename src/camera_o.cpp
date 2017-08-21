@@ -142,7 +142,7 @@ void O_Camera::calculate_frustum_distance(glm::vec3 position,
 	}
 }
 
-void O_Camera::calculate_bounding_frustum(O_Camera& camera, glm::vec3 direction) {
+void O_Camera::calculate_bounding_frustum(O_Camera& camera, glm::vec3 direction, float offset) {
 	std::vector<glm::vec3> frustum_points(8);
 
 	camera.calculate_frustum_points(&frustum_points[0], &frustum_points[1],
@@ -180,12 +180,12 @@ void O_Camera::calculate_bounding_frustum(O_Camera& camera, glm::vec3 direction)
 	position = glm::vec3(lm_inv * glm::vec4(0.5f * (min + max), 1));
 
 	update_view_matrix();
-	projection_matrix = glm::ortho(-0.5f * width, 0.5f * width,
-				       -0.5f * height, 0.5f * height,
-				       -0.8f * far_plane, 0.5f * far_plane);
+	projection_matrix = glm::ortho(-0.5f * width - offset, 0.5f * width + offset,
+				       -0.5f * height - offset, 0.5f * height + offset,
+				       -0.5f * far_plane - offset, 0.5f * far_plane + offset);
 }
 
-void O_Camera::calculate_bounding_frustum(P_Camera& camera, glm::vec3 direction) {
+void O_Camera::calculate_bounding_frustum(P_Camera& camera, glm::vec3 direction, float offset) {
 	std::vector<glm::vec3> frustum_points(8);
 
 	camera.calculate_frustum_points(&frustum_points[0], &frustum_points[1],
@@ -223,7 +223,7 @@ void O_Camera::calculate_bounding_frustum(P_Camera& camera, glm::vec3 direction)
 	position = glm::vec3(lm_inv * glm::vec4(0.5f * (min + max), 1));
 
 	update_view_matrix();
-	projection_matrix = glm::ortho(-0.5f * width, 0.5f * width,
-				       -0.5f * height, 0.5f * height,
-				       -0.8f * far_plane, 0.5f * far_plane);
+	projection_matrix = glm::ortho(-0.5f * width - offset, 0.5f * width + offset,
+				       -0.5f * height - offset, 0.5f * height + offset,
+				       -0.5f * far_plane - offset, 0.5f * far_plane + offset);
 }
