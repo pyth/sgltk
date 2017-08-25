@@ -13,7 +13,9 @@ set(LIB_SOURCE
 	image.cpp
 	texture.cpp
 	cubemap.cpp
+	texture_1d_array.cpp
 	texture_1d.cpp
+	texture_2d_array.cpp
 	texture_2d.cpp
 	texture_3d.cpp
 	model.cpp
