@@ -6,7 +6,13 @@ Texture_3d::Texture_3d() : Texture() {
 	target = GL_TEXTURE_3D;
 }
 
-Texture_3d::Texture_3d(unsigned int res_x, unsigned int res_y, unsigned int res_z, GLenum internal_format, GLenum type, GLenum format) : Texture() {
+Texture_3d::Texture_3d(unsigned int res_x,
+		       unsigned int res_y,
+		       unsigned int res_z,
+		       GLenum internal_format,
+		       GLenum type,
+		       GLenum format) : Texture() {
+
 	target = GL_TEXTURE_3D;
 	create_empty(res_x, res_y, res_z, internal_format, type, format);
 }
@@ -24,7 +30,13 @@ Texture_3d::Texture_3d(const std::vector<std::string>& paths) : Texture() {
 Texture_3d::~Texture_3d() {
 }
 
-void Texture_3d::create_empty(unsigned int res_x, unsigned int res_y, unsigned int res_z, GLenum internal_format, GLenum type, GLenum format) {
+void Texture_3d::create_empty(unsigned int res_x,
+			      unsigned int res_y,
+			      unsigned int res_z,
+			      GLenum internal_format,
+			      GLenum type,
+			      GLenum format) {
+
 	width = res_x;
 	height = res_y;
 
@@ -43,20 +55,17 @@ bool Texture_3d::load(const std::vector<std::string>& paths) {
 	std::vector<Image> images;
 	for(std::string path : paths) {
 		Image img;
-		try {
-			img.load(path);
-		}
-		catch(std::exception e) {
+		if(!img.load(path))
 			return false;
-		}
+
 		images.push_back(img);
 	}
 	return load(images);
 }
 
 bool Texture_3d::load(const std::vector<Image>& images) {
-	unsigned int width = 0;
-	unsigned int height = 0;
+	width = 0;
+	height = 0;
 
 	std::vector<void *> data;
 	std::vector<SDL_Surface *> images_tmp;
@@ -68,6 +77,8 @@ bool Texture_3d::load(const std::vector<Image>& images) {
 		if(width == 0 && height == 0) {
 			width = image.width;
 			height = image.height;
+		} else if(width != image.width || height != image.height) {
+			return false;
 		}
 
 		SDL_Surface *tmp = SDL_ConvertSurfaceFormat(image.image,
@@ -78,7 +89,6 @@ bool Texture_3d::load(const std::vector<Image>& images) {
 		data.push_back(tmp->pixels);
 		images_tmp.push_back(tmp);
 	}
-	unsigned int depth = images_tmp.size();
 
 	bind();
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -86,8 +96,11 @@ bool Texture_3d::load(const std::vector<Image>& images) {
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA, width, height, depth, 0,
-		GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, data.data());
+	for(unsigned int i = 0; i < images_tmp.size(); i++) {
+		glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, i,
+				width, height, 1, GL_RGBA,
+				GL_UNSIGNED_INT_8_8_8_8, data[i]);
+	}
 	glGenerateMipmap(GL_TEXTURE_3D);
 	unbind();
 
@@ -96,24 +109,6 @@ bool Texture_3d::load(const std::vector<Image>& images) {
 	}
 
 	return true;
-}
-
-void Texture_3d::set_parameter(GLenum name, int parameter) {
-	bind();
-	glTexParameteri(GL_TEXTURE_3D, name, parameter);
-	unbind();
-}
-
-void Texture_3d::set_parameter(GLenum name, float parameter) {
-	bind();
-	glTexParameterf(GL_TEXTURE_3D, name, parameter);
-	unbind();
-}
-
-void Texture_3d::set_parameter(GLenum name, float *parameter) {
-	bind();
-	glTexParameterfv(GL_TEXTURE_3D, name, parameter);
-	unbind();
 }
 
 void Texture_3d::bind(unsigned int texture_unit) {

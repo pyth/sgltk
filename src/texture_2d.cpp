@@ -40,12 +40,9 @@ void Texture_2d::create_empty(unsigned int res_x, unsigned int res_y, GLenum int
 
 bool Texture_2d::load(const std::string& path) {
 	Image img;
-	try {
-		img.load(path);
-	}
-	catch(std::exception e) {
+	if(!img.load(path))
 		return false;
-	}
+
 	width = img.width;
 	height = img.height;
 	return load(img);
@@ -72,24 +69,6 @@ bool Texture_2d::load(const Image& image) {
 	unbind();
 	SDL_FreeSurface(tmp);
 	return true;
-}
-
-void Texture_2d::set_parameter(GLenum name, int parameter) {
-	bind();
-	glTexParameteri(GL_TEXTURE_2D, name, parameter);
-	unbind();
-}
-
-void Texture_2d::set_parameter(GLenum name, float parameter) {
-	bind();
-	glTexParameterf(GL_TEXTURE_2D, name, parameter);
-	unbind();
-}
-
-void Texture_2d::set_parameter(GLenum name, float *parameter) {
-	bind();
-	glTexParameterfv(GL_TEXTURE_2D, name, parameter);
-	unbind();
 }
 
 void Texture_2d::bind(unsigned int texture_unit) {

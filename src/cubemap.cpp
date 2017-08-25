@@ -26,24 +26,6 @@ Cubemap::Cubemap(const Image& pos_x, const Image& neg_x,
 Cubemap::~Cubemap() {
 }
 
-void Cubemap::set_parameter(GLenum name, int parameter) {
-	bind();
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, name, parameter);
-	unbind();
-}
-
-void Cubemap::set_parameter(GLenum name, float parameter) {
-	bind();
-	glTexParameterf(GL_TEXTURE_CUBE_MAP, name, parameter);
-	unbind();
-}
-
-void Cubemap::set_parameter(GLenum name, float *parameter) {
-	bind();
-	glTexParameterfv(GL_TEXTURE_CUBE_MAP, name, parameter);
-	unbind();
-}
-
 void Cubemap::create_empty(unsigned int res_x,
 			   unsigned int res_y,
 			   GLenum internal_format,

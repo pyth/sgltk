@@ -12,6 +12,24 @@ Texture::~Texture() {
 	glDeleteTextures(1, &texture);
 }
 
+void Texture::set_parameter(GLenum name, int parameter) {
+	bind();
+	glTexParameteri(target, name, parameter);
+	unbind();
+}
+
+void Texture::set_parameter(GLenum name, float parameter) {
+	bind();
+	glTexParameterf(target, name, parameter);
+	unbind();
+}
+
+void Texture::set_parameter(GLenum name, float *parameter) {
+	bind();
+	glTexParameterfv(target, name, parameter);
+	unbind();
+}
+
 bool Texture::store_texture(std::string name, Texture *texture) {
 	return textures.insert(std::make_pair(name, texture)).second;
 }

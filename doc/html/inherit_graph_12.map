@@ -1,3 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsgltk_1_1_s_y_s___i_n_f_o.html" title="System information. " alt="" coords="5,5,129,32"/>
+<area shape="rect" id="node1" href="$classsgltk_1_1_texture.html" title="Manages textures. " alt="" coords="5,132,107,159"/>
+<area shape="rect" id="node2" href="$classsgltk_1_1_cubemap.html" title="Manages cubemaps. " alt="" coords="178,5,291,32"/>
+<area shape="rect" id="node3" href="$classsgltk_1_1_texture__1d.html" title="Manages 1d textures. " alt="" coords="173,56,296,83"/>
+<area shape="rect" id="node4" href="$classsgltk_1_1_texture__1d___array.html" title="Manages 1d texture arrays. " alt="" coords="155,107,315,133"/>
+<area shape="rect" id="node5" href="$classsgltk_1_1_texture__2d.html" title="Manages 2d textures. " alt="" coords="173,157,296,184"/>
+<area shape="rect" id="node6" href="$classsgltk_1_1_texture__2d___array.html" title="Manages 2d texture arrays. " alt="" coords="155,208,315,235"/>
+<area shape="rect" id="node7" href="$classsgltk_1_1_texture__3d.html" title="Manages 3d textures. " alt="" coords="173,259,296,285"/>
 </map>

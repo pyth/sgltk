@@ -45,6 +45,25 @@ public:
 	EXPORT ~Texture();
 
 	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, int parameter);
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float parameter);
+	/**
+	* @brief Sets a texture parameter
+	* @param name The name of the texture parameter
+	* @param parameter The parameter value
+	*/
+	EXPORT void set_parameter(GLenum name, float *parameter);
+
+	/**
 	 * @brief Stores a texture object in an internal map using the
 	 * 	  name parameter as key (no duplicates)
 	 * @param name The key used to store the texture
@@ -59,19 +78,6 @@ public:
 	 * 	   if no texture with such name could be found.
 	 */
 	EXPORT static Texture *find_texture(std::string name);
-
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	virtual void set_parameter(GLenum name, int parameter) = 0;
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	virtual void set_parameter(GLenum name, float parameter) = 0;
 	/**
 	 * @brief Bind the texture to be used by the shader
 	 * @param texture_unit The texture unit to bind the texture to
@@ -115,34 +121,18 @@ public:
 	/**
 	* @param image The image to use as the texture
 	*/
-	EXPORT Texture_1d(const Image& image);
+	EXPORT Texture_1d(const sgltk::Image& image);
 	/**
 	 * @param res The texture resolution
 	 * @param internal_format The internal format of the texture
 	 * @param type The type of pixel data
 	 * @param format The format of the textre
 	 */
-	EXPORT Texture_1d(unsigned int res, GLenum internal_format, GLenum type, GLenum format);
+	EXPORT Texture_1d(unsigned int res,
+			  GLenum internal_format,
+			  GLenum type, GLenum format);
 	EXPORT ~Texture_1d();
 
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, int parameter);
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, float parameter);
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, float *parameter);
 	/**
 	* @brief Creates an empty texture
 	* @param res The texture resolution
@@ -158,12 +148,77 @@ public:
 	 * @brief Load a new image as texture
 	 * @param image The image to use as the texture
 	 */
-	EXPORT bool load(const Image& image);
+	EXPORT bool load(const sgltk::Image& image);
 	/**
 	 * @brief Load a new image as texture
 	 * @param path The path to the image file
 	 */
 	EXPORT bool load(const std::string& path);
+	/**
+	* @brief Bind the texture to be used by the shader
+	* @param texture_unit The texture unit to bind the texture to
+	*/
+	EXPORT void bind(unsigned int texture_unit = 0);
+	/**
+	* @brief Unbind the texture
+	* @param texture_unit The texture unit to bind the texture to
+	*/
+	EXPORT void unbind(unsigned int texture_unit = 0);
+};
+
+
+/**
+ * @class Texture_1d_Array
+ * @brief Manages 1d texture arrays
+ */
+class Texture_1d_Array : public Texture {
+public:
+	EXPORT Texture_1d_Array();
+	/**
+	 * @param paths Paths to the image files to load
+	 */
+	EXPORT Texture_1d_Array(const std::vector<std::string>& paths);
+	/**
+	* @param images The images to use as the texture layers
+	*/
+	EXPORT Texture_1d_Array(const std::vector<sgltk::Image>& images);
+	/**
+	 * @param res The texture resolution
+	 * @param num_layers The number of layers
+	 * @param internal_format The internal format of the texture
+	 * @param type The type of pixel data
+	 * @param format The format of the textre
+	 *
+	 */
+	EXPORT Texture_1d_Array(unsigned int res,
+				unsigned int num_layers,
+				GLenum internal_format,
+				GLenum type, GLenum format);
+	EXPORT ~Texture_1d_Array();
+
+	/**
+	* @brief Creates an empty texture
+	* @param res The texture resolution
+	* @param num_layers The number of layers
+	* @param internal_format The internal format of the texture
+	* @param type The type of pixel data
+	* @param format The format of the textre
+	*/
+	EXPORT void create_empty(unsigned int res,
+				 unsigned int num_layers,
+				 GLenum internal_format,
+				 GLenum type,
+				 GLenum format);
+	/**
+	 * @brief Load a new image as texture
+	 * @param images The images to use as the texture layers
+	 */
+	EXPORT bool load(const std::vector<sgltk::Image>& images);
+	/**
+	 * @brief Load a new image as texture
+	 * @param paths The path to the image file
+	 */
+	EXPORT bool load(const std::vector<std::string>& paths);
 	/**
 	* @brief Bind the texture to be used by the shader
 	* @param texture_unit The texture unit to bind the texture to
@@ -191,7 +246,7 @@ public:
 	/**
 	* @param image The image to use as the texture
 	*/
-	EXPORT Texture_2d(const Image& image);
+	EXPORT Texture_2d(const sgltk::Image& image);
 	/**
 	 * @param res_x The texture x resolution
 	 * @param res_y The texture y resolution
@@ -199,27 +254,12 @@ public:
 	 * @param type The type of pixel data
 	 * @param format The format of the textre
 	 */
-	EXPORT Texture_2d(unsigned int res_x, unsigned int res_y, GLenum internal_format, GLenum type, GLenum format);
+	EXPORT Texture_2d(unsigned int res_x,
+			  unsigned int res_y,
+			  GLenum internal_format,
+			  GLenum type, GLenum format);
 	EXPORT ~Texture_2d();
 
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, int parameter);
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, float parameter);
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, float *parameter);
 	/**
 	* @brief Creates an empty texture
 	* @param res_x The texture x resolution
@@ -229,20 +269,88 @@ public:
 	* @param format The format of the textre
 	*/
 	EXPORT void create_empty(unsigned int res_x,
-		unsigned int res_y,
-		GLenum internal_format,
-		GLenum type,
-		GLenum format);
+				 unsigned int res_y,
+				 GLenum internal_format,
+				 GLenum type,
+				 GLenum format);
 	/**
 	 * @brief Load a new image as texture
 	 * @param image The image to use as the texture
 	 */
-	EXPORT bool load(const Image& image);
+	EXPORT bool load(const sgltk::Image& image);
 	/**
 	 * @brief Load a new image as texture
 	 * @param path The path to the image file
 	 */
 	EXPORT bool load(const std::string& path);
+	/**
+	* @brief Bind the texture to be used by the shader
+	* @param texture_unit The texture unit to bind the texture to
+	*/
+	EXPORT void bind(unsigned int texture_unit = 0);
+	/**
+	* @brief Unbind the texture
+	* @param texture_unit The texture unit to bind the texture to
+	*/
+	EXPORT void unbind(unsigned int texture_unit = 0);
+};
+
+/**
+ * @class Texture_2d_Array
+ * @brief Manages 2d texture arrays
+ */
+class Texture_2d_Array : public Texture {
+public:
+	EXPORT Texture_2d_Array();
+	/**
+	 * @param paths Paths to the image files to load
+	 */
+	EXPORT Texture_2d_Array(const std::vector<std::string>& paths);
+	/**
+	* @param images The images to use as the texture layers
+	*/
+	EXPORT Texture_2d_Array(const std::vector<sgltk::Image>& images);
+	/**
+	 * @param res_x The texture x resolution
+	 * @param res_y The texture y resolution
+	 * @param num_layers The number of layers
+	 * @param internal_format The internal format of the texture
+	 * @param type The type of pixel data
+	 * @param format The format of the textre
+	 *
+	 */
+	EXPORT Texture_2d_Array(unsigned int res_x,
+				unsigned int res_y,
+				unsigned int num_layers,
+				GLenum internal_format,
+				GLenum type, GLenum format);
+	EXPORT ~Texture_2d_Array();
+
+	/**
+	* @brief Creates an empty texture
+	* @param res_x The texture x resolution
+	* @param res_y The texture y resolution
+	* @param num_layers The number of layers
+	* @param internal_format The internal format of the texture
+	* @param type The type of pixel data
+	* @param format The format of the textre
+	*/
+	EXPORT void create_empty(unsigned int res_x,
+				 unsigned int res_y,
+				 unsigned int num_layers,
+				 GLenum internal_format,
+				 GLenum type,
+				 GLenum format);
+	/**
+	 * @brief Load a new image as texture
+	 * @param images The images to use as the texture layers
+	 */
+	EXPORT bool load(const std::vector<sgltk::Image>& images);
+	/**
+	 * @brief Load a new image as texture
+	 * @param paths The path to the image file
+	 */
+	EXPORT bool load(const std::vector<std::string>& paths);
 	/**
 	* @brief Bind the texture to be used by the shader
 	* @param texture_unit The texture unit to bind the texture to
@@ -269,7 +377,7 @@ public:
 	/**
 	* @param images The image to use as the texture
 	*/
-	EXPORT Texture_3d(const std::vector<Image>& images);
+	EXPORT Texture_3d(const std::vector<sgltk::Image>& images);
 	/**
 	* @param res_x The texture x resolution
 	* @param res_y The texture y resolution
@@ -278,27 +386,14 @@ public:
 	* @param type The type of pixel data
 	* @param format The format of the textre
 	*/
-	EXPORT Texture_3d(unsigned int res_x, unsigned int res_y, unsigned int res_z, GLenum internal_format, GLenum type, GLenum format);
+	EXPORT Texture_3d(unsigned int res_x,
+			  unsigned int res_y,
+			  unsigned int res_z,
+			  GLenum internal_format,
+			  GLenum type,
+			  GLenum format);
 	EXPORT ~Texture_3d();
 
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, int parameter);
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, float parameter);
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, float *parameter);
 	/**
 	* @brief Creates an empty texture
 	* @param res_x The texture x resolution
@@ -309,16 +404,16 @@ public:
 	* @param format The format of the textre
 	*/
 	EXPORT void create_empty(unsigned int res_x,
-		unsigned int res_y,
-		unsigned int res_z,
-		GLenum internal_format,
-		GLenum type,
-		GLenum format);
+				 unsigned int res_y,
+				 unsigned int res_z,
+				 GLenum internal_format,
+				 GLenum type,
+				 GLenum format);
 	/**
 	* @brief Load a new image as texture
 	* @param images The image to use as the texture
 	*/
-	EXPORT bool load(const std::vector<Image>& images);
+	EXPORT bool load(const std::vector<sgltk::Image>& images);
 	/**
 	* @brief Load a new image as texture
 	* @param paths The path to the image file
@@ -364,29 +459,11 @@ public:
 	 * @param pos_z The image to use as the positive z texture
 	 * @param neg_z The image to use as the negative z texture
 	 */
-	EXPORT Cubemap(const Image& pos_x, const Image& neg_x,
-				const Image& pos_y, const Image& neg_y,
-				const Image& pos_z, const Image& neg_z);
+	EXPORT Cubemap(const sgltk::Image& pos_x, const sgltk::Image& neg_x,
+		       const sgltk::Image& pos_y, const sgltk::Image& neg_y,
+		       const sgltk::Image& pos_z, const sgltk::Image& neg_z);
 	EXPORT ~Cubemap();
 
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, int parameter);
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, float parameter);
-	/**
-	* @brief Sets a texture parameter
-	* @param name The name of the texture parameter
-	* @param parameter The parameter value
-	*/
-	EXPORT void set_parameter(GLenum name, float *parameter);
 	/**
 	 * @brief Creates an empty texture
 	 * @param res_x The texture x resolution
@@ -421,9 +498,9 @@ public:
 	 * @param pos_z The image to use as the positive z texture
 	 * @param neg_z The image to use as the negative z texture
 	 */
-	EXPORT bool load(const Image& pos_x, const Image& neg_x,
-			 const Image& pos_y, const Image& neg_y,
-			 const Image& pos_z, const Image& neg_z);
+	EXPORT bool load(const sgltk::Image& pos_x, const sgltk::Image& neg_x,
+			 const sgltk::Image& pos_y, const sgltk::Image& neg_y,
+			 const sgltk::Image& pos_z, const sgltk::Image& neg_z);
 	/**
 	 * @brief Bind the texture to be used by the shader
 	 * @param texture_unit The texture unit to bind the texture to
