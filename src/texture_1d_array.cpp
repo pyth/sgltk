@@ -36,6 +36,7 @@ void Texture_1d_Array::create_empty(unsigned int res,
 
 	width = res;
 	height = 1;
+	this->num_layers = num_layers;
 
 	bind();
 	glTexImage2D(GL_TEXTURE_1D_ARRAY, 0, internal_format,
@@ -47,13 +48,10 @@ void Texture_1d_Array::create_empty(unsigned int res,
 }
 
 bool Texture_1d_Array::load(const std::vector<std::string>& paths) {
-	std::vector<Image> images;
-	for(std::string path : paths) {
-		Image img;
-		if(!img.load(path))
+	std::vector<Image> images(paths.size());
+	for(unsigned int i = 0; i < paths.size(); i++) {
+		if(!images[i].load(paths[i]))
 			return false;
-
-		images.push_back(img);
 	}
 	return load(images);
 }
@@ -61,27 +59,25 @@ bool Texture_1d_Array::load(const std::vector<std::string>& paths) {
 bool Texture_1d_Array::load(const std::vector<Image>& images) {
 	width = 0;
 	height = 1;
+	num_layers = images.size();
 
-	std::vector<void *> data;
-	std::vector<SDL_Surface *> images_tmp;
+	std::vector<SDL_Surface *> images_tmp(images.size());
 
-	for(Image image : images) {
-		if(!image.image)
+	for(unsigned int i = 0; i < images.size(); i++) {
+		if(!images[i].image)
 			return false;
 
 		if(width == 0) {
-			width = image.width;
-		} else if(width != image.width) {
+			width = images[i].width;
+		} else if(width != images[i].width) {
 			return false;
 		}
 
-		SDL_Surface *tmp = SDL_ConvertSurfaceFormat(image.image,
-			SDL_PIXELFORMAT_RGBA8888, 0);
-		if(!tmp) {
+		images_tmp[i] = SDL_ConvertSurfaceFormat(images[i].image,
+							 SDL_PIXELFORMAT_RGBA8888, 0);
+		if(!images_tmp[i]) {
 			return false;
 		}
-		data.push_back(tmp->pixels);
-		images_tmp.push_back(tmp);
 	}
 
 	bind();
@@ -89,9 +85,11 @@ bool Texture_1d_Array::load(const std::vector<Image>& images) {
 	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	for(unsigned int i = 0; data.size(); i++) {
+	glTexImage2D(GL_TEXTURE_1D_ARRAY, 0, GL_RGBA,
+		     width, images.size(), 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, NULL);
+	for(unsigned int i = 0; num_layers; i++) {
 		glTexSubImage2D(GL_TEXTURE_1D_ARRAY, 0, 0, i, width, 1,
-				GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, data[i]);
+				GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, images_tmp[i]->pixels);
 	}
 	glGenerateMipmap(GL_TEXTURE_1D_ARRAY);
 	unbind();

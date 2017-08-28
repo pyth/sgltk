@@ -98,6 +98,9 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="memitem:ac2a0b32c3bb1d13759fba7be9a23457e"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_framebuffer.html#ac2a0b32c3bb1d13759fba7be9a23457e">attach_texture</a> (GLenum attachment, <a class="el" href="classsgltk_1_1_texture.html">Texture</a> &amp;texture)</td></tr>
 <tr class="memdesc:ac2a0b32c3bb1d13759fba7be9a23457e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches a texture to the framebuffer.  <a href="#ac2a0b32c3bb1d13759fba7be9a23457e">More...</a><br /></td></tr>
 <tr class="separator:ac2a0b32c3bb1d13759fba7be9a23457e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d7e1cfe3aa647991392eb662a2666bf"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_framebuffer.html#a2d7e1cfe3aa647991392eb662a2666bf">attach_texture_layer</a> (GLenum attachment, <a class="el" href="classsgltk_1_1_texture.html">Texture</a> &amp;texture, unsigned int layer)</td></tr>
+<tr class="memdesc:a2d7e1cfe3aa647991392eb662a2666bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches the layer of a texture to the framebuffer.  <a href="#a2d7e1cfe3aa647991392eb662a2666bf">More...</a><br /></td></tr>
+<tr class="separator:a2d7e1cfe3aa647991392eb662a2666bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a775f8005c4a6649a3a2e38473aac880b"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_framebuffer.html#a775f8005c4a6649a3a2e38473aac880b">attach_renderbuffer</a> (GLenum attachment, <a class="el" href="classsgltk_1_1_renderbuffer.html">Renderbuffer</a> &amp;buffer)</td></tr>
 <tr class="memdesc:a775f8005c4a6649a3a2e38473aac880b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches a renderbuffer to the framebuffer.  <a href="#a775f8005c4a6649a3a2e38473aac880b">More...</a><br /></td></tr>
 <tr class="separator:a775f8005c4a6649a3a2e38473aac880b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,7 +183,7 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="framebuffer_8cpp_source.html#l00082">82</a> of file <a class="el" href="framebuffer_8cpp_source.html">framebuffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="framebuffer_8cpp_source.html#l00121">121</a> of file <a class="el" href="framebuffer_8cpp_source.html">framebuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -221,6 +224,53 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="framebuffer_8cpp_source.html#l00045">45</a> of file <a class="el" href="framebuffer_8cpp_source.html">framebuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2d7e1cfe3aa647991392eb662a2666bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d7e1cfe3aa647991392eb662a2666bf">&#9670;&nbsp;</a></span>attach_texture_layer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Framebuffer::attach_texture_layer </td>
+          <td>(</td>
+          <td class="paramtype">GLenum&#160;</td>
+          <td class="paramname"><em>attachment</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classsgltk_1_1_texture.html">Texture</a> &amp;&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>layer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Attaches the layer of a texture to the framebuffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attachment</td><td>The attachment point to which the texture layer is attached </td></tr>
+    <tr><td class="paramname">texture</td><td>The texture containing the layer to attach </td></tr>
+    <tr><td class="paramname">layer</td><td>The layer to attach </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="framebuffer_8cpp_source.html#l00080">80</a> of file <a class="el" href="framebuffer_8cpp_source.html">framebuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -337,7 +387,7 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="framebuffer_8cpp_source.html#l00155">155</a> of file <a class="el" href="framebuffer_8cpp_source.html">framebuffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="framebuffer_8cpp_source.html#l00194">194</a> of file <a class="el" href="framebuffer_8cpp_source.html">framebuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -433,7 +483,7 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="framebuffer_8cpp_source.html#l00130">130</a> of file <a class="el" href="framebuffer_8cpp_source.html">framebuffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="framebuffer_8cpp_source.html#l00169">169</a> of file <a class="el" href="framebuffer_8cpp_source.html">framebuffer.cpp</a>.</p>
 
 </div>
 </div>
@@ -466,7 +516,7 @@ EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Aug 25 2017 04:52:18 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Aug 28 2017 14:08:09 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

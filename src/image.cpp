@@ -2,7 +2,7 @@
 
 using namespace sgltk;
 
-std::vector<std::string> Image::paths = {"./"}; 
+std::vector<std::string> Image::paths = {"./"};
 
 Image::Image() {
 	free_data = false;
@@ -10,7 +10,6 @@ Image::Image() {
 	width = 0;
 	height = 0;
 	bytes_per_pixel = 0;
-	image = NULL;
 	data = NULL;
 }
 
@@ -311,11 +310,11 @@ void Image::vertical_flip() {
 	unsigned int bpp = image->format->BytesPerPixel;
 
 	unsigned char *buf = new unsigned char[width * height * bpp];
-	
+
 	for(unsigned int y = 0; y < height; y++) {
 		for(unsigned int x = 0; x < width; x++) {
 			for(unsigned int c = 0; c < bpp; c++) {
-				buf[(y * width + x) * bpp + c] = 
+				buf[(y * width + x) * bpp + c] =
 					((unsigned char *)image->pixels)[((height - y - 1) * width + x) * bpp + c];
 			}
 		}
@@ -332,11 +331,11 @@ void Image::horizontal_flip() {
 	unsigned int bpp = image->format->BytesPerPixel;
 
 	unsigned char *buf = new unsigned char[width * height * bpp];
-	
+
 	for(unsigned int y = 0; y < height; y++) {
 		for(unsigned int x = 0; x < width; x++) {
 			for(unsigned int c = 0; c < bpp; c++) {
-				buf[(y * width + x) * bpp + c] = 
+				buf[(y * width + x) * bpp + c] =
 					((unsigned char *)image->pixels)[(y * width + (width - x - 1)) * bpp + c];
 			}
 		}

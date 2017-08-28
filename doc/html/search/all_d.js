@@ -11,6 +11,7 @@ var searchData=
   ['num_5fdisplays',['num_displays',['../structsgltk_1_1_s_y_s___i_n_f_o.html#af61a18ab12703e0054d943d84bd85e3c',1,'sgltk::SYS_INFO']]],
   ['num_5felements',['num_elements',['../classsgltk_1_1_buffer.html#aebb2dc3d3a656923fee30aab4b1219c4',1,'sgltk::Buffer']]],
   ['num_5fhats',['num_hats',['../classsgltk_1_1_joystick.html#a6931d7aa43d3bf6bc742673fac4d31d6',1,'sgltk::Joystick']]],
+  ['num_5flayers',['num_layers',['../classsgltk_1_1_texture.html#a0be48df233c5b61c394bf0ed1773e192',1,'sgltk::Texture']]],
   ['num_5flogical_5fcores',['num_logical_cores',['../structsgltk_1_1_s_y_s___i_n_f_o.html#ac8381a5e9b2bf4e8042eea65e8e8f3a3',1,'sgltk::SYS_INFO']]],
   ['num_5fuv',['num_uv',['../classsgltk_1_1_mesh.html#ad72191311743bb978c54cf8aa8c2be37',1,'sgltk::Mesh']]],
   ['num_5fvertices',['num_vertices',['../classsgltk_1_1_mesh.html#acb71480f155b10c22a9e7fedea98700c',1,'sgltk::Mesh']]]

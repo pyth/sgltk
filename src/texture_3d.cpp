@@ -39,10 +39,11 @@ void Texture_3d::create_empty(unsigned int res_x,
 
 	width = res_x;
 	height = res_y;
+	num_layers = res_z;
 
 	bind();
-	glTexImage3D(GL_TEXTURE_3D, 0, internal_format, res_x, res_y, res_z, 0,
-		format, type, NULL);
+	glTexImage3D(GL_TEXTURE_3D, 0, internal_format,
+		     res_x, res_y, res_z, 0, format, type, NULL);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -52,13 +53,10 @@ void Texture_3d::create_empty(unsigned int res_x,
 }
 
 bool Texture_3d::load(const std::vector<std::string>& paths) {
-	std::vector<Image> images;
-	for(std::string path : paths) {
-		Image img;
-		if(!img.load(path))
+	std::vector<Image> images(paths.size());
+	for(unsigned int i = 0; i < paths.size(); i++) {
+		if(!images[i].load(paths[i]))
 			return false;
-
-		images.push_back(img);
 	}
 	return load(images);
 }
@@ -66,28 +64,26 @@ bool Texture_3d::load(const std::vector<std::string>& paths) {
 bool Texture_3d::load(const std::vector<Image>& images) {
 	width = 0;
 	height = 0;
+	num_layers = images.size();
 
-	std::vector<void *> data;
-	std::vector<SDL_Surface *> images_tmp;
+	std::vector<SDL_Surface *> images_tmp(images.size());
 
-	for(Image image : images) {
-		if(!image.image)
+	for(unsigned int i = 0; i < images.size(); i++) {
+		if(!images[i].image)
 			return false;
 
 		if(width == 0 && height == 0) {
-			width = image.width;
-			height = image.height;
-		} else if(width != image.width || height != image.height) {
+			width = images[i].width;
+			height = images[i].height;
+		} else if(width != images[i].width || height != images[i].height) {
 			return false;
 		}
 
-		SDL_Surface *tmp = SDL_ConvertSurfaceFormat(image.image,
-			SDL_PIXELFORMAT_RGBA8888, 0);
-		if(!tmp) {
+		images_tmp[i] = SDL_ConvertSurfaceFormat(images[i].image,
+							 SDL_PIXELFORMAT_RGBA8888, 0);
+		if(!images_tmp[i]) {
 			return false;
 		}
-		data.push_back(tmp->pixels);
-		images_tmp.push_back(tmp);
 	}
 
 	bind();
@@ -96,10 +92,13 @@ bool Texture_3d::load(const std::vector<Image>& images) {
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	for(unsigned int i = 0; i < images_tmp.size(); i++) {
+	glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA,
+		     width, height, images.size(), 0,
+		     GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, NULL);
+	for(unsigned int i = 0; i < num_layers; i++) {
 		glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, i,
 				width, height, 1, GL_RGBA,
-				GL_UNSIGNED_INT_8_8_8_8, data[i]);
+				GL_UNSIGNED_INT_8_8_8_8, images_tmp[i]->pixels);
 	}
 	glGenerateMipmap(GL_TEXTURE_3D);
 	unbind();

@@ -40,6 +40,10 @@ public:
 	 * @brief The height of the texture
 	 */
 	unsigned int height;
+	/**
+	 * @brief The number of layers
+	 */
+	unsigned int num_layers;
 
 	EXPORT Texture();
 	EXPORT ~Texture();
