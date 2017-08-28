@@ -38,6 +38,7 @@ void Texture_2d_Array::create_empty(unsigned int res_x,
 
 	width = res_x;
 	height = res_y;
+	this->num_layers = num_layers;
 
 	bind();
 	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internal_format,
@@ -61,10 +62,11 @@ bool Texture_2d_Array::load(const std::vector<std::string>& paths) {
 bool Texture_2d_Array::load(const std::vector<Image>& images) {
 	width = 0;
 	height = 0;
+	num_layers = images.size();
 
 	std::vector<SDL_Surface *> images_tmp(images.size());
 
-	for(unsigned int i = 0; i < images.size(); i++) {
+	for(unsigned int i = 0; i < num_layers; i++) {
 		if(!images[i].image)
 			return false;
 

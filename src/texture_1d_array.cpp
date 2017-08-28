@@ -36,6 +36,7 @@ void Texture_1d_Array::create_empty(unsigned int res,
 
 	width = res;
 	height = 1;
+	this->num_layers = num_layers;
 
 	bind();
 	glTexImage2D(GL_TEXTURE_1D_ARRAY, 0, internal_format,
@@ -58,6 +59,7 @@ bool Texture_1d_Array::load(const std::vector<std::string>& paths) {
 bool Texture_1d_Array::load(const std::vector<Image>& images) {
 	width = 0;
 	height = 1;
+	num_layers = images.size();
 
 	std::vector<SDL_Surface *> images_tmp(images.size());
 
@@ -85,7 +87,7 @@ bool Texture_1d_Array::load(const std::vector<Image>& images) {
 	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexImage2D(GL_TEXTURE_1D_ARRAY, 0, GL_RGBA,
 		     width, images.size(), 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, NULL);
-	for(unsigned int i = 0; images.size(); i++) {
+	for(unsigned int i = 0; num_layers; i++) {
 		glTexSubImage2D(GL_TEXTURE_1D_ARRAY, 0, 0, i, width, 1,
 				GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, images_tmp[i]->pixels);
 	}

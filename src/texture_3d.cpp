@@ -39,6 +39,7 @@ void Texture_3d::create_empty(unsigned int res_x,
 
 	width = res_x;
 	height = res_y;
+	num_layers = res_z;
 
 	bind();
 	glTexImage3D(GL_TEXTURE_3D, 0, internal_format,
@@ -63,6 +64,7 @@ bool Texture_3d::load(const std::vector<std::string>& paths) {
 bool Texture_3d::load(const std::vector<Image>& images) {
 	width = 0;
 	height = 0;
+	num_layers = images.size();
 
 	std::vector<SDL_Surface *> images_tmp(images.size());
 
@@ -93,7 +95,7 @@ bool Texture_3d::load(const std::vector<Image>& images) {
 	glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA,
 		     width, height, images.size(), 0,
 		     GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, NULL);
-	for(unsigned int i = 0; i < images_tmp.size(); i++) {
+	for(unsigned int i = 0; i < num_layers; i++) {
 		glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, i,
 				width, height, 1, GL_RGBA,
 				GL_UNSIGNED_INT_8_8_8_8, images_tmp[i]->pixels);

@@ -5,6 +5,9 @@ using namespace sgltk;
 std::map<std::string, Texture *> Texture::textures;
 
 Texture::Texture() {
+	width = 0;
+	height = 0;
+	num_layers = 1;
 	glGenTextures(1, &texture);
 }
 
