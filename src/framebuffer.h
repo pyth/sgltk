@@ -52,6 +52,17 @@ public:
 	EXPORT bool attach_texture(GLenum attachment,
 				   Texture& texture);
 	/**
+	 * @brief Attaches the layer of a texture to the framebuffer
+	 * @param attachment The attachment point to which the texture layer
+	 * 	is attached
+	 * @param texture The texture containing the layer to attach
+	 * @param layer The layer to attach
+	 * @return Returns true on success, false otherwise
+	 */
+	EXPORT bool attach_texture_layer(GLenum attachment,
+					 Texture& texture,
+				 	 unsigned int layer);
+	/**
 	 * @brief Attaches a renderbuffer to the framebuffer
 	 * @param attachment The attachment point to which
 	 * 	  the renderbuffer is attached

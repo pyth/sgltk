@@ -45,11 +45,6 @@ void Framebuffer::unbind() {
 bool Framebuffer::attach_texture(GLenum attachment,
 				 Texture& texture) {
 
-	bind();
-	glFramebufferTexture(target,
-			     attachment,
-			     texture.texture, 0);
-	unbind();
 	if(width == 0 && height == 0) {
 		width = texture.width;
 		height = texture.height;
@@ -59,6 +54,50 @@ bool Framebuffer::attach_texture(GLenum attachment,
 			"renderbuffers.");
 		return false;
 	}
+	bind();
+	glFramebufferTexture(target, attachment, texture.texture, 0);
+	unbind();
+	GLenum attachment_max = GL_COLOR_ATTACHMENT0 + max_color_attachments;
+	switch(attachment) {
+		case GL_NONE:
+		case GL_FRONT_LEFT:
+		case GL_FRONT_RIGHT:
+		case GL_BACK_LEFT:
+		case GL_BACK_RIGHT:
+			draw_buffers.push_back(attachment);
+			break;
+		default:
+			if(attachment >= GL_COLOR_ATTACHMENT0 &&
+					attachment < attachment_max) {
+
+				draw_buffers.push_back(attachment);
+			}
+			break;
+	}
+	return true;
+}
+
+bool Framebuffer::attach_texture_layer(GLenum attachment,
+				       Texture& texture,
+				       unsigned int layer) {
+
+	if(width == 0 && height == 0) {
+		width = texture.width;
+		height = texture.height;
+	} else if(width != texture.width || height != texture.height) {
+		App::error_string.push_back("The size of the texture does not "
+			"match the size of previously attached textures or "
+			"renderbuffers.");
+		return false;
+	}
+	if(layer >= texture.num_layers) {
+		App::error_string.push_back("Layer argument is exceeding the"
+					    " number of layers of the texture");
+		return false;
+	}
+	bind();
+	glFramebufferTextureLayer(target, attachment, texture.texture, 0, layer);
+	unbind();
 	GLenum attachment_max = GL_COLOR_ATTACHMENT0 + max_color_attachments;
 	switch(attachment) {
 		case GL_NONE:
@@ -82,12 +121,6 @@ bool Framebuffer::attach_texture(GLenum attachment,
 bool Framebuffer::attach_renderbuffer(GLenum attachment,
 				      Renderbuffer& buffer) {
 
-	bind();
-	glFramebufferRenderbuffer(target,
-				  attachment,
-				  GL_RENDERBUFFER,
-				  buffer.buffer);
-	unbind();
 	if(width == 0 && height == 0) {
 		width = buffer.width;
 		height = buffer.height;
@@ -97,6 +130,12 @@ bool Framebuffer::attach_renderbuffer(GLenum attachment,
 			"renderbuffers.");
 		return false;
 	}
+	bind();
+	glFramebufferRenderbuffer(target,
+				  attachment,
+				  GL_RENDERBUFFER,
+				  buffer.buffer);
+	unbind();
 	GLenum attachment_max = GL_COLOR_ATTACHMENT0 + max_color_attachments;
 	switch(attachment) {
 		case GL_NONE:
