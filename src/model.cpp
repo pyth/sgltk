@@ -584,6 +584,8 @@ void Model::traverse_animation_nodes(float time,
 }
 
 void Model::set_animation_speed(double speed) {
+	if(!scene)
+		return;
 	if(scene->mAnimations[0]->mTicksPerSecond == 0)
 		ticks_per_second = 25.0 * speed;
 	else
@@ -722,6 +724,9 @@ void Model::set_texture_parameter(GLenum name, float parameter) {
 }
 
 bool Model::animate(float time) {
+	if(!scene)
+		return false;
+
 	if(!scene->HasAnimations())
 		return false;
 
