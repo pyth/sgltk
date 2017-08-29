@@ -81,10 +81,16 @@ class Model {
 		std::vector<Bone> bones;
 		/**
 		 * @brief Maps bone names to bone indices
+		 * If the bone does not have a name, it will get the name
+		 * 'sgltk_bone_i', where 'i' is the index of the bone
+		 * in the scene.
 		 */
 		std::map<std::string, unsigned int> bone_map;
 		/**
 		 * @brief Maps mesh names to mesh indices
+		 * If the mesh does not have a name, it will get the name
+		 * 'sgltk_mesh_i', where 'i' is the index of the mesh
+		 * in the scene.
 		 */
 		std::map<std::string, unsigned int> mesh_map;
 

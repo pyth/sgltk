@@ -227,7 +227,13 @@ void Model::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 	for(unsigned int i = 0; i < start_node->mNumMeshes; i++) {
 		Mesh *mesh_tmp = create_mesh(start_node->mMeshes[i]);
 		mesh_tmp->model_matrix = ai_to_glm_mat4(trafo);
-		mesh_map[scene->mMeshes[start_node->mMeshes[i]]->mName.C_Str()] = meshes.size();
+
+		//if the mesh has no name, name it
+		std::string mesh_name = scene->mMeshes[start_node->mMeshes[i]]->mName.C_Str();
+		if(mesh_name.length() == 0) {
+			mesh_name = "sgltk_mesh_" + std::to_string(i);
+		}
+		mesh_map[mesh_name.c_str()] = meshes.size();
 		meshes.push_back(mesh_tmp);
 	}
 
@@ -299,12 +305,13 @@ Mesh *Model::create_mesh(unsigned int index) {
 
 	}
 
-	//************************************
 	// Bones
-	//************************************
 	for(unsigned int i = 0; i < mesh->mNumBones; i++) {
 		unsigned int index = 0;
 		std::string bone_name(mesh->mBones[i]->mName.data);
+		if(bone_name.length() == 0) {
+			bone_name = "sgltk_bone_" + std::to_string(i);
+		}
 
 		if(bone_map.find(bone_name) == bone_map.end()) {
 			index = bones.size();
