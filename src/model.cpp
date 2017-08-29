@@ -257,9 +257,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 			std::vector<glm::vec4>(mesh->mNumVertices));
 	std::vector<unsigned int> indices;
 
-	//************************************
 	// Vertices
-	//************************************
 	for(unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		//position
 		if(mesh->HasPositions()) {
@@ -336,9 +334,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 		}
 	}
 
-	//************************************
 	// Faces
-	//************************************
 	for(unsigned int i = 0; i < mesh->mNumFaces; i++) {
 		aiFace face = mesh->mFaces[i];
 		for(unsigned int j = 0; j < face.mNumIndices; j++) {
@@ -346,9 +342,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 		}
 	}
 
-	//************************************
 	// Mesh
-	//************************************
 	Mesh *mesh_tmp = new Mesh();
 	mesh_tmp->num_uv = num_uv;
 	mesh_tmp->num_col = num_col;
@@ -378,9 +372,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 	if(view_matrix && projection_matrix)
 		mesh_tmp->setup_camera(view_matrix, projection_matrix);
 
-	//************************************
 	// Materials
-	//************************************
 	aiString str;
 	Texture *texture;
 	unsigned int num_textures;
