@@ -76,8 +76,8 @@ bool Model::load(const std::string& filename) {
 
 	traverse_scene_nodes(scene->mRootNode, NULL);
 	compute_bounding_box();
-	if(scene->HasAnimations())
-		set_animation_speed(1.0);
+	set_animation_speed(1.0);
+	animate(0.0f);
 	return true;
 }
 
@@ -578,6 +578,10 @@ void Model::traverse_animation_nodes(float time,
 void Model::set_animation_speed(double speed) {
 	if(!scene)
 		return;
+
+	if(!scene->HasAnimations())
+		return;
+
 	if(scene->mAnimations[0]->mTicksPerSecond == 0)
 		ticks_per_second = 25.0 * speed;
 	else
@@ -723,8 +727,7 @@ bool Model::animate(float time) {
 		return false;
 
 	glm::mat4 mat = glm::mat4(1);
-	std::vector<glm::mat4> trafos;
-	trafos.resize(bones.size());
+	std::vector<glm::mat4> trafos(bones.size());
 
 	double animation_time = fmod(time * ticks_per_second,
 					scene->mAnimations[0]->mDuration);
