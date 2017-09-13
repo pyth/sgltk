@@ -345,7 +345,7 @@ void Image::horizontal_flip() {
 	delete buf;
 }
 
-void Image::set_color_key(int r, int g, int b) {
+void Image::set_color_key(int r, int g, int b, bool enable) {
 	SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, r, g, b));
 }
 

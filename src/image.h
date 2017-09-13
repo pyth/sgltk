@@ -184,8 +184,9 @@ public:
 	 * @param r		The red color channel
 	 * @param g		The green color channel
 	 * @param b		The blue color channel
+	 * @param enable	True to enable color key, false to disable it
 	 */
-	EXPORT void set_color_key(int r, int g, int b);
+	EXPORT void set_color_key(int r, int g, int b, bool enable = true);
 };
 
 }
