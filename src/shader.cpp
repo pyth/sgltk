@@ -40,7 +40,7 @@ Shader::~Shader() {
 bool Shader::attach_file(const std::string& filename, GLenum type) {
 	std::string path;
 	GLint compiled;
-	int infoLogLength;
+	int info_log_length;
 	std::ifstream file;
 	const char *code;
 	GLuint tmp;
@@ -68,9 +68,9 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 		return false;
 	}
 	file.seekg(0, file.end);
-	size = file.tellg();
+	size = static_cast<GLint>(file.tellg());
 	file.seekg(0, file.beg);
-	char buf[size];
+	char *buf = new char[size];
 	file.read(buf, size);
 
 	file.close();
@@ -81,12 +81,14 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	glCompileShader(tmp);
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
-		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &infoLogLength);
-		char infoLog[infoLogLength];
-		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength, infoLog);
+		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &info_log_length);
+		char *info_log = new char[info_log_length];
+		glGetShaderInfoLog(tmp, info_log_length, &info_log_length, info_log);
 		std::cerr << "CompileShader() infoLog " << filename
-			  << std::endl << infoLog << std::endl;
+			  << std::endl << info_log << std::endl;
 		glDeleteShader(tmp);
+		delete buf;
+		delete info_log;
 		return false;
 	}
 
@@ -97,6 +99,7 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	}
 
 	glDeleteShader(tmp);
+	delete buf;
 	return true;
 }
 
@@ -112,11 +115,12 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
 		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &infoLogLength);
-		char infoLog[infoLogLength];
+		char *infoLog = new char[infoLogLength];
 		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength, infoLog);
 		std::cerr << "CompileShader() infoLog " << std::endl
 			  << infoLog << std::endl;
 		glDeleteShader(tmp);
+		delete infoLog;
 		return false;
 	}
 

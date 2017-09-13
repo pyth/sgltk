@@ -22,11 +22,6 @@ namespace sgltk {
  * @brief Manages imported models
  */
 class Model {
-	typedef struct Bone {
-		glm::mat4 transformation;
-		glm::mat4 offset;
-	} Bone;
-
 	static std::vector<std::string> paths;
 	Assimp::Importer importer;
 	const aiScene *scene;
@@ -46,6 +41,8 @@ class Model {
 	std::string bone_ids_name;
 	std::string bone_weights_name;
 	std::string bone_array_name;
+
+	std::vector<glm::mat4> bone_offsets;
 
 	double ticks_per_second;
 	glm::mat4 glob_inv_transf;
@@ -78,13 +75,19 @@ class Model {
 		/**
 		 * @brief The bones of the model's skeleton
 		 */
-		std::vector<Bone> bones;
+		std::vector<glm::mat4> bones;
 		/**
 		 * @brief Maps bone names to bone indices
+		 * If the bone does not have a name, it will get the name
+		 * 'sgltk_bone_i', where 'i' is the index of the bone
+		 * in the scene.
 		 */
 		std::map<std::string, unsigned int> bone_map;
 		/**
 		 * @brief Maps mesh names to mesh indices
+		 * If the mesh does not have a name, it will get the name
+		 * 'sgltk_mesh_i', where 'i' is the index of the mesh
+		 * in the scene.
 		 */
 		std::map<std::string, unsigned int> mesh_map;
 

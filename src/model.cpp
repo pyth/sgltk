@@ -33,6 +33,7 @@ Model::~Model() {
 		delete mesh;
 	}
 	bounding_box.clear();
+	bone_offsets.clear();
 	bones.clear();
 	bone_map.clear();
 	importer.FreeScene();
@@ -76,8 +77,8 @@ bool Model::load(const std::string& filename) {
 
 	traverse_scene_nodes(scene->mRootNode, NULL);
 	compute_bounding_box();
-	if(scene->HasAnimations())
-		set_animation_speed(1.0);
+	set_animation_speed(1.0);
+	animate(0.0f);
 	return true;
 }
 
@@ -227,7 +228,13 @@ void Model::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 	for(unsigned int i = 0; i < start_node->mNumMeshes; i++) {
 		Mesh *mesh_tmp = create_mesh(start_node->mMeshes[i]);
 		mesh_tmp->model_matrix = ai_to_glm_mat4(trafo);
-		mesh_map[scene->mMeshes[start_node->mMeshes[i]]->mName.C_Str()] = meshes.size();
+
+		//if the mesh has no name, name it
+		std::string mesh_name = scene->mMeshes[start_node->mMeshes[i]]->mName.C_Str();
+		if(mesh_name.length() == 0) {
+			mesh_name = "sgltk_mesh_" + std::to_string(i);
+		}
+		mesh_map[mesh_name.c_str()] = meshes.size();
 		meshes.push_back(mesh_tmp);
 	}
 
@@ -251,9 +258,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 			std::vector<glm::vec4>(mesh->mNumVertices));
 	std::vector<unsigned int> indices;
 
-	//************************************
 	// Vertices
-	//************************************
 	for(unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		//position
 		if(mesh->HasPositions()) {
@@ -299,19 +304,19 @@ Mesh *Model::create_mesh(unsigned int index) {
 
 	}
 
-	//************************************
 	// Bones
-	//************************************
 	for(unsigned int i = 0; i < mesh->mNumBones; i++) {
 		unsigned int index = 0;
 		std::string bone_name(mesh->mBones[i]->mName.data);
+		if(bone_name.length() == 0) {
+			bone_name = "sgltk_bone_" + std::to_string(i);
+		}
 
 		if(bone_map.find(bone_name) == bone_map.end()) {
 			index = bones.size();
 			bone_map[bone_name] = index;
-			Bone bone;
-			bone.offset = ai_to_glm_mat4(mesh->mBones[i]->mOffsetMatrix);
-			bones.push_back(bone);
+			bone_offsets.push_back(ai_to_glm_mat4(mesh->mBones[i]->mOffsetMatrix));
+			bones.push_back(glm::mat4(1));
 		} else {
 			index = bone_map[bone_name];
 		}
@@ -329,9 +334,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 		}
 	}
 
-	//************************************
 	// Faces
-	//************************************
 	for(unsigned int i = 0; i < mesh->mNumFaces; i++) {
 		aiFace face = mesh->mFaces[i];
 		for(unsigned int j = 0; j < face.mNumIndices; j++) {
@@ -339,9 +342,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 		}
 	}
 
-	//************************************
 	// Mesh
-	//************************************
 	Mesh *mesh_tmp = new Mesh();
 	mesh_tmp->num_uv = num_uv;
 	mesh_tmp->num_col = num_col;
@@ -371,9 +372,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 	if(view_matrix && projection_matrix)
 		mesh_tmp->setup_camera(view_matrix, projection_matrix);
 
-	//************************************
 	// Materials
-	//************************************
 	aiString str;
 	Texture *texture;
 	unsigned int num_textures;
@@ -569,14 +568,19 @@ void Model::traverse_animation_nodes(float time,
 	glm::mat4 glob_transf = parent_transformation * node_transformation;
 	if(bone_map.find(node_name) != bone_map.end()) {
 		unsigned int index = bone_map[node_name];
-		bones[index].transformation = glob_inv_transf * glob_transf *
-						bones[index].offset;
+		bones[index] = glob_inv_transf * glob_transf * bone_offsets[index];
 	}
 	for(unsigned int i = 0; i < node->mNumChildren; i++)
 		traverse_animation_nodes(time, node->mChildren[i], glob_transf);
 }
 
 void Model::set_animation_speed(double speed) {
+	if(!scene)
+		return;
+
+	if(!scene->HasAnimations())
+		return;
+
 	if(scene->mAnimations[0]->mTicksPerSecond == 0)
 		ticks_per_second = 25.0 * speed;
 	else
@@ -715,22 +719,20 @@ void Model::set_texture_parameter(GLenum name, float parameter) {
 }
 
 bool Model::animate(float time) {
+	if(!scene)
+		return false;
+
 	if(!scene->HasAnimations())
 		return false;
 
 	glm::mat4 mat = glm::mat4(1);
-	std::vector<glm::mat4> trafos;
-	trafos.resize(bones.size());
 
 	double animation_time = fmod(time * ticks_per_second,
 					scene->mAnimations[0]->mDuration);
 	traverse_animation_nodes((float)animation_time, scene->mRootNode, mat);
-	for(unsigned int i = 0; i < bones.size(); i++) {
-		trafos[i] = bones[i].transformation;
-	}
 	int loc = shader->get_uniform_location(bone_array_name);
 	if(loc >= 0) {
-		shader->set_uniform(loc, false, trafos);
+		shader->set_uniform(loc, false, bones);
 	} else {
 		return false;
 	}

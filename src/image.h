@@ -142,7 +142,7 @@ public:
 	 * @return Retuurns true on success, false on failure
 	 */
 	EXPORT bool create_text(const std::string& text,
-				std::string font_file,
+				const std::string& font_file,
 				unsigned int size,
 				Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 #endif //HAVE_SDL_TTF_H
@@ -184,8 +184,9 @@ public:
 	 * @param r		The red color channel
 	 * @param g		The green color channel
 	 * @param b		The blue color channel
+	 * @param enable	True to enable color key, false to disable it
 	 */
-	EXPORT void set_color_key(int r, int g, int b);
+	EXPORT void set_color_key(int r, int g, int b, bool enable = true);
 };
 
 }

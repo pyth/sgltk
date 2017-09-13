@@ -218,8 +218,8 @@ void Image::close_font_file(TTF_Font *font_file) {
 	TTF_CloseFont(font_file);
 }
 
-bool Image::create_text(const std::string& text, TTF_Font *font,
-								Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+bool Image::create_text(const std::string& text,
+			TTF_Font *font,	Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	if (!font)
 		return false;
 	if(image) {
@@ -240,8 +240,8 @@ bool Image::create_text(const std::string& text, TTF_Font *font,
 	return true;
 }
 
-bool Image::create_text(const std::string& text, std::string font_file, unsigned int size,
-			Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
+bool Image::create_text(const std::string& text, const std::string& font_file,
+			unsigned int size, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 	TTF_Font *font = open_font_file(font_file, size);
 	if(!font) {
 		App::error_string.push_back(std::string("TTF_OpenFont for ")
@@ -345,7 +345,7 @@ void Image::horizontal_flip() {
 	delete buf;
 }
 
-void Image::set_color_key(int r, int g, int b) {
+void Image::set_color_key(int r, int g, int b, bool enable) {
 	SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, r, g, b));
 }
 
