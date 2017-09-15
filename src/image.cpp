@@ -229,7 +229,7 @@ bool Image::create_text(const std::string& text,
 		image = NULL;
 	}
 	SDL_Color color = {r, g, b, a};
-	image = TTF_RenderText_Blended(font, text.c_str(), color);
+	image = TTF_RenderUTF8_Blended(font, text.c_str(), color);
 	if(!image) {
 		App::error_string.push_back(std::string("TTF_RenderText_Blended failed."));
 		return false;
