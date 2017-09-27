@@ -5,6 +5,8 @@ A collection of easy to use OpenGL tools.
 
 ![island screenshot](https://github.com/pyth/screenshots/blob/master/island.png)
 
+![island wireframe_screenshot](https://github.com/pyth/screenshots/blob/master/island_wireframe.png)
+
 ## About
 This project's goal is to speed up and make the development of graphical
 applications easier by providing a layer of abstraction from OpenGL.
