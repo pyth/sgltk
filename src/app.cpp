@@ -87,42 +87,25 @@ bool App::init() {
 }
 
 void App::set_gl_version(int major, int minor) {
-	int maj;
-	int min;
-	if(major < 3) {
-		maj = 3;
-		min = 0;
-		App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
-	} else if(major > 4) {
-		maj = 3;
-		min = 0;
-		App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
-	} else if(major == 3) {
-		if(minor < 0) {
-			maj = 3;
-			min = 0;
-			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
-		} else if(minor > 3) {
-			maj = 3;
-			min = 0;
+	auto maj = int(3);
+	auto min = int(0);
+
+	if(major == 3) {
+		if(minor < 0 || minor > 3) {
 			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
 		} else {
 			maj = major;
 			min = minor;
 		}
 	} else if(major == 4) {
-		if(minor < 0) {
-			maj = 3;
-			min = 0;
-			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
-		} else if(minor > 5) {
-			maj = 3;
-			min = 0;
+		if(minor < 0 || minor > 5) {
 			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
 		} else {
 			maj = major;
 			min = minor;
 		}
+	} else {
+		App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
 	}
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, maj);
