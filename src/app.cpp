@@ -206,10 +206,10 @@ void App::_check_error(std::string message, std::string file, unsigned int line)
 			break;
 	}
 	while(err != GL_NO_ERROR) {
-		std::cout << file << " - " << line << ": " << err_string;
+		std::cerr << file << " - " << line << ": " << err_string;
 		if(message.length() > 0)
-			std::cout << " - " << message;
-		std::cout << std::endl;
+			std::cerr << " - " << message;
+		std::cerr << std::endl;
 		err = glGetError();
 	}
 }
