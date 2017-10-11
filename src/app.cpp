@@ -98,7 +98,7 @@ void App::set_gl_version(int major, int minor) {
 			min = minor;
 		}
 	} else if(major == 4) {
-		if(minor < 0 || minor > 5) {
+		if(minor < 0 || minor > 6) {
 			App::error_string.push_back("Unsupported version number. Defaulting to version 3.0");
 		} else {
 			maj = major;
