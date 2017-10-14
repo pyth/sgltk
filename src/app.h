@@ -38,6 +38,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <memory>
 #include <vector>
 #include <algorithm>
 #include <exception>

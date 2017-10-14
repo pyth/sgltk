@@ -85,11 +85,10 @@ void Window::set_resizable(bool on) {
 }
 
 void Window::take_screenshot(Image& image) {
-	char *buf = new char[4 * width * height];
-	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buf);
-	image.load(width, height, 4, buf);
+	std::unique_ptr<char[]> buf(new char[4 * width * height]);
+	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buf.get());
+	image.load(width, height, 4, buf.get());
 	image.vertical_flip();
-	delete buf;
 }
 
 void Window::grab_mouse(bool on) {

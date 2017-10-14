@@ -49,12 +49,6 @@ Mesh::Mesh() {
 }
 
 Mesh::~Mesh() {
-	for(Buffer *buffer : vbo) {
-		delete buffer;
-	}
-	for(Buffer *buffer : ibo) {
-		delete buffer;
-	}
 	glDeleteVertexArrays(1, &vao);
 }
 
@@ -379,9 +373,9 @@ int Mesh::attach_index_buffer(const std::vector<unsigned char>& indices) {
 		return -1;
 
 	index_type = GL_UNSIGNED_BYTE;
-	Buffer *index = new Buffer(GL_ELEMENT_ARRAY_BUFFER);
+	std::unique_ptr<Buffer> index(new Buffer(GL_ELEMENT_ARRAY_BUFFER));
 	index->load<unsigned char>(indices, GL_STATIC_DRAW);
-	ibo.push_back(index);
+	ibo.push_back(std::move(index));
 	return ibo.size() - 1;
 }
 
@@ -390,9 +384,9 @@ int Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
 		return -1;
 
 	index_type = GL_UNSIGNED_SHORT;
-	Buffer *index = new Buffer(GL_ELEMENT_ARRAY_BUFFER);
+	std::unique_ptr<Buffer> index(new Buffer(GL_ELEMENT_ARRAY_BUFFER));
 	index->load<unsigned short>(indices, GL_STATIC_DRAW);
-	ibo.push_back(index);
+	ibo.push_back(std::move(index));
 	return ibo.size() - 1;
 }
 
@@ -401,9 +395,9 @@ int Mesh::attach_index_buffer(const std::vector<unsigned int>& indices) {
 		return -1;
 
 	index_type = GL_UNSIGNED_INT;
-	Buffer *index = new Buffer(GL_ELEMENT_ARRAY_BUFFER);
+	std::unique_ptr<Buffer> index(new Buffer(GL_ELEMENT_ARRAY_BUFFER));
 	index->load<unsigned int>(indices, GL_STATIC_DRAW);
-	ibo.push_back(index);
+	ibo.push_back(std::move(index));
 	return ibo.size() - 1;
 }
 
