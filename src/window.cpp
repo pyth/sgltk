@@ -113,8 +113,8 @@ bool Window::set_display_mode(const SDL_DisplayMode& mode) {
 	return true;
 }
 
-bool Window::fullscreen_mode(FULLSCREEN_MODE mode) {
-	if(SDL_SetWindowFullscreen(window, mode) < 0) {
+bool Window::fullscreen_mode(WINDOW_MODE mode) {
+	if(SDL_SetWindowFullscreen(window, static_cast<unsigned int>(mode)) < 0) {
 		App::error_string.push_back(std::string("Error on changing "
 		"window fullscreen state: ") + SDL_GetError());
 		return false;

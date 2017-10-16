@@ -12,7 +12,7 @@ namespace sgltk {
 /**
  * @brief Window fullscreen states
  */
-enum FULLSCREEN_MODE {
+enum class WINDOW_MODE {
 	/**
 	 * @brief Windowed mode
 	 */
@@ -127,11 +127,11 @@ public:
 	 */
 	EXPORT bool set_display_mode(const SDL_DisplayMode& mode);
 	/**
-	 * @brief Changes the window fullscreen mode
-	 * @param mode The fullscreen mode to set
+	 * @brief Changes the window mode
+	 * @param mode The window mode to set
 	 * @return Returns true on success or false on failure
 	 */
-	EXPORT bool fullscreen_mode(FULLSCREEN_MODE mode);
+	EXPORT bool fullscreen_mode(sgltk::WINDOW_MODE mode);
 	/**
 	 * @brief Activates the relative mouse motion mode
 	 * In the relative mouse motion mode the cursor is invisible and stays
