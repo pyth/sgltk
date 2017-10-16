@@ -47,11 +47,11 @@ class Model {
 	double ticks_per_second;
 	glm::mat4 glob_inv_transf;
 
-	void set_vertex_attribute(Mesh *mesh);
+	void set_vertex_attribute(std::unique_ptr<Mesh>& mesh);
 	void traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo);
 	void traverse_animation_nodes(float time, aiNode *node, glm::mat4 parent_transformation);
 
-	Mesh *create_mesh(unsigned int index);
+	std::unique_ptr<Mesh> create_mesh(unsigned int index);
 	void compute_bounding_box();
 
 	static aiVector3D interpolate_scaling(float time, aiNodeAnim *node);
@@ -71,7 +71,7 @@ class Model {
 		/**
 		 * @brief The meshes that make up the model
 		 */
-		std::vector<Mesh *> meshes;
+		std::vector<std::unique_ptr<Mesh> > meshes;
 		/**
 		 * @brief The bones of the model's skeleton
 		 */

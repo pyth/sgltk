@@ -29,9 +29,6 @@ Model::Model() {
 }
 
 Model::~Model() {
-	for(Mesh *mesh : meshes) {
-		delete mesh;
-	}
 	bounding_box.clear();
 	bone_offsets.clear();
 	bones.clear();
@@ -104,7 +101,7 @@ void Model::compute_bounding_box() {
 bool Model::setup_camera(glm::mat4 *view_matrix,
 			 glm::mat4 *projection_matrix) {
 	bool ret;
-	for(Mesh *mesh : meshes) {
+	for(auto& mesh : meshes) {
 		ret = mesh->setup_camera(view_matrix, projection_matrix);
 		if(!ret)
 			return false;
@@ -116,7 +113,7 @@ bool Model::setup_camera(glm::mat4 *view_matrix,
 
 bool Model::setup_camera(Camera *camera) {
 	bool ret;
-	for(Mesh *mesh : meshes) {
+	for(auto& mesh : meshes) {
 		ret = mesh->setup_camera(camera);
 		if(!ret)
 			return false;
@@ -184,24 +181,19 @@ void sgltk::Model::set_bone_array_name(const std::string& name) {
 
 void Model::setup_shader(Shader *shader) {
 	this->shader = shader;
-	for(Mesh *mesh : meshes) {
+	for(std::unique_ptr<Mesh>& mesh : meshes) {
 		mesh->setup_shader(shader);
 		set_vertex_attribute(mesh);
 	}
 }
 
-void Model::set_vertex_attribute(Mesh *mesh) {
+void Model::set_vertex_attribute(std::unique_ptr<Mesh>& mesh) {
 	unsigned int buf = 0;
-	mesh->set_vertex_attribute(position_name, buf++, 4, GL_FLOAT,
-				0, 0);
-	mesh->set_vertex_attribute(normal_name, buf++, 3, GL_FLOAT,
-				0, 0);
-	mesh->set_vertex_attribute(tangent_name, buf++, 4, GL_FLOAT,
-				0, 0);
-	mesh->set_vertex_attribute(bone_ids_name, buf++, BONES_PER_VERTEX,
-				GL_INT, 0, 0);
-	mesh->set_vertex_attribute(bone_weights_name, buf++,
-				BONES_PER_VERTEX, GL_FLOAT, 0, 0);
+	mesh->set_vertex_attribute(position_name, buf++, 4, GL_FLOAT, 0, 0);
+	mesh->set_vertex_attribute(normal_name, buf++, 3, GL_FLOAT, 0, 0);
+	mesh->set_vertex_attribute(tangent_name, buf++, 4, GL_FLOAT, 0, 0);
+	mesh->set_vertex_attribute(bone_ids_name, buf++, BONES_PER_VERTEX, GL_INT, 0, 0);
+	mesh->set_vertex_attribute(bone_weights_name, buf++, BONES_PER_VERTEX, GL_FLOAT, 0, 0);
 
 	if(mesh->num_uv) {
 		for(unsigned int i = 0; i < mesh->num_uv; i++) {
@@ -226,7 +218,7 @@ void Model::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 		trafo = *parent_trafo * trafo;
 
 	for(unsigned int i = 0; i < start_node->mNumMeshes; i++) {
-		Mesh *mesh_tmp = create_mesh(start_node->mMeshes[i]);
+		auto mesh_tmp = create_mesh(start_node->mMeshes[i]);
 		mesh_tmp->model_matrix = ai_to_glm_mat4(trafo);
 
 		//if the mesh has no name, name it
@@ -235,7 +227,7 @@ void Model::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 			mesh_name = "sgltk_mesh_" + std::to_string(i);
 		}
 		mesh_map[mesh_name.c_str()] = meshes.size();
-		meshes.push_back(mesh_tmp);
+		meshes.push_back(std::move(mesh_tmp));
 	}
 
 	for(unsigned int i = 0; i < start_node->mNumChildren; i++) {
@@ -243,7 +235,7 @@ void Model::traverse_scene_nodes(aiNode *start_node, aiMatrix4x4 *parent_trafo) 
 	}
 }
 
-Mesh *Model::create_mesh(unsigned int index) {
+std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 	aiMesh *mesh = scene->mMeshes[index];
 	unsigned int num_uv = mesh->GetNumUVChannels();
 	unsigned int num_col = mesh->GetNumColorChannels();
@@ -343,7 +335,7 @@ Mesh *Model::create_mesh(unsigned int index) {
 	}
 
 	// Mesh
-	Mesh *mesh_tmp = new Mesh();
+	std::unique_ptr<Mesh> mesh_tmp(new Mesh());
 	mesh_tmp->num_uv = num_uv;
 	mesh_tmp->num_col = num_col;
 	mesh_tmp->attach_vertex_buffer<glm::vec4>(position);
@@ -649,70 +641,70 @@ aiQuaternion Model::interpolate_rotation(float time, aiNodeAnim *node) {
 }
 
 void Model::attach_texture(const std::string& name, Texture *texture) {
-	for(Mesh *mesh : meshes) {
+	for(const auto& mesh : meshes) {
 		mesh->textures_misc.push_back(std::make_pair(name, texture));
 	}
 }
 
 void Model::set_texture_parameter(GLenum name, int parameter) {
-	for(Mesh *mesh : meshes) {
-		for(Texture *texture : mesh->textures_ambient) {
+	for(const auto& mesh : meshes) {
+		for(const auto& texture : mesh->textures_ambient) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_diffuse) {
+		for(const auto& texture : mesh->textures_diffuse) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_specular) {
+		for(const auto& texture : mesh->textures_specular) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_shininess) {
+		for(const auto& texture : mesh->textures_shininess) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_emissive) {
+		for(const auto& texture : mesh->textures_emissive) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_normals) {
+		for(const auto& texture : mesh->textures_normals) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_displacement) {
+		for(const auto& texture : mesh->textures_displacement) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_opacity) {
+		for(const auto& texture : mesh->textures_opacity) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_lightmap) {
+		for(const auto& texture : mesh->textures_lightmap) {
 			texture->set_parameter(name, parameter);
 		}
 	}
 }
 
 void Model::set_texture_parameter(GLenum name, float parameter) {
-	for(Mesh *mesh : meshes) {
-		for(Texture *texture : mesh->textures_ambient) {
+	for(const auto& mesh : meshes) {
+		for(const auto& texture : mesh->textures_ambient) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_diffuse) {
+		for(const auto& texture : mesh->textures_diffuse) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_specular) {
+		for(const auto& texture : mesh->textures_specular) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_shininess) {
+		for(const auto& texture : mesh->textures_shininess) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_emissive) {
+		for(const auto& texture : mesh->textures_emissive) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_normals) {
+		for(const auto& texture : mesh->textures_normals) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_displacement) {
+		for(const auto& texture : mesh->textures_displacement) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_opacity) {
+		for(const auto& texture : mesh->textures_opacity) {
 			texture->set_parameter(name, parameter);
 		}
-		for(Texture *texture : mesh->textures_lightmap) {
+		for(const auto& texture : mesh->textures_lightmap) {
 			texture->set_parameter(name, parameter);
 		}
 	}
@@ -747,31 +739,31 @@ void Model::setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
 		App::error_string.push_back(error);
 		throw std::runtime_error(error);
 	}
-	for(Mesh *mesh : meshes) {
+	for(const auto& mesh : meshes) {
 		std::vector<glm::mat3> normal_matrix(model_matrix.size());
-		for(unsigned int j = 0; j < model_matrix.size(); j++) {
-			normal_matrix[j] = glm::mat3(glm::transpose(glm::inverse(model_matrix[j])));
+		for(unsigned int i = 0; i < normal_matrix.size(); i++) {
+			normal_matrix[i] = glm::mat3(glm::transpose(glm::inverse(model_matrix[i])));
 		}
 		model_matrix_buf = mesh->attach_vertex_buffer<glm::mat4>(model_matrix, usage);
 		normal_matrix_buf = mesh->attach_vertex_buffer<glm::mat3>(normal_matrix, usage);
 		int model_loc = mesh->shader->get_attribute_location(mesh->model_matrix_name);
 		int normal_loc = mesh->shader->get_attribute_location(mesh->normal_matrix_name);
 		if(model_loc >= 0) {
-			for(int j = 0; j < 4; j++) {
-				mesh->set_vertex_attribute(model_loc + j,
+			for(int i = 0; i < 4; i++) {
+				mesh->set_vertex_attribute(model_loc + i,
 								model_matrix_buf,
 								4, GL_FLOAT,
 								sizeof(glm::mat4),
-								(GLvoid *)(j * sizeof(glm::vec4)), 1);
+								(GLvoid *)(i * sizeof(glm::vec4)), 1);
 			}
 		}
 		if(normal_loc >= 0) {
-			for(int j = 0; j < 3; j++) {
-				mesh->set_vertex_attribute(normal_loc + j,
+			for(int i = 0; i < 3; i++) {
+				mesh->set_vertex_attribute(normal_loc + i,
 								normal_matrix_buf,
 								3, GL_FLOAT,
 								sizeof(glm::mat3),
-								(GLvoid *)(j * sizeof(glm::vec3)), 1);
+								(GLvoid *)(i * sizeof(glm::vec3)), 1);
 			}
 		}
 	}
@@ -784,38 +776,38 @@ void Model::set_instanced_matrix_attributes() {
 		App::error_string.push_back(error);
 		throw std::runtime_error(error);
 	}
-	for(Mesh *mesh : meshes) {
+	for(const auto& mesh : meshes) {
 		int model_loc = mesh->shader->get_attribute_location(mesh->model_matrix_name);
 		int normal_loc = mesh->shader->get_attribute_location(mesh->normal_matrix_name);
 		if(model_loc >= 0) {
-			for(int j = 0; j < 4; j++) {
-				mesh->set_vertex_attribute(model_loc + j,
+			for(int i = 0; i < 4; i++) {
+				mesh->set_vertex_attribute(model_loc + i,
 								model_matrix_buf,
 								4, GL_FLOAT,
 								sizeof(glm::mat4),
-								(GLvoid *)(j * sizeof(glm::vec4)), 1);
+								(GLvoid *)(i * sizeof(glm::vec4)), 1);
 			}
 		}
 		if(normal_loc >= 0) {
-			for(int j = 0; j < 3; j++) {
-				mesh->set_vertex_attribute(normal_loc + j,
+			for(int i = 0; i < 3; i++) {
+				mesh->set_vertex_attribute(normal_loc + i,
 								normal_matrix_buf,
 								3, GL_FLOAT,
 								sizeof(glm::mat3),
-								(GLvoid *)(j * sizeof(glm::vec3)), 1);
+								(GLvoid *)(i * sizeof(glm::vec3)), 1);
 			}
 		}
 	}
 }
 
 void Model::draw(const glm::mat4 *model_matrix) {
-	for(unsigned int i = 0; i < meshes.size(); i++) {
+	for(const auto& mesh : meshes) {
 		if(model_matrix) {
-			glm::mat4 matrix_tmp = *model_matrix * meshes[i]->model_matrix;
-			meshes[i]->draw(GL_TRIANGLES, &matrix_tmp);
+			glm::mat4 matrix_tmp = *model_matrix * mesh->model_matrix;
+			mesh->draw(GL_TRIANGLES, &matrix_tmp);
 		}
 		else
-			meshes[i]->draw(GL_TRIANGLES);
+			mesh->draw(GL_TRIANGLES);
 	}
 }
 
@@ -823,7 +815,7 @@ void Model::draw_instanced(unsigned int num_instances) {
 	if(num_instances == 0)
 		return;
 
-	for(Mesh *mesh : meshes) {
+	for(const auto& mesh : meshes) {
 		mesh->draw_instanced(GL_TRIANGLES, 0, num_instances);
 	}
 }

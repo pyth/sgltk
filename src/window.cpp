@@ -32,7 +32,7 @@ Window::Window(const std::string& title, int res_x, int res_y, int offset_x, int
 		context = SDL_GL_CreateContext(window);
 	} else {
 		for(gl_maj = 4; gl_maj > 2; gl_maj--) {
-			for(gl_min = 5; gl_min >= 0; gl_min--) {
+			for(gl_min = 6; gl_min >= 0; gl_min--) {
 				if(gl_maj == 3 && gl_min > 3) {
 					continue;
 				}
@@ -85,11 +85,10 @@ void Window::set_resizable(bool on) {
 }
 
 void Window::take_screenshot(Image& image) {
-	char *buf = new char[4 * width * height];
-	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buf);
-	image.load(width, height, 4, buf);
+	std::unique_ptr<char[]> buf(new char[4 * width * height]);
+	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buf.get());
+	image.load(width, height, 4, buf.get());
 	image.vertical_flip();
-	delete buf;
 }
 
 void Window::grab_mouse(bool on) {
@@ -114,8 +113,8 @@ bool Window::set_display_mode(const SDL_DisplayMode& mode) {
 	return true;
 }
 
-bool Window::fullscreen_mode(FULLSCREEN_MODE mode) {
-	if(SDL_SetWindowFullscreen(window, mode) < 0) {
+bool Window::fullscreen_mode(WINDOW_MODE mode) {
+	if(SDL_SetWindowFullscreen(window, static_cast<unsigned int>(mode)) < 0) {
 		App::error_string.push_back(std::string("Error on changing "
 		"window fullscreen state: ") + SDL_GetError());
 		return false;

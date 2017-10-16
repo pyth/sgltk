@@ -229,7 +229,7 @@ bool Image::create_text(const std::string& text,
 		image = NULL;
 	}
 	SDL_Color color = {r, g, b, a};
-	image = TTF_RenderText_Blended(font, text.c_str(), color);
+	image = TTF_RenderUTF8_Blended(font, text.c_str(), color);
 	if(!image) {
 		App::error_string.push_back(std::string("TTF_RenderText_Blended failed."));
 		return false;
@@ -309,7 +309,7 @@ void Image::vertical_flip() {
 
 	unsigned int bpp = image->format->BytesPerPixel;
 
-	unsigned char *buf = new unsigned char[width * height * bpp];
+	std::unique_ptr<unsigned char[]> buf(new unsigned char[width * height * bpp]);
 
 	for(unsigned int y = 0; y < height; y++) {
 		for(unsigned int x = 0; x < width; x++) {
@@ -320,8 +320,7 @@ void Image::vertical_flip() {
 		}
 	}
 
-	memcpy(image->pixels, buf, width * height * bpp);
-	delete buf;
+	memcpy(image->pixels, buf.get(), width * height * bpp);
 }
 
 void Image::horizontal_flip() {
@@ -330,7 +329,7 @@ void Image::horizontal_flip() {
 
 	unsigned int bpp = image->format->BytesPerPixel;
 
-	unsigned char *buf = new unsigned char[width * height * bpp];
+	std::unique_ptr<unsigned char[]> buf(new unsigned char[width * height * bpp]);
 
 	for(unsigned int y = 0; y < height; y++) {
 		for(unsigned int x = 0; x < width; x++) {
@@ -341,8 +340,7 @@ void Image::horizontal_flip() {
 		}
 	}
 
-	memcpy(image->pixels, buf, width * height * bpp);
-	delete buf;
+	memcpy(image->pixels, buf.get(), width * height * bpp);
 }
 
 void Image::set_color_key(int r, int g, int b, bool enable) {

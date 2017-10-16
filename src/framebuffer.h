@@ -76,7 +76,7 @@ public:
 	 */
 	EXPORT void finalize();
 	/**
-	 * @brief Copies a block of pixels from this framebuffer to another
+	 * @brief Copies a block of pixels from this framebuffer to another one
 	 * @param target The framebuffer to copy to. A null pointer indicates
 	 * 	the default framebuffer
 	 * @param src_x0,src_y0,src_x1,src_y1 The bounds of the source rectangle
@@ -101,8 +101,7 @@ public:
 			    GLbitfield mask,
 			    GLenum filter);
 	/**
-	 * @brief Copies a block of pixels from the default framebuffer to this
-	 * 	object to another
+	 * @brief Copies a block of pixels from the default framebuffer to this one
 	 * @param src_x0,src_y0,src_x1,src_y1 The bounds of the source rectangle
 	 * 	within the default framebuffer
 	 * @param dst_x0,dst_y0,dst_x1,dst_y1 The bounds of the destination

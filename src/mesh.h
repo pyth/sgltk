@@ -143,10 +143,10 @@ class Mesh {
 	glm::mat4 *view_matrix;
 	glm::mat4 *projection_matrix;
 
-	std::vector<Buffer*> vbo;
+	std::vector<std::unique_ptr<Buffer> > vbo;
 
 	GLenum index_type;
-	std::vector<Buffer*> ibo;
+	std::vector<std::unique_ptr<Buffer> > ibo;
 
 	std::vector<Buffer *>attached_buffers;
 	std::vector<GLuint>attached_buffers_targets;
@@ -919,9 +919,9 @@ template <typename T>
 unsigned int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
 					GLenum usage) {
 
-	Buffer *buf = new Buffer(GL_ARRAY_BUFFER);
+	std::unique_ptr<Buffer> buf(new Buffer(GL_ARRAY_BUFFER));
 	buf->load<T>(vertexdata, usage);
-	vbo.push_back(buf);
+	vbo.push_back(std::move(buf));
 
 	return vbo.size() - 1;
 }

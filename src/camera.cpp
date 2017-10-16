@@ -8,8 +8,7 @@ Camera::Camera(glm::vec3 position,
 
 	this->position = position;
 	this->direction = glm::normalize(direction);
-	this->up = glm::normalize(up);
-	right = glm::normalize(glm::cross(direction, up));
+	right = glm::normalize(glm::cross(direction, glm::normalize(up)));
 	this->up = glm::normalize(glm::cross(right, direction));
 	width = 640.f;
 	height = 480.f;

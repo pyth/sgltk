@@ -106,9 +106,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a420a0c417221f6a7ee2d23670d52d43b"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a420a0c417221f6a7ee2d23670d52d43b">set_display_mode</a> (const SDL_DisplayMode &amp;mode)</td></tr>
 <tr class="memdesc:a420a0c417221f6a7ee2d23670d52d43b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the window display mode when in fullscreen mode.  <a href="#a420a0c417221f6a7ee2d23670d52d43b">More...</a><br /></td></tr>
 <tr class="separator:a420a0c417221f6a7ee2d23670d52d43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab480e0430af9ac7399994952443bb6ca"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#ab480e0430af9ac7399994952443bb6ca">fullscreen_mode</a> (FULLSCREEN_MODE mode)</td></tr>
-<tr class="memdesc:ab480e0430af9ac7399994952443bb6ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the window fullscreen mode.  <a href="#ab480e0430af9ac7399994952443bb6ca">More...</a><br /></td></tr>
-<tr class="separator:ab480e0430af9ac7399994952443bb6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ea4a6e2755acf37a0eb3aa71141b3a0"><td class="memItemLeft" align="right" valign="top">EXPORT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a8ea4a6e2755acf37a0eb3aa71141b3a0">fullscreen_mode</a> (sgltk::WINDOW_MODE mode)</td></tr>
+<tr class="memdesc:a8ea4a6e2755acf37a0eb3aa71141b3a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the window mode.  <a href="#a8ea4a6e2755acf37a0eb3aa71141b3a0">More...</a><br /></td></tr>
+<tr class="separator:a8ea4a6e2755acf37a0eb3aa71141b3a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1888856053f5299de71cad41ec9484f7"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_window.html#a1888856053f5299de71cad41ec9484f7">set_relative_mode</a> (bool on)</td></tr>
 <tr class="memdesc:a1888856053f5299de71cad41ec9484f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the relative mouse motion mode In the relative mouse motion mode the cursor is invisible and stays in the middle of the screen. The x and y coordinates passed to the handle_mouse_motion function will be the relative horizontal and vertical distances traveled.  <a href="#a1888856053f5299de71cad41ec9484f7">More...</a><br /></td></tr>
 <tr class="separator:a1888856053f5299de71cad41ec9484f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -303,8 +303,8 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab480e0430af9ac7399994952443bb6ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab480e0430af9ac7399994952443bb6ca">&#9670;&nbsp;</a></span>fullscreen_mode()</h2>
+<a id="a8ea4a6e2755acf37a0eb3aa71141b3a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ea4a6e2755acf37a0eb3aa71141b3a0">&#9670;&nbsp;</a></span>fullscreen_mode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,23 +312,23 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
         <tr>
           <td class="memname">bool Window::fullscreen_mode </td>
           <td>(</td>
-          <td class="paramtype">FULLSCREEN_MODE&#160;</td>
+          <td class="paramtype">sgltk::WINDOW_MODE&#160;</td>
           <td class="paramname"><em>mode</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Changes the window fullscreen mode. </p>
+<p>Changes the window mode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mode</td><td>The fullscreen mode to set </td></tr>
+    <tr><td class="paramname">mode</td><td>The window mode to set </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success or false on failure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00117">117</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00116">116</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -350,7 +350,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <p>Returns mouse cursor visibility status. </p>
 <dl class="section return"><dt>Returns</dt><dd>Returns true if the cursor is visible, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00143">143</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00142">142</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -370,9 +370,9 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><div class="memdoc">
 
 <p>Returns the index of the display that currently contains the window. This index corresponds to the indices in the sgltk::App::sys_info.desktop_display_modes and sgltk::app::sys_info.supported_display_modes lists. </p>
-<dl class="section return"><dt>Returns</dt><dd>Returns the index of the display that currently contains the window or a negative number of failure. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns the index of the display that currently contains the window or a negative number on failure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00099">99</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00098">98</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -400,7 +400,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00095">95</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00094">94</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -436,7 +436,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00350">350</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00349">349</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -484,13 +484,13 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
-    <tr><td class="paramname">axis</td><td>The number of the axis that has a new value </td></tr>
+    <tr><td class="paramname">axis</td><td>The id number of the axis that has a new value </td></tr>
     <tr><td class="paramname">value</td><td>The new value of the axis </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00362">362</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00361">361</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -538,13 +538,13 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
-    <tr><td class="paramname">axis</td><td>The number of the axis that has a new value </td></tr>
+    <tr><td class="paramname">axis</td><td>The id number of the axis that has a new value </td></tr>
     <tr><td class="paramname">value</td><td>The new value of the axis </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00365">365</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00364">364</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -586,12 +586,12 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
-    <tr><td class="paramname">button</td><td>The number of the button pressed or released </td></tr>
+    <tr><td class="paramname">button</td><td>The id number of the button pressed or released </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00356">356</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00355">355</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -639,13 +639,13 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
-    <tr><td class="paramname">button</td><td>The number of the button pressed or released </td></tr>
+    <tr><td class="paramname">button</td><td>The id number of the button pressed or released </td></tr>
     <tr><td class="paramname">pressed</td><td>Indicates whether the button was pressed (true) or released (false) </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00359">359</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00358">358</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -681,7 +681,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00353">353</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00352">352</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -717,7 +717,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00368">368</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00367">367</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -765,13 +765,13 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The joystick instance id </td></tr>
-    <tr><td class="paramname">axis</td><td>The number of the axis that has a new value </td></tr>
+    <tr><td class="paramname">axis</td><td>The id number of the axis that has a new value </td></tr>
     <tr><td class="paramname">value</td><td>The new value of the axis </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00380">380</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00379">379</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -819,13 +819,13 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
-    <tr><td class="paramname">axis</td><td>The number of the axis that has a new value </td></tr>
+    <tr><td class="paramname">axis</td><td>The id number of the axis that has a new value </td></tr>
     <tr><td class="paramname">value</td><td>The new value of the axis </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00383">383</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00382">382</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -879,14 +879,14 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
-    <tr><td class="paramname">ball</td><td>The number of the hat that has a new value </td></tr>
+    <tr><td class="paramname">ball</td><td>The id number of the hat that has a new value </td></tr>
     <tr><td class="paramname">xrel</td><td>The new value of the hat </td></tr>
     <tr><td class="paramname">yrel</td><td>The new value of the hat </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00392">392</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00391">391</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -928,12 +928,12 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The joystick instance id </td></tr>
-    <tr><td class="paramname">button</td><td>The number of the button pressed or released </td></tr>
+    <tr><td class="paramname">button</td><td>The id number of the button pressed or released </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00374">374</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00373">373</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -981,13 +981,13 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The joystick instance id </td></tr>
-    <tr><td class="paramname">button</td><td>The number of the button pressed or released </td></tr>
+    <tr><td class="paramname">button</td><td>The id number of the button pressed or released </td></tr>
     <tr><td class="paramname">pressed</td><td>Indicates whether the button was pressed (true) or released (false) </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00377">377</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00376">376</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1035,13 +1035,13 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The joystick instance id </td></tr>
-    <tr><td class="paramname">hat</td><td>The number of the hat that has a new value </td></tr>
+    <tr><td class="paramname">hat</td><td>The id number of the hat that has a new value </td></tr>
     <tr><td class="paramname">value</td><td>The new value of the hat </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00386">386</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00385">385</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1089,13 +1089,13 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gamepad_id</td><td>The gamepad instance id </td></tr>
-    <tr><td class="paramname">hat</td><td>The number of the hat that has a new value </td></tr>
+    <tr><td class="paramname">hat</td><td>The id number of the hat that has a new value </td></tr>
     <tr><td class="paramname">value</td><td>The new value of the hat </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00389">389</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00388">388</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1131,7 +1131,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00371">371</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00370">370</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1178,7 +1178,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00398">398</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00397">397</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1214,7 +1214,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00395">395</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00394">394</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1277,12 +1277,12 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
     <tr><td class="paramname">y</td><td>The y coordinate where the event occurred </td></tr>
     <tr><td class="paramname">button</td><td>The button that caused the event </td></tr>
     <tr><td class="paramname">down</td><td>True if a button was pressed, false if it was released </td></tr>
-    <tr><td class="paramname">clicks</td><td>The number of clicks (e.g. double click) </td></tr>
+    <tr><td class="paramname">clicks</td><td>The number of clicks (e.g. 1 = single click, 2 = double click) </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00407">407</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00406">406</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1329,7 +1329,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00401">401</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00400">400</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1376,7 +1376,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00404">404</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00403">403</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1404,7 +1404,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00425">425</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00424">424</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1432,7 +1432,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00135">135</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00134">134</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1461,7 +1461,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00108">108</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00107">107</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1558,7 +1558,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00131">131</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00130">130</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1586,7 +1586,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00126">126</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="window_8cpp_source.html#l00125">125</a> of file <a class="el" href="window_8cpp_source.html">window.cpp</a>.</p>
 
 </div>
 </div>
@@ -1681,7 +1681,7 @@ SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Sep 14 2017 00:27:06 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 16 2017 14:52:18 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

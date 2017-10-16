@@ -70,11 +70,11 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	file.seekg(0, file.end);
 	size = static_cast<GLint>(file.tellg());
 	file.seekg(0, file.beg);
-	char *buf = new char[size];
-	file.read(buf, size);
+	std::unique_ptr<char[]> buf(new char[size]);
+	file.read(buf.get(), size);
 
 	file.close();
-	code = buf;
+	code = buf.get();
 
 	tmp = glCreateShader(type);
 	glShaderSource(tmp, 1, &code, &size);
@@ -82,13 +82,11 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
 		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &info_log_length);
-		char *info_log = new char[info_log_length];
-		glGetShaderInfoLog(tmp, info_log_length, &info_log_length, info_log);
+		std::unique_ptr<char[]> info_log(new char[info_log_length]);
+		glGetShaderInfoLog(tmp, info_log_length, &info_log_length, info_log.get());
 		std::cerr << "CompileShader() infoLog " << filename
-			  << std::endl << info_log << std::endl;
+			  << std::endl << info_log.get() << std::endl;
 		glDeleteShader(tmp);
-		delete buf;
-		delete info_log;
 		return false;
 	}
 
@@ -99,7 +97,6 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	}
 
 	glDeleteShader(tmp);
-	delete buf;
 	return true;
 }
 
@@ -115,12 +112,11 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
 		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &infoLogLength);
-		char *infoLog = new char[infoLogLength];
-		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength, infoLog);
+		std::unique_ptr<char[]> infoLog(new char[infoLogLength]);
+		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength, infoLog.get());
 		std::cerr << "CompileShader() infoLog " << std::endl
-			  << infoLog << std::endl;
+			  << infoLog.get() << std::endl;
 		glDeleteShader(tmp);
-		delete infoLog;
 		return false;
 	}
 
@@ -136,15 +132,14 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 
 void Shader::set_transform_feedback_variables(std::vector<std::string>& variables, GLenum buffer_mode) {
 	transform_feedback = true;
-	const char **vars = new const char*[variables.size()];
+	std::vector<const char*> vars(variables.size());
 	for(unsigned int i = 0; i < variables.size(); i++) {
 		vars[i] = variables[i].c_str();
 	}
-	glTransformFeedbackVaryings(program, variables.size(), vars, buffer_mode);
+	glTransformFeedbackVaryings(program, variables.size(), vars.data(), buffer_mode);
 	if(linked) {
 		link();
 	}
-	delete vars;
 }
 
 void Shader::recompile() {
