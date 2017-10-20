@@ -4,3 +4,4 @@
 #cmakedefine HAVE_SDL_TTF_H
 #cmakedefine HAVE_SDL_IMAGE_H
 #cmakedefine HAVE_ASSIMP_H
+#cmakedefine SDL_ALT_PATH

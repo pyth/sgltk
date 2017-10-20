@@ -56,12 +56,21 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #define SDL_MAIN_HANDLED
-#include <SDL2/SDL.h>
-#ifdef HAVE_SDL_TTF_H
-	#include <SDL2/SDL_ttf.h>
-#endif //HAVE_SDL_TTF_H
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_opengl.h>
+#ifdef SDL_ALT_PATH
+	#include <SDL2/SDL.h>
+	#ifdef HAVE_SDL_TTF_H
+		#include <SDL2/SDL_ttf.h>
+	#endif //HAVE_SDL_TTF_H
+	#include <SDL2/SDL_image.h>
+	#include <SDL2/SDL_opengl.h>
+#else
+	#include <SDL.h>
+	#ifdef HAVE_SDL_TTF_H
+		#include <SDL_ttf.h>
+	#endif //HAVE_SDL_TTF_H
+	#include <SDL_image.h>
+	#include <SDL_opengl.h>
+#endif
 
 #ifdef HAVE_ASSIMP_H
 	#include <assimp/Importer.hpp>
