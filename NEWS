@@ -4,3 +4,9 @@ I'm currently finishing the scene loader and am looking into moving the project 
 
 15.12.2016
 Most of the planned funcionality has been implemented
+
+24.10.2017
+Even though most linux distibutions (Debian, Ubuntu, Mint, Arch, Manjaro, Fedora) and even FreeBSD put the SDL2 headers
+in a separate SDL2 directory in the include directory, apparently some people who install it manually, especially on Windows,
+just throw these into the same directory as all the other header files. To be more compatible the cmake script will now look
+for the SDL2 headers in <include_dir>/SDL2 and then in <include_dir> directly.
