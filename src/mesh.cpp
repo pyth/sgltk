@@ -31,16 +31,6 @@ Mesh::Mesh() {
 	shininess_name =			"shininess";
 	shininess_strength_name =		"shininess_strength";
 
-	ambient_texture_name =			"texture_ambient";
-	diffuse_texture_name =			"texture_diffuse";
-	specular_texture_name =			"texture_specular";
-	shininess_texture_name =		"texture_shininess";
-	emissive_texture_name =			"texture_emissive";
-	normals_texture_name =			"texture_normals";
-	displacement_texture_name =		"texture_displacement";
-	opacity_texture_name =			"texture_opacity";
-	lightmap_texture_name =			"texture_lightmap";
-
 	shininess = 0.0;
 	shininess_strength = 1.0;
 	color_ambient = glm::vec4(0, 0, 0, 1);
@@ -166,78 +156,22 @@ void Mesh::set_shininess_strength_name(const std::string& name) {
 		shininess_strength_name = "shininess_strength";
 }
 
-void Mesh::set_ambient_texture_name(const std::string& name) {
-	if(name.length() > 0)
-		ambient_texture_name = name;
-	else
-		ambient_texture_name = "texture_ambient";
-}
+void Mesh::attach_texture(const std::string& name,
+			  const Texture& texture,
+			  unsigned int index) {
 
-void Mesh::set_diffuse_texture_name(const std::string& name) {
-	if(name.length() > 0)
-		diffuse_texture_name = name;
-	else
-		diffuse_texture_name = "texture_diffuse";
-}
-
-void Mesh::set_specular_texture_name(const std::string& name) {
-	if(name.length() > 0)
-		specular_texture_name = name;
-	else
-		specular_texture_name = "texture_specular";
-}
-
-void Mesh::set_shininess_texture_name(const std::string& name) {
-	if(name.length() > 0)
-		shininess_texture_name = name;
-	else
-		shininess_texture_name = "texture_shininess";
-}
-
-void Mesh::set_emissive_texture_name(const std::string& name) {
-	if(name.length() > 0)
-		emissive_texture_name = name;
-	else
-		emissive_texture_name = "texture_emissive";
-}
-
-void Mesh::set_normals_texture_name(const std::string& name) {
-	if(name.length() > 0)
-		normals_texture_name = name;
-	else
-		normals_texture_name = "texture_normals";
-}
-
-void Mesh::set_displacement_texture_name(const std::string& name) {
-	if(name.length() > 0)
-		displacement_texture_name = name;
-	else
-		displacement_texture_name = "texture_displacement";
-}
-
-void Mesh::set_opacity_texture_name(const std::string& name) {
-	if(name.length() > 0)
-		opacity_texture_name = name;
-	else
-		opacity_texture_name = "texture_opacity";
-}
-
-void Mesh::set_lightmap_texture_name(const std::string& name) {
-	if(name.length() > 0)
-		lightmap_texture_name = name;
-	else
-		lightmap_texture_name = "texture_lightmap";
+	textures.push_back({name, texture, index});
 }
 
 void Mesh::set_transform_feedback_mode(GLenum mode) {
 	tf_mode = mode;
 }
 
-void Mesh::attach_buffer(sgltk::Buffer *buffer,
+void Mesh::attach_buffer(const Buffer *buffer,
 			 GLuint target,
 			 unsigned int index) {
 
-	attached_buffers.push_back(buffer);
+	attached_buffers.push_back(const_cast<Buffer*>(buffer));
 	attached_buffers_targets.push_back(target);
 	attached_buffers_indices.push_back(index);
 }
@@ -408,75 +342,21 @@ void Mesh::material_uniform() {
 	shader->set_uniform_float(shininess_name, shininess);
 	shader->set_uniform_float(shininess_strength_name, shininess_strength);
 
+	int texture_loc;
 	int num_textures = 0;
-	int texture_loc = shader->get_uniform_location(ambient_texture_name);
-	for(unsigned int i = 0; i < textures_ambient.size(); i++) {
-		shader->set_uniform_int(texture_loc + i, num_textures);
-		textures_ambient[i]->bind(num_textures);
-		num_textures++;
+	for(const auto& tex : textures) {
+		texture_loc = shader->get_uniform_location(std::get<0>(tex));
+		if(texture_loc >= 0) {
+			shader->set_uniform_int(texture_loc + std::get<2>(tex), num_textures);
+			const_cast<Texture&>(std::get<1>(tex)).bind(num_textures++);
+		}
 	}
-
-	texture_loc = shader->get_uniform_location(diffuse_texture_name);
-	for(unsigned int i = 0; i < textures_diffuse.size(); i++) {
-		shader->set_uniform_int(texture_loc + i, num_textures);
-		textures_diffuse[i]->bind(num_textures);
-		num_textures++;
-	}
-
-	texture_loc = shader->get_uniform_location(specular_texture_name);
-	for(unsigned int i = 0; i < textures_specular.size(); i++) {
-		shader->set_uniform_int(texture_loc + i, num_textures);
-		textures_specular[i]->bind(num_textures);
-		num_textures++;
-	}
-
-	texture_loc = shader->get_uniform_location(shininess_texture_name);
-	for(unsigned int i = 0; i < textures_shininess.size(); i++) {
-		shader->set_uniform_int(texture_loc + i, num_textures);
-		textures_shininess[i]->bind(num_textures);
-		num_textures++;
-	}
-
-	texture_loc = shader->get_uniform_location(emissive_texture_name);
-	for(unsigned int i = 0; i < textures_emissive.size(); i++) {
-		shader->set_uniform_int(texture_loc + i, num_textures);
-		textures_emissive[i]->bind(num_textures);
-		num_textures++;
-	}
-
-	texture_loc = shader->get_uniform_location(normals_texture_name);
-	for(unsigned int i = 0; i < textures_normals.size(); i++) {
-		shader->set_uniform_int(texture_loc + i, num_textures);
-		textures_normals[i]->bind(num_textures);
-		num_textures++;
-	}
-
-	texture_loc = shader->get_uniform_location(displacement_texture_name);
-	for(unsigned int i = 0; i < textures_displacement.size(); i++) {
-		shader->set_uniform_int(texture_loc + i, num_textures);
-		textures_displacement[i]->bind(num_textures);
-		num_textures++;
-	}
-
-	texture_loc = shader->get_uniform_location(opacity_texture_name);
-	for(unsigned int i = 0; i < textures_opacity.size(); i++) {
-		shader->set_uniform_int(texture_loc + i, num_textures);
-		textures_opacity[i]->bind(num_textures);
-		num_textures++;
-	}
-
-	texture_loc = shader->get_uniform_location(lightmap_texture_name);
-	for(unsigned int i = 0; i < textures_lightmap.size(); i++) {
-		shader->set_uniform_int(texture_loc + i, num_textures);
-		textures_lightmap[i]->bind(num_textures);
-		num_textures++;
-	}
-
-	for(unsigned int i = 0; i < textures_misc.size(); i++) {
-		texture_loc = shader->get_uniform_location(textures_misc[i].first);
-		shader->set_uniform_int(texture_loc, num_textures);
-		textures_misc[i].second->bind(num_textures);
-		num_textures++;
+	for(const auto& tex : auto_textures) {
+		texture_loc = shader->get_uniform_location(std::get<0>(tex));
+		if(texture_loc >= 0) {
+			shader->set_uniform_int(texture_loc + std::get<2>(tex), num_textures);
+			const_cast<Texture&>(std::get<1>(tex)).bind(num_textures++);
+		}
 	}
 }
 

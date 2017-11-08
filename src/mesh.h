@@ -148,9 +148,9 @@ class Mesh {
 	GLenum index_type;
 	std::vector<std::unique_ptr<Buffer> > ibo;
 
-	std::vector<Buffer *>attached_buffers;
-	std::vector<GLuint>attached_buffers_targets;
-	std::vector<unsigned int>attached_buffers_indices;
+	std::vector<Buffer*> attached_buffers;
+	std::vector<GLuint> attached_buffers_targets;
+	std::vector<unsigned int> attached_buffers_indices;
 
 	void material_uniform();
 public:
@@ -186,43 +186,6 @@ public:
 	 * @brief The name of the specular exponent
 	 */
 	std::string shininess_strength_name;
-
-	/**
-	 * @brief The name of the texture containing the ambient color component
-	 */
-	std::string ambient_texture_name;
-	/**
-	 * @brief The name of the texture containing the diffuse color component
-	 */
-	std::string diffuse_texture_name;
-	/**
-	 * @brief The name of the texture containing the specular factor
-	 */
-	std::string specular_texture_name;
-	/**
-	 * @brief The name of the texture containing the specular exponent
-	 */
-	std::string shininess_texture_name;
-	/**
-	 * @brief The name of the texture containing the light being emitted
-	 */
-	std::string emissive_texture_name;
-	/**
-	 * @brief The name of the texture containing normal vectors
-	 */
-	std::string normals_texture_name;
-	/**
-	 * @brief The name of the texture containing the displacement factor
-	 */
-	std::string displacement_texture_name;
-	/**
-	 * @brief The name of the texture containing the opacity strength
-	 */
-	std::string opacity_texture_name;
-	/**
-	 * @brief The name of the texture containing the diffuse light factor
-	 */
-	std::string lightmap_texture_name;
 
 	/**
 	 * @brief The name of the model matrix in the shader
@@ -286,45 +249,13 @@ public:
 	 */
 	glm::vec4 color_specular;
 	/**
-	 * @brief The ambient textures
+	 * @brief Attached textures
 	 */
-	std::vector<Texture *> textures_ambient;
+	std::vector<std::tuple<std::string, const Texture&, unsigned int> > auto_textures;
 	/**
-	 * @brief The diffuse textures
+	 * @brief Attached user textures
 	 */
-	std::vector<Texture *> textures_diffuse;
-	/**
-	 * @brief The specular textures
-	 */
-	std::vector<Texture *> textures_specular;
-	/**
-	 * @brief The shininess textures
-	 */
-	std::vector<Texture *> textures_shininess;
-	/**
-	 * @brief The emissive textures
-	 */
-	std::vector<Texture *> textures_emissive;
-	/**
-	 * @brief The normals textures
-	 */
-	std::vector<Texture *> textures_normals;
-	/**
-	 * @brief The displacement textures
-	 */
-	std::vector<Texture *> textures_displacement;
-	/**
-	 * @brief The opacity textures
-	 */
-	std::vector<Texture *> textures_opacity;
-	/**
-	 * @brief The lightmap textures
-	 */
-	std::vector<Texture *> textures_lightmap;
-	/**
-	 * @brief Miscellaneous textures
-	 */
-	std::vector<std::pair<std::string, Texture *> > textures_misc;
+	std::vector<std::tuple<std::string, const Texture&, unsigned int> > textures;
 
 	/**
 	 * @brief Indicates that the mesh should be drawn as a wireframe
@@ -448,59 +379,14 @@ public:
 	 */
 	EXPORT void set_shininess_strength_name(const std::string& name);
 	/**
-	 * @brief Sets the name of the ambient texture in the shader
-	 * @param name The name of the ambient texture.
-	 * 	The name is reset if string is empty.
+	 * @brief Attaches a texture to the mesh
+	 * @param name The name of the texture in the shader
+	 * @param texture The texture to attach
+	 * @param index The index of the texture in the uniform array
 	 */
-	EXPORT void set_ambient_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the diffuse texture in the shader
-	 * @param name The name of the diffuse texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_diffuse_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the specular texture in the shader
-	 * @param name The name of the specular texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_specular_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the shininess texture in the shader
-	 * @param name The name of the shininess texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_shininess_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the emissive texture in the shader
-	 * @param name The name of the emissive texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_emissive_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the normals texture in the shader
-	 * @param name The name of the normals texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_normals_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the displacement texture in the shader
-	 * @param name The name of the displacement texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_displacement_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the opacity texture in the shader
-	 * @param name The name of the opacity texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_opacity_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the lightmap texture in the shader
-	 * @param name The name of the lightmap texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_lightmap_texture_name(const std::string& name);
+	EXPORT void attach_texture(const std::string& name,
+				   const sgltk::Texture& texture,
+				   unsigned int index = 0);
 	/**
 	 * @brief Sets the output type for transform feedback operations
 	 * @param mode The output type of the primitives that will be recorded
@@ -518,7 +404,7 @@ public:
 	 * 	 GL_TRANSFORM_FEEDBACK_BUFFER, GL_UNIFORM_BUFFER or
 	 * 	 GL_SHADER_STORAGE_BUFFER the index is ignored.
 	 */
-	EXPORT void attach_buffer(sgltk::Buffer *buffer, GLuint target, unsigned int index = 0);
+	EXPORT void attach_buffer(const sgltk::Buffer *buffer, GLuint target, unsigned int index = 0);
 	/**
 	 * @brief Loads data into memory
 	 * @param vertexdata The data to be loaded into memory

@@ -42,9 +42,9 @@ void Particles::setup_camera(glm::mat4 *view_matrix,
 }
 
 void Particles::attach_texture(const std::string& name,
-				sgltk::Texture *texture) {
+			       const Texture& texture) {
 
-	mesh.textures_misc.push_back(std::make_pair(name, texture));
+	mesh.attach_texture(name, texture);
 }
 
 bool Particles::add_particle(glm::vec3 position,

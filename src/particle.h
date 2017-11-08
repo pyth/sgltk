@@ -57,7 +57,7 @@ public:
 	 * @brief Attaches a texture to the particles
 	 */
 	EXPORT void attach_texture(const std::string& name,
-				   sgltk::Texture *texture);
+				   const sgltk::Texture& texture);
 	/**
 	 * @brief Adds a new particle to the system if the particle buffer has an empty space
 	 * @param position The position of the new particle
