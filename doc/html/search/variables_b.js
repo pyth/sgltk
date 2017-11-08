@@ -1,18 +1,8 @@
 var searchData=
 [
-  ['name',['name',['../classsgltk_1_1_joystick.html#a5d21cd6e11dd97cde8e6169a51392f88',1,'sgltk::Joystick']]],
-  ['near_5fplane',['near_plane',['../classsgltk_1_1_camera.html#aa08fab8114767a6fa5c0b317b2746263',1,'sgltk::Camera']]],
-  ['normal',['normal',['../structsgltk_1_1_vertex.html#a54eaf21e19c331f38e3e1db9a6ffea4b',1,'sgltk::Vertex']]],
-  ['normal_5fmatrix_5fname',['normal_matrix_name',['../classsgltk_1_1_mesh.html#a83dfc7ea5834aada2c3be7edf0117c6e',1,'sgltk::Mesh']]],
-  ['normals_5ftexture_5fname',['normals_texture_name',['../classsgltk_1_1_mesh.html#af6ff7a2efcf41cfb1c4cb148c2f0540a',1,'sgltk::Mesh']]],
-  ['num_5faxes',['num_axes',['../classsgltk_1_1_gamepad.html#a0930a2e3132ea296b6b30f0484d2a276',1,'sgltk::Gamepad::num_axes()'],['../classsgltk_1_1_joystick.html#a446a9558436226f431b9bcd8140c7222',1,'sgltk::Joystick::num_axes()']]],
-  ['num_5fbuttons',['num_buttons',['../classsgltk_1_1_gamepad.html#a5d09bcc275e3fec020d3554fba97c037',1,'sgltk::Gamepad::num_buttons()'],['../classsgltk_1_1_joystick.html#af39dc1a9e9ae77c11943cf628c618897',1,'sgltk::Joystick::num_buttons()']]],
-  ['num_5fcol',['num_col',['../classsgltk_1_1_mesh.html#a92a08c234ebec038c4a3c9d22536c5a5',1,'sgltk::Mesh']]],
-  ['num_5fdisplays',['num_displays',['../structsgltk_1_1_s_y_s___i_n_f_o.html#af61a18ab12703e0054d943d84bd85e3c',1,'sgltk::SYS_INFO']]],
-  ['num_5felements',['num_elements',['../classsgltk_1_1_buffer.html#aebb2dc3d3a656923fee30aab4b1219c4',1,'sgltk::Buffer']]],
-  ['num_5fhats',['num_hats',['../classsgltk_1_1_joystick.html#a6931d7aa43d3bf6bc742673fac4d31d6',1,'sgltk::Joystick']]],
-  ['num_5flayers',['num_layers',['../classsgltk_1_1_texture.html#a0be48df233c5b61c394bf0ed1773e192',1,'sgltk::Texture']]],
-  ['num_5flogical_5fcores',['num_logical_cores',['../structsgltk_1_1_s_y_s___i_n_f_o.html#ac8381a5e9b2bf4e8042eea65e8e8f3a3',1,'sgltk::SYS_INFO']]],
-  ['num_5fuv',['num_uv',['../classsgltk_1_1_mesh.html#ad72191311743bb978c54cf8aa8c2be37',1,'sgltk::Mesh']]],
-  ['num_5fvertices',['num_vertices',['../classsgltk_1_1_mesh.html#acb71480f155b10c22a9e7fedea98700c',1,'sgltk::Mesh']]]
+  ['platform_5fname',['platform_name',['../structsgltk_1_1_s_y_s___i_n_f_o.html#a09a78e8f9df7854adb6fead385d297a4',1,'sgltk::SYS_INFO']]],
+  ['position',['position',['../classsgltk_1_1_camera.html#a779a5755ca0a2685e80eb82a387285ea',1,'sgltk::Camera']]],
+  ['program',['program',['../classsgltk_1_1_shader.html#a81b067c3c22eb1ec25e106a3891b1d9a',1,'sgltk::Shader']]],
+  ['projection_5fmatrix',['projection_matrix',['../classsgltk_1_1_camera.html#ab9ead3c6d936bd7ce6294eecdb8d00c8',1,'sgltk::Camera']]],
+  ['projection_5fmatrix_5fname',['projection_matrix_name',['../classsgltk_1_1_mesh.html#a4bcde5c60a9e0824229f21c3ef75d933',1,'sgltk::Mesh']]]
 ];

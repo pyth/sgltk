@@ -116,7 +116,7 @@ class Model {
 		 * @brief Specifies the shader to use to render the mesh
 		 * @param shader The shader to be used to render the mesh
 		 */
-		EXPORT void setup_shader(Shader *shader);
+		EXPORT void setup_shader(const Shader *shader);
 		/**
 		 * @brief Sets up the view and projection matrices that will be
 		 *	  used by the meshes in the model
@@ -124,15 +124,15 @@ class Model {
 		 * @param projection_matrix The projection matrix
 		 * @return Returns true if both pointers are not NULL pointers, flase otherwise
 		 */
-		EXPORT bool setup_camera(glm::mat4 *view_matrix,
-					 glm::mat4 *projection_matrix);
+		EXPORT bool setup_camera(const glm::mat4 *view_matrix,
+					 const glm::mat4 *projection_matrix);
 		/**
 		 * @brief Sets up the view and projection matrices that will be
 		 *	  used by the meshes in the model
 		 * @param camera The camera to use
 		 * @return Returns true on success, false otherwise
 		 */
-		EXPORT bool setup_camera(Camera *camera);
+		EXPORT bool setup_camera(const Camera *camera);
 		/**
 		 * @brief Sets the position vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets

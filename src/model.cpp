@@ -98,28 +98,28 @@ void Model::compute_bounding_box() {
 	}
 }
 
-bool Model::setup_camera(glm::mat4 *view_matrix,
-			 glm::mat4 *projection_matrix) {
+bool Model::setup_camera(const glm::mat4 *view_matrix,
+			 const glm::mat4 *projection_matrix) {
 	bool ret;
 	for(auto& mesh : meshes) {
 		ret = mesh->setup_camera(view_matrix, projection_matrix);
 		if(!ret)
 			return false;
 	}
-	this->view_matrix = view_matrix;
-	this->projection_matrix = projection_matrix;
+	this->view_matrix = const_cast<glm::mat4*>(view_matrix);
+	this->projection_matrix = const_cast<glm::mat4*>(projection_matrix);
 	return true;
 }
 
-bool Model::setup_camera(Camera *camera) {
+bool Model::setup_camera(const Camera *camera) {
 	bool ret;
 	for(auto& mesh : meshes) {
 		ret = mesh->setup_camera(camera);
 		if(!ret)
 			return false;
 	}
-	view_matrix = &camera->view_matrix;
-	projection_matrix = &camera->projection_matrix;
+	view_matrix = &const_cast<Camera*>(camera)->view_matrix;
+	projection_matrix = &const_cast<Camera*>(camera)->projection_matrix;
 	return true;
 }
 
@@ -179,8 +179,8 @@ void sgltk::Model::set_bone_array_name(const std::string& name) {
 	bone_array_name = name;
 }
 
-void Model::setup_shader(Shader *shader) {
-	this->shader = shader;
+void Model::setup_shader(const Shader *shader) {
+	this->shader = const_cast<Shader*>(shader);
 	for(std::unique_ptr<Mesh>& mesh : meshes) {
 		mesh->setup_shader(shader);
 		set_vertex_attribute(mesh);
@@ -408,7 +408,6 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 
 	//ambient textures
 	num_textures = mat->GetTextureCount(aiTextureType_AMBIENT);
-	mesh_tmp->textures_ambient.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_AMBIENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -416,12 +415,11 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_ambient[i] = texture;
+		mesh_tmp->attach_texture("texture_ambient", texture, i);
 	}
 
 	//diffuse textures
 	num_textures = mat->GetTextureCount(aiTextureType_DIFFUSE);
-	mesh_tmp->textures_diffuse.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_DIFFUSE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -429,12 +427,11 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_diffuse[i] = texture;
+		mesh_tmp->attach_texture("texture_diffuse", texture, i);
 	}
 
 	//specular textures
 	num_textures = mat->GetTextureCount(aiTextureType_SPECULAR);
-	mesh_tmp->textures_specular.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_SPECULAR, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -442,12 +439,11 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_specular[i] = texture;
+		mesh_tmp->attach_texture("texture_specular", texture, i);
 	}
 
 	//shininess textures
 	num_textures = mat->GetTextureCount(aiTextureType_SHININESS);
-	mesh_tmp->textures_shininess.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_SHININESS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -455,12 +451,11 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_shininess[i] = texture;
+		mesh_tmp->attach_texture("texture_shininess", texture, i);
 	}
 
 	//emissive textures
 	num_textures = mat->GetTextureCount(aiTextureType_EMISSIVE);
-	mesh_tmp->textures_emissive.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_EMISSIVE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -468,12 +463,11 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_emissive[i] = texture;
+		mesh_tmp->attach_texture("texture_emissive", texture, i);
 	}
 
 	//normals textures
 	num_textures = mat->GetTextureCount(aiTextureType_NORMALS);
-	mesh_tmp->textures_normals.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_NORMALS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -481,12 +475,11 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_normals[i] = texture;
+		mesh_tmp->attach_texture("texture_normals", texture, i);
 	}
 
 	//displacement textures
 	num_textures = mat->GetTextureCount(aiTextureType_DISPLACEMENT);
-	mesh_tmp->textures_displacement.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_DISPLACEMENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -494,12 +487,11 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_displacement[i] = texture;
+		mesh_tmp->attach_texture("texture_displacement", texture, i);
 	}
 
 	//opacity textures
 	num_textures = mat->GetTextureCount(aiTextureType_OPACITY);
-	mesh_tmp->textures_opacity.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_OPACITY, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -507,12 +499,11 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_opacity[i] = texture;
+		mesh_tmp->attach_texture("texture_opacity", texture, i);
 	}
 
 	//lightmap textures
 	num_textures = mat->GetTextureCount(aiTextureType_LIGHTMAP);
-	mesh_tmp->textures_lightmap.resize(num_textures);
 	for(unsigned int i = 0; i < num_textures; i++) {
 		mat->GetTexture(aiTextureType_LIGHTMAP, i, &str);
 		texture = Texture::find_texture(str.C_Str());
@@ -520,7 +511,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 			texture = new Texture_2d(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
-		mesh_tmp->textures_lightmap[i] = texture;
+		mesh_tmp->attach_texture("texture_lightmap", texture, i);
 	}
 
 	return mesh_tmp;
@@ -642,70 +633,22 @@ aiQuaternion Model::interpolate_rotation(float time, aiNodeAnim *node) {
 
 void Model::attach_texture(const std::string& name, Texture *texture) {
 	for(const auto& mesh : meshes) {
-		mesh->textures_misc.push_back(std::make_pair(name, texture));
+		mesh->attach_texture(name, texture);
 	}
 }
 
 void Model::set_texture_parameter(GLenum name, int parameter) {
 	for(const auto& mesh : meshes) {
-		for(const auto& texture : mesh->textures_ambient) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_diffuse) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_specular) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_shininess) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_emissive) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_normals) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_displacement) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_opacity) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_lightmap) {
-			texture->set_parameter(name, parameter);
+		for(const auto& texture : mesh->textures) {
+			std::get<2>(texture)->set_parameter(name, parameter);
 		}
 	}
 }
 
 void Model::set_texture_parameter(GLenum name, float parameter) {
 	for(const auto& mesh : meshes) {
-		for(const auto& texture : mesh->textures_ambient) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_diffuse) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_specular) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_shininess) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_emissive) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_normals) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_displacement) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_opacity) {
-			texture->set_parameter(name, parameter);
-		}
-		for(const auto& texture : mesh->textures_lightmap) {
-			texture->set_parameter(name, parameter);
+		for(const auto& texture : mesh->textures) {
+			std::get<2>(texture)->set_parameter(name, parameter);
 		}
 	}
 }

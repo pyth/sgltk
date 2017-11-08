@@ -13,7 +13,7 @@ namespace sgltk {
  * @struct Vertex
  * @brief A basic vertex structure
  */
-typedef EXPORT struct Vertex {
+using Vertex = struct Vertex {
 	/**
 	 * @brief Vertex position
 	 */
@@ -129,7 +129,7 @@ typedef EXPORT struct Vertex {
 
 		tex_coord = tc;
 	};
-} Vertex;
+};
 
 
 /**
@@ -186,43 +186,6 @@ public:
 	 * @brief The name of the specular exponent
 	 */
 	std::string shininess_strength_name;
-
-	/**
-	 * @brief The name of the texture containing the ambient color component
-	 */
-	std::string ambient_texture_name;
-	/**
-	 * @brief The name of the texture containing the diffuse color component
-	 */
-	std::string diffuse_texture_name;
-	/**
-	 * @brief The name of the texture containing the specular factor
-	 */
-	std::string specular_texture_name;
-	/**
-	 * @brief The name of the texture containing the specular exponent
-	 */
-	std::string shininess_texture_name;
-	/**
-	 * @brief The name of the texture containing the light being emitted
-	 */
-	std::string emissive_texture_name;
-	/**
-	 * @brief The name of the texture containing normal vectors
-	 */
-	std::string normals_texture_name;
-	/**
-	 * @brief The name of the texture containing the displacement factor
-	 */
-	std::string displacement_texture_name;
-	/**
-	 * @brief The name of the texture containing the opacity strength
-	 */
-	std::string opacity_texture_name;
-	/**
-	 * @brief The name of the texture containing the diffuse light factor
-	 */
-	std::string lightmap_texture_name;
 
 	/**
 	 * @brief The name of the model matrix in the shader
@@ -286,45 +249,9 @@ public:
 	 */
 	glm::vec4 color_specular;
 	/**
-	 * @brief The ambient textures
+	 * @brief Attached textures
 	 */
-	std::vector<Texture *> textures_ambient;
-	/**
-	 * @brief The diffuse textures
-	 */
-	std::vector<Texture *> textures_diffuse;
-	/**
-	 * @brief The specular textures
-	 */
-	std::vector<Texture *> textures_specular;
-	/**
-	 * @brief The shininess textures
-	 */
-	std::vector<Texture *> textures_shininess;
-	/**
-	 * @brief The emissive textures
-	 */
-	std::vector<Texture *> textures_emissive;
-	/**
-	 * @brief The normals textures
-	 */
-	std::vector<Texture *> textures_normals;
-	/**
-	 * @brief The displacement textures
-	 */
-	std::vector<Texture *> textures_displacement;
-	/**
-	 * @brief The opacity textures
-	 */
-	std::vector<Texture *> textures_opacity;
-	/**
-	 * @brief The lightmap textures
-	 */
-	std::vector<Texture *> textures_lightmap;
-	/**
-	 * @brief Miscellaneous textures
-	 */
-	std::vector<std::pair<std::string, Texture *> > textures_misc;
+	std::vector<std::tuple<std::string, unsigned int, Texture*> > textures;
 
 	/**
 	 * @brief Indicates that the mesh should be drawn as a wireframe
@@ -343,7 +270,7 @@ public:
 	 * @brief Specifies the shader to use to render the mesh
 	 * @param shader The shader to be used to render the mesh
 	 */
-	EXPORT void setup_shader(Shader *shader);
+	EXPORT void setup_shader(const Shader *shader);
 	/**
 	 * @brief Sets up the view and projection matrices that will be used
 	 * 	  by the mesh
@@ -351,15 +278,15 @@ public:
 	 * @param projection_matrix The projection matrix
 	 * @return Returns true if both pointers are not NULL pointers, flase otherwise
 	 */
-	EXPORT bool setup_camera(glm::mat4 *view_matrix,
-				 glm::mat4 *projection_matrix);
+	EXPORT bool setup_camera(const glm::mat4 *view_matrix,
+				 const glm::mat4 *projection_matrix);
 	/**
 	 * @brief Sets up the view and projection matrices that will be used
 	 * 	  by the mesh
 	 * @param camera The camera to use
 	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT bool setup_camera(Camera *camera);
+	EXPORT bool setup_camera(const Camera *camera);
 	/**
 	 * @brief Sets the name of the model matrix in the shader
 	 * @param name The name of the model matrix.
@@ -448,59 +375,12 @@ public:
 	 */
 	EXPORT void set_shininess_strength_name(const std::string& name);
 	/**
-	 * @brief Sets the name of the ambient texture in the shader
-	 * @param name The name of the ambient texture.
-	 * 	The name is reset if string is empty.
+	 * @brief Attaches a texture to the mesh
+	 * @param name The name of the uniform
+	 * @param texture The texture to attach
+	 * @param index The index in a uniform array
 	 */
-	EXPORT void set_ambient_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the diffuse texture in the shader
-	 * @param name The name of the diffuse texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_diffuse_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the specular texture in the shader
-	 * @param name The name of the specular texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_specular_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the shininess texture in the shader
-	 * @param name The name of the shininess texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_shininess_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the emissive texture in the shader
-	 * @param name The name of the emissive texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_emissive_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the normals texture in the shader
-	 * @param name The name of the normals texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_normals_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the displacement texture in the shader
-	 * @param name The name of the displacement texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_displacement_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the opacity texture in the shader
-	 * @param name The name of the opacity texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_opacity_texture_name(const std::string& name);
-	/**
-	 * @brief Sets the name of the lightmap texture in the shader
-	 * @param name The name of the lightmap texture.
-	 * 	The name is reset if string is empty.
-	 */
-	EXPORT void set_lightmap_texture_name(const std::string& name);
+	EXPORT void attach_texture(const std::string& name, Texture *texture, unsigned int index = 0);
 	/**
 	 * @brief Sets the output type for transform feedback operations
 	 * @param mode The output type of the primitives that will be recorded
