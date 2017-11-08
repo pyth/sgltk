@@ -6,6 +6,7 @@ var searchData=
   ['camera',['Camera',['../classsgltk_1_1_camera.html',1,'sgltk::Camera'],['../classsgltk_1_1_camera.html#a8237ba9974234fe416ebd7665d7ec866',1,'sgltk::Camera::Camera()']]],
   ['chdir_5fto_5fbin',['chdir_to_bin',['../classsgltk_1_1_app.html#a6eec768fb2828bdb9663c9fe596c3c16',1,'sgltk::App']]],
   ['check_5fgl_5ferror',['check_gl_error',['../app_8h.html#a27abadb9942c40edb9f2a60545ae36dc',1,'app.h']]],
+  ['color',['color',['../structsgltk_1_1_vertex.html#a61d9a06d9f1cbb076161c639d4f36cd3',1,'sgltk::Vertex']]],
   ['color_5fambient',['color_ambient',['../classsgltk_1_1_mesh.html#aabb31603fe06cfba81907c89faac299c',1,'sgltk::Mesh']]],
   ['color_5fdiffuse',['color_diffuse',['../classsgltk_1_1_mesh.html#a1625657c560ed466dc79c9be6cab2369',1,'sgltk::Mesh']]],
   ['color_5fspecular',['color_specular',['../classsgltk_1_1_mesh.html#ac7371ae595e0303743e5d317177edcb0',1,'sgltk::Mesh']]],

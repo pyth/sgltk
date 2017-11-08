@@ -38,26 +38,26 @@ public:
 	 * @brief Specifies the shader to use to render the particles
 	 * @param shader The shader to be used to render the particles
 	 */
-	EXPORT void setup_shader(const sgltk::Shader *shader);
+	EXPORT void setup_shader(sgltk::Shader *shader);
 	/**
 	 * @brief Sets up the view and projection matrices that will be
 	 *	  used to render the particles
 	 * @param camera The camera to be used to draw the particles
 	 */
-	EXPORT void setup_camera(const sgltk::Camera *camera);
+	EXPORT void setup_camera(sgltk::Camera *camera);
 	/**
 	 * @brief Sets up the view and projection matrices that will be
 	 *	  used to render the particles
 	 * @param view_matrix The view matrix
 	 * @param projection_matrix The projection matrix
 	 */
-	EXPORT void setup_camera(const glm::mat4 *view_matrix,
-				 const glm::mat4 *projection_matrix);
+	EXPORT void setup_camera(glm::mat4 *view_matrix,
+				 glm::mat4 *projection_matrix);
 	/**
 	 * @brief Attaches a texture to the particles
 	 */
 	EXPORT void attach_texture(const std::string& name,
-				   sgltk::Texture *texture);
+				   const sgltk::Texture& texture);
 	/**
 	 * @brief Adds a new particle to the system if the particle buffer has an empty space
 	 * @param position The position of the new particle

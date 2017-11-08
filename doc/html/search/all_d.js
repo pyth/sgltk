@@ -2,6 +2,7 @@ var searchData=
 [
   ['name',['name',['../classsgltk_1_1_joystick.html#a5d21cd6e11dd97cde8e6169a51392f88',1,'sgltk::Joystick']]],
   ['near_5fplane',['near_plane',['../classsgltk_1_1_camera.html#aa08fab8114767a6fa5c0b317b2746263',1,'sgltk::Camera']]],
+  ['normal',['normal',['../structsgltk_1_1_vertex.html#a54eaf21e19c331f38e3e1db9a6ffea4b',1,'sgltk::Vertex']]],
   ['normal_5fmatrix_5fname',['normal_matrix_name',['../classsgltk_1_1_mesh.html#a83dfc7ea5834aada2c3be7edf0117c6e',1,'sgltk::Mesh']]],
   ['num_5faxes',['num_axes',['../classsgltk_1_1_gamepad.html#a0930a2e3132ea296b6b30f0484d2a276',1,'sgltk::Gamepad::num_axes()'],['../classsgltk_1_1_joystick.html#a446a9558436226f431b9bcd8140c7222',1,'sgltk::Joystick::num_axes()']]],
   ['num_5fbuttons',['num_buttons',['../classsgltk_1_1_gamepad.html#a5d09bcc275e3fec020d3554fba97c037',1,'sgltk::Gamepad::num_buttons()'],['../classsgltk_1_1_joystick.html#af39dc1a9e9ae77c11943cf628c618897',1,'sgltk::Joystick::num_buttons()']]],

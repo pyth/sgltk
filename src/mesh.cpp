@@ -42,27 +42,26 @@ Mesh::~Mesh() {
 	glDeleteVertexArrays(1, &vao);
 }
 
-void Mesh::setup_shader(const Shader *shader) {
-	this->shader = const_cast<Shader*>(shader);
+void Mesh::setup_shader(Shader *shader) {
+	this->shader = shader;
 }
 
-bool Mesh::setup_camera(const glm::mat4 *view_matrix,
-			const glm::mat4 *projection_matrix) {
-
+bool Mesh::setup_camera(glm::mat4 *view_matrix,
+				glm::mat4 *projection_matrix) {
 	if(!view_matrix || !projection_matrix)
 		return false;
 
-	this->view_matrix = const_cast<glm::mat4*>(view_matrix);
-	this->projection_matrix = const_cast<glm::mat4*>(projection_matrix);
+	this->view_matrix = view_matrix;
+	this->projection_matrix = projection_matrix;
 	return true;
 }
 
-bool Mesh::setup_camera(const Camera *camera) {
+bool Mesh::setup_camera(Camera *camera) {
 	if(!camera)
 		return false;
 
-	this->view_matrix = &const_cast<Camera*>(camera)->view_matrix;
-	this->projection_matrix = &const_cast<Camera*>(camera)->projection_matrix;
+	this->view_matrix = &camera->view_matrix;
+	this->projection_matrix = &camera->projection_matrix;
 	return true;
 }
 
@@ -157,19 +156,22 @@ void Mesh::set_shininess_strength_name(const std::string& name) {
 		shininess_strength_name = "shininess_strength";
 }
 
-void Mesh::attach_texture(const std::string& name, Texture *texture, unsigned int index) {
-	textures.push_back({name, index, texture});
+void Mesh::attach_texture(const std::string& name,
+			  const Texture& texture,
+			  unsigned int index) {
+
+	textures.push_back({name, texture, index});
 }
 
 void Mesh::set_transform_feedback_mode(GLenum mode) {
 	tf_mode = mode;
 }
 
-void Mesh::attach_buffer(sgltk::Buffer *buffer,
+void Mesh::attach_buffer(const Buffer *buffer,
 			 GLuint target,
 			 unsigned int index) {
 
-	attached_buffers.push_back(buffer);
+	attached_buffers.push_back(const_cast<Buffer*>(buffer));
 	attached_buffers_targets.push_back(target);
 	attached_buffers_indices.push_back(index);
 }
@@ -340,12 +342,21 @@ void Mesh::material_uniform() {
 	shader->set_uniform_float(shininess_name, shininess);
 	shader->set_uniform_float(shininess_strength_name, shininess_strength);
 
-	int texture_loc = 0;
+	int texture_loc;
 	int num_textures = 0;
-	for(unsigned int i = 0; i < textures.size(); i++) {
-		texture_loc = shader->get_uniform_location(std::get<0>(textures[i]));
-		shader->set_uniform_int(texture_loc + std::get<1>(textures[i]), num_textures);
-		std::get<2>(textures[i])->bind(num_textures++);
+	for(const auto& tex : textures) {
+		texture_loc = shader->get_uniform_location(std::get<0>(tex));
+		if(texture_loc >= 0) {
+			shader->set_uniform_int(texture_loc + std::get<2>(tex), num_textures);
+			const_cast<Texture&>(std::get<1>(tex)).bind(num_textures++);
+		}
+	}
+	for(const auto& tex : auto_textures) {
+		texture_loc = shader->get_uniform_location(std::get<0>(tex));
+		if(texture_loc >= 0) {
+			shader->set_uniform_int(texture_loc + std::get<2>(tex), num_textures);
+			const_cast<Texture&>(std::get<1>(tex)).bind(num_textures++);
+		}
 	}
 }
 

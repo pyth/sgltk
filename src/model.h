@@ -116,7 +116,7 @@ class Model {
 		 * @brief Specifies the shader to use to render the mesh
 		 * @param shader The shader to be used to render the mesh
 		 */
-		EXPORT void setup_shader(const Shader *shader);
+		EXPORT void setup_shader(Shader *shader);
 		/**
 		 * @brief Sets up the view and projection matrices that will be
 		 *	  used by the meshes in the model
@@ -124,15 +124,15 @@ class Model {
 		 * @param projection_matrix The projection matrix
 		 * @return Returns true if both pointers are not NULL pointers, flase otherwise
 		 */
-		EXPORT bool setup_camera(const glm::mat4 *view_matrix,
-					 const glm::mat4 *projection_matrix);
+		EXPORT bool setup_camera(glm::mat4 *view_matrix,
+					 glm::mat4 *projection_matrix);
 		/**
 		 * @brief Sets up the view and projection matrices that will be
 		 *	  used by the meshes in the model
 		 * @param camera The camera to use
 		 * @return Returns true on success, false otherwise
 		 */
-		EXPORT bool setup_camera(const Camera *camera);
+		EXPORT bool setup_camera(Camera *camera);
 		/**
 		 * @brief Sets the position vertex attribute name in the shader
 		 * @param name The new vertex attribute name. An empty string resets
@@ -190,20 +190,21 @@ class Model {
 		 * @brief Attaches a texture to every mesh of the model
 		 * @param name The name of the texture in the shader
 		 * @param texture The texture to be bound when rendering the model
+		 * @param index The index of the texture in the uniform array
 		 */
-		EXPORT void attach_texture(const std::string& name, Texture *texture);
+		EXPORT void attach_texture(const std::string& name,
+					   const Texture& texture,
+					   unsigned int index = 0);
 		/**
-		 * @brief Sets a texture parameter for all textures in the model except
-		 * 	  those attached using attach_texture or contained in the
-		 * 	  textures_misc vector of a mesh.
+		 * @brief Sets a texture parameter for all attached textures
+		 * 	except for manually attached textures.
 		 * @param name The name of the texture parameter
 		 * @param parameter The parameter value
 		 */
 		EXPORT void set_texture_parameter(GLenum name, int parameter);
 		/**
-		 * @brief Sets a texture parameter for all textures in the model except
-		 * 	  those attached using attach_texture or contained in the
-		 * 	  textures_misc vector of a mesh.
+		 * @brief Sets a texture parameter for all attached textures
+		 * 	except for manually attached textures.
 		 * @param name The name of the texture parameter
 		 * @param parameter The parameter value
 		 */

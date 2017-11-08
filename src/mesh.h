@@ -13,7 +13,7 @@ namespace sgltk {
  * @struct Vertex
  * @brief A basic vertex structure
  */
-using Vertex = struct Vertex {
+typedef EXPORT struct Vertex {
 	/**
 	 * @brief Vertex position
 	 */
@@ -129,7 +129,7 @@ using Vertex = struct Vertex {
 
 		tex_coord = tc;
 	};
-};
+} Vertex;
 
 
 /**
@@ -148,9 +148,9 @@ class Mesh {
 	GLenum index_type;
 	std::vector<std::unique_ptr<Buffer> > ibo;
 
-	std::vector<Buffer *>attached_buffers;
-	std::vector<GLuint>attached_buffers_targets;
-	std::vector<unsigned int>attached_buffers_indices;
+	std::vector<Buffer*> attached_buffers;
+	std::vector<GLuint> attached_buffers_targets;
+	std::vector<unsigned int> attached_buffers_indices;
 
 	void material_uniform();
 public:
@@ -251,7 +251,11 @@ public:
 	/**
 	 * @brief Attached textures
 	 */
-	std::vector<std::tuple<std::string, unsigned int, Texture*> > textures;
+	std::vector<std::tuple<std::string, const Texture&, unsigned int> > auto_textures;
+	/**
+	 * @brief Attached user textures
+	 */
+	std::vector<std::tuple<std::string, const Texture&, unsigned int> > textures;
 
 	/**
 	 * @brief Indicates that the mesh should be drawn as a wireframe
@@ -270,7 +274,7 @@ public:
 	 * @brief Specifies the shader to use to render the mesh
 	 * @param shader The shader to be used to render the mesh
 	 */
-	EXPORT void setup_shader(const Shader *shader);
+	EXPORT void setup_shader(Shader *shader);
 	/**
 	 * @brief Sets up the view and projection matrices that will be used
 	 * 	  by the mesh
@@ -278,15 +282,15 @@ public:
 	 * @param projection_matrix The projection matrix
 	 * @return Returns true if both pointers are not NULL pointers, flase otherwise
 	 */
-	EXPORT bool setup_camera(const glm::mat4 *view_matrix,
-				 const glm::mat4 *projection_matrix);
+	EXPORT bool setup_camera(glm::mat4 *view_matrix,
+				 glm::mat4 *projection_matrix);
 	/**
 	 * @brief Sets up the view and projection matrices that will be used
 	 * 	  by the mesh
 	 * @param camera The camera to use
 	 * @return Returns true on success, false otherwise
 	 */
-	EXPORT bool setup_camera(const Camera *camera);
+	EXPORT bool setup_camera(Camera *camera);
 	/**
 	 * @brief Sets the name of the model matrix in the shader
 	 * @param name The name of the model matrix.
@@ -376,11 +380,13 @@ public:
 	EXPORT void set_shininess_strength_name(const std::string& name);
 	/**
 	 * @brief Attaches a texture to the mesh
-	 * @param name The name of the uniform
+	 * @param name The name of the texture in the shader
 	 * @param texture The texture to attach
-	 * @param index The index in a uniform array
+	 * @param index The index of the texture in the uniform array
 	 */
-	EXPORT void attach_texture(const std::string& name, Texture *texture, unsigned int index = 0);
+	EXPORT void attach_texture(const std::string& name,
+				   const sgltk::Texture& texture,
+				   unsigned int index = 0);
 	/**
 	 * @brief Sets the output type for transform feedback operations
 	 * @param mode The output type of the primitives that will be recorded
@@ -398,7 +404,7 @@ public:
 	 * 	 GL_TRANSFORM_FEEDBACK_BUFFER, GL_UNIFORM_BUFFER or
 	 * 	 GL_SHADER_STORAGE_BUFFER the index is ignored.
 	 */
-	EXPORT void attach_buffer(sgltk::Buffer *buffer, GLuint target, unsigned int index = 0);
+	EXPORT void attach_buffer(const sgltk::Buffer *buffer, GLuint target, unsigned int index = 0);
 	/**
 	 * @brief Loads data into memory
 	 * @param vertexdata The data to be loaded into memory

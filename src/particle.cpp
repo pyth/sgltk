@@ -27,22 +27,22 @@ void Particles::resize(unsigned int number) {
 	mesh.set_vertex_attribute("lifetime_in", life_buf, 2, GL_FLOAT, 0, 0);
 }
 
-void Particles::setup_shader(const Shader *shader) {
-	mesh.setup_shader(const_cast<Shader*>(shader));
+void Particles::setup_shader(Shader *shader) {
+	mesh.setup_shader(shader);
 }
 
-void Particles::setup_camera(const Camera *camera) {
-	mesh.setup_camera(const_cast<Camera*>(camera));
+void Particles::setup_camera(Camera *camera) {
+	mesh.setup_camera(camera);
 }
 
-void Particles::setup_camera(const glm::mat4 *view_matrix,
-			     const glm::mat4 *projection_matrix) {
+void Particles::setup_camera(glm::mat4 *view_matrix,
+				glm::mat4 *projection_matrix) {
 
-	mesh.setup_camera(const_cast<glm::mat4*>(view_matrix), const_cast<glm::mat4*>(projection_matrix));
+	mesh.setup_camera(view_matrix, projection_matrix);
 }
 
 void Particles::attach_texture(const std::string& name,
-				sgltk::Texture *texture) {
+			       const Texture& texture) {
 
 	mesh.attach_texture(name, texture);
 }
