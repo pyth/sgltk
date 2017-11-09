@@ -2,7 +2,7 @@
 
 using namespace sgltk;
 
-std::map<std::string, Texture *> Texture::textures;
+std::map<std::string, std::shared_ptr<Texture> > Texture::textures;
 
 Texture::Texture() {
 	width = 0;
@@ -33,12 +33,12 @@ void Texture::set_parameter(GLenum name, float *parameter) {
 	unbind();
 }
 
-bool Texture::store_texture(std::string name, Texture *texture) {
+bool Texture::store_texture(std::string name, std::shared_ptr<Texture> texture) {
 	return textures.insert(std::make_pair(name, texture)).second;
 }
 
-Texture *Texture::find_texture(std::string name) {
-	std::map<std::string, Texture *>::iterator it = textures.find(name);
+std::shared_ptr<Texture> Texture::find_texture(std::string name) {
+	const auto& it = textures.find(name);
 	if(it == textures.end())
 		return NULL;
 	return it->second;

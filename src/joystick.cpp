@@ -3,7 +3,7 @@
 using namespace sgltk;
 
 unsigned int Joystick::id_max;
-std::map<unsigned int, Joystick *> Joystick::id_map;
+std::list<unsigned int> Joystick::ids;
 
 Joystick::Joystick(unsigned int device_id) {
 	joystick = SDL_JoystickOpen(device_id);
@@ -24,20 +24,21 @@ Joystick::Joystick(unsigned int device_id) {
 	deadzone = 0;
 
 	unsigned int i;
-	for(i = 0; i < id_max + 2; i++) {
-		if(id_map.find(i) == id_map.end()) {
+	for(i = 0; i <= id_max + 1; i++) {
+		if(std::find(std::begin(ids), std::end(ids), i) == std::end(ids)) {
 			break;
 		}
 	}
 	id = i;
-	id_map[i] = this;
+	ids.push_back(id);
 	if(i > id_max)
 		id_max = i;
 }
 
 Joystick::~Joystick() {
 	SDL_JoystickClose(joystick);
-	id_map.erase(id);
+	const auto& pos = std::find(std::begin(ids), std::end(ids), id);
+	ids.erase(pos);
 }
 
 void Joystick::set_button_state(int button, bool state) {

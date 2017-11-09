@@ -70,7 +70,7 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	file.seekg(0, file.end);
 	size = static_cast<GLint>(file.tellg());
 	file.seekg(0, file.beg);
-	std::unique_ptr<char[]> buf(new char[size]);
+	std::unique_ptr<char[]> buf = std::make_unique<char[]>(size);
 	file.read(buf.get(), size);
 
 	file.close();
@@ -82,7 +82,7 @@ bool Shader::attach_file(const std::string& filename, GLenum type) {
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
 		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &info_log_length);
-		std::unique_ptr<char[]> info_log(new char[info_log_length]);
+		std::unique_ptr<char[]> info_log = std::make_unique<char[]>(info_log_length);
 		glGetShaderInfoLog(tmp, info_log_length, &info_log_length, info_log.get());
 		std::cerr << "CompileShader() infoLog " << filename
 			  << std::endl << info_log.get() << std::endl;
@@ -112,7 +112,7 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
 		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &infoLogLength);
-		std::unique_ptr<char[]> infoLog(new char[infoLogLength]);
+		std::unique_ptr<char[]> infoLog = std::make_unique<char[]>(infoLogLength);
 		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength, infoLog.get());
 		std::cerr << "CompileShader() infoLog " << std::endl
 			  << infoLog.get() << std::endl;

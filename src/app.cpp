@@ -136,6 +136,7 @@ void App::quit() {
 
 sgltk::App::~App() {
 	error_string.clear();
+	quit();
 }
 
 void App::enable_screensaver(bool enable) {

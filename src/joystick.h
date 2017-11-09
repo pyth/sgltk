@@ -16,6 +16,7 @@ class Joystick {
 	std::vector<int> switches;
 
 	static unsigned int id_max;
+	EXPORT static std::list<unsigned int> ids;
 
 	public:
 	/**
@@ -52,10 +53,6 @@ class Joystick {
 	* @brief A list of all buttons currently pressed
 	*/
 	std::vector<int> buttons_pressed;
-	/**
-	 * @brief Maps a joystick id to a joystick object
-	 */
-	EXPORT static std::map<unsigned int, Joystick *> id_map;
 
 	/**
 	 * @param device_id The device id as provided by the SDL_JOYDEVICEADDED event

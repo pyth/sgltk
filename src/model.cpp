@@ -366,7 +366,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 
 	// Materials
 	aiString str;
-	Texture *texture;
+	std::shared_ptr<Texture> texture;
 	unsigned int num_textures;
 	aiColor4D color(0.0f, 0.0f, 0.0f, 0.0f);
 	aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
@@ -412,7 +412,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_AMBIENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture_2d(str.C_Str());
+			texture = std::make_shared<Texture_2d>(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->auto_textures.push_back({"texture_ambient", *texture, i});
@@ -424,7 +424,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_DIFFUSE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture_2d(str.C_Str());
+			texture = std::make_shared<Texture_2d>(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->auto_textures.push_back({"texture_diffuse", *texture, i});
@@ -436,7 +436,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_SPECULAR, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture_2d(str.C_Str());
+			texture = std::make_shared<Texture_2d>(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->auto_textures.push_back({"texture_specular", *texture, i});
@@ -448,7 +448,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_SHININESS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture_2d(str.C_Str());
+			texture = std::make_shared<Texture_2d>(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->auto_textures.push_back({"texture_shininess", *texture, i});
@@ -460,7 +460,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_EMISSIVE, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture_2d(str.C_Str());
+			texture = std::make_shared<Texture_2d>(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->auto_textures.push_back({"texture_emissive", *texture, i});
@@ -472,7 +472,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_NORMALS, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture_2d(str.C_Str());
+			texture = std::make_shared<Texture_2d>(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->auto_textures.push_back({"texture_normals", *texture, i});
@@ -484,7 +484,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_DISPLACEMENT, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture_2d(str.C_Str());
+			texture = std::make_shared<Texture_2d>(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->auto_textures.push_back({"texture_displacement", *texture, i});
@@ -496,7 +496,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_OPACITY, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture_2d(str.C_Str());
+			texture = std::make_shared<Texture_2d>(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->auto_textures.push_back({"texture_opacity", *texture, i});
@@ -508,7 +508,7 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 		mat->GetTexture(aiTextureType_LIGHTMAP, i, &str);
 		texture = Texture::find_texture(str.C_Str());
 		if(!texture) {
-			texture = new Texture_2d(str.C_Str());
+			texture = std::make_shared<Texture_2d>(str.C_Str());
 			Texture::store_texture(str.C_Str(), texture);
 		}
 		mesh_tmp->auto_textures.push_back({"texture_lightmap", *texture, i});

@@ -2,11 +2,13 @@
 
 using namespace sgltk;
 
-std::map<unsigned int, Gamepad *> Window::gamepad_instance_id_map;
-std::map<unsigned int, Joystick *> Window::joystick_instance_id_map;
+unsigned int Window::cnt = 0;
+std::map<unsigned int, std::shared_ptr<Gamepad> > Window::gamepad_instance_id_map;
+std::map<unsigned int, std::shared_ptr<Joystick> > Window::joystick_instance_id_map;
 
 Window::Window(const std::string& title, int res_x, int res_y, int offset_x, int offset_y, unsigned int flags) {
 
+	cnt++;
 	running = true;
 	mouse_relative = false;
 	keys = SDL_GetKeyboardState(NULL);
@@ -62,9 +64,14 @@ endloop:
 }
 
 Window::~Window() {
+	cnt--;
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(window);
 	keys_pressed.clear();
+	if(cnt == 0) {
+		gamepad_instance_id_map.clear();
+		joystick_instance_id_map.clear();
+	}
 }
 
 void Window::set_icon(const std::string& filename) {
@@ -85,7 +92,7 @@ void Window::set_resizable(bool on) {
 }
 
 void Window::take_screenshot(Image& image) {
-	std::unique_ptr<char[]> buf(new char[4 * width * height]);
+	std::unique_ptr<char[]> buf = std::make_unique<char[]>(4 * width * height);
 	glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buf.get());
 	image.load(width, height, 4, buf.get());
 	image.vertical_flip();
@@ -150,10 +157,10 @@ bool Window::get_cursor_visibility() {
 void Window::poll_events() {
 	int value;
 	SDL_Event event;
-	Gamepad *gamepad;
-	Joystick *joystick;
-	std::map<unsigned int, Gamepad *>::iterator gamepad_it;
-	std::map<unsigned int, Joystick *>::iterator joystick_it;
+	std::shared_ptr<Gamepad> gamepad;
+	std::shared_ptr<Joystick> joystick;
+	std::map<unsigned int, std::shared_ptr<Gamepad> >::iterator gamepad_it;
+	std::map<unsigned int, std::shared_ptr<Joystick> >::iterator joystick_it;
 	std::vector<int>::iterator button;
 
 	while(SDL_PollEvent(&event)) {
@@ -209,17 +216,16 @@ void Window::poll_events() {
 						    event.motion.y);
 			break;
 		case SDL_CONTROLLERDEVICEADDED:
-			gamepad = new Gamepad(event.cdevice.which);
+			gamepad = std::make_shared<Gamepad>(event.cdevice.which);
 			gamepad_instance_id_map[gamepad->instance_id] = gamepad;
-			handle_gamepad_added(gamepad->id);
+			handle_gamepad_added(gamepad);
 			break;
 		case SDL_CONTROLLERDEVICEREMOVED:
 			gamepad_it = gamepad_instance_id_map.find(event.cdevice.which);
 			if(gamepad_it != gamepad_instance_id_map.end()) {
 				gamepad = gamepad_it->second;
-				gamepad_instance_id_map.erase(gamepad->instance_id);
 				handle_gamepad_removed(gamepad->id);
-				delete Gamepad::id_map[gamepad->id];
+				gamepad_instance_id_map.erase(gamepad->instance_id);
 			}
 			break;
 		case SDL_CONTROLLERBUTTONDOWN:
@@ -227,8 +233,7 @@ void Window::poll_events() {
 			if(gamepad_it != gamepad_instance_id_map.end()) {
 				gamepad = gamepad_it->second;
 				gamepad->set_button_state(event.cbutton.button, true);
-				handle_gamepad_button_press(gamepad->id,
-					event.cbutton.button, true);
+				handle_gamepad_button_press(gamepad, event.cbutton.button, true);
 			}
 			break;
 		case SDL_CONTROLLERBUTTONUP:
@@ -236,33 +241,31 @@ void Window::poll_events() {
 			if(gamepad_it != gamepad_instance_id_map.end()) {
 				gamepad = gamepad_it->second;
 				gamepad->set_button_state(event.cbutton.button, false);
-				handle_gamepad_button_press(gamepad->id,
-					event.cbutton.button, false);
+				handle_gamepad_button_press(gamepad, event.cbutton.button, false);
 			}
 			break;
 		case SDL_CONTROLLERAXISMOTION:
 			gamepad_it = gamepad_instance_id_map.find(event.cdevice.which);
 			if(gamepad_it != gamepad_instance_id_map.end()) {
 				gamepad = gamepad_it->second;
-				handle_gamepad_axis_change(gamepad->id,
+				handle_gamepad_axis_change(gamepad,
 					event.caxis.axis,
 					gamepad->get_axis_value(event.caxis.axis));
 			}
 			break;
 		case SDL_JOYDEVICEADDED:
 			if(!SDL_IsGameController(event.jdevice.which)) {
-				joystick = new Joystick(event.jdevice.which);
+				joystick = std::make_shared<Joystick>(event.jdevice.which);
 				joystick_instance_id_map[joystick->instance_id] = joystick;
-				handle_joystick_added(joystick->id);
+				handle_joystick_added(joystick);
 			}
 			break;
 		case SDL_JOYDEVICEREMOVED:
 			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
 			if(joystick_it != joystick_instance_id_map.end()) {
 				joystick = joystick_it->second;
-				joystick_instance_id_map.erase(joystick->instance_id);
 				handle_joystick_removed(joystick->id);
-				delete Joystick::id_map[joystick->id];
+				joystick_instance_id_map.erase(joystick->instance_id);
 			}
 			break;
 		case SDL_JOYBUTTONDOWN:
@@ -270,7 +273,7 @@ void Window::poll_events() {
 			if(joystick_it != joystick_instance_id_map.end()) {
 				joystick = joystick_it->second;
 				joystick->set_button_state(event.jbutton.button, true);
-				handle_joystick_button_press(joystick->id,
+				handle_joystick_button_press(joystick,
 					event.jbutton.button, true);
 			}
 			break;
@@ -279,7 +282,7 @@ void Window::poll_events() {
 			if(joystick_it != joystick_instance_id_map.end()) {
 				joystick = joystick_it->second;
 				joystick->set_button_state(event.jbutton.button, false);
-				handle_joystick_button_press(joystick->id,
+				handle_joystick_button_press(joystick,
 					event.jbutton.button, false);
 			}
 			break;
@@ -287,7 +290,7 @@ void Window::poll_events() {
 			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
 			if(joystick_it != joystick_instance_id_map.end()) {
 				joystick = joystick_it->second;
-				handle_joystick_axis_change(joystick->id,
+				handle_joystick_axis_change(joystick,
 					event.jaxis.axis,
 					joystick->get_axis_value(event.jaxis.axis));
 			}
@@ -296,19 +299,19 @@ void Window::poll_events() {
 			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
 			if(joystick_it != joystick_instance_id_map.end()) {
 				joystick = joystick_it->second;
-				handle_joystick_hat_change(joystick->id,
-					event.jhat.hat,
-					event.jhat.value);
+				handle_joystick_hat_change(joystick,
+							   event.jhat.hat,
+							   event.jhat.value);
 			}
 			break;
 		case SDL_JOYBALLMOTION:
 			joystick_it = joystick_instance_id_map.find(event.jdevice.which);
 			if(joystick_it != joystick_instance_id_map.end()) {
 				joystick = joystick_it->second;
-				handle_joystick_ball_motion(joystick->id,
-					event.jball.ball,
-					event.jball.xrel,
-					event.jball.yrel);
+				handle_joystick_ball_motion(joystick,
+							    event.jball.ball,
+							    event.jball.xrel,
+							    event.jball.yrel);
 			}
 			break;
 		}
@@ -318,77 +321,77 @@ void Window::poll_events() {
 		handle_keyboard(key);
 	}
 
-	for(std::pair<unsigned int, Gamepad *> device : gamepad_instance_id_map) {
+	for(const auto& device : gamepad_instance_id_map) {
 		if(!device.second)
 			continue;
 		for(unsigned int axis = 0; axis < device.second->num_axes; axis++) {
 			value = device.second->get_axis_value(axis);
-			handle_gamepad_axis(device.second->id, axis, value);
+			handle_gamepad_axis(device.second, axis, value);
 		}
 		for(unsigned int button = 0; button < device.second->buttons_pressed.size(); button++) {
-			handle_gamepad_button(device.second->id, device.second->buttons_pressed[button]);
+			handle_gamepad_button(device.second, device.second->buttons_pressed[button]);
 		}
 	}
 
-	for(std::pair<unsigned int, Joystick *> device : joystick_instance_id_map) {
+	for(const auto& device : joystick_instance_id_map) {
 		if(!device.second)
 			continue;
 		for(unsigned int axis = 0; axis < device.second->num_axes; axis++) {
 			value = device.second->get_axis_value(axis);
-			handle_joystick_axis(device.second->id, axis, value);
+			handle_joystick_axis(device.second, axis, value);
 		}
 		for(unsigned int button = 0; button < device.second->buttons_pressed.size(); button++) {
-			handle_joystick_button(device.second->id, device.second->buttons_pressed[button]);
+			handle_joystick_button(device.second, device.second->buttons_pressed[button]);
 		}
 		for(unsigned int hat = 0; hat < device.second->num_hats; hat++) {
-			handle_joystick_hat(device.second->id, hat, device.second->get_hat_value(hat));
+			handle_joystick_hat(device.second, hat, device.second->get_hat_value(hat));
 		}
 	}
 }
 
-void Window::handle_gamepad_added(unsigned int gamepad_id) {
+void Window::handle_gamepad_added(std::shared_ptr<Gamepad> gamepad) {
 }
 
 void Window::handle_gamepad_removed(unsigned int gamepad_id) {
 }
 
-void Window::handle_gamepad_button(unsigned int gamepad_id, int button) {
+void Window::handle_gamepad_button(std::shared_ptr<Gamepad> gamepad, int button) {
 }
 
-void Window::handle_gamepad_button_press(unsigned int gamepad_id, int button, bool pressed) {
+void Window::handle_gamepad_button_press(std::shared_ptr<Gamepad> gamepad, int button, bool pressed) {
 }
 
-void Window::handle_gamepad_axis(unsigned int gamepad_id, unsigned int axis, int value) {
+void Window::handle_gamepad_axis(std::shared_ptr<Gamepad> gamepad, unsigned int axis, int value) {
 }
 
-void Window::handle_gamepad_axis_change(unsigned int gamepad_id, unsigned int axis, int value) {
+void Window::handle_gamepad_axis_change(std::shared_ptr<Gamepad> gamepad, unsigned int axis, int value) {
 }
 
-void Window::handle_joystick_added(unsigned int joystick_id) {
+void Window::handle_joystick_added(std::shared_ptr<Joystick> joystick) {
 }
 
 void Window::handle_joystick_removed(unsigned int joystick_id) {
 }
 
-void Window::handle_joystick_button(unsigned int joystick_id, int button) {
+void Window::handle_joystick_button(std::shared_ptr<Joystick> joystick, int button) {
 }
 
-void Window::handle_joystick_button_press(unsigned int joystick_id, int button, bool pressed) {
+void Window::handle_joystick_button_press(std::shared_ptr<Joystick> joystick, int button, bool pressed) {
 }
 
-void Window::handle_joystick_axis(unsigned int joystick_id, unsigned int axis, int value) {
+void Window::handle_joystick_axis(std::shared_ptr<Joystick> joystick, unsigned int axis, int value) {
 }
 
-void Window::handle_joystick_axis_change(unsigned int joystick_id, unsigned int axis, int value) {
+void Window::handle_joystick_axis_change(std::shared_ptr<Joystick> joystick, unsigned int axis, int value) {
 }
 
-void Window::handle_joystick_hat(unsigned int joystick_id, unsigned int hat, unsigned int value) {
+void Window::handle_joystick_hat(std::shared_ptr<Joystick> joystick, unsigned int hat, unsigned int value) {
 }
 
-void Window::handle_joystick_hat_change(unsigned int joystick_id, unsigned int hat, unsigned int value) {
+void Window::handle_joystick_hat_change(std::shared_ptr<Joystick> joystick, unsigned int hat, unsigned int value) {
 }
 
-void Window::handle_joystick_ball_motion(unsigned int joystick_id, unsigned int ball, int xrel, int yrel) {
+void Window::handle_joystick_ball_motion(std::shared_ptr<Joystick> joystick, unsigned int ball, int xrel, int yrel) {
 }
 
 void Window::handle_keyboard(const std::string& key) {

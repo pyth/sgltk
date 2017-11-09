@@ -309,7 +309,7 @@ void Image::vertical_flip() {
 
 	unsigned int bpp = image->format->BytesPerPixel;
 
-	std::unique_ptr<unsigned char[]> buf(new unsigned char[width * height * bpp]);
+	std::unique_ptr<unsigned char[]> buf = std::make_unique<unsigned char[]>(width * height * bpp);
 
 	for(unsigned int y = 0; y < height; y++) {
 		for(unsigned int x = 0; x < width; x++) {
@@ -329,7 +329,7 @@ void Image::horizontal_flip() {
 
 	unsigned int bpp = image->format->BytesPerPixel;
 
-	std::unique_ptr<unsigned char[]> buf(new unsigned char[width * height * bpp]);
+	std::unique_ptr<unsigned char[]> buf = std::make_unique<unsigned char[]>(width * height * bpp);
 
 	for(unsigned int y = 0; y < height; y++) {
 		for(unsigned int x = 0; x < width; x++) {
