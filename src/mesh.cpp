@@ -12,8 +12,8 @@ Mesh::Mesh() {
 	index_type = 0;
 	glGenVertexArrays(1, &vao);
 
-	view_matrix = NULL;
-	projection_matrix = NULL;
+	view_matrix = nullptr;
+	projection_matrix = nullptr;
 
 	bounding_box = { glm::vec3(0, 0, 0), glm::vec3(0, 0, 0) };
 
@@ -361,7 +361,7 @@ void Mesh::material_uniform() {
 }
 
 void Mesh::draw(GLenum mode) {
-	draw(mode, 0, NULL);
+	draw(mode, 0, nullptr);
 }
 
 void Mesh::draw(GLenum mode, const glm::mat4 *model_matrix) {
@@ -370,7 +370,7 @@ void Mesh::draw(GLenum mode, const glm::mat4 *model_matrix) {
 
 void Mesh::draw(GLenum mode,
 		unsigned int index_buffer,
-		const glm::mat4 *model_matrix = NULL) {
+		const glm::mat4 *model_matrix = nullptr) {
 
 	if(!shader) {
 		App::error_string.push_back("Error: No shader specified");

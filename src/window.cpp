@@ -11,7 +11,7 @@ Window::Window(const std::string& title, int res_x, int res_y, int offset_x, int
 	cnt++;
 	running = true;
 	mouse_relative = false;
-	keys = SDL_GetKeyboardState(NULL);
+	keys = SDL_GetKeyboardState(nullptr);
 	delta_time = 0;
 
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);

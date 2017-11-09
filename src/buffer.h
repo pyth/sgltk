@@ -103,7 +103,7 @@ public:
 		this->usage = usage;
 		this->size = num_elements * sizeof(T);
 		bind();
-		glBufferData(target, size, NULL, usage);
+		glBufferData(target, size, nullptr, usage);
 		unbind();
 	}
 

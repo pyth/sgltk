@@ -30,7 +30,7 @@ void Texture_2d::create_empty(unsigned int res_x, unsigned int res_y, GLenum int
 
 	bind();
 	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, res_x, res_y, 0,
-		format, type, NULL);
+		format, type, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

@@ -165,21 +165,21 @@ class P_Camera : public Camera {
 	/**
 	 * @brief Calculates the corner points of the camera's frustum
 	 * @param near_bottom_left The world coordinates of the near-bottom-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param near_bottom_right The world coordinates of the near-bottom-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param near_top_right The world coordinates of the near-top-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param near_top_left The world coordinates of the near-top-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param far_bottom_left The world coordinates of the far-bottom-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param far_bottom_right The world coordinates of the far-bottom-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param far_top_right The world coordinates of the far-bottom-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param far_top_left The world coordinates of the far-bottom-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 */
 	EXPORT virtual void calculate_frustum_points(glm::vec3 *near_bottom_left,
 						     glm::vec3 *near_bottom_right,
@@ -194,12 +194,12 @@ class P_Camera : public Camera {
 	 * 	  camera's frustum. Positive values indicate that the point
 	 * 	  and the frustum are on the opposite sides of the plane.
 	 * @param position The position of the point to calculate the distance to
-	 * @param far The distance to the far plane of the frustum. Can be NULL.
-	 * @param near The distance to the near plane of the frustum. Can be NULL.
-	 * @param left The distance to the left plane of the frustum. Can be NULL.
-	 * @param right The distance to the right plane of the frustum. Can be NULL.
-	 * @param top The distance to the top plane of the frustum. Can be NULL.
-	 * @param bottom The distance to the bottom plane of the frustum. Can be NULL.
+	 * @param far The distance to the far plane of the frustum. Can be nullptr.
+	 * @param near The distance to the near plane of the frustum. Can be nullptr.
+	 * @param left The distance to the left plane of the frustum. Can be nullptr.
+	 * @param right The distance to the right plane of the frustum. Can be nullptr.
+	 * @param top The distance to the top plane of the frustum. Can be nullptr.
+	 * @param bottom The distance to the bottom plane of the frustum. Can be nullptr.
 	 */
 	EXPORT void calculate_frustum_distance(glm::vec3 position,
 					       float *far,
@@ -253,21 +253,21 @@ class O_Camera : public Camera {
 	/**
 	 * @brief Calculates the corner points of the camera's frustum
 	 * @param near_bottom_left The world coordinates of the near-bottom-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param near_bottom_right The world coordinates of the near-bottom-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param near_top_right The world coordinates of the near-top-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param near_top_left The world coordinates of the near-top-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param far_bottom_left The world coordinates of the far-bottom-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param far_bottom_right The world coordinates of the far-bottom-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param far_top_right The world coordinates of the far-bottom-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param far_top_left The world coordinates of the far-bottom-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 */
 	EXPORT virtual void calculate_frustum_points(glm::vec3 *near_bottom_left,
 						     glm::vec3 *near_bottom_right,
@@ -282,12 +282,12 @@ class O_Camera : public Camera {
 	 * 	  camera's frustum. Positive values indicate that the point
 	 * 	  and the frustum are on the opposite sides of the plane.
 	 * @param position The position of the point to calculate the distance to
-	 * @param far The distance to the far plane of the frustum. Can be NULL.
-	 * @param near The distance to the near plane of the frustum. Can be NULL.
-	 * @param left The distance to the left plane of the frustum. Can be NULL.
-	 * @param right The distance to the right plane of the frustum. Can be NULL.
-	 * @param top The distance to the top plane of the frustum. Can be NULL.
-	 * @param bottom The distance to the bottom plane of the frustum. Can be NULL.
+	 * @param far The distance to the far plane of the frustum. Can be nullptr.
+	 * @param near The distance to the near plane of the frustum. Can be nullptr.
+	 * @param left The distance to the left plane of the frustum. Can be nullptr.
+	 * @param right The distance to the right plane of the frustum. Can be nullptr.
+	 * @param top The distance to the top plane of the frustum. Can be nullptr.
+	 * @param bottom The distance to the bottom plane of the frustum. Can be nullptr.
 	 */
 	EXPORT void calculate_frustum_distance(glm::vec3 position,
 					       float *far,
@@ -361,13 +361,13 @@ class IP_Camera : public Camera {
 	/**
 	 * @brief Calculates the corner points of the camera's frustum
 	 * @param near_bottom_left The world coordinates of the near-bottom-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param near_bottom_right The world coordinates of the near-bottom-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param near_top_right The world coordinates of the near-top-right
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 * @param near_top_left The world coordinates of the near-top-left
-	 * 		point of the frustum. Can be NULL.
+	 * 		point of the frustum. Can be nullptr.
 	 */
 	EXPORT virtual void calculate_frustum_points(glm::vec3 *near_bottom_left,
 						     glm::vec3 *near_bottom_right,
@@ -378,11 +378,11 @@ class IP_Camera : public Camera {
 	 * 	  camera's frustum. Positive values indicate that the point
 	 * 	  and the frustum are on the opposite sides of the plane.
 	 * @param position The position of the point to calculate the distance to
- 	 * @param near The distance to the near plane of the frustum. Can be NULL.
- 	 * @param left The distance to the left plane of the frustum. Can be NULL.
- 	 * @param right The distance to the right plane of the frustum. Can be NULL.
- 	 * @param top The distance to the top plane of the frustum. Can be NULL.
- 	 * @param bottom The distance to the bottom plane of the frustum. Can be NULL.
+ 	 * @param near The distance to the near plane of the frustum. Can be nullptr.
+ 	 * @param left The distance to the left plane of the frustum. Can be nullptr.
+ 	 * @param right The distance to the right plane of the frustum. Can be nullptr.
+ 	 * @param top The distance to the top plane of the frustum. Can be nullptr.
+ 	 * @param bottom The distance to the bottom plane of the frustum. Can be nullptr.
  	 */
 	EXPORT void calculate_frustum_distance(glm::vec3 position,
 						float *near, float *left,

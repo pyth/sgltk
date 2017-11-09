@@ -6,20 +6,20 @@ std::vector<std::string> Image::paths = {"./"};
 
 Image::Image() {
 	free_data = false;
-	image = NULL;
+	image = nullptr;
 	width = 0;
 	height = 0;
 	bytes_per_pixel = 0;
-	data = NULL;
+	data = nullptr;
 }
 
 Image::Image(std::string filename) {
 	free_data = false;
-	image = NULL;
+	image = nullptr;
 	width = 0;
 	height = 0;
 	bytes_per_pixel = 0;
-	data = NULL;
+	data = nullptr;
 	if(!load(filename)) {
 		std::string error = std::string("Error loading image: ") +
 			SDL_GetError();
@@ -34,11 +34,11 @@ Image::Image(unsigned int width,
 	     void *data) {
 
 	free_data = false;
-	image = NULL;
+	image = nullptr;
 	width = 0;
 	height = 0;
 	bytes_per_pixel = 0;
-	data = NULL;
+	data = nullptr;
 	if (!load(width, height, bytes_per_pixel, data)) {
 		std::string error = std::string("Error loading image: ") +
 			SDL_GetError();
@@ -58,7 +58,7 @@ bool Image::create_empty(unsigned int width, unsigned int height) {
 		SDL_FreeSurface(image);
 		if(free_data)
 			free(data);
-		image = NULL;
+		image = nullptr;
 	}
 
 	this->width = width;
@@ -86,7 +86,7 @@ bool Image::create_empty(unsigned int width, unsigned int height) {
 		width = 0;
 		height = 0;
 		bytes_per_pixel = 0;
-		data = NULL;
+		data = nullptr;
 		return false;
 	}
 	data = image->pixels;
@@ -118,7 +118,7 @@ bool Image::load(const std::string& filename) {
 		width = 0;
 		height = 0;
 		bytes_per_pixel = 0;
-		data = NULL;
+		data = nullptr;
 		return false;
 	}
 
@@ -139,7 +139,7 @@ bool Image::load(unsigned int width,
 		SDL_FreeSurface(image);
 		if(free_data)
 			free(this->data);
-		image = NULL;
+		image = nullptr;
 	}
 
 	Uint32 rmask, gmask, bmask, amask;
@@ -180,7 +180,7 @@ bool Image::load(unsigned int width,
 		width = 0;
 		height = 0;
 		bytes_per_pixel = 0;
-		this->data = NULL;
+		this->data = nullptr;
 		return false;
 	}
 	return true;
@@ -226,7 +226,7 @@ bool Image::create_text(const std::string& text,
 		SDL_FreeSurface(image);
 		if(free_data)
 			free(data);
-		image = NULL;
+		image = nullptr;
 	}
 	SDL_Color color = {r, g, b, a};
 	image = TTF_RenderUTF8_Blended(font, text.c_str(), color);
@@ -272,7 +272,7 @@ bool Image::copy_from(const Image& src, SDL_Rect& dst_rect) {
 			return false;
 		}
 	}
-	if(SDL_BlitSurface(src.image, NULL, image, &dst_rect) < 0) {
+	if(SDL_BlitSurface(src.image, nullptr, image, &dst_rect) < 0) {
 		App::error_string.push_back(std::string("SDL_BlitSurface"
 			" failed: ") + SDL_GetError());
 		return false;

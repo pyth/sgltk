@@ -40,7 +40,7 @@ void Texture_1d_Array::create_empty(unsigned int res,
 
 	bind();
 	glTexImage2D(GL_TEXTURE_1D_ARRAY, 0, internal_format,
-		     res, num_layers, 0, format, type, NULL);
+		     res, num_layers, 0, format, type, nullptr);
 	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -86,7 +86,7 @@ bool Texture_1d_Array::load(const std::vector<Image>& images) {
 	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_1D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexImage2D(GL_TEXTURE_1D_ARRAY, 0, GL_RGBA,
-		     width, images.size(), 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, NULL);
+		     width, images.size(), 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, nullptr);
 	for(unsigned int i = 0; num_layers; i++) {
 		glTexSubImage2D(GL_TEXTURE_1D_ARRAY, 0, 0, i, width, 1,
 				GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, images_tmp[i]->pixels);

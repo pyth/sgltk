@@ -280,7 +280,7 @@ public:
 	 * 	  by the mesh
 	 * @param view_matrix The view matrix
 	 * @param projection_matrix The projection matrix
-	 * @return Returns true if both pointers are not NULL pointers, flase otherwise
+	 * @return Returns true if both pointers are not nullptr, flase otherwise
 	 */
 	EXPORT bool setup_camera(glm::mat4 *view_matrix,
 				 glm::mat4 *projection_matrix);
@@ -705,7 +705,7 @@ public:
 	 * @param mode Specifies the primitive that will be created from
 	 * 	  vertices
 	 * @param model_matrix The model matrix to use
-	 *	  (NULL to use the model_matrix member)
+	 *	  (nullptr to use the model_matrix member)
 	 */
 	EXPORT void draw(GLenum mode, const glm::mat4 *model_matrix);
 
@@ -715,7 +715,7 @@ public:
 	 * 	  vertices
 	 * @param index_buffer The index buffer to use
 	 * @param model_matrix The model matrix to use
-	 *	  (NULL to use the model_matrix member)
+	 *	  (nullptr to use the model_matrix member)
 	 */
 	EXPORT void draw(GLenum mode, unsigned int index_buffer,
 					const glm::mat4 *model_matrix);
