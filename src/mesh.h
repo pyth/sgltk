@@ -805,7 +805,7 @@ template <typename T>
 unsigned int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
 					GLenum usage) {
 
-	std::unique_ptr<Buffer> buf(new Buffer(GL_ARRAY_BUFFER));
+	std::unique_ptr<Buffer> buf = std::make_unique<Buffer>(GL_ARRAY_BUFFER);
 	buf->load<T>(vertexdata, usage);
 	vbo.push_back(std::move(buf));
 

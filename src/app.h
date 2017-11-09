@@ -39,6 +39,7 @@
 #include <iostream>
 #include <map>
 #include <memory>
+#include <list>
 #include <vector>
 #include <algorithm>
 #include <exception>

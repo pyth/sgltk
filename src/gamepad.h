@@ -17,6 +17,7 @@ class Gamepad {
 	SDL_Haptic *haptic;
 
 	static unsigned int id_max;
+	EXPORT static std::list<unsigned int> ids;
 
 	public:
 	/**
@@ -45,10 +46,6 @@ class Gamepad {
 	 * @brief A list of all buttons currently pressed
 	 */
 	std::vector<int> buttons_pressed;
-	/**
-	 * @brief Maps a gamepad id to a gamepad object
-	 */
-	EXPORT static std::map<unsigned int, Gamepad *> id_map;
 
 	/**
 	 * @param device_id The device id as provided by the SDL_CONTROLLERDEVICEADDED event

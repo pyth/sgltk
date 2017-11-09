@@ -3,7 +3,7 @@
 using namespace sgltk;
 
 unsigned int Gamepad::id_max;
-std::map<unsigned int, Gamepad *> Gamepad::id_map;
+std::list<unsigned int> Gamepad::ids;
 
 Gamepad::Gamepad(unsigned int device_id) {
 	gamepad = SDL_GameControllerOpen(device_id);
@@ -37,21 +37,24 @@ Gamepad::Gamepad(unsigned int device_id) {
 	}
 
 	unsigned int i;
-	for(i = 0; i < id_max + 2; i++) {
-		if(id_map.find(i) == id_map.end()) {
+	for(i = 0; i <= id_max + 1; i++) {
+		if(std::find(std::begin(ids), std::end(ids), i) == std::end(ids)) {
 			break;
 		}
 	}
 	id = i;
-	id_map[i] = this;
+	ids.push_back(id);
 	if(i > id_max)
 		id_max = i;
 }
 
 Gamepad::~Gamepad() {
-	SDL_HapticClose(haptic);
-	SDL_GameControllerClose(gamepad);
-	id_map.erase(id);
+	try {
+		SDL_HapticClose(haptic);
+		SDL_GameControllerClose(gamepad);
+	} catch(const std::exception& e) {}
+	const auto& pos = std::find(std::begin(ids), std::end(ids), id);
+	ids.erase(pos);
 }
 
 void Gamepad::set_button_state(int button, bool state) {

@@ -44,5 +44,5 @@ var searchData=
   ['stop',['stop',['../classsgltk_1_1_window.html#a42353e5fb0b5670e6175709706670450',1,'sgltk::Window']]],
   ['stop_5frumble',['stop_rumble',['../classsgltk_1_1_gamepad.html#acec8bfc315ca231b80353d49966b6f36',1,'sgltk::Gamepad']]],
   ['store',['store',['../classsgltk_1_1_buffer.html#a4668696b06e5f68d77ce994b191201d1',1,'sgltk::Buffer']]],
-  ['store_5ftexture',['store_texture',['../classsgltk_1_1_texture.html#ad991293c63961c477c6f395e27fdb790',1,'sgltk::Texture']]]
+  ['store_5ftexture',['store_texture',['../classsgltk_1_1_texture.html#a9e6e63b0cc3dda81cee6546a480440e5',1,'sgltk::Texture']]]
 ];

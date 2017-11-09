@@ -14,7 +14,7 @@ class Texture {
 	/**
 	 * @brief Contains stored textures
 	 */
-	EXPORT static std::map<std::string, Texture *> textures;
+	EXPORT static std::map<std::string, std::shared_ptr<Texture> > textures;
 public:
 	/**
 	 * @brief Adds a path to the list of paths to be searched
@@ -74,14 +74,14 @@ public:
 	 * @param texture The texture to be stored
 	 * @return Returns true if the insertion was successful, false otherwise
 	 */
-	EXPORT static bool store_texture(std::string name, Texture *texture);
+	EXPORT static bool store_texture(std::string name, std::shared_ptr<Texture> texture);
 	/**
 	 * @brief Finds a texture in the internal map using the name as key
 	 * @param name The key used to find the texture
 	 * @return Returns a pointer to the found texture object or NULL
 	 * 	   if no texture with such name could be found.
 	 */
-	EXPORT static Texture *find_texture(std::string name);
+	EXPORT static std::shared_ptr<Texture> find_texture(std::string name);
 	/**
 	 * @brief Bind the texture to be used by the shader
 	 * @param texture_unit The texture unit to bind the texture to

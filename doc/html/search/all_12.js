@@ -51,7 +51,7 @@ var searchData=
   ['stop',['stop',['../classsgltk_1_1_window.html#a42353e5fb0b5670e6175709706670450',1,'sgltk::Window']]],
   ['stop_5frumble',['stop_rumble',['../classsgltk_1_1_gamepad.html#acec8bfc315ca231b80353d49966b6f36',1,'sgltk::Gamepad']]],
   ['store',['store',['../classsgltk_1_1_buffer.html#a4668696b06e5f68d77ce994b191201d1',1,'sgltk::Buffer']]],
-  ['store_5ftexture',['store_texture',['../classsgltk_1_1_texture.html#ad991293c63961c477c6f395e27fdb790',1,'sgltk::Texture']]],
+  ['store_5ftexture',['store_texture',['../classsgltk_1_1_texture.html#a9e6e63b0cc3dda81cee6546a480440e5',1,'sgltk::Texture']]],
   ['supported_5fdisplay_5fmodes',['supported_display_modes',['../structsgltk_1_1_s_y_s___i_n_f_o.html#af763e1df0b4a6d3e8b9a0033a5041e62',1,'sgltk::SYS_INFO']]],
   ['sys_5finfo',['SYS_INFO',['../structsgltk_1_1_s_y_s___i_n_f_o.html',1,'sgltk::SYS_INFO'],['../classsgltk_1_1_app.html#a97fae6e7c9fb907546d2b79c50e088e4',1,'sgltk::App::sys_info()']]],
   ['system_5fram',['system_ram',['../structsgltk_1_1_s_y_s___i_n_f_o.html#ad466d699fae043a0fe2ec77e1fd4f55c',1,'sgltk::SYS_INFO']]]

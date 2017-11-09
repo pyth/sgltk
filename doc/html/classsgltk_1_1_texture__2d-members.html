@@ -75,7 +75,7 @@ $(function() {
   <tr><td class="entry"><a class="el" href="classsgltk_1_1_texture__2d.html#ad77695ed308b707c27d51db217d34a24">bind</a>(unsigned int texture_unit=0)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture__2d.html">sgltk::Texture_2d</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#a27c65a18bd0522627662712ff72ca30e">bind_image</a>(GLuint unit, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classsgltk_1_1_texture__2d.html#aaaea22fd7b5a8cdb55a08a75cb3c3b4e">create_empty</a>(unsigned int res_x, unsigned int res_y, GLenum internal_format, GLenum type, GLenum format)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture__2d.html">sgltk::Texture_2d</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#aff23bee6a9282f06d9d74cd66e686306">find_texture</a>(std::string name)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#a16e7ba28336ce04661af0f8ef095aa90">find_texture</a>(std::string name)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#aed7855538bea1b22da7d1aa7259bd246">height</a></td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classsgltk_1_1_texture__2d.html#ad30498791165244647d5cb2fe2542b26">load</a>(const sgltk::Image &amp;image)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture__2d.html">sgltk::Texture_2d</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classsgltk_1_1_texture__2d.html#ab7177f9ba7b53d8c8573fd1262900e7b">load</a>(const std::string &amp;path)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture__2d.html">sgltk::Texture_2d</a></td><td class="entry"></td></tr>
@@ -83,7 +83,7 @@ $(function() {
   <tr><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#ab4e3adb58d6983424c029f318ca0fc42">set_parameter</a>(GLenum name, int parameter)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#abecd9a0c2519f64ba22e4add3add2d9f">set_parameter</a>(GLenum name, float parameter)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#ae5bf2ffee89f5139d62129ad1c78e833">set_parameter</a>(GLenum name, float *parameter)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#ad991293c63961c477c6f395e27fdb790">store_texture</a>(std::string name, Texture *texture)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#a9e6e63b0cc3dda81cee6546a480440e5">store_texture</a>(std::string name, std::shared_ptr&lt; Texture &gt; texture)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#aac599e0c4df9a763c002fc630ca450b7">target</a></td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classsgltk_1_1_texture.html#adef495a5c9e0e6053ccdde0574de2d21">texture</a></td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"></td></tr>
   <tr bgcolor="#f0f0f0"><td class="entry"><b>Texture</b>() (defined in <a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a>)</td><td class="entry"><a class="el" href="classsgltk_1_1_texture.html">sgltk::Texture</a></td><td class="entry"></td></tr>
@@ -98,7 +98,7 @@ $(function() {
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 8 2017 21:58:47 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 9 2017 10:57:17 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
