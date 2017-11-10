@@ -45,10 +45,7 @@ void IP_Camera::update_projection_matrix() {
 						near_plane);
 }
 
-void IP_Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
-					 glm::vec3 *near_bottom_right,
-					 glm::vec3 *near_top_right,
-					 glm::vec3 *near_top_left) {
+std::vector<glm::vec3> IP_Camera::calculate_frustum_points() {
 
 	 std::vector<glm::vec4> ndc = {
 		glm::vec4(-1, -1, -1,  1),
@@ -60,59 +57,37 @@ void IP_Camera::calculate_frustum_points(glm::vec3 *near_bottom_left,
 	glm::mat4 mat = glm::inverse(projection_matrix * view_matrix);
 
 	glm::vec4 tmp;
-	tmp = mat * ndc[0];
-	*near_bottom_left = glm::vec3(tmp) / tmp[3];
-	tmp = mat * ndc[1];
-	*near_bottom_right = glm::vec3(tmp) / tmp[3];
-	tmp = mat * ndc[2];
-	*near_top_right = glm::vec3(tmp) / tmp[3];
-	tmp = mat * ndc[3];
-	*near_top_left = glm::vec3(tmp) / tmp[3];
+	std::vector<glm::vec3> ret(ndc.size());
+	for(unsigned int i = 0; i < ndc.size(); i++) {
+		tmp = mat * ndc[i];
+		ret[i] = glm::vec3(tmp) / tmp[3];
+	}
+	return ret;
 }
 
-void IP_Camera::calculate_frustum_distance(glm::vec3 position,
-					  float *near,
-					  float *left,
-					  float *right,
-					  float *top,
-					  float *bottom) {
-
-	glm::vec3 near_bottom_left;
-	glm::vec3 near_bottom_right;
-	glm::vec3 near_top_right;
-	glm::vec3 near_top_left;
+std::vector<float> IP_Camera::calculate_frustum_distance(glm::vec3 position) {
 
 	glm::vec3 cam_dir = glm::normalize(direction);
 
 	glm::vec3 near_center = position + near_plane * cam_dir;
 
-	calculate_frustum_points(&near_bottom_left,
-					&near_bottom_right,
-					&near_top_right,
-					&near_top_left);
+	std::vector<glm::vec3> fpoints = calculate_frustum_points();
 
-	glm::vec3 left_normal = glm::normalize(glm::cross(near_top_left - position,
-							near_bottom_left - near_top_left));
-	glm::vec3 right_normal = glm::normalize(glm::cross(near_bottom_right - near_top_right,
-							near_top_right - position));
-	glm::vec3 top_normal = glm::normalize(glm::cross(near_top_right - near_top_left,
-							near_top_left - position));
-	glm::vec3 bottom_normal = glm::normalize(glm::cross(near_bottom_left - position,
-							near_bottom_right - near_bottom_left));
+	glm::vec3 left_normal = glm::normalize(glm::cross(fpoints[3] - position,
+							fpoints[0] - fpoints[3]));
+	glm::vec3 right_normal = glm::normalize(glm::cross(fpoints[1] - fpoints[2],
+							fpoints[2] - position));
+	glm::vec3 top_normal = glm::normalize(glm::cross(fpoints[2] - fpoints[3],
+							fpoints[3] - position));
+	glm::vec3 bottom_normal = glm::normalize(glm::cross(fpoints[0] - position,
+							fpoints[1] - fpoints[0]));
 
-	if(near) {
-		*near = glm::dot(-cam_dir, position - near_center);
-	}
-	if(left) {
-		*left = glm::dot(left_normal, position - near_top_left);
-	}
-	if(right) {
-		*right = glm::dot(right_normal, position - near_top_right);
-	}
-	if(top) {
-		*top = glm::dot(top_normal, position - near_top_left);
-	}
-	if(bottom) {
-		*bottom = glm::dot(bottom_normal, position - near_bottom_left);
-	}
+	std::vector<float> ret(5);
+	ret[0] = glm::dot(-cam_dir, position - near_center);
+	ret[1] = glm::dot(left_normal, position - fpoints[3]);
+	ret[2] = glm::dot(right_normal, position - fpoints[2]);
+	ret[3] = glm::dot(top_normal, position - fpoints[3]);
+	ret[4] = glm::dot(bottom_normal, position - fpoints[0]);
+
+	return ret;
 }

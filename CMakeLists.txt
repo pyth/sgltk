@@ -1,14 +1,10 @@
-if(WIN32)
-	cmake_minimum_required(VERSION 3.4)
-else()
-	cmake_minimum_required(VERSION 2.8.4)
-endif()
+cmake_minimum_required(VERSION 3.4)
 project(sgltk)
 
 include(CheckCXXCompilerFlag)
 
 set(SGLTK_VERSION_MAJOR 0)
-set(SGLTK_VERSION_MINOR 5)
+set(SGLTK_VERSION_MINOR 6)
 set(SGLTK_VERSION ${SGLTK_VERSION_MAJOR}.${SGLTK_VERSION_MINOR})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
