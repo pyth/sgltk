@@ -122,7 +122,7 @@ class Model {
 		 *	  used by the meshes in the model
 		 * @param view_matrix The view matrix
 		 * @param projection_matrix The projection matrix
-		 * @return Returns true if both pointers are not NULL pointers, flase otherwise
+		 * @return Returns true if both pointers are not nullptr, flase otherwise
 		 */
 		EXPORT bool setup_camera(glm::mat4 *view_matrix,
 					 glm::mat4 *projection_matrix);
@@ -235,9 +235,9 @@ class Model {
 		/**
 		 * @brief Draws all associated meshes with the index buffer 0.
 		 * @param model_matrix The model matrix to use
-		 *	  (NULL to use the model_matrix member)
+		 *	  (nullptr to use the model_matrix member)
 		 */
-		EXPORT void draw(const glm::mat4 *model_matrix = NULL);
+		EXPORT void draw(const glm::mat4 *model_matrix = nullptr);
 		/**
 		 * @brief Draws all associated meshes multiple times
 		 * @param num_instances The number of instances to be drawn

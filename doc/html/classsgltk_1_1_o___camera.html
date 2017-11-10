@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">sgltk
-   &#160;<span id="projectnumber">0.5</span>
+   &#160;<span id="projectnumber">0.6</span>
    </div>
    <div id="projectbrief">Simple OpenGL Tool Kit</div>
   </td>
@@ -105,12 +105,12 @@ Public Member Functions</h2></td></tr>
 EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_o___camera.html#a3223ed0f330fe6847447d8b2faf6ba1b">update_projection_matrix</a> ()</td></tr>
 <tr class="memdesc:a3223ed0f330fe6847447d8b2faf6ba1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalculates the projection matrix. <br /></td></tr>
 <tr class="separator:a3223ed0f330fe6847447d8b2faf6ba1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3108e71e18318e827f0080b54a508594"><td class="memItemLeft" align="right" valign="top">virtual EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_o___camera.html#a3108e71e18318e827f0080b54a508594">calculate_frustum_points</a> (glm::vec3 *near_bottom_left, glm::vec3 *near_bottom_right, glm::vec3 *near_top_right, glm::vec3 *near_top_left, glm::vec3 *far_bottom_left, glm::vec3 *far_bottom_right, glm::vec3 *far_top_right, glm::vec3 *far_top_left)</td></tr>
-<tr class="memdesc:a3108e71e18318e827f0080b54a508594"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the corner points of the camera's frustum.  <a href="#a3108e71e18318e827f0080b54a508594">More...</a><br /></td></tr>
-<tr class="separator:a3108e71e18318e827f0080b54a508594"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80beb4fb111144dd218fd1edc16ca03c"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_o___camera.html#a80beb4fb111144dd218fd1edc16ca03c">calculate_frustum_distance</a> (glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a779a5755ca0a2685e80eb82a387285ea">position</a>, float *far, float *near, float *left, float *<a class="el" href="classsgltk_1_1_camera.html#a16559c771e5a73746fca937a796df906">right</a>, float *top, float *bottom)</td></tr>
-<tr class="memdesc:a80beb4fb111144dd218fd1edc16ca03c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the distances of a point to all planes of the camera's frustum. Positive values indicate that the point and the frustum are on the opposite sides of the plane.  <a href="#a80beb4fb111144dd218fd1edc16ca03c">More...</a><br /></td></tr>
-<tr class="separator:a80beb4fb111144dd218fd1edc16ca03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45d7ae650532ef5fc954dfcf61561fce"><td class="memItemLeft" align="right" valign="top">EXPORT std::vector&lt; glm::vec3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_o___camera.html#a45d7ae650532ef5fc954dfcf61561fce">calculate_frustum_points</a> ()</td></tr>
+<tr class="memdesc:a45d7ae650532ef5fc954dfcf61561fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the corner points of the camera's frustum.  <a href="#a45d7ae650532ef5fc954dfcf61561fce">More...</a><br /></td></tr>
+<tr class="separator:a45d7ae650532ef5fc954dfcf61561fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ac598d6224790c1bc8473a4c93d51ad"><td class="memItemLeft" align="right" valign="top">EXPORT std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_o___camera.html#a6ac598d6224790c1bc8473a4c93d51ad">calculate_frustum_distance</a> (glm::vec3 point)</td></tr>
+<tr class="memdesc:a6ac598d6224790c1bc8473a4c93d51ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the distances of a point to all planes of the camera's frustum. Positive values indicate that the point and the frustum are on the opposite sides of the plane.  <a href="#a6ac598d6224790c1bc8473a4c93d51ad">More...</a><br /></td></tr>
+<tr class="separator:a6ac598d6224790c1bc8473a4c93d51ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68532a0eda79757a1abe0062402b92fa"><td class="memItemLeft" align="right" valign="top">EXPORT void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_o___camera.html#a68532a0eda79757a1abe0062402b92fa">calculate_bounding_frustum</a> (<a class="el" href="classsgltk_1_1_o___camera.html">O_Camera</a> &amp;camera, glm::vec3 <a class="el" href="classsgltk_1_1_camera.html#a2b34c21aef654cdae974d3abd01a0f59">direction</a>, float offset)</td></tr>
 <tr class="memdesc:a68532a0eda79757a1abe0062402b92fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the camera parameters in such a way as to make the frustum of this camera the bounding box of the frustum of the other camera aligned to the direction vector.  <a href="#a68532a0eda79757a1abe0062402b92fa">More...</a><br /></td></tr>
 <tr class="separator:a68532a0eda79757a1abe0062402b92fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -201,7 +201,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <div class="textblock"><p>Manages orthographic cameras. </p>
 <p>class <a class="el" href="classsgltk_1_1_o___camera.html" title="Manages orthographic cameras. ">O_Camera</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="camera_8h_source.html#l00217">217</a> of file <a class="el" href="camera_8h_source.html">camera.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera_8h_source.html#l00200">200</a> of file <a class="el" href="camera_8h_source.html">camera.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a19dd3e0b3111c64bcdad38ae7ed249c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19dd3e0b3111c64bcdad38ae7ed249c8">&#9670;&nbsp;</a></span>O_Camera() <span class="overload">[1/3]</span></h2>
@@ -388,7 +388,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__o_8cpp_source.html#l00145">145</a> of file <a class="el" href="camera__o_8cpp_source.html">camera_o.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__o_8cpp_source.html#l00103">103</a> of file <a class="el" href="camera__o_8cpp_source.html">camera_o.cpp</a>.</p>
 
 </div>
 </div>
@@ -434,62 +434,22 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__o_8cpp_source.html#l00188">188</a> of file <a class="el" href="camera__o_8cpp_source.html">camera_o.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__o_8cpp_source.html#l00142">142</a> of file <a class="el" href="camera__o_8cpp_source.html">camera_o.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a80beb4fb111144dd218fd1edc16ca03c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80beb4fb111144dd218fd1edc16ca03c">&#9670;&nbsp;</a></span>calculate_frustum_distance()</h2>
+<a id="a6ac598d6224790c1bc8473a4c93d51ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ac598d6224790c1bc8473a4c93d51ad">&#9670;&nbsp;</a></span>calculate_frustum_distance()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void O_Camera::calculate_frustum_distance </td>
+          <td class="memname">std::vector&lt; float &gt; O_Camera::calculate_frustum_distance </td>
           <td>(</td>
           <td class="paramtype">glm::vec3&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>point</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>far</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>near</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>top</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>bottom</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -497,105 +457,33 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <p>Calculates the distances of a point to all planes of the camera's frustum. Positive values indicate that the point and the frustum are on the opposite sides of the plane. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The position of the point to calculate the distance to </td></tr>
-    <tr><td class="paramname">far</td><td>The distance to the far plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near</td><td>The distance to the near plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">left</td><td>The distance to the left plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">right</td><td>The distance to the right plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">top</td><td>The distance to the top plane of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">bottom</td><td>The distance to the bottom plane of the frustum. Can be NULL. </td></tr>
+    <tr><td class="paramname">point</td><td>The point to calculate the distances to. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a vector containing the distances of the point to the planes of the frustum. 0 - far 1 - near 2 - left 3 - right 4 - top 5 - bottom </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__o_8cpp_source.html#l00088">88</a> of file <a class="el" href="camera__o_8cpp_source.html">camera_o.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__o_8cpp_source.html#l00078">78</a> of file <a class="el" href="camera__o_8cpp_source.html">camera_o.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3108e71e18318e827f0080b54a508594"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3108e71e18318e827f0080b54a508594">&#9670;&nbsp;</a></span>calculate_frustum_points()</h2>
+<a id="a45d7ae650532ef5fc954dfcf61561fce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45d7ae650532ef5fc954dfcf61561fce">&#9670;&nbsp;</a></span>calculate_frustum_points()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void O_Camera::calculate_frustum_points </td>
+          <td class="memname">std::vector&lt; glm::vec3 &gt; O_Camera::calculate_frustum_points </td>
           <td>(</td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_bottom_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_bottom_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_top_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>near_top_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_bottom_left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_bottom_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_top_right</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">glm::vec3 *&#160;</td>
-          <td class="paramname"><em>far_top_left</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Calculates the corner points of the camera's frustum. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">near_bottom_left</td><td>The world coordinates of the near-bottom-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near_bottom_right</td><td>The world coordinates of the near-bottom-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near_top_right</td><td>The world coordinates of the near-top-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">near_top_left</td><td>The world coordinates of the near-top-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_bottom_left</td><td>The world coordinates of the far-bottom-left point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_bottom_right</td><td>The world coordinates of the far-bottom-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_top_right</td><td>The world coordinates of the far-bottom-right point of the frustum. Can be NULL. </td></tr>
-    <tr><td class="paramname">far_top_left</td><td>The world coordinates of the far-bottom-left point of the frustum. Can be NULL. </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a vector containing the world coordinates of the frustum points. 0 - near-bottom-left 1 - near-bottom-right 2 - near-top-right 3 - near-top-left 4 - far-bottom-left 5 - far-bottom-right 6 - far-top-right 7 - far-top-left </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="camera__o_8cpp_source.html#l00056">56</a> of file <a class="el" href="camera__o_8cpp_source.html">camera_o.cpp</a>.</p>
 
@@ -608,7 +496,7 @@ glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 9 2017 10:57:17 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Nov 10 2017 19:14:58 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

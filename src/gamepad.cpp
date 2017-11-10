@@ -33,7 +33,7 @@ Gamepad::Gamepad(unsigned int device_id) {
 		if(SDL_HapticRumbleSupported(haptic) == SDL_TRUE)
 			SDL_HapticRumbleInit(haptic);
 	} else {
-		haptic = NULL;
+		haptic = nullptr;
 	}
 
 	unsigned int i;

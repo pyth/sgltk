@@ -7,11 +7,11 @@ using namespace sgltk;
 std::vector<std::string> Model::paths = {"./"};
 
 Model::Model() {
-	scene = NULL;
-	shader = NULL;
+	scene = nullptr;
+	shader = nullptr;
 
-	view_matrix = NULL;
-	projection_matrix = NULL;
+	view_matrix = nullptr;
+	projection_matrix = nullptr;
 
 	position_name = "pos_in";
 	normal_name = "norm_in";
@@ -72,7 +72,7 @@ bool Model::load(const std::string& filename) {
 
 	glob_inv_transf = glm::inverse(ai_to_glm_mat4(scene->mRootNode->mTransformation));
 
-	traverse_scene_nodes(scene->mRootNode, NULL);
+	traverse_scene_nodes(scene->mRootNode, nullptr);
 	compute_bounding_box();
 	set_animation_speed(1.0);
 	animate(0.0f);
@@ -523,7 +523,7 @@ void Model::traverse_animation_nodes(float time,
 
 	std::string node_name(node->mName.data);
 	glm::mat4 node_transformation = ai_to_glm_mat4(node->mTransformation);
-	aiNodeAnim *node_animation = NULL;
+	aiNodeAnim *node_animation = nullptr;
 
 	for(unsigned int i = 0; i < scene->mAnimations[0]->mNumChannels; i++) {
 		aiNodeAnim *node_anim = scene->mAnimations[0]->mChannels[i];

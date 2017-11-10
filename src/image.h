@@ -102,7 +102,7 @@ public:
 	 * @brief Opens a TTF font file
 	 * @param font_file The path to the TTF font file
 	 * @param size The font size
-	 * @return Return a ttf font file pointer on success, NULL on failure
+	 * @return Return a ttf font file pointer on success, nullptr on failure
 	 * @see close_font_file()
 	 */
 	EXPORT static TTF_Font *open_font_file(const std::string& font_file,

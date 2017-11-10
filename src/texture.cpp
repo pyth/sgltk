@@ -40,7 +40,7 @@ bool Texture::store_texture(std::string name, std::shared_ptr<Texture> texture) 
 std::shared_ptr<Texture> Texture::find_texture(std::string name) {
 	const auto& it = textures.find(name);
 	if(it == textures.end())
-		return NULL;
+		return nullptr;
 	return it->second;
 }
 

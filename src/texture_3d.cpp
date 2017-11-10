@@ -43,7 +43,7 @@ void Texture_3d::create_empty(unsigned int res_x,
 
 	bind();
 	glTexImage3D(GL_TEXTURE_3D, 0, internal_format,
-		     res_x, res_y, res_z, 0, format, type, NULL);
+		     res_x, res_y, res_z, 0, format, type, nullptr);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -94,7 +94,7 @@ bool Texture_3d::load(const std::vector<Image>& images) {
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA,
 		     width, height, images.size(), 0,
-		     GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, NULL);
+		     GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, nullptr);
 	for(unsigned int i = 0; i < num_layers; i++) {
 		glTexSubImage3D(GL_TEXTURE_3D, 0, 0, 0, i,
 				width, height, 1, GL_RGBA,
