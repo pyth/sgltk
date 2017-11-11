@@ -414,8 +414,8 @@ public:
 	 * @return Returns the index of the buffer in the list of all attached
 	 * 	vertex buffers
 	 */
-	template <typename T = Vertex>
-	unsigned int attach_vertex_buffer(const void *vertexdata,
+	template <typename T>
+	unsigned int attach_vertex_buffer(const T *vertexdata,
 					  unsigned int number_elements,
 					  GLenum usage = GL_STATIC_DRAW);
 	/**
@@ -426,7 +426,7 @@ public:
 	 * @return Returns the index of the buffer in the list of all attached
 	 * 	vertex buffers
 	 */
-	template <typename T = Vertex>
+	template <typename T>
 	unsigned int attach_vertex_buffer(const std::vector<T>& vertexdata,
 					  GLenum usage = GL_STATIC_DRAW);
 	/**
@@ -436,9 +436,9 @@ public:
 	 * @param number_elements Number of elements
 	 * @return Returns true on success, flase otherwise
 	 */
-	template <typename T = Vertex>
+	template <typename T>
 	bool replace_buffer_data(unsigned int buffer_index,
-				 const void *data,
+				 const T *data,
 				 unsigned int number_elements);
 	/**
 	 * @brief Overwrites all data in a vertex buffer
@@ -446,7 +446,7 @@ public:
 	 * @param data The data to be loaded into the buffer
 	 * @return Returns true on success, flase otherwise
 	 */
-	template <typename T = Vertex>
+	template <typename T>
 	bool replace_buffer_data(unsigned int buffer_index,
 				 const std::vector<T>& data);
 	/**
@@ -457,10 +457,10 @@ public:
 	 * @param number_elements Number of elements
 	 * @return Returns true on success, flase otherwise
 	 */
-	template <typename T = Vertex>
+	template <typename T>
 	bool replace_partial_data(unsigned int buffer_index,
 				  unsigned int offset,
-				  const void *data,
+				  const T *data,
 				  unsigned int number_elements);
 	/**
 	 * @brief Modifies the data in a vertex buffer
@@ -469,7 +469,7 @@ public:
 	 * @param data The data to be loaded into the buffer
 	 * @return Returns true on success, flase otherwise
 	 */
-	template <typename T = Vertex>
+	template <typename T>
 	bool replace_partial_data(unsigned int buffer_index,
 				  unsigned int offset,
 				  const std::vector<T>& data);
@@ -486,11 +486,11 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	template <typename T = glm::vec3>
+	template <typename T>
 	int add_vertex_attribute(std::string attrib_name,
 				 GLint number_elements,
 				 GLenum type,
-				 const void *data,
+				 const T *data,
 				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convenience function that combines attach_vertex_buffer and
@@ -505,7 +505,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	template <typename T = glm::vec3>
+	template <typename T>
 	int add_vertex_attribute(std::string attrib_name,
 				 GLint number_elements,
 				 GLenum type,
@@ -524,11 +524,11 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	template <typename T = glm::vec3>
+	template <typename T>
 	int add_vertex_attribute(int attrib_location,
 				 GLint number_elements,
 				 GLenum type,
-				 const void *data,
+				 const T *data,
 				 GLenum usage = GL_STATIC_DRAW);
 	/**
 	 * @brief This is a convenience function that combines attach_vertex_buffer and
@@ -543,7 +543,7 @@ public:
 	 * 		specified for the mesh, -2 if the vertex attribute
 	 * 		could not be found
 	 */
-	template <typename T = glm::vec3>
+	template <typename T>
 	int add_vertex_attribute(int attrib_location,
 				 GLint number_elements,
 				 GLenum type,
@@ -690,7 +690,7 @@ public:
 	 * @param pointer The pointer to the position vector in the vertex
 	 * 	structure
 	 */
-	template <typename T = Vertex>
+	template <typename T>
 	void compute_bounding_box(const std::vector<T>& vertexdata, unsigned int pointer);
 
 	/**
@@ -743,14 +743,12 @@ template <typename T>
 int Mesh::add_vertex_attribute(std::string attrib_name,
 			       GLint number_elements,
 			       GLenum type,
-			       const void *data,
+			       const T *data,
 			       GLenum usage) {
 
-	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + number_elements);
+	std::vector<T> tmp(data, data + number_elements);
 	unsigned int buffer_index = attach_vertex_buffer<T>(tmp, usage);
-	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
-					type, 0, 0);
+	return set_vertex_attribute(attrib_name, buffer_index, number_elements, type, 0, 0);
 }
 
 template <typename T>
@@ -761,22 +759,19 @@ int Mesh::add_vertex_attribute(std::string attrib_name,
 			       GLenum usage) {
 
 	unsigned int buffer_index = attach_vertex_buffer<T>(data, usage);
-	return set_vertex_attribute(attrib_name, buffer_index, number_elements,
-					type, 0, 0);
+	return set_vertex_attribute(attrib_name, buffer_index, number_elements, type, 0, 0);
 }
 
 template <typename T>
 int Mesh::add_vertex_attribute(int attrib_location,
 			       GLint number_elements,
 			       GLenum type,
-			       const void *data,
+			       const T *data,
 			       GLenum usage) {
 
-	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + number_elements);
+	std::vector<T> tmp(data, data + number_elements);
 	unsigned int buffer_index = attach_vertex_buffer<T>(tmp, usage);
-	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
-					type, 0, 0);
+	return set_vertex_attribute(attrib_location, buffer_index, number_elements, type, 0, 0);
 }
 
 template <typename T>
@@ -787,17 +782,15 @@ int Mesh::add_vertex_attribute(int attrib_location,
 			       GLenum usage) {
 
 	unsigned int buffer_index = attach_vertex_buffer<T>(data, usage);
-	return set_vertex_attribute(attrib_location, buffer_index, number_elements,
-					type, 0, 0);
+	return set_vertex_attribute(attrib_location, buffer_index, number_elements, type, 0, 0);
 }
 
 template <typename T>
-unsigned int Mesh::attach_vertex_buffer(const void *vertexdata,
+unsigned int Mesh::attach_vertex_buffer(const T *vertexdata,
 					unsigned int number_elements,
 					GLenum usage) {
 
-	T *ptr = (T *)vertexdata;
-	std::vector<T> tmp(ptr, ptr + number_elements);
+	std::vector<T> tmp(vertexdata, vertexdata + number_elements);
 	return attach_vertex_buffer<T>(tmp, usage);
 }
 
@@ -814,11 +807,10 @@ unsigned int Mesh::attach_vertex_buffer(const std::vector<T>& vertexdata,
 
 template <typename T>
 bool Mesh::replace_buffer_data(unsigned int buffer_index,
-			       const void *data,
+			       const T *data,
 			       unsigned int number_elements) {
 
-	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + number_elements);
+	std::vector<T> tmp(data, data + number_elements);
 	return replace_buffer_data<T>(buffer_index, tmp);
 }
 
@@ -841,11 +833,10 @@ bool Mesh::replace_buffer_data(unsigned int buffer_index,
 template <typename T>
 bool Mesh::replace_partial_data(unsigned int buffer_index,
 				unsigned int offset,
-				const void *data,
+				const T *data,
 				unsigned int number_elements) {
 
-	T *ptr = (T *)data;
-	std::vector<T> tmp(ptr, ptr + number_elements);
+	std::vector<T> tmp(data, data + number_elements);
 	return replace_partial_data<T>(buffer_index, offset, tmp);
 }
 

@@ -338,22 +338,20 @@ std::unique_ptr<Mesh> Model::create_mesh(unsigned int index) {
 	std::unique_ptr<Mesh> mesh_tmp = std::make_unique<Mesh>();
 	mesh_tmp->num_uv = num_uv;
 	mesh_tmp->num_col = num_col;
-	mesh_tmp->attach_vertex_buffer<glm::vec4>(position);
-	mesh_tmp->attach_vertex_buffer<glm::vec3>(normal);
-	mesh_tmp->attach_vertex_buffer<glm::vec4>(tangent);
+	mesh_tmp->attach_vertex_buffer(position);
+	mesh_tmp->attach_vertex_buffer(normal);
+	mesh_tmp->attach_vertex_buffer(tangent);
 
-	mesh_tmp->attach_vertex_buffer<int>(bone_ids.data(),
+	mesh_tmp->attach_vertex_buffer(bone_ids.data(),
 					bone_ids.size());
-	mesh_tmp->attach_vertex_buffer<float>(bone_weights.data(),
+	mesh_tmp->attach_vertex_buffer(bone_weights.data(),
 					bone_weights.size());
 
 	if(num_uv) {
-		mesh_tmp->attach_vertex_buffer<glm::vec3>((void *)tex_coord[0].data(),
-					mesh->mNumVertices * num_uv);
+		mesh_tmp->attach_vertex_buffer(tex_coord[0].data(), mesh->mNumVertices * num_uv);
 	}
 	if(num_col) {
-		mesh_tmp->attach_vertex_buffer<glm::vec4>((void *)col[0].data(),
-					mesh->mNumVertices * num_col);
+		mesh_tmp->attach_vertex_buffer(col[0].data(), mesh->mNumVertices * num_col);
 	}
 	mesh_tmp->compute_bounding_box(position, 0);
 	mesh_tmp->attach_index_buffer(indices);
@@ -690,8 +688,8 @@ void Model::setup_instanced_matrix(const std::vector<glm::mat4>& model_matrix,
 		for(unsigned int i = 0; i < normal_matrix.size(); i++) {
 			normal_matrix[i] = glm::mat3(glm::transpose(glm::inverse(model_matrix[i])));
 		}
-		model_matrix_buf = mesh->attach_vertex_buffer<glm::mat4>(model_matrix, usage);
-		normal_matrix_buf = mesh->attach_vertex_buffer<glm::mat3>(normal_matrix, usage);
+		model_matrix_buf = mesh->attach_vertex_buffer(model_matrix, usage);
+		normal_matrix_buf = mesh->attach_vertex_buffer(normal_matrix, usage);
 		int model_loc = mesh->shader->get_attribute_location(mesh->model_matrix_name);
 		int normal_loc = mesh->shader->get_attribute_location(mesh->normal_matrix_name);
 		if(model_loc >= 0) {

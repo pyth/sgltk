@@ -18,9 +18,9 @@ void Particles::resize(unsigned int number) {
 	for(unsigned int i = 0; i < number; i++) {
 		indices[i] = i;
 	}
-	pos_buf = mesh.attach_vertex_buffer<glm::vec3>(position, GL_STREAM_DRAW);
-	vel_buf = mesh.attach_vertex_buffer<glm::vec3>(velocity, GL_STREAM_DRAW);
-	life_buf = mesh.attach_vertex_buffer<glm::vec2>(lifetime, GL_STREAM_DRAW);
+	pos_buf = mesh.attach_vertex_buffer(position, GL_STREAM_DRAW);
+	vel_buf = mesh.attach_vertex_buffer(velocity, GL_STREAM_DRAW);
+	life_buf = mesh.attach_vertex_buffer(lifetime, GL_STREAM_DRAW);
 	mesh.attach_index_buffer(indices);
 	mesh.set_vertex_attribute("position_in", pos_buf, 3, GL_FLOAT, 0, 0);
 	mesh.set_vertex_attribute("velocity_in", vel_buf, 3, GL_FLOAT, 0, 0);
@@ -73,9 +73,9 @@ bool Particles::add_particle_immediately(glm::vec3 position,
 			this->position[i] = position;
 			this->velocity[i] = velocity;
 			this->lifetime[i] = glm::vec2(time, lifetime);
-			mesh.replace_partial_data<glm::vec3>(pos_buf, i * sizeof(glm::vec3), &this->position[i], 1);
-			mesh.replace_partial_data<glm::vec3>(vel_buf, i * sizeof(glm::vec3), &this->velocity[i], 1);
-			mesh.replace_partial_data<glm::vec2>(life_buf, i * sizeof(glm::vec2), &this->lifetime[i], 1);
+			mesh.replace_partial_data(pos_buf, i * sizeof(glm::vec3), &this->position[i], 1);
+			mesh.replace_partial_data(vel_buf, i * sizeof(glm::vec3), &this->velocity[i], 1);
+			mesh.replace_partial_data(life_buf, i * sizeof(glm::vec2), &this->lifetime[i], 1);
 			mesh.set_vertex_attribute("position_in", pos_buf, 3, GL_FLOAT, 0, 0);
 			mesh.set_vertex_attribute("velocity_in", vel_buf, 3, GL_FLOAT, 0, 0);
 			mesh.set_vertex_attribute("lifetime_in", life_buf, 2, GL_FLOAT, 0, 0);
@@ -86,9 +86,9 @@ bool Particles::add_particle_immediately(glm::vec3 position,
 }
 
 void Particles::update_all() {
-	mesh.replace_buffer_data<glm::vec3>(pos_buf, position);
-	mesh.replace_buffer_data<glm::vec3>(vel_buf, velocity);
-	mesh.replace_buffer_data<glm::vec2>(life_buf, lifetime);
+	mesh.replace_buffer_data(pos_buf, position);
+	mesh.replace_buffer_data(vel_buf, velocity);
+	mesh.replace_buffer_data(life_buf, lifetime);
 	mesh.set_vertex_attribute("position_in", pos_buf, 3, GL_FLOAT, 0, 0);
 	mesh.set_vertex_attribute("velocity_in", vel_buf, 3, GL_FLOAT, 0, 0);
 	mesh.set_vertex_attribute("lifetime_in", life_buf, 2, GL_FLOAT, 0, 0);
