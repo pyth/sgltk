@@ -8,6 +8,6 @@ var searchData=
   ['size',['size',['../classsgltk_1_1_buffer.html#adaf1f454272ac452b333cda03f31f6f3',1,'sgltk::Buffer']]],
   ['specular_5fcolor_5fname',['specular_color_name',['../classsgltk_1_1_mesh.html#adeba46ce86a0868544e18c797537472d',1,'sgltk::Mesh']]],
   ['supported_5fdisplay_5fmodes',['supported_display_modes',['../structsgltk_1_1_s_y_s___i_n_f_o.html#af763e1df0b4a6d3e8b9a0033a5041e62',1,'sgltk::SYS_INFO']]],
-  ['sys_5finfo',['sys_info',['../classsgltk_1_1_app.html#a97fae6e7c9fb907546d2b79c50e088e4',1,'sgltk::App']]],
+  ['sys_5finfo',['sys_info',['../classsgltk_1_1_app.html#a9f85d4e8804b69ab462a7a10f13b3474',1,'sgltk::App']]],
   ['system_5fram',['system_ram',['../structsgltk_1_1_s_y_s___i_n_f_o.html#ad466d699fae043a0fe2ec77e1fd4f55c',1,'sgltk::SYS_INFO']]]
 ];
