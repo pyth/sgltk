@@ -596,6 +596,12 @@ void Shader::set_uniform_float(int location,
 						   transpose,
 						   value);
 				break;
+			default:
+				std::string error = "Wrong number of elements given to"
+					"the set_uniform function";
+				App::error_string.push_back(error);
+				throw std::runtime_error(error);
+				break;
 		}
 	} else  {
 		if(columns == 2 && rows == 3) {
@@ -610,6 +616,11 @@ void Shader::set_uniform_float(int location,
 			glUniformMatrix3x4fv(location, count, transpose, value);
 		} else if(columns == 4 && rows == 3) {
 			glUniformMatrix4x3fv(location, count, transpose, value);
+		} else {
+			std::string error = "Wrong number of elements given to"
+				"the set_uniform function";
+			App::error_string.push_back(error);
+			throw std::runtime_error(error);
 		}
 	}
 }
@@ -647,6 +658,13 @@ void Shader::set_uniform_double(int location,
 						   transpose,
 						   value);
 				break;
+			default:
+				std::string error = "Wrong number of elements given to"
+					"the set_uniform function";
+				App::error_string.push_back(error);
+				throw std::runtime_error(error);
+				break;
+
 		}
 	} else  {
 		if(columns == 2 && rows == 3) {
@@ -661,6 +679,11 @@ void Shader::set_uniform_double(int location,
 			glUniformMatrix3x4dv(location, count, transpose, value);
 		} else if(columns == 4 && rows == 3) {
 			glUniformMatrix4x3dv(location, count, transpose, value);
+		} else {
+			std::string error = "Wrong number of elements given to"
+				"the set_uniform function";
+			App::error_string.push_back(error);
+			throw std::runtime_error(error);
 		}
 	}
 }
