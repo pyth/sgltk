@@ -109,112 +109,31 @@ public:
 	 * @param location The uniform location
 	 * @param v0 The value
 	 */
-	EXPORT void set_uniform_int(int location, int v0);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value
-	 */
-	EXPORT void set_uniform_uint(int location, unsigned int v0);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value
-	 */
-	EXPORT void set_uniform_float(int location, float v0);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value
-	 */
-	EXPORT void set_uniform_double(int location, double v0);
+	template <typename T>
+	EXPORT void set_uniform(int location, T v0);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param v0 The value
 	 */
-	EXPORT void set_uniform_int(const std::string& name, int v0);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value
-	 */
-	EXPORT void set_uniform_uint(const std::string& name, unsigned int v0);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value
-	 */
-	EXPORT void set_uniform_float(const std::string& name, float v0);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value
-	 */
-	EXPORT void set_uniform_double(const std::string& name, double v0);
+	template <typename T>
+	EXPORT void set_uniform(const std::string& name, T v0);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
 	 */
-	EXPORT void set_uniform_int(int location, int v0,
-						  int v1);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 */
-	EXPORT void set_uniform_uint(int location, unsigned int v0,
-						   unsigned int v1);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 */
-	EXPORT void set_uniform_float(int location, float v0,
-						    float v1);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 */
-	EXPORT void set_uniform_double(int location, double v0,
-						     double v1);
+	template <typename T>
+	EXPORT void set_uniform(int location, T v0, T v1);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
 	 * @param v0 The value of the first element
 	 * @param v1 The value of the second element
 	 */
-	EXPORT void set_uniform_int(const std::string& name, int v0, int v1);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 */
-	EXPORT void set_uniform_uint(const std::string& name, unsigned int v0,
-							      unsigned int v1);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 */
-	EXPORT void set_uniform_float(const std::string& name, float v0,
-							       float v1);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 */
-	EXPORT void set_uniform_double(const std::string& name, double v0,
-								double v1);
+	template <typename T>
+	EXPORT void set_uniform(const std::string& name, T v0, T v1);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -222,39 +141,8 @@ public:
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
 	 */
-	EXPORT void set_uniform_int(int location, int v0,
-						  int v1,
-						  int v2);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 */
-	EXPORT void set_uniform_uint(int location, unsigned int v0,
-						   unsigned int v1,
-						   unsigned int v2);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 */
-	EXPORT void set_uniform_float(int location, float v0,
-						    float v1,
-						    float v2);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 */
-	EXPORT void set_uniform_double(int location, double v0,
-						     double v1,
-						     double v2);
+	template <typename T>
+	EXPORT void set_uniform(int location, T v0, T v1, T v2);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -262,39 +150,8 @@ public:
 	 * @param v1 The value of the second element
 	 * @param v2 The value of the third element
 	 */
-	EXPORT void set_uniform_int(const std::string& name, int v0,
-							     int v1,
-							     int v2);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 */
-	EXPORT void set_uniform_uint(const std::string& name, unsigned int v0,
-							      unsigned int v1,
-							      unsigned int v2);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 */
-	EXPORT void set_uniform_float(const std::string& name, float v0,
-							       float v1,
-							       float v2);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 */
-	EXPORT void set_uniform_double(const std::string& name, double v0,
-								double v1,
-								double v2);
+	template <typename T>
+	EXPORT void set_uniform(const std::string& name, T v0, T v1, T v2);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -303,46 +160,8 @@ public:
 	 * @param v2 The value of the third element
 	 * @param v3 The value of the fourth element
 	 */
-	EXPORT void set_uniform_int(int location, int v0,
-						  int v1,
-						  int v2,
-						  int v3);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 * @param v3 The value of the fourth element
-	 */
-	EXPORT void set_uniform_uint(int location, unsigned int v0,
-						   unsigned int v1,
-						   unsigned int v2,
-						   unsigned int v3);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 * @param v3 The value of the fourth element
-	 */
-	EXPORT void set_uniform_float(int location, float v0,
-						    float v1,
-						    float v2,
-						    float v3);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 * @param v3 The value of the fourth element
-	 */
-	EXPORT void set_uniform_double(int location, double v0,
-						     double v1,
-						     double v2,
-						     double v3);
+	template <typename T>
+	EXPORT void set_uniform(int location, T v0, T v1, T v2, T v3);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -351,46 +170,8 @@ public:
 	 * @param v2 The value of the third element
 	 * @param v3 The value of the fourth element
 	 */
-	EXPORT void set_uniform_int(const std::string& name, int v0,
-							     int v1,
-							     int v2,
-							     int v3);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 * @param v3 The value of the fourth element
-	 */
-	EXPORT void set_uniform_uint(const std::string& name, unsigned int v0,
-							      unsigned int v1,
-							      unsigned int v2,
-							      unsigned int v3);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 * @param v3 The value of the fourth element
-	 */
-	EXPORT void set_uniform_float(const std::string& name, float v0,
-							       float v1,
-							       float v2,
-							       float v3);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param v0 The value of the first element
-	 * @param v1 The value of the second element
-	 * @param v2 The value of the third element
-	 * @param v3 The value of the fourth element
-	 */
-	EXPORT void set_uniform_double(const std::string& name, double v0,
-								double v1,
-								double v2,
-								double v3);
+	template <typename T>
+	EXPORT void set_uniform(const std::string& name, T v0, T v1, T v2, T v3);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -398,43 +179,9 @@ public:
 	 * @param elements The number of elements per vector
 	 * @param value A pointer to the values
 	 */
-	EXPORT void set_uniform_int(int location,
-				    unsigned int count,
-				    unsigned int elements,
-				    const int *value);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param count The number of vectors
-	 * @param elements The number of elements per vector
-	 * @param value A pointer to the values
-	 */
-	EXPORT void set_uniform_uint(int location,
-				     unsigned int count,
-				     unsigned int elements,
-				     const unsigned int *value);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param count The number of vectors
-	 * @param elements The number of elements per vector
-	 * @param value A pointer to the values
-	 */
-	EXPORT void set_uniform_float(int location,
-				      unsigned int count,
-				      unsigned int elements,
-				      const float *value);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param count The number of vectors
-	 * @param elements The number of elements per vector
-	 * @param value A pointer to the values
-	 */
-	EXPORT void set_uniform_double(int location,
-				       unsigned int count,
-				       unsigned int elements,
-				       const double *value);
+	template <typename T>
+	EXPORT void set_uniform(int location, unsigned int count,
+				unsigned int elements, const T *value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -442,43 +189,9 @@ public:
 	 * @param elements The number of elements per vector
 	 * @param value A pointer to the values
 	 */
-	EXPORT void set_uniform_int(const std::string& name,
-				    unsigned int count,
-				    unsigned int elements,
-				    const int *value);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param count The number of vectors
-	 * @param elements The number of elements per vector
-	 * @param value A pointer to the values
-	 */
-	EXPORT void set_uniform_uint(const std::string& name,
-				     unsigned int count,
-				     unsigned int elements,
-				     const unsigned int *value);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param count The number of vectors
-	 * @param elements The number of elements per vector
-	 * @param value A pointer to the values
-	 */
-	EXPORT void set_uniform_float(const std::string& name,
-				      unsigned int count,
-				      unsigned int elements,
-				      const float *value);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param count The number of vectors
-	 * @param elements The number of elements per vector
-	 * @param value A pointer to the values
-	 */
-	EXPORT void set_uniform_double(const std::string& name,
-				       unsigned int count,
-				       unsigned int elements,
-				       const double *value);
+	template <typename T>
+	EXPORT void set_uniform(const std::string& name, unsigned int count,
+				unsigned int elements, const T *value);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location
@@ -488,27 +201,13 @@ public:
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A pointer to the values
 	 */
-	EXPORT void set_uniform_float(int location,
-				      unsigned int count,
-				      unsigned int columns,
-				      unsigned int rows,
-				      bool transpose,
-				      const float *value);
-	/**
-	 * @brief Sets the uniform
-	 * @param location The uniform location
-	 * @param count The number of vectors
-	 * @param columns The number of matrix columns
-	 * @param rows The number of matrix rows
-	 * @param transpose Specifies whether to transpose the matrix
-	 * @param value A pointer to the values
-	 */
-	EXPORT void set_uniform_double(int location,
-				       unsigned int count,
-				       unsigned int columns,
-				       unsigned int rows,
-				       bool transpose,
-				       const double *value);
+	template <typename T>
+	EXPORT void set_uniform(int location,
+				unsigned int count,
+				unsigned int columns,
+				unsigned int rows,
+				bool transpose,
+				const T *value);
 	/**
 	 * @brief Sets the uniform
 	 * @param name The uniform name
@@ -518,27 +217,13 @@ public:
 	 * @param transpose Specifies whether to transpose the matrix
 	 * @param value A pointer to the values
 	 */
-	EXPORT void set_uniform_float(const std::string& name,
-				      unsigned int count,
-				      unsigned int columns,
-				      unsigned int rows,
-				      bool transpose,
-				      const float *value);
-	/**
-	 * @brief Sets the uniform
-	 * @param name The uniform name
-	 * @param count The number of vectors
-	 * @param columns The number of matrix columns
-	 * @param rows The number of matrix rows
-	 * @param transpose Specifies whether to transpose the matrix
-	 * @param value A pointer to the values
-	 */
-	EXPORT void set_uniform_double(const std::string& name,
-				       unsigned int count,
-				       unsigned int columns,
-				       unsigned int rows,
-				       bool transpose,
-				       const double *value);
+	template <typename T>
+	EXPORT void set_uniform(const std::string& name,
+				unsigned int count,
+				unsigned int columns,
+				unsigned int rows,
+				bool transpose,
+				const T *value);
 	/**
 	 * @brief Sets the uniform
 	 * @param location The uniform location

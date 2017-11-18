@@ -99,6 +99,6 @@ void Particles::draw() {
 		App::error_string.push_back("No shader set.");
 	}
 	mesh.shader->bind();
-	mesh.shader->set_uniform_float("time", (float)timer.get_time_s());
+	mesh.shader->set_uniform("time", static_cast<float>(timer.get_time_s()));
 	mesh.draw(GL_POINTS);
 }

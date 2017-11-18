@@ -339,22 +339,22 @@ void Mesh::material_uniform() {
 	shader->set_uniform(ambient_color_name, color_ambient);
 	shader->set_uniform(diffuse_color_name, color_diffuse);
 	shader->set_uniform(specular_color_name, color_specular);
-	shader->set_uniform_float(shininess_name, shininess);
-	shader->set_uniform_float(shininess_strength_name, shininess_strength);
+	shader->set_uniform(shininess_name, shininess);
+	shader->set_uniform(shininess_strength_name, shininess_strength);
 
 	int texture_loc;
 	int num_textures = 0;
 	for(const auto& tex : textures) {
 		texture_loc = shader->get_uniform_location(std::get<0>(tex));
 		if(texture_loc >= 0) {
-			shader->set_uniform_int(texture_loc + std::get<2>(tex), num_textures);
+			shader->set_uniform(texture_loc + std::get<2>(tex), num_textures);
 			const_cast<Texture&>(std::get<1>(tex)).bind(num_textures++);
 		}
 	}
 	for(const auto& tex : auto_textures) {
 		texture_loc = shader->get_uniform_location(std::get<0>(tex));
 		if(texture_loc >= 0) {
-			shader->set_uniform_int(texture_loc + std::get<2>(tex), num_textures);
+			shader->set_uniform(texture_loc + std::get<2>(tex), num_textures);
 			const_cast<Texture&>(std::get<1>(tex)).bind(num_textures++);
 		}
 	}

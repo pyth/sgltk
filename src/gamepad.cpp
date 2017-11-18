@@ -49,10 +49,8 @@ Gamepad::Gamepad(unsigned int device_id) {
 }
 
 Gamepad::~Gamepad() {
-	try {
-		SDL_HapticClose(haptic);
-		SDL_GameControllerClose(gamepad);
-	} catch(const std::exception& e) {}
+	SDL_HapticClose(haptic);
+	SDL_GameControllerClose(gamepad);
 	const auto& pos = std::find(std::begin(ids), std::end(ids), id);
 	ids.erase(pos);
 }
