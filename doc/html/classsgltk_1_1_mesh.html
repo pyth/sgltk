@@ -194,15 +194,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae153d8cbec1b47fbaeb2ef5bcc751b53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ae153d8cbec1b47fbaeb2ef5bcc751b53">set_vertex_attribute</a> (int attrib_location, unsigned int buffer_index, GLint number_elements, GLenum type, GLsizei stride, const GLvoid *pointer, unsigned int divisor=0)</td></tr>
 <tr class="memdesc:ae153d8cbec1b47fbaeb2ef5bcc751b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets pointers to vertex attributes.  <a href="#ae153d8cbec1b47fbaeb2ef5bcc751b53">More...</a><br /></td></tr>
 <tr class="separator:ae153d8cbec1b47fbaeb2ef5bcc751b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad38d1f8762c75017ec5a25113ca3b96"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#aad38d1f8762c75017ec5a25113ca3b96">attach_index_buffer</a> (const std::vector&lt; unsigned char &gt; &amp;indices)</td></tr>
-<tr class="memdesc:aad38d1f8762c75017ec5a25113ca3b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#aad38d1f8762c75017ec5a25113ca3b96">More...</a><br /></td></tr>
-<tr class="separator:aad38d1f8762c75017ec5a25113ca3b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c83b9b1ddc3467131416c691af607a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a2c83b9b1ddc3467131416c691af607a3">attach_index_buffer</a> (const std::vector&lt; unsigned short &gt; &amp;indices)</td></tr>
-<tr class="memdesc:a2c83b9b1ddc3467131416c691af607a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#a2c83b9b1ddc3467131416c691af607a3">More...</a><br /></td></tr>
-<tr class="separator:a2c83b9b1ddc3467131416c691af607a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae93874f9cd4cfa22c474c81fcfe42ecd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ae93874f9cd4cfa22c474c81fcfe42ecd">attach_index_buffer</a> (const std::vector&lt; unsigned int &gt; &amp;indices)</td></tr>
-<tr class="memdesc:ae93874f9cd4cfa22c474c81fcfe42ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#ae93874f9cd4cfa22c474c81fcfe42ecd">More...</a><br /></td></tr>
-<tr class="separator:ae93874f9cd4cfa22c474c81fcfe42ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b9103ce21438486055f76dd946845b7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a5b9103ce21438486055f76dd946845b7"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#a5b9103ce21438486055f76dd946845b7">attach_index_buffer</a> (const std::vector&lt; T &gt; &amp;indices)</td></tr>
+<tr class="memdesc:a5b9103ce21438486055f76dd946845b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches an index array to the mesh.  <a href="#a5b9103ce21438486055f76dd946845b7">More...</a><br /></td></tr>
+<tr class="separator:a5b9103ce21438486055f76dd946845b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae471bb986e6ca240995bbbb593cc0a08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ae471bb986e6ca240995bbbb593cc0a08">attach_tf_buffer</a> (void *buffer, unsigned int size, GLenum usage=GL_STATIC_READ)</td></tr>
 <tr class="memdesc:ae471bb986e6ca240995bbbb593cc0a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a buffer to write the output of the vertex shader to.  <a href="#ae471bb986e6ca240995bbbb593cc0a08">More...</a><br /></td></tr>
 <tr class="separator:ae471bb986e6ca240995bbbb593cc0a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,6 +220,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad07b2a1c0d4986f5e62662e216397b8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsgltk_1_1_mesh.html#ad07b2a1c0d4986f5e62662e216397b8a">draw_instanced</a> (GLenum mode, unsigned int index_buffer, unsigned int num_instances)</td></tr>
 <tr class="memdesc:ad07b2a1c0d4986f5e62662e216397b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the mesh multiple times.  <a href="#ad07b2a1c0d4986f5e62662e216397b8a">More...</a><br /></td></tr>
 <tr class="separator:ad07b2a1c0d4986f5e62662e216397b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b4d641a0a6463f02363d9280884bc42"><td class="memTemplParams" colspan="2"><a id="a4b4d641a0a6463f02363d9280884bc42"></a>
+template&lt;&gt; </td></tr>
+<tr class="memitem:a4b4d641a0a6463f02363d9280884bc42"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>attach_index_buffer</b> (const std::vector&lt; unsigned char &gt; &amp;indices)</td></tr>
+<tr class="separator:a4b4d641a0a6463f02363d9280884bc42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2755cdb4670cefc492c64c5d56d7802b"><td class="memTemplParams" colspan="2"><a id="a2755cdb4670cefc492c64c5d56d7802b"></a>
+template&lt;&gt; </td></tr>
+<tr class="memitem:a2755cdb4670cefc492c64c5d56d7802b"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>attach_index_buffer</b> (const std::vector&lt; unsigned short &gt; &amp;indices)</td></tr>
+<tr class="separator:a2755cdb4670cefc492c64c5d56d7802b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac71a58c234b0845f3898209a1a9e4d82"><td class="memTemplParams" colspan="2"><a id="ac71a58c234b0845f3898209a1a9e4d82"></a>
+template&lt;&gt; </td></tr>
+<tr class="memitem:ac71a58c234b0845f3898209a1a9e4d82"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><b>attach_index_buffer</b> (const std::vector&lt; unsigned int &gt; &amp;indices)</td></tr>
+<tr class="separator:ac71a58c234b0845f3898209a1a9e4d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -401,7 +408,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00743">743</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00726">726</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -464,7 +471,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00755">755</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00738">738</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -527,7 +534,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00766">766</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00749">749</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -590,7 +597,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns 0 on success, -1 if no shader was specified for the mesh, -2 if the vertex attribute could not be found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00778">778</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00761">761</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -641,16 +648,18 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="aad38d1f8762c75017ec5a25113ca3b96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad38d1f8762c75017ec5a25113ca3b96">&#9670;&nbsp;</a></span>attach_index_buffer() <span class="overload">[1/3]</span></h2>
+<a id="a5b9103ce21438486055f76dd946845b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b9103ce21438486055f76dd946845b7">&#9670;&nbsp;</a></span>attach_index_buffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int Mesh::attach_index_buffer </td>
+          <td class="memname">int sgltk::Mesh::attach_index_buffer </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; unsigned char &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>indices</em></td><td>)</td>
           <td></td>
         </tr>
@@ -666,68 +675,6 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns the index of the index-buffer or -1 on failure. This function will fail if the index type does not match that of an already attached buffer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>You can attach multiple index arrays </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00305">305</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2c83b9b1ddc3467131416c691af607a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c83b9b1ddc3467131416c691af607a3">&#9670;&nbsp;</a></span>attach_index_buffer() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Mesh::attach_index_buffer </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; unsigned short &gt; &amp;&#160;</td>
-          <td class="paramname"><em>indices</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Attaches an index array to the mesh. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">indices</td><td>Indices describing the topology of the mesh </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the index of the index-buffer or -1 on failure. This function will fail if the index type does not match that of an already attached buffer </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>You can attach multiple index arrays </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00316">316</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae93874f9cd4cfa22c474c81fcfe42ecd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae93874f9cd4cfa22c474c81fcfe42ecd">&#9670;&nbsp;</a></span>attach_index_buffer() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Mesh::attach_index_buffer </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; unsigned int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>indices</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Attaches an index array to the mesh. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">indices</td><td>Indices describing the topology of the mesh </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the index of the index-buffer or -1 on failure. This function will fail if the index type does not match that of an already attached buffer </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>You can attach multiple index arrays </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00327">327</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -866,7 +813,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns the index of the buffer in the list of all attached vertex buffers </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00789">789</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00772">772</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -908,7 +855,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns the index of the buffer in the list of all attached vertex buffers </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00798">798</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00781">781</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -949,7 +896,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00859">859</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00842">842</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -977,7 +924,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00363">363</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00366">366</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1016,7 +963,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00367">367</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00370">370</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1062,7 +1009,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00371">371</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00374">374</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1101,7 +1048,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00460">460</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00463">463</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1147,7 +1094,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00464">464</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8cpp_source.html#l00467">467</a> of file <a class="el" href="mesh_8cpp_source.html">mesh.cpp</a>.</p>
 
 </div>
 </div>
@@ -1196,7 +1143,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00809">809</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00792">792</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1238,7 +1185,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00818">818</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00801">801</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1294,7 +1241,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00834">834</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00817">817</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -1343,7 +1290,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true on success, flase otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00844">844</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mesh_8h_source.html#l00827">827</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 
 </div>
 </div>
@@ -2127,7 +2074,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 18 2017 06:26:57 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 18 2017 07:22:10 for sgltk by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

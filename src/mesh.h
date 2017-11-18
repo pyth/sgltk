@@ -655,25 +655,8 @@ public:
 	 * 	   of an already attached buffer
 	 * @note You can attach multiple index arrays
 	 */
-	EXPORT int attach_index_buffer(const std::vector<unsigned char>& indices);
-	/**
-	 * @brief Attaches an index array to the mesh
-	 * @param indices Indices describing the topology of the mesh
-	 * @return Returns the index of the index-buffer or -1 on failure.
-	 * 	   This function will fail if the index type does not match that
-	 * 	   of an already attached buffer
-	 * @note You can attach multiple index arrays
-	 */
-	EXPORT int attach_index_buffer(const std::vector<unsigned short>& indices);
-	/**
-	 * @brief Attaches an index array to the mesh
-	 * @param indices Indices describing the topology of the mesh
-	 * @return Returns the index of the index-buffer or -1 on failure.
-	 * 	   This function will fail if the index type does not match that
-	 * 	   of an already attached buffer
-	 * @note You can attach multiple index arrays
-	 */
-	EXPORT int attach_index_buffer(const std::vector<unsigned int>& indices);
+	template <typename T>
+	EXPORT int attach_index_buffer(const std::vector<T>& indices);
 
 	/**
 	 * @brief Sets a buffer to write the output of the vertex shader to
