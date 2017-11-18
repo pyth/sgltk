@@ -302,7 +302,8 @@ int Mesh::set_buffer_vertex_attribute(int attrib_location,
 	return 0;
 }
 
-int Mesh::attach_index_buffer(const std::vector<unsigned char>& indices) {
+template <>
+int Mesh::attach_index_buffer<unsigned char>(const std::vector<unsigned char>& indices) {
 	if(index_type && index_type != GL_UNSIGNED_BYTE)
 		return -1;
 
@@ -313,7 +314,8 @@ int Mesh::attach_index_buffer(const std::vector<unsigned char>& indices) {
 	return ibo.size() - 1;
 }
 
-int Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
+template <>
+int Mesh::attach_index_buffer<unsigned short>(const std::vector<unsigned short>& indices) {
 	if(index_type && index_type != GL_UNSIGNED_SHORT)
 		return -1;
 
@@ -324,7 +326,8 @@ int Mesh::attach_index_buffer(const std::vector<unsigned short>& indices) {
 	return ibo.size() - 1;
 }
 
-int Mesh::attach_index_buffer(const std::vector<unsigned int>& indices) {
+template <>
+int Mesh::attach_index_buffer<unsigned int>(const std::vector<unsigned int>& indices) {
 	if(index_type && index_type != GL_UNSIGNED_INT)
 		return -1;
 
