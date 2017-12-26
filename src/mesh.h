@@ -659,15 +659,6 @@ public:
 	int attach_index_buffer(const std::vector<T>& indices);
 
 	/**
-	 * @brief Sets a buffer to write the output of the vertex shader to
-	 * @param buffer The buffer to write to
-	 * @param size The size of the buffer in bytes
-	 * @param usage A hint as to how the buffer will be accessed.
-	 * 	Valid values are GL_{STREAM,STATIC,DYNAMIC}_{DRAW,READ,COPY}.
-	 */
-	EXPORT void attach_tf_buffer(void *buffer, unsigned int size, GLenum usage = GL_STATIC_READ);
-
-	/**
 	 * @brief Computes the bounding box of the mesh
 	 * @param vertexdata The vertices of the mesh
 	 * @param pointer The pointer to the position vector in the vertex
