@@ -181,38 +181,38 @@ bool App::chdir_to_bin(char **argv) {
 
 void App::_check_error(std::string message, std::string file, unsigned int line) {
 	std::string err_string;
-	GLenum err = glGetError();
+	GLenum err = GL_NO_ERROR;
 
-	switch(err) {
-		case GL_INVALID_ENUM:
-			err_string = "INVALID_ENUM";
-			break;
-		case GL_INVALID_VALUE:
-			err_string = "INVALID_VALUE";
-			break;
-		case GL_INVALID_OPERATION:
-			err_string = "INVALID_OPERATION";
-			break;
-		case GL_INVALID_FRAMEBUFFER_OPERATION:
-			err_string = "INVALID_FRAMEBUFFER_OPERATION";
-			break;
-		case GL_OUT_OF_MEMORY:
-			err_string = "OUT_OF_MEMORY";
-			break;
-		case GL_STACK_OVERFLOW:
-			err_string = "STACK_OVERFLOW";
-			break;
-		case GL_STACK_UNDERFLOW:
-			err_string = "STACK_UNDERFLOW";
-			break;
-	}
-	while(err != GL_NO_ERROR) {
-		std::cerr << file << " - " << line << ": " << err_string;
-		if(message.length() > 0)
-			std::cerr << " - " << message;
-		std::cerr << std::endl;
+	do {
 		err = glGetError();
-	}
+		switch(err) {
+			case GL_INVALID_ENUM:
+				err_string = "INVALID_ENUM";
+				break;
+			case GL_INVALID_VALUE:
+				err_string = "INVALID_VALUE";
+				break;
+			case GL_INVALID_OPERATION:
+				err_string = "INVALID_OPERATION";
+				break;
+			case GL_INVALID_FRAMEBUFFER_OPERATION:
+				err_string = "INVALID_FRAMEBUFFER_OPERATION";
+				break;
+			case GL_OUT_OF_MEMORY:
+				err_string = "OUT_OF_MEMORY";
+				break;
+			case GL_STACK_OVERFLOW:
+				err_string = "STACK_OVERFLOW";
+				break;
+			case GL_STACK_UNDERFLOW:
+				err_string = "STACK_UNDERFLOW";
+				break;
+			default:
+				return;
+		}
+
+		std::cerr << file << " - " << line << ": " << err_string << " - " << message << std::endl;
+	} while(err != GL_NO_ERROR);
 }
 
 void App::get_sys_info() {

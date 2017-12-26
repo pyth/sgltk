@@ -302,42 +302,6 @@ int Mesh::set_buffer_vertex_attribute(int attrib_location,
 	return 0;
 }
 
-template <>
-int Mesh::attach_index_buffer<unsigned char>(const std::vector<unsigned char>& indices) {
-	if(index_type && index_type != GL_UNSIGNED_BYTE)
-		return -1;
-
-	index_type = GL_UNSIGNED_BYTE;
-	std::unique_ptr<Buffer> index = std::make_unique<Buffer>(GL_ELEMENT_ARRAY_BUFFER);
-	index->load<unsigned char>(indices, GL_STATIC_DRAW);
-	ibo.push_back(std::move(index));
-	return ibo.size() - 1;
-}
-
-template <>
-int Mesh::attach_index_buffer<unsigned short>(const std::vector<unsigned short>& indices) {
-	if(index_type && index_type != GL_UNSIGNED_SHORT)
-		return -1;
-
-	index_type = GL_UNSIGNED_SHORT;
-	std::unique_ptr<Buffer> index = std::make_unique<Buffer>(GL_ELEMENT_ARRAY_BUFFER);
-	index->load<unsigned short>(indices, GL_STATIC_DRAW);
-	ibo.push_back(std::move(index));
-	return ibo.size() - 1;
-}
-
-template <>
-int Mesh::attach_index_buffer<unsigned int>(const std::vector<unsigned int>& indices) {
-	if(index_type && index_type != GL_UNSIGNED_INT)
-		return -1;
-
-	index_type = GL_UNSIGNED_INT;
-	std::unique_ptr<Buffer> index = std::make_unique<Buffer>(GL_ELEMENT_ARRAY_BUFFER);
-	index->load<unsigned int>(indices, GL_STATIC_DRAW);
-	ibo.push_back(std::move(index));
-	return ibo.size() - 1;
-}
-
 void Mesh::material_uniform() {
 	shader->set_uniform(ambient_color_name, color_ambient);
 	shader->set_uniform(diffuse_color_name, color_diffuse);
