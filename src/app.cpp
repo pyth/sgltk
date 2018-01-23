@@ -134,11 +134,6 @@ void App::quit() {
 	App::quit_sdl();
 }
 
-sgltk::App::~App() {
-	error_string.clear();
-	quit();
-}
-
 void App::enable_screensaver(bool enable) {
 	if(enable)
 		SDL_EnableScreenSaver();
