@@ -61,3 +61,6 @@ If you are linking against the **static** version of sgltk on a **Windows** syst
 
 ## Documentation
 The documentation is available [here](http://pyth.github.io/sgltk/doc/html/annotated.html).
+
+## Examples
+The examples are available [here](https://github.com/pyth/sgltk_examples).
