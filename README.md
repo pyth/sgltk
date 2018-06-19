@@ -16,6 +16,7 @@ applications easier by providing a layer of abstraction from OpenGL.
 **Required**:
 
 * [OpenGL](http://www.opengl.org)
+* [glm](https://glm.g-truc.net)
 * [GLEW](http://glew.sourceforge.net)
 * [SDL2](http://www.libsdl.org/download-2.0.php)
 * [SDL2_image](http://www.libsdl.org/projects/SDL_image/)
