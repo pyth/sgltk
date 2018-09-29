@@ -24,7 +24,7 @@ applications easier by providing a layer of abstraction from OpenGL.
 **Optional**:
 
 * [SDL2_ttf](http://www.libsdl.org/projects/SDL_ttf/)
-* [Assimp](http://www.assimp.org/main_downloads.html)
+* [Assimp](http://www.assimp.org/index.php/downloads)
 
 ## Building the library
 * **Windows**
