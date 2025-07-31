@@ -60,6 +60,7 @@ bool Image::create_empty(unsigned int width, unsigned int height) {
 			free(data);
 		image = nullptr;
 	}
+	free_data = false;
 
 	this->width = width;
 	this->height = height;
@@ -99,6 +100,7 @@ bool Image::load(const std::string& filename) {
 		if(free_data)
 			free(data);
 	}
+	free_data = false;
 
 	if((filename.length() > 1 && filename[0] == '/') ||
 			(filename.length() > 2 && filename[1] == ':')) {
