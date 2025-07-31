@@ -242,6 +242,8 @@ bool Image::create_text(const std::string& text,
 	width = image->w;
 	height = image->h;
 	bytes_per_pixel = 4;
+	data = image->pixels;
+	free_data = false;
 	return true;
 }
 
@@ -255,6 +257,10 @@ bool Image::create_text(const std::string& text, const std::string& font_file,
 	}
 
 	bool ret = create_text(text, font, r, g, b, a);
+	if(ret) {
+		data = image->pixels;
+		free_data = false;
+	}
 	close_font_file(font);
 	return ret;
 }
