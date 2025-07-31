@@ -3,3 +3,12 @@
 *.swp
 *.la
 *.log
+Makefile
+*.cmake
+config.h
+CMakeFiles
+sgltk.conf
+lib
+Doxyfile
+build
+.cache
