@@ -164,9 +164,10 @@ bool Image::load(unsigned int width,
 	if(!this->data) {
 		App::error_string.push_back(std::string("Image - load: "
 			"Unable to allocate memory"));
-		width = 0;
-		height = 0;
-		bytes_per_pixel = 0;
+		this->width = 0;
+		this->height = 0;
+		this->bytes_per_pixel = 0;
+		free_data = false;
 		return false;
 	}
 	memcpy(this->data, data, width * height * bytes_per_pixel);
@@ -179,10 +180,12 @@ bool Image::load(unsigned int width,
 	if(!image) {
 		App::error_string.push_back(std::string("Unable to load the"
 			"image from buffer: ") + SDL_GetError());
-		width = 0;
-		height = 0;
-		bytes_per_pixel = 0;
+		free(this->data);
 		this->data = nullptr;
+		this->width = 0;
+		this->height = 0;
+		this->bytes_per_pixel = 0;
+		free_data = false;
 		return false;
 	}
 	return true;
