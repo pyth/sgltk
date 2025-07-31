@@ -84,8 +84,8 @@ bool Image::create_empty(unsigned int width, unsigned int height) {
 	if(!image) {
 		App::error_string.push_back(std::string("Unable to create an"
 			"empty image: ") + SDL_GetError());
-		width = 0;
-		height = 0;
+		this->width = 0;
+		this->height = 0;
 		bytes_per_pixel = 0;
 		data = nullptr;
 		return false;
