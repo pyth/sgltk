@@ -344,7 +344,7 @@ void Image::horizontal_flip() {
 }
 
 void Image::set_color_key(int r, int g, int b, bool enable) {
-	SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, r, g, b));
+	SDL_SetColorKey(image, enable, SDL_MapRGB(image->format, r, g, b));
 }
 
 void Image::add_path(std::string path) {
