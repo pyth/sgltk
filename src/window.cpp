@@ -444,8 +444,8 @@ void Window::run(unsigned int fps) {
 		frame_timer.start();
 		display();
 		if(fps > 0) {
-			time_to_wait = frame_time - frame_timer.get_time_ms();
-			if(delta_time < frame_time) {
+			time_to_wait = std::max(frame_time - frame_timer.get_time_ms(), 0.0);
+			if(time_to_wait > 0) {
 				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(time_to_wait));
 			}
 		}
