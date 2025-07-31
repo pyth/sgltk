@@ -145,14 +145,14 @@ bool App::enable_vsync(bool on) {
 	int ret;
 	if (on) {
 		ret = SDL_GL_SetSwapInterval(-1);
-		if (!ret) {
+		if (ret < 0) {
 			ret = SDL_GL_SetSwapInterval(1);
 		}
 	}
 	else {
 		ret = SDL_GL_SetSwapInterval(0);
 	}
-	return (ret == 1);
+	return (ret == 0);
 }
 
 bool App::chdir_to_bin(char **argv) {
