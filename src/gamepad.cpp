@@ -63,7 +63,9 @@ void Gamepad::set_button_state(int button, bool state) {
 	} else {
 		std::vector<int>::iterator pressed_button = std::find(buttons_pressed.begin(),
 			buttons_pressed.end(), button);
-		buttons_pressed.erase(pressed_button);
+		if(pressed_button != buttons_pressed.end()) {
+			buttons_pressed.erase(pressed_button);
+		}
 	}
 }
 
