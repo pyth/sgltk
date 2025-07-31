@@ -236,7 +236,9 @@ bool Image::create_text(const std::string& text,
 	SDL_Color color = {r, g, b, a};
 	image = TTF_RenderUTF8_Blended(font, text.c_str(), color);
 	if(!image) {
-		App::error_string.push_back(std::string("TTF_RenderText_Blended failed."));
+		App::error_string.push_back(
+			std::string("TTF_RenderUTF8_Blended failed: ") +
+			TTF_GetError());
 		return false;
 	}
 	width = image->w;
