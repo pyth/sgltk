@@ -162,6 +162,11 @@ bool Shader::link() {
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
 	if(isLinked == GL_FALSE) {
+		GLint info_log_length;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_log_length);
+		std::unique_ptr<char[]> info_log = std::make_unique<char[]>(info_log_length);
+		glGetProgramInfoLog(program, info_log_length, &info_log_length, info_log.get());
+		App::error_string.push_back(std::string(info_log.get()));
 		linked = false;
 		return false;
 	}
