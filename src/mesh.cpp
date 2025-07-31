@@ -364,13 +364,15 @@ void Mesh::draw(GLenum mode,
 		shader->set_uniform(model_view_matrix_name, false, MV);
 	}
 	if(projection_matrix) {
-		MVP = (*projection_matrix) * MV;
+		if(view_matrix) {
+			MVP = (*projection_matrix) * MV;
+			VP = (*projection_matrix) * (*view_matrix);
+			shader->set_uniform(view_proj_matrix_name, false, VP);
+		} else {
+			MVP = (*projection_matrix) * M;
+		}
 		shader->set_uniform(projection_matrix_name, false,
 						*projection_matrix);
-	}
-	if(view_matrix && projection_matrix) {
-		VP = (*projection_matrix) * (*view_matrix);
-		shader->set_uniform(view_proj_matrix_name, false, VP);
 		shader->set_uniform(model_view_projection_matrix_name,
 								false, MVP);
 	}
