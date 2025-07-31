@@ -146,7 +146,7 @@ void Mesh::set_shininess_name(const std::string& name) {
 	if(name.length() > 0)
 		shininess_name = name;
 	else
-		shininess_name = "shininess_name";
+		shininess_name = "shininess";
 }
 
 void Mesh::set_shininess_strength_name(const std::string& name) {
