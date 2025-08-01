@@ -442,6 +442,16 @@ void Mesh::draw_instanced(GLenum mode, unsigned int index_buffer,
 		return;
 	}
 
+	if(!view_matrix) {
+		App::error_string.push_back("Error: No view matrix specified");
+		return;
+	}
+
+	if(!projection_matrix) {
+		App::error_string.push_back("Error: No projection matrix specified");
+		return;
+	}
+
 	glm::mat4 VP = (*projection_matrix) * (*view_matrix);
 
 	shader->set_uniform(view_matrix_name, false, *view_matrix);
