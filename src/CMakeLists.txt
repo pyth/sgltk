@@ -104,7 +104,7 @@ if(ASSIMP_PATH)
 endif()
 
 configure_file("${PROJECT_SOURCE_DIR}/config.h.in"
-	"${PROJECT_SOURCE_DIR}/src/config.h")
+	"${PROJECT_SOURCE_DIR}/include/sgltk/config.h")
 
 foreach(lib ${LIBS_REQUIRED})
 	find_library(${lib}_FOUND ${lib} REQUIRED)
