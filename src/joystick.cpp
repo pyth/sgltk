@@ -38,7 +38,9 @@ Joystick::Joystick(unsigned int device_id) {
 Joystick::~Joystick() {
 	SDL_JoystickClose(joystick);
 	const auto& pos = std::find(std::begin(ids), std::end(ids), id);
-	ids.erase(pos);
+	if(pos != std::end(ids)) {
+		ids.erase(pos);
+	}
 }
 
 void Joystick::set_button_state(int button, bool state) {

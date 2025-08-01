@@ -1,3 +1,5 @@
 <map id="sgltk::Texture_1d_Array" name="sgltk::Texture_1d_Array">
-<area shape="rect" id="node2" href="$classsgltk_1_1_texture.html" title="Manages textures. " alt="" coords="35,5,136,32"/>
+<area shape="rect" id="Node000001" title="Manages 1d texture arrays." alt="" coords="5,80,165,107"/>
+<area shape="rect" id="Node000002" href="$classsgltk_1_1_texture.html" title="Manages textures." alt="" coords="35,5,135,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,48,88,80,82,80,82,48"/>
 </map>

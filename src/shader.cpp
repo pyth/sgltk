@@ -104,16 +104,16 @@ bool Shader::attach_string(const std::string& shader_string, GLenum type) {
 	GLint compiled;
 	const char *string_ptr = shader_string.c_str();
 	int size = shader_string.length();
-	int infoLogLength;
+	int info_log_length;
 
 	GLuint tmp = glCreateShader(type);
 	glShaderSource(tmp, 1, &(string_ptr), &(size));
 	glCompileShader(tmp);
 	glGetShaderiv(tmp, GL_COMPILE_STATUS, &compiled);
 	if(!compiled) {
-		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &infoLogLength);
-		std::unique_ptr<char[]> infoLog = std::make_unique<char[]>(infoLogLength);
-		glGetShaderInfoLog(tmp, sizeof(infoLog), &infoLogLength, infoLog.get());
+		glGetShaderiv(tmp, GL_INFO_LOG_LENGTH, &info_log_length);
+		std::unique_ptr<char[]> infoLog = std::make_unique<char[]>(info_log_length);
+		glGetShaderInfoLog(tmp, info_log_length, &info_log_length, infoLog.get());
 		std::cerr << "CompileShader() infoLog " << std::endl
 			  << infoLog.get() << std::endl;
 		glDeleteShader(tmp);
@@ -162,6 +162,11 @@ bool Shader::link() {
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
 	if(isLinked == GL_FALSE) {
+		GLint info_log_length;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_log_length);
+		std::unique_ptr<char[]> info_log = std::make_unique<char[]>(info_log_length);
+		glGetProgramInfoLog(program, info_log_length, &info_log_length, info_log.get());
+		App::error_string.push_back(std::string(info_log.get()));
 		linked = false;
 		return false;
 	}

@@ -187,10 +187,14 @@ void Window::poll_events() {
 			}
 			break;
 		case SDL_KEYUP:
-			keys_pressed.erase(std::find(keys_pressed.begin(),
-				keys_pressed.end(),
-				SDL_GetKeyName(event.key.keysym.sym)));
-			handle_key_press(SDL_GetKeyName(event.key.keysym.sym), false);
+			{
+				std::string key_name = SDL_GetKeyName(event.key.keysym.sym);
+				auto it = std::find(keys_pressed.begin(), keys_pressed.end(), key_name);
+				if(it != keys_pressed.end()) {
+					keys_pressed.erase(it);
+				}
+				handle_key_press(key_name, false);
+			}
 			break;
 		case SDL_MOUSEWHEEL:
 			handle_mouse_wheel(event.wheel.x, event.wheel.y);
@@ -444,8 +448,8 @@ void Window::run(unsigned int fps) {
 		frame_timer.start();
 		display();
 		if(fps > 0) {
-			time_to_wait = frame_time - frame_timer.get_time_ms();
-			if(delta_time < frame_time) {
+			time_to_wait = std::max(frame_time - frame_timer.get_time_ms(), 0.0);
+			if(time_to_wait > 0) {
 				std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(time_to_wait));
 			}
 		}

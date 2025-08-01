@@ -146,7 +146,7 @@ void Mesh::set_shininess_name(const std::string& name) {
 	if(name.length() > 0)
 		shininess_name = name;
 	else
-		shininess_name = "shininess_name";
+		shininess_name = "shininess";
 }
 
 void Mesh::set_shininess_strength_name(const std::string& name) {
@@ -207,6 +207,10 @@ int Mesh::set_vertex_attribute(int attrib_location,
 
 	if(attrib_location < 0) {
 		return -2;
+	}
+
+	if(buffer_index >= vbo.size()) {
+		return -3;
 	}
 
 	glBindVertexArray(vao);
@@ -364,13 +368,15 @@ void Mesh::draw(GLenum mode,
 		shader->set_uniform(model_view_matrix_name, false, MV);
 	}
 	if(projection_matrix) {
-		MVP = (*projection_matrix) * MV;
+		if(view_matrix) {
+			MVP = (*projection_matrix) * MV;
+			VP = (*projection_matrix) * (*view_matrix);
+			shader->set_uniform(view_proj_matrix_name, false, VP);
+		} else {
+			MVP = (*projection_matrix) * M;
+		}
 		shader->set_uniform(projection_matrix_name, false,
 						*projection_matrix);
-	}
-	if(view_matrix && projection_matrix) {
-		VP = (*projection_matrix) * (*view_matrix);
-		shader->set_uniform(view_proj_matrix_name, false, VP);
 		shader->set_uniform(model_view_projection_matrix_name,
 								false, MVP);
 	}

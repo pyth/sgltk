@@ -60,6 +60,7 @@ bool Image::create_empty(unsigned int width, unsigned int height) {
 			free(data);
 		image = nullptr;
 	}
+	free_data = false;
 
 	this->width = width;
 	this->height = height;
@@ -83,8 +84,8 @@ bool Image::create_empty(unsigned int width, unsigned int height) {
 	if(!image) {
 		App::error_string.push_back(std::string("Unable to create an"
 			"empty image: ") + SDL_GetError());
-		width = 0;
-		height = 0;
+		this->width = 0;
+		this->height = 0;
 		bytes_per_pixel = 0;
 		data = nullptr;
 		return false;
@@ -99,6 +100,7 @@ bool Image::load(const std::string& filename) {
 		if(free_data)
 			free(data);
 	}
+	free_data = false;
 
 	if((filename.length() > 1 && filename[0] == '/') ||
 			(filename.length() > 2 && filename[1] == ':')) {
@@ -155,6 +157,17 @@ bool Image::load(unsigned int width,
 	amask = 0xff000000;
 #endif
 
+	if(!data) {
+		App::error_string.push_back(std::string("Image - load: "
+			"data is null"));
+		this->width = 0;
+		this->height = 0;
+		this->bytes_per_pixel = 0;
+		this->data = nullptr;
+		free_data = false;
+		return false;
+	}
+
 	this->width = width;
 	this->height = height;
 	this->bytes_per_pixel = bytes_per_pixel;
@@ -162,9 +175,10 @@ bool Image::load(unsigned int width,
 	if(!this->data) {
 		App::error_string.push_back(std::string("Image - load: "
 			"Unable to allocate memory"));
-		width = 0;
-		height = 0;
-		bytes_per_pixel = 0;
+		this->width = 0;
+		this->height = 0;
+		this->bytes_per_pixel = 0;
+		free_data = false;
 		return false;
 	}
 	memcpy(this->data, data, width * height * bytes_per_pixel);
@@ -177,10 +191,12 @@ bool Image::load(unsigned int width,
 	if(!image) {
 		App::error_string.push_back(std::string("Unable to load the"
 			"image from buffer: ") + SDL_GetError());
-		width = 0;
-		height = 0;
-		bytes_per_pixel = 0;
+		free(this->data);
 		this->data = nullptr;
+		this->width = 0;
+		this->height = 0;
+		this->bytes_per_pixel = 0;
+		free_data = false;
 		return false;
 	}
 	return true;
@@ -231,12 +247,16 @@ bool Image::create_text(const std::string& text,
 	SDL_Color color = {r, g, b, a};
 	image = TTF_RenderUTF8_Blended(font, text.c_str(), color);
 	if(!image) {
-		App::error_string.push_back(std::string("TTF_RenderText_Blended failed."));
+		App::error_string.push_back(
+			std::string("TTF_RenderUTF8_Blended failed: ") +
+			TTF_GetError());
 		return false;
 	}
 	width = image->w;
 	height = image->h;
 	bytes_per_pixel = 4;
+	data = image->pixels;
+	free_data = false;
 	return true;
 }
 
@@ -250,6 +270,10 @@ bool Image::create_text(const std::string& text, const std::string& font_file,
 	}
 
 	bool ret = create_text(text, font, r, g, b, a);
+	if(ret) {
+		data = image->pixels;
+		free_data = false;
+	}
 	close_font_file(font);
 	return ret;
 }
@@ -344,7 +368,7 @@ void Image::horizontal_flip() {
 }
 
 void Image::set_color_key(int r, int g, int b, bool enable) {
-	SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, r, g, b));
+	SDL_SetColorKey(image, enable, SDL_MapRGB(image->format, r, g, b));
 }
 
 void Image::add_path(std::string path) {

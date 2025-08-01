@@ -1,5 +1,9 @@
 <map id="sgltk::Camera" name="sgltk::Camera">
-<area shape="rect" id="node2" href="$classsgltk_1_1_i_p___camera.html" title="Manages infinite perspective cameras. " alt="" coords="5,80,128,107"/>
-<area shape="rect" id="node3" href="$classsgltk_1_1_o___camera.html" title="Manages orthographic cameras. " alt="" coords="152,80,272,107"/>
-<area shape="rect" id="node4" href="$classsgltk_1_1_p___camera.html" title="Manages perspective cameras. " alt="" coords="297,80,415,107"/>
+<area shape="rect" id="Node000001" title="Manages cameras." alt="" coords="161,5,264,32"/>
+<area shape="rect" id="Node000002" href="$classsgltk_1_1_i_p___camera.html" title="Manages infinite perspective cameras." alt="" coords="5,80,129,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,42,94,82,91,77,172,37"/>
+<area shape="rect" id="Node000003" href="$classsgltk_1_1_o___camera.html" title="Manages orthographic cameras." alt="" coords="152,80,272,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="215,48,215,80,210,80,210,48"/>
+<area shape="rect" id="Node000004" href="$classsgltk_1_1_p___camera.html" title="Manages perspective cameras." alt="" coords="297,80,416,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="252,37,332,77,330,82,250,42"/>
 </map>

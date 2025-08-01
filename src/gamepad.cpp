@@ -49,7 +49,9 @@ Gamepad::Gamepad(unsigned int device_id) {
 }
 
 Gamepad::~Gamepad() {
-	SDL_HapticClose(haptic);
+	if(haptic) {
+		SDL_HapticClose(haptic);
+	}
 	SDL_GameControllerClose(gamepad);
 	const auto& pos = std::find(std::begin(ids), std::end(ids), id);
 	ids.erase(pos);
@@ -61,7 +63,9 @@ void Gamepad::set_button_state(int button, bool state) {
 	} else {
 		std::vector<int>::iterator pressed_button = std::find(buttons_pressed.begin(),
 			buttons_pressed.end(), button);
-		buttons_pressed.erase(pressed_button);
+		if(pressed_button != buttons_pressed.end()) {
+			buttons_pressed.erase(pressed_button);
+		}
 	}
 }
 
@@ -77,9 +81,13 @@ int Gamepad::get_axis_value(unsigned int axis) {
 }
 
 void Gamepad::play_rumble(float magnitude, unsigned int duration) {
-	SDL_HapticRumblePlay(haptic, magnitude, duration);
+	if(haptic) {
+		SDL_HapticRumblePlay(haptic, magnitude, duration);
+	}
 }
 
 void Gamepad::stop_rumble() {
-	SDL_HapticRumbleStop(haptic);
+	if(haptic) {
+		SDL_HapticRumbleStop(haptic);
+	}
 }

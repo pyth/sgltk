@@ -134,11 +134,6 @@ void App::quit() {
 	App::quit_sdl();
 }
 
-sgltk::App::~App() {
-	error_string.clear();
-	quit();
-}
-
 void App::enable_screensaver(bool enable) {
 	if(enable)
 		SDL_EnableScreenSaver();
@@ -150,19 +145,23 @@ bool App::enable_vsync(bool on) {
 	int ret;
 	if (on) {
 		ret = SDL_GL_SetSwapInterval(-1);
-		if (!ret) {
+		if (ret < 0) {
 			ret = SDL_GL_SetSwapInterval(1);
 		}
 	}
 	else {
 		ret = SDL_GL_SetSwapInterval(0);
 	}
-	return (ret == 1);
+	return (ret == 0);
 }
 
 bool App::chdir_to_bin(char **argv) {
 	std::string path(argv[0]);
-	path = path.substr(0, path.find_last_of("\\/"));
+	size_t pos = path.find_last_of("\\/");
+	if(pos == std::string::npos) {
+		return true;
+	}
+	path.erase(pos);
 	int ret;
 #ifdef __linux__
 	ret = chdir(path.c_str());

@@ -613,7 +613,8 @@ public:
 	 * 		2 means that two instances get the same value and so on.
 	 * @return	Returns 0 on success, -1 if no shader was
 	 * 		specified for the mesh, -2 if the vertex attribute
-	 * 		could not be found
+	 * 		could not be found, -3 if the buffer index is
+	 * 		invalid
 	 */
 	EXPORT int set_vertex_attribute(const std::string& attrib_name,
 				        unsigned int buffer_index,
@@ -638,7 +639,8 @@ public:
 	 * 		2 means that two instances get the same value and so on.
 	 * @return	Returns 0 on success, -1 if no shader was
 	 * 		specified for the mesh, -2 if the vertex attribute
-	 * 		could not be found
+	 * 		could not be found, -3 if the buffer index is
+	 * 		invalid
 	 */
 	EXPORT int set_vertex_attribute(int attrib_location,
 				        unsigned int buffer_index,
