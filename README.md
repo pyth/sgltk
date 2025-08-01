@@ -40,9 +40,12 @@ applications easier by providing a layer of abstraction from OpenGL.
 
 
 * **Linux**
-	`mkdir -p build`
-	`cd build`
-	`conan create . --build=missing`
+
+	1. `mkdir -p build`
+
+	2. `cd build`
+
+	3. `conan create . --build=missing`
 
 ## Linking against sgltk
 If you are linking against the **static** version of sgltk on a **Windows** system, you will have to define **SGLTK_STATIC**. Otherwise just link against sgltk like you would do it with any other 3rd party library.
