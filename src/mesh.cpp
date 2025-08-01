@@ -209,6 +209,10 @@ int Mesh::set_vertex_attribute(int attrib_location,
 		return -2;
 	}
 
+	if(buffer_index >= vbo.size()) {
+		return -3;
+	}
+
 	glBindVertexArray(vao);
 	vbo[buffer_index]->bind();
 
