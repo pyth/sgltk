@@ -157,6 +157,17 @@ bool Image::load(unsigned int width,
 	amask = 0xff000000;
 #endif
 
+	if(!data) {
+		App::error_string.push_back(std::string("Image - load: "
+			"data is null"));
+		this->width = 0;
+		this->height = 0;
+		this->bytes_per_pixel = 0;
+		this->data = nullptr;
+		free_data = false;
+		return false;
+	}
+
 	this->width = width;
 	this->height = height;
 	this->bytes_per_pixel = bytes_per_pixel;
