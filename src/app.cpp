@@ -49,8 +49,8 @@ void App::quit_sdl() {
 #ifdef HAVE_SDL_TTF_H
 bool App::init_ttf() {
 	if(TTF_Init()) {
-		App::error_string.push_back(std::string("SDL_Init Error: ") +
-							SDL_GetError());
+		App::error_string.push_back(std::string("TTF_Init Error: ") +
+							TTF_GetError());
 		return false;
 	}
 	return true;
