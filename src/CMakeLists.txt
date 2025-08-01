@@ -24,6 +24,7 @@ set(LIB_SOURCE
 	mesh.cpp)
 
 set(LIB_HEADERS
+	sgltk.h
 	config.h
 	app.h
 	window.h
@@ -56,7 +57,7 @@ endif()
 
 find_path(SDL2_PATH NAMES SDL2/SDL.h)
 if(SDL2_PATH)
-	include_directories("${SDL2_PATH}/SDL2")
+	list(APPEND SGLTK_INCLUDE_DIRS "${SDL2_PATH}/SDL2")
 	set(HAVE_SDL_H 1)
 	set(SDL_ALT_PATH 1)
 else()
@@ -68,7 +69,7 @@ endif()
 
 find_path(SDL2_TTF_PATH NAMES SDL2/SDL_ttf.h)
 if(SDL2_TTF_PATH)
-	include_directories("${SDL2_PATH}/SDL2")
+	list(APPEND SGLTK_INCLUDE_DIRS "${SDL2_PATH}/SDL2")
 	set(HAVE_SDL_TTF_H 1)
 	set(SDL_ALT_PATH 1)
 else()
@@ -79,8 +80,8 @@ else()
 endif()
 
 find_path(SDL2_IMAGE_PATH NAMES SDL2/SDL_image.h)
-if(SDL_IMAGE_PATH)
-	include_directories("${SDL2_PATH}/SDL2")
+if(SDL2_IMAGE_PATH)
+	list(APPEND SGLTK_INCLUDE_DIRS "${SDL2_PATH}/SDL2")
 	set(HAVE_SDL_IMAGE_H 1)
 	set(SDL_ALT_PATH 1)
 else()
@@ -135,6 +136,9 @@ if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
 	set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
 
+target_include_directories(sgltk PUBLIC ${SGLTK_INCLUDE_DIRS} ${INCLUDE_PATH})
+target_include_directories(sgltk_static PUBLIC ${SGLTK_INCLUDE_DIRS} ${INCLUDE_PATH})
+
 file(GLOB HEADERS "${PROJECT_BINARY_DIR}/src/*.h")
 add_custom_target(copy_headers)
 add_custom_command(TARGET copy_headers PRE_BUILD
@@ -150,9 +154,9 @@ add_dependencies(sgltk copy_headers)
 add_dependencies(sgltk_static copy_headers)
 
 foreach(lib ${LIBS_REQUIRED} ${LIBS_OPTIONAL})
-	if(${lib}_FOUND)
-		target_link_libraries(sgltk ${lib})
-		target_link_libraries(sgltk_static ${lib})
+	if(NOT ${lib}_FOUND MATCHES "-NOTFOUND$")
+		target_link_libraries(sgltk PRIVATE ${${lib}_FOUND})
+		target_link_libraries(sgltk_static PRIVATE ${${lib}_FOUND})
 	endif()
 endforeach()
 
@@ -162,7 +166,7 @@ set_target_properties(sgltk PROPERTIES
 
 install(TARGETS sgltk sgltk_static
 	EXPORT sgltkTargets
-	LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
-	ARCHIVE DESTINATION "${INSTALL_LIB_DIR}"
-	RUNTIME DESTINATION "${INSTALL_BIN_DIR}"
-	PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/${PROJECT_NAME}")
+	LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+	ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+	RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+	PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")

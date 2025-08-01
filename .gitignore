@@ -12,3 +12,7 @@ lib
 Doxyfile
 build
 .cache
+compile_commands.json
+CMakeCache.txt
+CMakeDoxyfile.in
+install_manifest.txt

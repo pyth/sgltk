@@ -2,7 +2,6 @@
 # SGLTK_INCLUDE_DIR	- Directory where sgltk include files (*.h) can be found
 # SGLTK_LIBRARIES	- List of libraries to link against sgltk library
 # SGLTK_LIBRARY_DIRS	- List of directories containing sgltk library files
-# SGLTK_VERSION_STRING	- A string containing the version number
 
 get_filename_component(SGLTK_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 set(SGLTK_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
@@ -13,8 +12,7 @@ endif()
 
 set(SGLTK_LIBRARIES sgltk sgltk_static)
 
-#set(SGLTK_FOUND			1)
-#set(SGLTK_INCLUDE_DIR		"@SGLTK_INCLUDE_DIR@")
-#set(SGLTK_LIBRARIES		"@SGLTK_LIBRARIES@")
-#set(SGLTK_LIBRARY_DIRS		"@LIB_DESTINATION@")
-#set(SGLTK_VERSION_STRING	"@SGLTK_VERSION@")
+set(sgltk_FOUND			1)
+set(sgltk_INCLUDE_DIR	"@SGLTK_INCLUDE_DIR@")
+set(sgltk_LIBRARIES		"@SGLTK_LIBRARIES@")
+set(sgltk_LIBRARY_DIRS	"@LIB_DESTINATION@")
