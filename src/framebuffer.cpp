@@ -1,4 +1,4 @@
-#include "framebuffer.h"
+#include <sgltk/framebuffer.h>
 
 using namespace sgltk;
 

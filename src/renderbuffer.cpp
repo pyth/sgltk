@@ -1,4 +1,4 @@
-#include "renderbuffer.h"
+#include <sgltk/renderbuffer.h>
 
 using namespace sgltk;
 

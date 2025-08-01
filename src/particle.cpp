@@ -1,4 +1,4 @@
-#include "particle.h"
+#include <sgltk/particle.h>
 
 using namespace sgltk;
 

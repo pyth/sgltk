@@ -1,4 +1,4 @@
-#include "mesh.h"
+#include <sgltk/mesh.h>
 
 using namespace sgltk;
 

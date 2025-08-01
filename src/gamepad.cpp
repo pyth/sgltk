@@ -1,4 +1,4 @@
-#include "gamepad.h"
+#include <sgltk/gamepad.h>
 
 using namespace sgltk;
 

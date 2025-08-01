@@ -1,4 +1,4 @@
-#include "camera.h"
+#include <sgltk/camera.h>
 
 using namespace sgltk;
 

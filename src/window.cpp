@@ -1,4 +1,4 @@
-#include "window.h"
+#include <sgltk/window.h>
 
 using namespace sgltk;
 

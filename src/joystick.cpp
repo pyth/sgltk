@@ -1,4 +1,4 @@
-#include "joystick.h"
+#include <sgltk/joystick.h>
 
 using namespace sgltk;
 

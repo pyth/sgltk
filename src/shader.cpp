@@ -1,4 +1,4 @@
-#include "shader.h"
+#include <sgltk/shader.h>
 
 using namespace sgltk;
 

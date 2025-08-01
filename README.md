@@ -40,21 +40,7 @@ applications easier by providing a layer of abstraction from OpenGL.
 
 
 * **Linux**
-	1. Generate the makefiles using `cmake`:
-
-	`cmake .`
-
-	Alternatively you can use a graphical tool like **CMake GUI**
-
-	2. Build the project using `make`:
-
-	`make` or `make -j number-of-threads`
-
-	This will build both a shared and a static library. To build only one of these you can use the build targets `sgltk` or `sgltk_static`.
-
-	3. Optionally you can install the library using `make` with appropriate privileges:
-
-	`make install`
+	`mkdir build; cd build; conan create . --build=missing`
 
 ## Linking against sgltk
 If you are linking against the **static** version of sgltk on a **Windows** system, you will have to define **SGLTK_STATIC**. Otherwise just link against sgltk like you would do it with any other 3rd party library.

@@ -1,4 +1,4 @@
-#include "model.h"
+#include <sgltk/model.h>
 
 #ifdef HAVE_ASSIMP_H
 

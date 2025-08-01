@@ -1,4 +1,4 @@
-#include "app.h"
+#include <sgltk/app.h>
 
 using namespace sgltk;
 

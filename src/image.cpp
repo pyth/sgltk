@@ -1,4 +1,4 @@
-#include "image.h"
+#include <sgltk/image.h>
 
 using namespace sgltk;
 

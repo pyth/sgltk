@@ -18,7 +18,7 @@ set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${LIBRARY_PATH};${INCLUDE_PATH}")
 if(WIN32 AND NOT CYGWIN)
 	set(DEF_INSTALL_CMAKE_DIR cmake)
 else()
-	set(DEF_INSTALL_CMAKE_DIR lib/cmake/sgltk)
+    set(DEF_INSTALL_CMAKE_DIR lib/cmake/sgltk)
 endif()
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH
 	"Installation directory for CMake files")
@@ -28,7 +28,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG)
-	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${PROJECT_BINARY_DIR}/lib)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${PROJECT_BINARY_DIR}/lib)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${PROJECT_BINARY_DIR}/lib)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${PROJECT_BINARY_DIR}/lib)
 endforeach()
@@ -40,6 +40,8 @@ configure_file(
 
 add_custom_target(uninstall
 	COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+
+include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_subdirectory(src)
 add_subdirectory(doc)
@@ -70,7 +72,5 @@ if(UNIX)
 
 	install(FILES
 		"${PROJECT_BINARY_DIR}/${PROJECT_NAME}.conf"
-		DESTINATION "/etc/ld.so.conf.d/")
-
-	install(CODE "execute_process(COMMAND ldconfig)")
+		DESTINATION share/sgltk)
 endif()

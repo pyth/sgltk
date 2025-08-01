@@ -1,4 +1,4 @@
-#include "texture.h"
+#include <sgltk/texture.h>
 
 using namespace sgltk;
 
