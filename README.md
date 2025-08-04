@@ -27,25 +27,12 @@ applications easier by providing a layer of abstraction from OpenGL.
 * [Assimp](http://www.assimp.org/index.php/downloads)
 
 ## Building the library
-* **Windows**
-	1. Generate the makefiles or project files using `cmake`:
-
-	`cmake -G` to get the list of available generators
-
-	`cmake -G "generator_name" -DINCLUDE_PATH="path/to/include" -DLIBRARY_PATH="path/to/lib" .`
-
-	Alternatively you can use a graphical tool like **CMake GUI**
-
-	2. Use `make` or open the project file in the appropriate IDE to build the project
-
-
-* **Linux**
 
 	1. `mkdir -p build`
 
 	2. `cd build`
 
-	3. `conan create . --build=missing`
+	3. `conan create .. --build=missing`
 
 ## Linking against sgltk
 If you are linking against the **static** version of sgltk on a **Windows** system, you will have to define **SGLTK_STATIC**. Otherwise just link against sgltk like you would do it with any other 3rd party library.
