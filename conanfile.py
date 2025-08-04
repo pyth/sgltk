@@ -1,6 +1,7 @@
 import os
 from conan import ConanFile
 from conan.tools.files import copy
+from conan.tools.cmake import CMakeDeps
 from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 
 
@@ -49,6 +50,9 @@ class SgltkRecipe(ConanFile):
 		cmake_layout(self)
 
 	def generate(self):
+		deps = CMakeDeps(self)
+		deps.generate()
+
 		tc = CMakeToolchain(self)
 		tc.generate()
 

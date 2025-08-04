@@ -44,85 +44,16 @@ set(LIB_HEADERS
     ${PROJECT_SOURCE_DIR}/include/sgltk/mesh.h
 )
 
-set(LIBS_REQUIRED SDL2 SDL2_image)
-set(LIBS_OPTIONAL SDL2_ttf assimp)
-if(WIN32)
-	set(LIBS_REQUIRED OpenGL32 glew32 ${LIBS_REQUIRED})
-else()
-	set(LIBS_REQUIRED GL GLEW ${LIBS_REQUIRED})
-endif()
-
-find_file(GLEW_PATH NAMES GL/glew.h)
-if(GLEW_PATH)
-	set(HAVE_GLEW_H 1)
-endif()
-
-find_path(SDL2_PATH NAMES SDL2/SDL.h)
-if(SDL2_PATH)
-	list(APPEND SGLTK_INCLUDE_DIRS "${SDL2_PATH}/SDL2")
-	set(HAVE_SDL_H 1)
-	set(SDL_ALT_PATH 1)
-else()
-	find_file(SDL2_PATH NAMES SDL.h)
-	if(SDL2_PATH)
-		set(HAVE_SDL_H 1)
-	endif()
-endif()
-
-find_path(SDL2_TTF_PATH NAMES SDL2/SDL_ttf.h)
-if(SDL2_TTF_PATH)
-	list(APPEND SGLTK_INCLUDE_DIRS "${SDL2_PATH}/SDL2")
-	set(HAVE_SDL_TTF_H 1)
-	set(SDL_ALT_PATH 1)
-else()
-	find_file(SDL2_TTF_PATH NAMES SDL_ttf.h)
-	if(SDL2_TTF_PATH)
-		set(HAVE_SDL_TTF_H 1)
-	endif()
-endif()
-
-find_path(SDL2_IMAGE_PATH NAMES SDL2/SDL_image.h)
-if(SDL2_IMAGE_PATH)
-	list(APPEND SGLTK_INCLUDE_DIRS "${SDL2_PATH}/SDL2")
-	set(HAVE_SDL_IMAGE_H 1)
-	set(SDL_ALT_PATH 1)
-else()
-	find_file(SDL2_IMAGE_PATH NAMES SDL_image.h)
-	if(SDL2_IMAGE_PATH)
-		set(HAVE_SDL_IMAGE_H 1)
-	endif()
-endif()
-
-find_file(GLM_PATH NAMES glm/glm.hpp)
-if(GLM_PATH)
-	set(HAVE_GLM_H 1)
-endif()
-
-find_file(ASSIMP_PATH NAMES assimp/Importer.hpp)
-if(ASSIMP_PATH)
-	set(HAVE_ASSIMP_H 1)
-endif()
-
 configure_file("${PROJECT_SOURCE_DIR}/config.h.in"
 	"${PROJECT_SOURCE_DIR}/include/sgltk/config.h")
 
-foreach(lib ${LIBS_REQUIRED})
-	find_library(${lib}_FOUND ${lib} REQUIRED)
-	if(${lib}_FOUND)
-		message(STATUS "Library ${lib} - found")
-	else()
-		message(STATUS "Library ${lib} - not found")
-	endif()
-endforeach()
-
-foreach(lib ${LIBS_OPTIONAL})
-	find_library(${lib}_FOUND ${lib})
-	if(${lib}_FOUND)
-		message(STATUS "Library ${lib} - found")
-	else()
-		message(STATUS "Library ${lib} - not found")
-	endif()
-endforeach()
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED CONFIG)
+find_package(SDL2 REQUIRED CONFIG)
+find_package(SDL2_image REQUIRED CONFIG)
+find_package(SDL2_ttf REQUIRED CONFIG)
+find_package(glm REQUIRED CONFIG)
+find_package(assimp REQUIRED CONFIG)
 
 add_library(sgltk SHARED ${LIB_SOURCE})
 add_library(sgltk_static STATIC ${LIB_SOURCE})
@@ -151,12 +82,13 @@ target_include_directories(sgltk_static PUBLIC
     ${INCLUDE_PATH}
 )
 
-foreach(lib ${LIBS_REQUIRED} ${LIBS_OPTIONAL})
-	if(NOT ${lib}_FOUND MATCHES "-NOTFOUND$")
-		target_link_libraries(sgltk PRIVATE ${${lib}_FOUND})
-		target_link_libraries(sgltk_static PRIVATE ${${lib}_FOUND})
-	endif()
-endforeach()
+target_link_libraries(sgltk PRIVATE
+    glm::glm GLEW::GLEW SDL2_image::SDL2_image sdl_ttf::sdl_ttf SDL2::SDL2main assimp::assimp
+)
+
+target_link_libraries(sgltk_static PRIVATE
+    glm::glm GLEW::GLEW SDL2_image::SDL2_image sdl_ttf::sdl_ttf SDL2::SDL2main assimp::assimp
+)
 
 set_target_properties(sgltk PROPERTIES
 	PUBLIC_HEADER "${LIB_HEADERS}")
