@@ -212,7 +212,7 @@ bool Image::save(const std::string& filename) {
 	return true;
 }
 
-#ifdef HAVE_SDL_TTF_H
+#ifdef SDL2_ttf_FOUND
 TTF_Font *Image::open_font_file(const std::string& font_file, unsigned int size) {
 	TTF_Font *font;
 	if((font_file.length() > 1 && font_file[0] == '/') ||
@@ -277,7 +277,7 @@ bool Image::create_text(const std::string& text, const std::string& font_file,
 	close_font_file(font);
 	return ret;
 }
-#endif //HAVE_SDL_TTF_H
+#endif //SDL2_ttf_FOUND
 
 bool Image::copy_from(const Image& src, int x, int y) {
 	SDL_Rect rect;

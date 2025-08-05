@@ -46,7 +46,7 @@ void App::quit_sdl() {
 	SDL_Quit();
 }
 
-#ifdef HAVE_SDL_TTF_H
+#ifdef SDL2_ttf_FOUND
 bool App::init_ttf() {
 	if(TTF_Init()) {
 		App::error_string.push_back(std::string("TTF_Init Error: ") +
@@ -59,7 +59,7 @@ bool App::init_ttf() {
 void App::quit_ttf() {
 	TTF_Quit();
 }
-#endif //HAVE_SDL_TTF_H
+#endif //SDL2_ttf_FOUND
 
 bool App::init() {
 	if(App::initialized)
@@ -67,9 +67,9 @@ bool App::init() {
 
 	if(App::init_sdl())
 		if(App::init_img()) {
-#ifdef HAVE_SDL_TTF_H
+#ifdef SDL2_ttf_FOUND
 			if(App::init_ttf()) {
-#endif //HAVE_SDL_TTF_H
+#endif //SDL2_ttf_FOUND
 				App::initialized = true;
 				App::get_sys_info();
 				SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -77,9 +77,9 @@ bool App::init() {
 				SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 				SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 				return true;
-#ifdef HAVE_SDL_TTF_H
+#ifdef SDL2_ttf_FOUND
 			}
-#endif //HAVE_SDL_TTF_H
+#endif //SDL2_ttf_FOUND
 		}
 
 	App::quit();
@@ -128,9 +128,9 @@ void App::quit() {
 	App::initialized = false;
 	gl_version_manual = false;
 	App::quit_img();
-#ifdef HAVE_SDL_TTF_H
+#ifdef SDL2_ttf_FOUND
 	App::quit_ttf();
-#endif //HAVE_SDL_TTF_H
+#endif //SDL2_ttf_FOUND
 	App::quit_sdl();
 }
 

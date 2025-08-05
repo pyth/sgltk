@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(sgltk VERSION 0.6.1 LANGUAGES CXX)
 
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/generators")
-
 include(CheckCXXCompilerFlag)
 include(GNUInstallDirs)
 

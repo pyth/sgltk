@@ -97,7 +97,7 @@ public:
 	 */
 	EXPORT bool save(const std::string& filename);
 
-#ifdef HAVE_SDL_TTF_H
+#ifdef SDL2_ttf_FOUND
 	/**
 	 * @brief Opens a TTF font file
 	 * @param font_file The path to the TTF font file
@@ -145,7 +145,7 @@ public:
 				const std::string& font_file,
 				unsigned int size,
 				Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-#endif //HAVE_SDL_TTF_H
+#endif //SDL2_ttf_FOUND
 
 	/**
 	 * @brief Copies an image into the current image

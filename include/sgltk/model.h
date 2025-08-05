@@ -10,7 +10,7 @@
 
 namespace sgltk {
 
-#ifdef HAVE_ASSIMP_H
+#ifdef assimp_FOUND
 
 #ifndef BONES_PER_VERTEX
 	#define BONES_PER_VERTEX 4
@@ -245,7 +245,7 @@ class Model {
 		EXPORT void draw_instanced(unsigned int num_instances);
 	};
 
-#endif //HAVE_ASSIMP_H
+#endif //assimp_FOUND
 
 }
 

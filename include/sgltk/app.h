@@ -60,25 +60,25 @@
 #define SDL_MAIN_HANDLED
 #ifdef SDL_ALT_PATH
 	#include <SDL2/SDL.h>
-	#ifdef HAVE_SDL_TTF_H
+	#ifdef SDL2_ttf_FOUND
 		#include <SDL2/SDL_ttf.h>
-	#endif //HAVE_SDL_TTF_H
+	#endif //SDL2_ttf_FOUND
 	#include <SDL2/SDL_image.h>
 	#include <SDL2/SDL_opengl.h>
 #else
 	#include <SDL.h>
-	#ifdef HAVE_SDL_TTF_H
+	#ifdef SDL2_ttf_FOUND
 		#include <SDL_ttf.h>
-	#endif //HAVE_SDL_TTF_H
+	#endif //SDL2_ttf_FOUND
 	#include <SDL_image.h>
 	#include <SDL_opengl.h>
 #endif
 
-#ifdef HAVE_ASSIMP_H
+#ifdef assimp_FOUND
 	#include <assimp/Importer.hpp>
 	#include <assimp/scene.h>
 	#include <assimp/postprocess.h>
-#endif //HAVE_ASSIMP_H
+#endif //assimp_FOUND
 
 namespace sgltk {
 
@@ -182,7 +182,7 @@ public:
 	 */
 	EXPORT static void quit_sdl();
 
-#ifdef HAVE_SDL_TTF_H
+#ifdef SDL2_ttf_FOUND
 	/**
 	 * @brief Initializes SDL2_ttf
 	 * @return Returns true on success, false otherwise
@@ -192,7 +192,7 @@ public:
 	 * @brief Deinitializes SDL2_ttf
 	 */
 	EXPORT static void quit_ttf();
-#endif //HAVE_SDL_TTF_H
+#endif //SDL2_ttf_FOUND
 	/**
 	 * @brief Sets the OpenGL version
 	 * @param major The major version number

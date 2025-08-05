@@ -1,6 +1,6 @@
 #include <sgltk/model.h>
 
-#ifdef HAVE_ASSIMP_H
+#ifdef assimp_FOUND
 
 using namespace sgltk;
 
@@ -798,4 +798,4 @@ glm::mat4 Model::ai_to_glm_mat4(const aiMatrix4x4& in) {
 	return ret;
 }
 
-#endif //HAVE_ASSIMP_H
+#endif //assimp_FOUND
